@@ -1,0 +1,38 @@
+function obj= MeshTensorGrid(obj,x,y,z,varargin)
+%MESHTENSORGRID 此处显示有关此函数的摘要
+%   此处显示详细说明
+% p=inputParser;
+% addParameter(p,'twist',[]);
+% parse(p,varargin{:});
+% opt=p.Results;
+
+G=tensorGrid(x,y,z);
+
+% if ~isempty(opt.twist)
+%      G  = twister(G,opt.twist);
+% end
+
+nodes = G.faces.nodes;
+pos   = G.faces.nodePos;
+cells = (1 : G.cells.num) .';
+f = boundaryFaces(G, cells);
+[f, verts]= get_face_topo(nodes, pos, f );
+v= G.nodes.coords(verts, :);
+
+Meshoutput.nodes=nodes;
+Temp=G.faces.nodes;
+
+% element2patch(varargin)
+% Meshoutput.facesBoundary=
+% Meshoutput.boundaryMarker=ones(size(f,1),1);
+% Meshoutput.faces=
+% Meshoutput.elements=
+% Meshoutput.elementMaterialID=
+% Meshoutput.faceMaterialID=
+
+obj.Vert=[obj.Vert;v];
+obj.Face=[obj.Face;f];
+obj.Cb=[obj.Cb;ones(size(f,1),1)];
+obj.G=G;
+end
+
