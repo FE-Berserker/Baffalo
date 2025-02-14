@@ -165,15 +165,18 @@ classdef Component
             g=axe_property(g,'YLim',opt.ylim);
             figure('Position',[100 100 800 600])
             draw(g);
+        end
 
-
+        function [Base,Capacity]=OutputCapacity(obj)
+            Base=obj.baseline;
+            Capacity=obj.capacity;
         end
 
         function Help(obj)
             if isempty(obj.documentname)
                 warning('No help file !')
             else
-                rootDir = Baffalo.whereami;
+                rootDir = RoTA.whereami;
                 filename=strcat(rootDir,'\Document\',obj.documentname);
                 open(filename);
             end
