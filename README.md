@@ -24,7 +24,7 @@ ANSYS_Path='C:\Program Files\ANSYS Inc\v201\ansys\bin\winx64\ANSYS201.exe';
 Simpack_Path='D:\SimPack\run\bin\win64';
 ```
 
-Paraview（https://www.paraview.org）是一款开源的可视化软件，Baffalo可将网格导出为VTK格式文件，Paraview路径设置如下：
+Paraview（https://www.paraview.org)是一款开源的可视化软件，Baffalo可将网格导出为VTK格式文件，Paraview路径设置如下：
 ```matlab
 % SetParaViewPath
 ParaViewDir="D:\005_Lib\ParaView\bin";
@@ -68,3 +68,4 @@ ParaViewDir="D:\005_Lib\ParaView\bin";
 2. Run **setBaffaloPath**
 
 Baffalo documentation is stored in Document, and case files are stored in the Tesing folder.
+
