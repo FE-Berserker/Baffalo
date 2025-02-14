@@ -4,7 +4,6 @@ function setBaffaloPath
 
 % Add main directory
 rootDir = Baffalo.whereami;
-ParaViewDir="D:\005_Lib\ParaView\bin";
 addpath( rootDir );
 
 % Add dependencies
@@ -20,6 +19,7 @@ fwrite(fileID,ANSYS_Path);
 fclose(fileID);
 
 % SetParaViewPath
+ParaViewDir="D:\005_Lib\ParaView\bin";
 fileID = fopen(fullfile( rootDir, 'dep', 'framework','ParaViewPath.txt'),'w');
 fwrite(fileID,strcat(ParaViewDir,'\paraview.exe'));
 fclose(fileID);
