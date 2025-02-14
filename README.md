@@ -6,6 +6,8 @@ Baffalo是开源的Matlab工具箱来建立系统分析的工具，他可将文�
 
 Baffalo本身不是求解器，他可以提供网格、画图和工程计算的功能.
 
+---
+
 1. 首先打开**setBaffaloPath**函数设置对应路径
 
 如果你拥有ANSYS,将ANSYS路径设置如下,ANSYS是优秀的有限元分析软件。
@@ -22,7 +24,7 @@ ANSYS_Path='C:\Program Files\ANSYS Inc\v201\ansys\bin\winx64\ANSYS201.exe';
 Simpack_Path='D:\SimPack\run\bin\win64';
 ```
 
-Paraview（https://www.paraview.org)是一款开源的可视化软件，Baffalo可将网格导出为VTK格式文件，Paraview路径设置如下：
+Paraview（https://www.paraview.org) 是一款开源的可视化软件，Baffalo可将网格导出为VTK格式文件，Paraview路径设置如下：
 ```matlab
 % SetParaViewPath
 ParaViewDir="D:\005_Lib\ParaView\bin";
@@ -32,14 +34,14 @@ ParaViewDir="D:\005_Lib\ParaView\bin";
 
 Baffalo说明文档存放于Document中，案例文件存放于Tesing文件夹中。
 
-
-
-
+---
 
 
 Baffalo is open source Matlab tool to do the system simulation, it can output file to ANSYS or Simpack.
 
 Baffalo itself is not a solver, can provide the mesh 、figure 、engineer calculation functions
+
+---
 
 1. First open the **setBaffaloPath** function to set the corresponding path
 
