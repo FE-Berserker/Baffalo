@@ -32,4 +32,9 @@ obj.PP{ix,1}=Temp;
 %% Parse parameter
 obj.NG=ix;
 obj.NP=GetNpts(obj);
+
+%% Print
+if obj.Echo
+    fprintf('Successfully add points. \n');
+end
 end

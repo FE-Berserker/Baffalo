@@ -2,9 +2,9 @@ function obj=CalNormals(obj, searchRadius, varargin)
 % Compute normal vectors of activated points.
 
 p = inputParser;
-p.addRequired( 'searchRadius'        , @(x) numel(x)==1 && isnumeric(x) && x>0);
-p.addParameter('MinNoNeighbours',   3, @(x) numel(x)==1 && isnumeric(x) && x>0);
-p.addParameter('MaxNoNeighbours', Inf, @(x) numel(x)==1 && isnumeric(x) && x>0);
+p.addRequired( 'searchRadius'        , @(x) isscalar(x) && isnumeric(x) && x>0);
+p.addParameter('MinNoNeighbours',   3, @(x) isscalar(x) && isnumeric(x) && x>0);
+p.addParameter('MaxNoNeighbours', Inf, @(x) isscalar(x) && isnumeric(x) && x>0);
 p.parse(searchRadius, varargin{:});
 p = p.Results;
 % Clear required inputs to avoid confusion
@@ -37,7 +37,7 @@ for i = 1:size(qp,1)
             [P, lambda] = pcacov(C);
             n(i,:) = P(:,3)';
             roughness(i,1) = sqrt(lambda(3)); % third component is smallest eigenvalue
-        catch ME %#ok<NASGU> 
+        catch ME 
             msg('I', {'POINTCLOUD' 'NORMALS' 'PCA'}, ...
                 sprintf('Normal estimation failed for point %.6f/%.6f/%.6f', ...
                 qp(i,1), qp(i,2), qp(i,3)));
@@ -49,4 +49,9 @@ end
 obj.Normal = n;
 obj.Roughness = roughness;
 obj = NormalizeNormals(obj);
+%% Print
+if obj.Echo
+    fprintf('Successfully calculate normals. \n');
+end
+
 end

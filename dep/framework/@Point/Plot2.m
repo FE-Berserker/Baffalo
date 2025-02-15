@@ -1,5 +1,5 @@
 function Plot2(obj,varargin)
-% Plot Point2D object in ParaView
+% Plot Point object in ParaView
 % Author : Xie Yu
 
 p=inputParser;
@@ -8,7 +8,11 @@ addParameter(p,'NormNormal',0);
 parse(p,varargin{:});
 opt=p.Results;
 
-VTKWrite(obj,'Normal',opt.Normal,'NormNormal',opt.NormNormal);
+if and(opt.Normal,opt.NormNormal)
+    error('Normal vector data conflict !')
+end
+
+VTKWrite(obj,'Normal',opt.Normal,'NormNormal',opt.NormNormal,'Echo',obj.Echo);
 % Load path
 opts = delimitedTextImportOptions("NumVariables", 1);
 opts.DataLines = [1, 2];

@@ -4,4 +4,9 @@ function obj=AddPointData(obj,Data)
 
 %% Parse parameter
 obj.Point_Data= [obj.Point_Data;Data];
+
+%% Print
+if obj.Echo
+    fprintf('Successfully add point data. \n');
+end
 end

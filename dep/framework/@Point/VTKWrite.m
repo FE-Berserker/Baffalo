@@ -64,7 +64,7 @@ if or(~isempty(obj.Point_Data),~isempty(obj.Point_Vector))
         fprintf(fid,'%16.9e\n',PointData');
     end
     % Point Vector
-    if ~isempty(obj.Point_Vector)
+    if ~isempty(PointVector)
         fprintf(fid, '%s\n','VECTORS Point_Vector float');
         fprintf(fid,'%16.9e%16.9e%16.9e\n',PointVector');
     end
