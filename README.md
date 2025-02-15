@@ -1,6 +1,6 @@
 # Baffalo
 
-<img src="./icons/Baffalo.png" alt="Baffalo" style="zoom: 15%;" />
+<img src="./icons/Baffalo3.png" alt="Baffalo" style="zoom: 50%;" />
 
 Baffalo是开源的Matlab工具箱来建立系统分析的工具，他可将文件导出到ANSYS或者Simpack
 
