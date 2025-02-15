@@ -176,7 +176,7 @@ classdef Component
             if isempty(obj.documentname)
                 warning('No help file !')
             else
-                rootDir = RoTA.whereami;
+                rootDir = Baffalo.whereami;
                 filename=strcat(rootDir,'\Document\',obj.documentname);
                 open(filename);
             end

@@ -15,12 +15,18 @@ classdef Point2D < handle
         NG      % Number of Point Group
         NP      % Number of Point
     end
+
+    properties (Hidden)
+        documentname % document name
+    end
     
     methods
         function obj = Point2D(Name,varargin)
             % Create Point2D object with default values
             % x and y are mandatory first two arguments
             obj.Name = Name;
+            obj.documentname='Point2D.pdf';
+
             p=inputParser;
             addParameter(p,'Dtol',1e-5);
             addParameter(p,'Echo',1);
@@ -34,6 +40,12 @@ classdef Point2D < handle
                 fprintf('Creating Point2D object ...\n');
             end
         end 
+
+        function Help(obj)
+                rootDir = Baffalo.whereami;
+                filename=strcat(rootDir,'\Document\',obj.documentname);
+                open(filename);
+        end
     end
 end
 
