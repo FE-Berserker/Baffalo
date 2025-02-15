@@ -34,6 +34,8 @@ ParaViewDir="D:\005_Lib\ParaView\bin";
 
 Baffalo说明文档存放于Document中，案例文件存放于Tesing文件夹中。
 
+更多的信息可参见 https://www.feacat.com/
+
 ---
 
 
@@ -69,3 +71,4 @@ ParaViewDir="D:\005_Lib\ParaView\bin";
 
 Baffalo documentation is stored in Document, and case files are stored in the Tesing folder.
 
+For more information:  https://www.feacat.com/
