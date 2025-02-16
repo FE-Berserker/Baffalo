@@ -60,6 +60,10 @@ classdef Line2D < handle
         CHD     % max. h/d
     end
 
+    properties (Hidden)
+        documentname % document name
+    end
+
     methods
         function obj = Line2D(Name,varargin)
             obj.Name = Name;
@@ -88,6 +92,8 @@ classdef Line2D < handle
             obj.Form=opt.Form;
             obj.Compress=opt.Compress;
             obj.Point=Point2D('Point','Dtol',opt.Dtol,'Echo',0);
+
+            obj.documentname='Line2D.pdf';
 
             if obj.Echo
                 fprintf('Creating Line2D object ...\n');
@@ -391,6 +397,12 @@ classdef Line2D < handle
             else
                 warning('Curve is not closed');
             end
+        end
+
+        function Help(obj)
+            rootDir = Baffalo.whereami;
+            filename=strcat(rootDir,'\Document\',obj.documentname);
+            open(filename);
         end
 
     end
