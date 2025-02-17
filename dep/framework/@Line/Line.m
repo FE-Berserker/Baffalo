@@ -39,6 +39,13 @@ classdef Line < handle
                 fprintf('Creating Line object ...\n');
             end
         end
+
+
+        function Help(obj)
+            rootDir = Baffalo.whereami;
+            filename=strcat(rootDir,'\Document\',obj.documentname);
+            open(filename);
+        end
     end
 end
 

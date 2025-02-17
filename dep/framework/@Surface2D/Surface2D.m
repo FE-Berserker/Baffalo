@@ -7,7 +7,7 @@ classdef Surface2D < handle
     end
 
     properties
-        Line   % Line2D data
+        Line   % Surface2D data
         FN      % Face Num
         FS      % FS FS=0 Close Face, FS=1 Internal Face
         NN      % Node Num
@@ -16,6 +16,10 @@ classdef Surface2D < handle
         Node    % Edge Node cell
         E       % Edge
         Edge    % Edge cell
+    end
+
+    properties (Hidden)
+        documentname % document name
     end
 
     methods
@@ -60,11 +64,18 @@ classdef Surface2D < handle
             obj.EN=size(obj.E,1);
             obj.FN=1;
             obj.FS=0;
-
+            obj.documentname='Surface2D.pdf';
             %% Print
             if obj.Echo
                 fprintf('Successfully import Line2D .\n');
             end
+        end
+
+
+        function Help(obj)
+            rootDir = Baffalo.whereami;
+            filename=strcat(rootDir,'\Document\',obj.documentname);
+            open(filename);
         end
     end
 
