@@ -43,5 +43,10 @@ else
 end
 obj.MP(n+1,:)=mean(Point.PP{P,1});
 
+%% Print
+if obj.Echo
+    fprintf('Successfully add circle. \n');
+end
+
 end
 

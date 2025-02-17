@@ -14,5 +14,10 @@ obj.Nurbs{n+1,1}.Order=curve.order;
 obj.Nurbs{n+1,1}.Dim=curve.dim;
 obj.Subd{n+1,1}=1;
 obj.MP(n+1,:)=mean(Point.PP{P,1});
+
+%% Print
+if obj.Echo
+    fprintf('Successfully add line. \n');
+end
 end
 

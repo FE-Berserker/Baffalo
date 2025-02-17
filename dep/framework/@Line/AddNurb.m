@@ -25,5 +25,9 @@ else
 end
 obj.MP(n+1,:)=mean(coefs'); %#ok<UDIM> 
 
+%% Print
+if obj.Echo
+    fprintf('Successfully add nurb. \n');
+end
 end
 

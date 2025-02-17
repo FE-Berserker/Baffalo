@@ -117,16 +117,13 @@ if and(opt.clabel,isempty(opt.styles))
         'arrow',obj.Arrow,'base_size',opt.base_size);
 elseif and(opt.clabel,~isempty(opt.styles))
     g=set_line_options(g,'clabel',obj.MP(ic,:),'label_num',ic',...
-        'styles',opt.styles,'arrow',obj.Arrow,'base_size',opt.base_size);
+        'styles',opt.styles,'base_size',opt.base_size);
 elseif and(opt.clabel==0,~isempty(opt.styles))
     g=set_line_options(g,'styles',opt.styles,'arrow',obj.Arrow,'base_size',opt.base_size);
 else
-    g=set_line_options(g,'arrow',obj.Arrow,'base_size',opt.base_size);
+    g=set_line_options(g,'base_size',opt.base_size);
 end
 
-if ~isempty(obj.Arrow)
-    g=set_arrow_options(g,'form',obj.Form,'ad1',obj.Ad,'ad2',obj.Ad);
-end
 
 % figure
 draw(g);

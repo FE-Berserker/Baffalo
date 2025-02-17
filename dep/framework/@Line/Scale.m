@@ -29,5 +29,10 @@ else
     obj.Nurbs{num,1}.Coefs=curve.coefs;
     obj.Nurbs{num,1}.Knots=curve.knots;
 end
+
+%% Print
+if obj.Echo
+    fprintf('Successfully scale curve. \n');
+end
 end
 
