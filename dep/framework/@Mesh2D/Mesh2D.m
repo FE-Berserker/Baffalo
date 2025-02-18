@@ -20,6 +20,10 @@ classdef Mesh2D
         Point_Vector
         Meshoutput % Output of mesh
     end
+
+    properties (Hidden)
+        documentname % document name
+    end
     
     methods
         function obj = Mesh2D(Name,varargin)
@@ -33,11 +37,17 @@ classdef Mesh2D
             obj.Echo =opt.Echo;
             if obj.Echo
                 fprintf('Creating Mesh2D Object...\n');
-                tic
             end
 
             meshtool.initmsh();
+            obj.documentname='Mesh2D.pdf';
 
+        end
+
+        function Help(obj)
+            rootDir = Baffalo.whereami;
+            filename=strcat(rootDir,'\Document\',obj.documentname);
+            open(filename);
         end
     end
 end
