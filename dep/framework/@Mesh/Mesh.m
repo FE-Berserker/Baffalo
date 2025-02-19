@@ -21,6 +21,10 @@ classdef Mesh< handle
         Meshoutput
     end
 
+    properties (Hidden)
+        documentname % document name
+    end
+
 
     methods
         function obj = Mesh(Name,varargin)
@@ -32,11 +36,18 @@ classdef Mesh< handle
             opt=p.Results;
 
             obj.Echo = opt.Echo;
+            obj.documentname='Mesh.pdf';
 
             if obj.Echo
                 fprintf('Creating Mesh Object...\n');
             end
 
+        end
+
+        function Help(obj)
+            rootDir = Baffalo.whereami;
+            filename=strcat(rootDir,'\Document\',obj.documentname);
+            open(filename);
         end
     end
 end
