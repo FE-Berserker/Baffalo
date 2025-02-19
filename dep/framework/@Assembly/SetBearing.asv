@@ -1,0 +1,10 @@
+function SetBearing(obj,masternode1,masternode2,stiffness,damp)
+%SETSPRING 此处显示有关此函数的摘要
+%   此处显示详细说明
+if nargin<5
+    damp=[0,0,0,0];
+end
+num=GetNBearing(obj);
+obj.Bearing(num+1,:)=[masternode1,masternode2,stiffness,damp];
+end
+
