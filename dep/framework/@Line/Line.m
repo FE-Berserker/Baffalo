@@ -4,6 +4,7 @@ classdef Line < handle
 
     % tolerances
     properties
+        Dtol
         Cell_Data
         Nurbs % Nurb curves
         Subd  % Sub division of curve
@@ -28,11 +29,13 @@ classdef Line < handle
             obj.Name = Name;
             p=inputParser;
             addParameter(p,'Echo',1);
+            addParameter(p,'Dtol',1e-5);
             parse(p,varargin{:});
             opt=p.Results;
 
-            %Create Line2D object with default value
+            %Create Line object with default value
             obj.Echo = opt.Echo;
+            obj.Dtol = opt.Dtol;
             obj.documentname='Line.pdf';
 
             if obj.Echo

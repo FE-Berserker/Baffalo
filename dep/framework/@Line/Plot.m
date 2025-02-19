@@ -28,9 +28,7 @@ if isempty(obj.Nurbs)
     return
 end
 %% Point calculate
-% convert the number of subdivisions in number of points
-PP=cellfun(@(x,y)nrbeval(x,linspace(0.0,1.0,y+1)),obj.Nurbs,obj.Subd,'UniformOutput',false);
-PP=cellfun(@(x)x',PP,'UniformOutput',false);
+PP=OutputPoint(obj);
 %% Range calculation
 P=cell2mat(PP);
 deltax=max(P(:,1))-min(P(:,1));

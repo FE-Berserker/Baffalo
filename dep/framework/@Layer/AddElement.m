@@ -4,7 +4,6 @@ function obj=AddElement(obj,inputobj,varargin)
 
 p=inputParser;
 addParameter(p,'Transform',[0,0,0,0,0,0]);
-addParameter(p,'Compress',1);
 parse(p,varargin{:});
 opt=p.Results;
 
@@ -28,27 +27,23 @@ end
 
 if isa(inputobj,'Line2D')
     Num=GetNLines(obj);
-    if opt.Compress
-        NumPoint=inputobj.Point.NP;
-        T=Transform([inputobj.Point.P,zeros(NumPoint,1)]);
-        T=Rotate(T,position(4),position(5),position(6));
-        T=Translate(T,position(1),position(2),position(3));
-        obj.Lines{Num+1,1}.P=Solve(T);
-        obj.Lines{Num+1,1}.El=[(1:NumPoint-1)',(2:NumPoint)'];
-    else
-        Points=cellfun(@(x)x.PP,inputobj.Point,'UniformOutput',false);
-        El=cellfun(@(x)[(1:size(x,1)-1)',(2:size(x,1))'],Points,'UniformOutput',false);
-        Points=cell2mat(Points);
-        T=Transform(Points);
-        T=Rotate(T,position(4),position(5),position(6));
-        T=Translate(T,position(1),position(2),position(3));
-        obj.Lines{Num+1,1}.P=Solve(T);
-        obj.Lines{Num+1,1}.El=cell2mat(El);
-    end
+    NumPoint=inputobj.Point.NP;
+    T=Transform([inputobj.Point.P,zeros(NumPoint,1)]);
+    T=Rotate(T,position(4),position(5),position(6));
+    T=Translate(T,position(1),position(2),position(3));
+    obj.Lines{Num+1,1}.P=Solve(T);
+    obj.Lines{Num+1,1}.El=[(1:NumPoint-1)',(2:NumPoint)'];
 end
 
 if isa(inputobj,'Line')
-    % Num=GetNLines(obj);
+     Num=GetNLines(obj);
+     PP=OutputPoint(inputobj,'Compress',1);
+     NumPoint=size(PP,1);
+     T=Transform(PP);
+     T=Rotate(T,position(4),position(5),position(6));
+     T=Translate(T,position(1),position(2),position(3));
+     obj.Lines{Num+1,1}.P=Solve(T);
+     obj.Lines{Num+1,1}.El=[(1:NumPoint-1)',(2:NumPoint)'];   
 end
 
 if isa(inputobj,'Mesh2D')
