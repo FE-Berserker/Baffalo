@@ -20,7 +20,6 @@ classdef Margin < Component
         baselineExpectedFields = {
             };
 
-        statesExpectedFields = {};
         default_Name='Margin1';
         default_Echo=1;
     end

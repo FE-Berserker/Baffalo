@@ -31,6 +31,8 @@ classdef Commonshaft < Component
             'Assembly'% Shaft solid mesh assembly
             'Assembly1'% Shaft Beam mehs assembly
             };
+        baselineExpectedFields = {
+            };
         
         default_N_Slice=100;
         default_Name='Commonshaft1';
@@ -44,7 +46,7 @@ classdef Commonshaft < Component
         
         function obj = Commonshaft(paramsStruct,inputStruct)
             obj = obj@Component(paramsStruct,inputStruct);
-            obj.documentname='CommonShaft.pdf';
+            obj.documentname='Commonshaft.pdf';
         end
         
         function obj = solve(obj)
