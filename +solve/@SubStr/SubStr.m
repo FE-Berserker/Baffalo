@@ -34,6 +34,7 @@ classdef SubStr < Component
 
         function obj = SubStr(paramsStruct,inputStruct)
             obj = obj@Component(paramsStruct,inputStruct);
+            obj.documentname='SubStr.pdf';
         end
 
         function obj = solve(obj)
@@ -41,7 +42,7 @@ classdef SubStr < Component
             Ass=AddAssembly(Ass,obj.input.SubStr);
             %% Solution
             opt.ANTYPE=7;% SUBSTR solve
-            opt.SEOPT={obj.params.Name,2,1};
+            opt.SEOPT={obj.params.Name,2,1,1};
             opt.CMSOPT=[obj.params.CMSMethod,obj.params.NMode,obj.params.Freq(1),obj.params.Freq(2),'FAUTO',0,'TCMS'];
             Ass=AddSolu(Ass,opt);
             Part=obj.input.Master.PartNum;
@@ -55,7 +56,11 @@ classdef SubStr < Component
                 obj.output.Nodes=[obj.output.Nodes;value];
             end
             ANSYS_Output(Ass,'Name','Intial','CDBWrite',1);
-            ANSYSSolve(Ass,'Name','Intial')
+            delete(strcat(obj.params.Name,'.cdb'));
+            delete(strcat(obj.params.Name,'.rst'));
+            delete(strcat(obj.params.Name,'.tcms'));
+            delete(strcat(obj.params.Name,'.sub'));
+            ANSYSSolve(Ass,'Name','Intial');
             [Shell,Beam,Face,MNode,Con]=GetFace(Ass,obj.input.Master);
             Geom.Shell=Shell;
             Geom.Beam=Beam;

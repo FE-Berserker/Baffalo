@@ -63,14 +63,25 @@ for i=1:n
     end
 
     ETnum=obj.ContactPair{i,1}.Tar.ET;
-    fprintf(fid, '%s\n','NSEL,ALL');
-    fprintf(fid, '%s\n',strcat('TYPE,',num2str(ETnum)));
-    nodes=unique(obj.ContactPair{i,1}.Tar.elements);
-    fprintf(fid, '%s\n',strcat('NSEL,S,NODE,,',num2str(nodes(1,1))));
-    for j=2:size(nodes,1)
-        fprintf(fid, '%s\n',strcat('NSEL,A,NODE,,',num2str(nodes(j,1))));
+    TarPartnum=obj.ContactPair{i,1}.Tar.Part;
+    if TarPartnum~=0
+        fprintf(fid, '%s\n','NSEL,ALL');
+        fprintf(fid, '%s\n',strcat('TYPE,',num2str(ETnum)));
+        nodes=unique(obj.ContactPair{i,1}.Tar.elements);
+        fprintf(fid, '%s\n',strcat('NSEL,S,NODE,,',num2str(nodes(1,1))));
+        for j=2:size(nodes,1)
+            fprintf(fid, '%s\n',strcat('NSEL,A,NODE,,',num2str(nodes(j,1))));
+        end
+        fprintf(fid, '%s\n','ESURF');
+    else
+        fprintf(fid, '%s\n','NSEL,ALL');
+        fprintf(fid, '%s\n',strcat('TYPE,',num2str(ETnum)));
+        fprintf(fid, '%s\n','TSHAP,PILO');
+        nodes=unique(obj.ContactPair{i,1}.Tar.elements);
+        for j=1:size(nodes,1)
+            fprintf(fid, '%s\n',strcat('E,',num2str(nodes(j,1))));
+        end
     end
-    fprintf(fid, '%s\n','ESURF');
 end
 fprintf(fid, '%s\n','ALLSEL,ALL');
 end

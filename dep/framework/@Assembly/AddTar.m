@@ -4,18 +4,25 @@ function obj=AddTar(obj,Numpair,Numpart,No)
 
 if ~isempty(obj.ContactPair{Numpair,1}.Tar)
     error(strcat('ContactPair ',num2str(Numpair),' has been defined!'));
-else
-    
+else    
 obj.ContactPair{Numpair,1}.Tar.elements=[];
 end
+
 for i=1:size(Numpart,1)
-    FFb=obj.Part{Numpart(i,1),1}.mesh.facesBoundary;
-    acc=obj.Part{Numpart(i,1),1}.acc_node;
-    Cb=obj.Part{Numpart(i,1),1}.mesh.boundaryMarker;
-    TarList=FFb(Cb==No(i,1),:);
-    obj.ContactPair{Numpair,1}.Tar.elements=[obj.ContactPair{Numpair,1}.Tar.elements;TarList+acc];
-    obj.ContactPair{Numpair,1}.Tar.Part=Numpart;
-    obj.ContactPair{Numpair,1}.Tar.Cb=No;
+    if Numpart(i,1)~=0
+        FFb=obj.Part{Numpart(i,1),1}.mesh.facesBoundary;
+        acc=obj.Part{Numpart(i,1),1}.acc_node;
+        Cb=obj.Part{Numpart(i,1),1}.mesh.boundaryMarker;
+        TarList=FFb(Cb==No(i,1),:);
+        obj.ContactPair{Numpair,1}.Tar.elements=[obj.ContactPair{Numpair,1}.Tar.elements;TarList+acc];
+        obj.ContactPair{Numpair,1}.Tar.Part=Numpart;
+        obj.ContactPair{Numpair,1}.Tar.Cb=No;
+    else
+        acc=obj.Summary.Total_Node;
+        obj.ContactPair{Numpair,1}.Tar.elements=[obj.ContactPair{Numpair,1}.Tar.elements;[No,No,No,No]+acc];
+        obj.ContactPair{Numpair,1}.Tar.Part=0;
+        obj.ContactPair{Numpair,1}.Tar.Cb=1;
+    end
 end
 
 if isempty(obj.ContactPair{Numpair,1}.Tar.elements)
