@@ -17,6 +17,10 @@ classdef Layer < handle
         Matrix
     end
 
+    properties (Hidden)
+        documentname % document name
+    end
+
     methods
         function obj = Layer(Name,varargin)
             % Create Layer object with default value
@@ -32,10 +36,18 @@ classdef Layer < handle
             obj.Summary.TotalPoint=0;
             obj.Summary.TotalDual=0;
             obj.Summary.TotalPlane=0;
+            obj.documentname='Layer.pdf';
+
 
             if obj.Echo
                 fprintf('Creating Layer object ...\n');
             end
+        end
+
+        function Help(obj)
+            rootDir = Baffalo.whereami;
+            filename=strcat(rootDir,'\Document\',obj.documentname);
+            open(filename);
         end
 
     end
