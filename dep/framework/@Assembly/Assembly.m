@@ -45,6 +45,7 @@ classdef Assembly< handle & matlab.mixin.Copyable
         SubStrM % Sub Structure Master Node
         IStress % Intial stress
         CutBoundary % Submodel cutboundary
+        Joint % MPC 184
     end
 
     properties
@@ -68,7 +69,7 @@ classdef Assembly< handle & matlab.mixin.Copyable
     
             obj.Summary.Total_El=0; % Total number of elements
             obj.Summary.Total_Node=0; % Total number of nodes
-            obj.Summary. Total_Cnode=0; % Total number of cnodes
+            obj.Summary.Total_Cnode=0; % Total number of cnodes
             obj.Summary.Total_Master=0; % Total number of master
             obj.Summary.Total_Slaver=0; % Total number of slave
             obj.Summary.Total_Connection=0; % Total number of connections
@@ -86,6 +87,7 @@ classdef Assembly< handle & matlab.mixin.Copyable
             obj.Summary.Total_NodeMass=0; % Total number of NodeMass
             obj.Summary.Total_EndReleease=0;% Total endrelease of Assembly
             obj.Summary.Total_BeamPreload=0; % Total number of beampreload
+            obj.Summary.Total_Joint=0; % Total number of Joint
 
             obj.Echo = opt.Echo;
             obj.T_Ref=opt.T_Ref;

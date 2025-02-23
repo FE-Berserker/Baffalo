@@ -4,17 +4,28 @@ function obj=Mesh3D(obj,varargin)
 p=inputParser;
 addParameter(p,'stringOpt','-pq1.2AaY');
 addParameter(p,'minRegionMarker',2);
+addParameter(p,'AddedNodes',[]);
 parse(p,varargin{:});
 opt=p.Results;
 
 inputStruct.stringOpt=opt.stringOpt;
 inputStruct.minRegionMarker=opt.minRegionMarker; %Minimum region marker
 
+if ~isempty(opt.AddedNodes)
+    inputStruct.AddedNodes=opt.AddedNodes;
+    if ~gcontains(inputStruct.stringOpt,'i')
+        inputStruct.stringOpt=strcat(inputStruct.stringOpt,'i');
+    end
+end
+
 inputStruct.Faces=obj.Face;
 inputStruct.Nodes=obj.Vert;
 inputStruct.faceBoundaryMarker=obj.Cb; %Face boundary markers
 inputStruct.regionPoints=getInnerPoint(obj.Face,obj.Vert); %region points
 inputStruct.regionA=tetVolMeanEst(obj.Face,obj.Vert); %Volume for regular tets
+
+
+
 
 obj.Meshoutput=runTetGen(inputStruct);
 % el=obj.Meshoutput.elements;

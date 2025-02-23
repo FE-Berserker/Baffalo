@@ -262,11 +262,11 @@ end
 
 %% Handle added interior points
 % Does not work yet, points seem ignored
-% if gcontains(inputStruct.stringOpt,'i')
-%     inputStructAdd.Nodes=inputStruct.AddedNodes;
-%     inputStructAdd.modelName=[modelNameTemp,'.a.node'];
-%     writeNodeFile_tetGen(inputStructAdd);
-% end
+if gcontains(inputStruct.stringOpt,'i')
+    inputStructAdd.Nodes=inputStruct.AddedNodes;
+    inputStructAdd.modelName=[modelNameTemp,'.a.node'];
+    writeNodeFile_tetGen(inputStructAdd);
+end
 
 %% RUN TETGEN
 bOpt=0;

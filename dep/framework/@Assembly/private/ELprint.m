@@ -15,16 +15,16 @@ for i=1:m
             col1=obj.Part{i,1}.mesh.elementMaterialID;
             col2=obj.Part{i,1}.ET;
             col3=obj.Part{i,1}.RealConstants;
-            col4=0;
+            % col4=0;
             col5=obj.Part{i,1}.ESYS;
-            col6=0;
-            col7=0;
-            col8=0;
+            % col6=0;
+            % col7=0;
+            % col8=0;
             col9=size(obj.Part{i,1}.mesh.elements(1,:)',1);
-            col10=0;
-            Temp1=[col1,repmat(col2,mm,1),repmat(col3,mm,1),repmat(col4,mm,1),...
-                repmat(col5,mm,1),repmat(col6,mm,1),repmat(col7,mm,1),...
-                repmat(col8,mm,1),repmat(col9,mm,1),repmat(col10,mm,1)];
+            % col10=0;
+            Temp1=[col1,repmat(col2,mm,1),repmat(col3,mm,1),zeros(mm,1),...
+                repmat(col5,mm,1),zeros(mm,1),zeros(mm,1),...
+                zeros(mm,1),repmat(col9,mm,1),zeros(mm,1)];
             Temp=[Temp1,((1:mm)+acc)',obj.Part{i,1}.mesh.elements+...
                 acc1*ones(mm,col9)];
             fprintf(fid, '%s\n','EBLOCK,19,SOLID,');
@@ -39,16 +39,16 @@ for i=1:m
             col1=obj.Part{i,1}.mesh.elementMaterialID;
             col2=obj.Part{i,1}.ET;
             col3=obj.Part{i,1}.RealConstants;
-            col4=0;
+            % col4=0;
             col5=obj.Part{i,1}.ESYS;
-            col6=0;
-            col7=0;
-            col8=0;
+            % col6=0;
+            % col7=0;
+            % col8=0;
             col9=size(obj.Part{i,1}.mesh.elements(1,:)',1);
-            col10=0;
-            Temp1=[col1,repmat(col2,mm,1),repmat(col3,mm,1),repmat(col4,mm,1),...
-                repmat(col5,mm,1),repmat(col6,mm,1),repmat(col7,mm,1),...
-                repmat(col8,mm,1),repmat(col9,mm,1),repmat(col10,mm,1)];
+            % col10=0;
+            Temp1=[col1,repmat(col2,mm,1),repmat(col3,mm,1),zeros(mm,1),...
+                repmat(col5,mm,1),zeros(mm,1),zeros(mm,1),...
+                zeros(mm,1),repmat(col9,mm,1),zeros(mm,1)];
             Temp=[Temp1,((1:mm)+acc)',obj.Part{i,1}.mesh.elements+...
                 acc1*ones(mm,col9)];
             fprintf(fid, '%s\n','EBLOCK,19,SOLID,');
@@ -63,16 +63,16 @@ for i=1:m
             col1=obj.Part{i,1}.mesh.elementMaterialID;
             col2=obj.Part{i,1}.ET;
             col3=obj.Part{i,1}.RealConstants;
-            col4=0;
+            % col4=0;
             col5=obj.Part{i,1}.ESYS;
-            col6=0;
-            col7=0;
-            col8=0;
+            % col6=0;
+            % col7=0;
+            % col8=0;
             col9=size(obj.Part{i,1}.mesh.elements(1,:)',1);
-            col10=0;
-            Temp1=[col1,repmat(col2,mm,1),repmat(col3,mm,1),repmat(col4,mm,1),...
-                repmat(col5,mm,1),repmat(col6,mm,1),repmat(col7,mm,1),...
-                repmat(col8,mm,1),repmat(col9,mm,1),repmat(col10,mm,1)];
+            % col10=0;
+            Temp1=[col1,repmat(col2,mm,1),repmat(col3,mm,1),zeros(mm,1),...
+                repmat(col5,mm,1),zeros(mm,1),zeros(mm,1),...
+                zeros(mm,1),repmat(col9,mm,1),zeros(mm,1)];
             Temp=[Temp1,((1:mm)+acc)',obj.Part{i,1}.mesh.elements+...
                 acc1*ones(mm,col9)];
             fprintf(fid, '%s\n','EBLOCK,19,SOLID,');
@@ -87,16 +87,16 @@ for i=1:m
             col1=obj.Part{i,1}.mesh.elementMaterialID;
             col2=obj.Part{i,1}.ET;
             col3=obj.Part{i,1}.RealConstants;
-            col4=0;
+            % col4=0;
             col5=obj.Part{i,1}.ESYS;
-            col6=0;
-            col7=0;
-            col8=0;
+            % col6=0;
+            % col7=0;
+            % col8=0;
             col9=size(obj.Part{i,1}.mesh.elements(1,:)',1);
-            col10=0;
-            Temp1=[col1,repmat(col2,mm,1),repmat(col3,mm,1),repmat(col4,mm,1),...
-                repmat(col5,mm,1),repmat(col6,mm,1),repmat(col7,mm,1),...
-                repmat(col8,mm,1),repmat(col9,mm,1),repmat(col10,mm,1)];
+            % col10=0;
+            Temp1=[col1,repmat(col2,mm,1),repmat(col3,mm,1),zeros(mm,1),...
+                repmat(col5,mm,1),zeros(mm,1),zeros(mm,1),...
+                zeros(mm,1),repmat(col9,mm,1),zeros(mm,1)];
             Temp=[Temp1,((1:mm)+acc)',obj.Part{i,1}.mesh.elements+...
                 acc1*ones(mm,col9)];
             fprintf(fid, '%s\n','EBLOCK,19,SOLID,');
@@ -111,16 +111,16 @@ for i=1:m
             col1=obj.Part{i,1}.mesh.elementMaterialID;
             col2=obj.Part{i,1}.ET;
             col3=obj.Part{i,1}.RealConstants;
-            col4=0;
+            % col4=0;
             col5=obj.Part{i,1}.ESYS;
-            col6=0;
-            col7=0;
-            col8=0;
+            % col6=0;
+            % col7=0;
+            % col8=0;
             col9=size(obj.Part{i,1}.mesh.elements(1,:)',1);
-            col10=0;
-            Temp1=[col1,repmat(col2,mm,1),repmat(col3,mm,1),repmat(col4,mm,1),...
-                repmat(col5,mm,1),repmat(col6,mm,1),repmat(col7,mm,1),...
-                repmat(col8,mm,1),repmat(col9,mm,1),repmat(col10,mm,1)];
+            % col10=0;
+            Temp1=[col1,repmat(col2,mm,1),repmat(col3,mm,1),zeros(mm,1),...
+                repmat(col5,mm,1),zeros(mm,1),zeros(mm,1),...
+                zeros(mm,1),zeros(mm,1),zeros(mm,1)];
             Temp=[Temp1,((1:mm)+acc)',obj.Part{i,1}.mesh.elements+...
                 acc1*ones(mm,col9)];
             fprintf(fid, '%s\n','EBLOCK,19,SOLID,');
@@ -135,16 +135,16 @@ for i=1:m
             col1=obj.Part{i,1}.mesh.elementMaterialID;
             col2=obj.Part{i,1}.ET;
             col3=obj.Part{i,1}.RealConstants;
-            col4=0;
+            % col4=0;
             col5=obj.Part{i,1}.ESYS;
-            col6=0;
-            col7=0;
-            col8=0;
+            % col6=0;
+            % col7=0;
+            % col8=0;
             col9=size(obj.Part{i,1}.mesh.elements(1,:)',1);
-            col10=0;
-            Temp1=[col1,repmat(col2,mm,1),repmat(col3,mm,1),repmat(col4,mm,1),...
-                repmat(col5,mm,1),repmat(col6,mm,1),repmat(col7,mm,1),...
-                repmat(col8,mm,1),repmat(col9,mm,1),repmat(col10,mm,1)];
+            % col10=0;
+            Temp1=[col1,repmat(col2,mm,1),repmat(col3,mm,1),zeros(mm,1),...
+                repmat(col5,mm,1),zeros(mm,1),zeros(mm,1),...
+                zeros(mm,1),repmat(col9,mm,1),zeros(mm,1)];
             Temp=[Temp1,((1:mm)+acc)',obj.Part{i,1}.mesh.elements+...
                 acc1*ones(mm,col9)];
             for j=1:size(Temp,1)
@@ -154,19 +154,19 @@ for i=1:m
             mm=obj.Part{i,1}.NumElements;
             acc=obj.Part{i,1}.acc_el;
             acc1=obj.Part{i,1}.acc_node;
-            col1=0;
+            % col1=0;
             col2=obj.Part{i,1}.ET;
             col3=obj.Part{i,1}.RealConstants;
-            col4=0;
-            col5=0;
-            col6=0;
-            col7=0;
-            col8=0;
+            % col4=0;
+            % col5=0;
+            % col6=0;
+            % col7=0;
+            % col8=0;
             col9=2;
-            col10=0;
-            Temp1=[repmat(col1,mm,1),repmat(col2,mm,1),repmat(col3,mm,1),repmat(col4,mm,1),...
-                repmat(col5,mm,1),repmat(col6,mm,1),repmat(col7,mm,1),...
-                repmat(col8,mm,1),repmat(col9,mm,1),repmat(col10,mm,1)];
+            % col10=0;
+            Temp1=[zeros(mm,1),repmat(col2,mm,1),repmat(col3,mm,1),zeros(mm,1),...
+                zeros(mm,1),zeros(mm,1),zeros(mm,1),...
+                zeros(mm,1),repmat(col9,mm,1),zeros(mm,1)];
             Temp=[Temp1,((1:mm)+acc)',obj.Part{i,1}.mesh.elements+...
                 acc1*ones(mm,col9)];
             fprintf(fid, '%s\n','EBLOCK,19,SOLID,');
@@ -181,16 +181,16 @@ for i=1:m
             col1=obj.Part{i,1}.mesh.elementMaterialID;
             col2=obj.Part{i,1}.ET;
             col3=obj.Part{i,1}.RealConstants;
-            col4=0;
+            % col4=0;
             col5=obj.Part{i,1}.ESYS;
-            col6=0;
-            col7=0;
-            col8=0;
+            % col6=0;
+            % col7=0;
+            % col8=0;
             col9=size(obj.Part{i,1}.mesh.elements(1,:)',1);
-            col10=0;
-            Temp1=[col1,repmat(col2,mm,1),repmat(col3,mm,1),repmat(col4,mm,1),...
-                repmat(col5,mm,1),repmat(col6,mm,1),repmat(col7,mm,1),...
-                repmat(col8,mm,1),repmat(col9,mm,1),repmat(col10,mm,1)];
+            % col10=0;
+            Temp1=[col1,repmat(col2,mm,1),repmat(col3,mm,1),zeros(mm,1),...
+                repmat(col5,mm,1),zeros(mm,1),zeros(mm,1),...
+                zeros(mm,1),repmat(col9,mm,1),zeros(mm,1)];
             Temp=[Temp1,((1:mm)+acc)',obj.Part{i,1}.mesh.elements+...
                 acc1*ones(mm,col9)];
             fprintf(fid, '%s\n','EBLOCK,19,SOLID,');
@@ -205,16 +205,16 @@ for i=1:m
             col1=obj.Part{i,1}.mesh.elementMaterialID;
             col2=obj.Part{i,1}.ET;
             col3=obj.Part{i,1}.RealConstants;
-            col4=0;
+            % col4=0;
             col5=obj.Part{i,1}.ESYS;
-            col6=0;
-            col7=0;
-            col8=0;
+            % col6=0;
+            % col7=0;
+            % col8=0;
             col9=size(obj.Part{i,1}.mesh.elements(1,:)',1);
-            col10=0;
-            Temp1=[col1,repmat(col2,mm,1),repmat(col3,mm,1),repmat(col4,mm,1),...
-                repmat(col5,mm,1),repmat(col6,mm,1),repmat(col7,mm,1),...
-                repmat(col8,mm,1),repmat(col9,mm,1),repmat(col10,mm,1)];
+            % col10=0;
+            Temp1=[col1,repmat(col2,mm,1),repmat(col3,mm,1),zeros(mm,1),...
+                repmat(col5,mm,1),zeros(mm,1),zeros(mm,1),...
+                zeros(mm,1),repmat(col9,mm,1),zeros(mm,1)];
             Temp=[Temp1,((1:mm)+acc)',obj.Part{i,1}.mesh.elements+...
                 acc1*ones(mm,col9)];
             fprintf(fid, '%s\n','EBLOCK,19,SOLID,');
@@ -229,16 +229,16 @@ for i=1:m
             col1=obj.Part{i,1}.mesh.elementMaterialID;
             col2=obj.Part{i,1}.ET;
             col3=obj.Part{i,1}.RealConstants;
-            col4=0;
+            % col4=0;
             col5=obj.Part{i,1}.ESYS;
-            col6=0;
-            col7=0;
-            col8=0;
+            % col6=0;
+            % col7=0;
+            % col8=0;
             col9=size(obj.Part{i,1}.mesh.elements(1,:)',1);
-            col10=0;
-            Temp1=[col1,repmat(col2,mm,1),repmat(col3,mm,1),repmat(col4,mm,1),...
-                repmat(col5,mm,1),repmat(col6,mm,1),repmat(col7,mm,1),...
-                repmat(col8,mm,1),repmat(col9,mm,1),repmat(col10,mm,1)];
+            % col10=0;
+            Temp1=[col1,repmat(col2,mm,1),repmat(col3,mm,1),zeros(mm,1),...
+                repmat(col5,mm,1),zeros(mm,1),zeros(mm,1),...
+                zeros(mm,1),repmat(col9,mm,1),zeros(mm,1)];
             Temp=[Temp1,((1:mm)+acc)',obj.Part{i,1}.mesh.elements+...
                 acc1*ones(mm,col9)];
             fprintf(fid, '%s\n','EBLOCK,19,SOLID,');
@@ -253,16 +253,16 @@ for i=1:m
             col1=obj.Part{i,1}.mesh.elementMaterialID;
             col2=obj.Part{i,1}.ET;
             col3=obj.Part{i,1}.RealConstants;
-            col4=0;
+            % col4=0;
             col5=obj.Part{i,1}.ESYS;
-            col6=0;
-            col7=0;
-            col8=0;
+            % col6=0;
+            % col7=0;
+            % col8=0;
             col9=size(obj.Part{i,1}.mesh.elements(1,:)',1);
-            col10=0;
-            Temp1=[col1,repmat(col2,mm,1),repmat(col3,mm,1),repmat(col4,mm,1),...
-                repmat(col5,mm,1),repmat(col6,mm,1),repmat(col7,mm,1),...
-                repmat(col8,mm,1),repmat(col9,mm,1),repmat(col10,mm,1)];
+            % col10=0;
+            Temp1=[col1,repmat(col2,mm,1),repmat(col3,mm,1),zeros(mm,1),...
+                repmat(col5,mm,1),zeros(mm,1),zeros(mm,1),...
+                zeros(mm,1),repmat(col9,mm,1),zeros(mm,1)];
             Temp=[Temp1,((1:mm)+acc)',obj.Part{i,1}.mesh.elements+...
                 acc1*ones(mm,col9)];
             fprintf(fid, '%s\n','EBLOCK,19,SOLID,');
@@ -274,19 +274,19 @@ for i=1:m
             mm=obj.Part{i,1}.NumElements;
             acc=obj.Part{i,1}.acc_el;
             acc1=obj.Part{i,1}.acc_node;
-            col1=0;
+            % col1=0;
             col2=obj.Part{i,1}.ET;
             col3=obj.Part{i,1}.RealConstants;
-            col4=0;
-            col5=0;
-            col6=0;
-            col7=0;
-            col8=0;
+            % col4=0;
+            % col5=0;
+            % col6=0;
+            % col7=0;
+            % col8=0;
             col9=2;
-            col10=0;
-            Temp1=[repmat(col1,mm,1),repmat(col2,mm,1),repmat(col3,mm,1),repmat(col4,mm,1),...
-                repmat(col5,mm,1),repmat(col6,mm,1),repmat(col7,mm,1),...
-                repmat(col8,mm,1),repmat(col9,mm,1),repmat(col10,mm,1)];
+            % col10=0;
+            Temp1=[zeros(mm,1),repmat(col2,mm,1),repmat(col3,mm,1),zeros(mm,1),...
+                zeros(col5,mm,1),zeros(mm,1),zeros(mm,1),...
+                zeros(mm,1),repmat(col9,mm,1),zeros(mm,1)];
             Temp=[Temp1,((1:mm)+acc)',obj.Part{i,1}.mesh.elements+...
                 acc1*ones(mm,col9)];
             fprintf(fid, '%s\n','EBLOCK,19,SOLID,');
@@ -303,14 +303,14 @@ for i=1:m
             col3=obj.Part{i,1}.RealConstants;
             col4=obj.Part{i,1}.Sec;
             col5=obj.Part{i,1}.ESYS;
-            col6=0;
-            col7=0;
-            col8=0;
+            % col6=0;
+            % col7=0;
+            % col8=0;
             col9=4;
-            col10=0;
+            % col10=0;
             Temp1=[col1,repmat(col2,mm,1),repmat(col3,mm,1),repmat(col4,mm,1),...
-                repmat(col5,mm,1),repmat(col6,mm,1),repmat(col7,mm,1),...
-                repmat(col8,mm,1),repmat(col9,mm,1),repmat(col10,mm,1)];
+                repmat(col5,mm,1),zeros(mm,1),zeros(mm,1),...
+                zeros(mm,1),repmat(col9,mm,1),zeros(mm,1)];
 
             ENum=size(obj.Part{i,1}.mesh.elements,2);
             switch ENum
@@ -337,14 +337,14 @@ for i=1:m
             col3=obj.Part{i,1}.RealConstants;
             col4=obj.Part{i,1}.Sec;
             col5=obj.Part{i,1}.ESYS;
-            col6=0;
-            col7=0;
-            col8=0;
+            % col6=0;
+            % col7=0;
+            % col8=0;
             col9=size(obj.Part{i,1}.mesh.elements(1,:)',1);
-            col10=0;
+            % col10=0;
             Temp1=[col1,repmat(col2,mm,1),repmat(col3,mm,1),repmat(col4,mm,1),...
-                repmat(col5,mm,1),repmat(col6,mm,1),repmat(col7,mm,1),...
-                repmat(col8,mm,1),repmat(col9,mm,1),repmat(col10,mm,1)];
+                repmat(col5,mm,1),zeros(mm,1),zeros(mm,1),...
+                zeros(mm,1),repmat(col9,mm,1),zeros(mm,1)];
             Temp=[Temp1,((1:mm)+acc)',obj.Part{i,1}.mesh.elements+...
                 acc1*ones(mm,col9)];
             fprintf(fid, '%s\n','EBLOCK,19,SOLID,');
@@ -361,14 +361,14 @@ for i=1:m
             col3=obj.Part{i,1}.RealConstants;
             col4=obj.Part{i,1}.Sec;
             col5=obj.Part{i,1}.ESYS;
-            col6=0;
-            col7=0;
-            col8=0;
+            % col6=0;
+            % col7=0;
+            % col8=0;
             col9=8;
-            col10=0;
+            % col10=0;
             Temp1=[col1,repmat(col2,mm,1),repmat(col3,mm,1),repmat(col4,mm,1),...
-                repmat(col5,mm,1),repmat(col6,mm,1),repmat(col7,mm,1),...
-                repmat(col8,mm,1),repmat(col9,mm,1),repmat(col10,mm,1)];
+                repmat(col5,mm,1),zeros(mm,1),zeros(mm,1),...
+                zeros(mm,1),repmat(col9,mm,1),zeros(mm,1)];
 
             ENum=size(obj.Part{i,1}.mesh.elements,2);
             switch ENum
@@ -400,16 +400,16 @@ for i=1:m
             col1=obj.Part{i,1}.mesh.elementMaterialID;
             col2=obj.Part{i,1}.ET;
             col3=obj.Part{i,1}.RealConstants;
-            col4=0;
+            % col4=0;
             col5=obj.Part{i,1}.ESYS;
-            col6=0;
-            col7=0;
-            col8=0;
+            % col6=0;
+            % col7=0;
+            % col8=0;
             col9=size(obj.Part{i,1}.mesh.elements(1,:)',1);
-            col10=0;
-            Temp1=[col1,repmat(col2,mm,1),repmat(col3,mm,1),repmat(col4,mm,1),...
-                repmat(col5,mm,1),repmat(col6,mm,1),repmat(col7,mm,1),...
-                repmat(col8,mm,1),repmat(col9,mm,1),repmat(col10,mm,1)];
+            % col10=0;
+            Temp1=[col1,repmat(col2,mm,1),repmat(col3,mm,1),zeros(mm,1),...
+                repmat(col5,mm,1),zeros(mm,1),zeros(mm,1),...
+                zeros(mm,1),repmat(col9,mm,1),zeros(mm,1)];
             Temp=[Temp1,((1:mm)+acc)',obj.Part{i,1}.mesh.elements+...
                 acc1*ones(mm,col9)];
             fprintf(fid, '%s\n','EBLOCK,19,SOLID,');
@@ -424,16 +424,16 @@ for i=1:m
             col1=obj.Part{i,1}.mesh.elementMaterialID;
             col2=obj.Part{i,1}.ET;
             col3=obj.Part{i,1}.RealConstants;
-            col4=0;
+            % col4=0;
             col5=obj.Part{i,1}.ESYS;
-            col6=0;
-            col7=0;
-            col8=0;
+            % col6=0;
+            % col7=0;
+            % col8=0;
             col9=size(obj.Part{i,1}.mesh.elements(1,:)',1);
-            col10=0;
-            Temp1=[col1,repmat(col2,mm,1),repmat(col3,mm,1),repmat(col4,mm,1),...
-                repmat(col5,mm,1),repmat(col6,mm,1),repmat(col7,mm,1),...
-                repmat(col8,mm,1),repmat(col9,mm,1),repmat(col10,mm,1)];
+            % col10=0;
+            Temp1=[col1,repmat(col2,mm,1),repmat(col3,mm,1),zeros(mm,1),...
+                repmat(col5,mm,1),zeros(mm,1),zeros(mm,1),...
+                zeros(mm,1),repmat(col9,mm,1),zeros(mm,1)];
             Temp=[Temp1,((1:mm)+acc)',obj.Part{i,1}.mesh.elements+...
                 acc1*ones(mm,col9)];
             fprintf(fid, '%s\n','EBLOCK,19,SOLID,');
@@ -450,14 +450,14 @@ for i=1:m
             col3=obj.Part{i,1}.RealConstants;
             col4=obj.Part{i,1}.Sec;
             col5=obj.Part{i,1}.ESYS;
-            col6=0;
-            col7=0;
-            col8=0;
+            % col6=0;
+            % col7=0;
+            % col8=0;
             col9=4;
-            col10=0;
+            % col10=0;
             Temp1=[col1,repmat(col2,mm,1),repmat(col3,mm,1),repmat(col4,mm,1),...
-                repmat(col5,mm,1),repmat(col6,mm,1),repmat(col7,mm,1),...
-                repmat(col8,mm,1),repmat(col9,mm,1),repmat(col10,mm,1)];
+                repmat(col5,mm,1),zeros(mm,1),zeros(mm,1),...
+                zeros(mm,1),repmat(col9,mm,1),zeros(mm,1)];
 
             ENum=size(obj.Part{i,1}.mesh.elements,2);
             switch ENum
@@ -485,14 +485,14 @@ for i=1:m
             col3=obj.Part{i,1}.RealConstants;
             col4=obj.Part{i,1}.Sec;
             col5=obj.Part{i,1}.ESYS;
-            col6=0;
-            col7=0;
-            col8=0;
+            % col6=0;
+            % col7=0;
+            % col8=0;
             col9=8;
-            col10=0;
+            % col10=0;
             Temp1=[col1,repmat(col2,mm,1),repmat(col3,mm,1),repmat(col4,mm,1),...
-                repmat(col5,mm,1),repmat(col6,mm,1),repmat(col7,mm,1),...
-                repmat(col8,mm,1),repmat(col9,mm,1),repmat(col10,mm,1)];
+                repmat(col5,mm,1),zeros(mm,1),zeros(mm,1),...
+                zeros(mm,1),repmat(col9,mm,1),zeros(mm,1)];
 
             ENum=size(obj.Part{i,1}.mesh.elements,2);
             switch ENum
@@ -521,14 +521,14 @@ for i=1:m
             col3=obj.Part{i,1}.RealConstants;
             col4=obj.Part{i,1}.Sec;
             col5=obj.Part{i,1}.ESYS;
-            col6=0;
-            col7=0;
-            col8=0;
+            % col6=0;
+            % col7=0;
+            % col8=0;
             col9=8;
-            col10=0;
+            % col10=0;
             Temp1=[col1,repmat(col2,mm,1),repmat(col3,mm,1),repmat(col4,mm,1),...
-                repmat(col5,mm,1),repmat(col6,mm,1),repmat(col7,mm,1),...
-                repmat(col8,mm,1),repmat(col9,mm,1),repmat(col10,mm,1)];
+                repmat(col5,mm,1),zeros(mm,1),zeros(mm,1),...
+                zeros(mm,1),repmat(col9,mm,1),zeros(mm,1)];
 
             ENum=size(obj.Part{i,1}.mesh.elements,2);
             switch ENum
@@ -558,14 +558,14 @@ for i=1:m
             col3=obj.Part{i,1}.RealConstants;
             col4=obj.Part{i,1}.Sec;
             col5=obj.Part{i,1}.ESYS;
-            col6=0;
-            col7=0;
-            col8=0;
+            % col6=0;
+            % col7=0;
+            % col8=0;
             col9=20;
-            col10=0;
+            % col10=0;
             Temp1=[col1,repmat(col2,mm,1),repmat(col3,mm,1),repmat(col4,mm,1),...
-                repmat(col5,mm,1),repmat(col6,mm,1),repmat(col7,mm,1),...
-                repmat(col8,mm,1),repmat(col9,mm,1),repmat(col10,mm,1)];
+                repmat(col5,mm,1),zeros(mm,1),zeros(mm,1),...
+                zeros(mm,1),repmat(col9,mm,1),zeros(mm,1)];
 
             ENum=size(obj.Part{i,1}.mesh.elements,2);
             switch ENum
@@ -611,16 +611,16 @@ for i=1:m
             col1=obj.Part{i,1}.mesh.elementMaterialID;
             col2=obj.Part{i,1}.ET;
             col3=obj.Part{i,1}.RealConstants;
-            col4=0;
+            % % col4=0;
             col5=obj.Part{i,1}.ESYS;
-            col6=0;
-            col7=0;
-            col8=0;
+            % col6=0;
+            % col7=0;
+            % col8=0;
             col9=size(obj.Part{i,1}.mesh.elements(1,:)',1);
-            col10=0;
-            Temp1=[col1,repmat(col2,mm,1),repmat(col3,mm,1),repmat(col4,mm,1),...
-                repmat(col5,mm,1),repmat(col6,mm,1),repmat(col7,mm,1),...
-                repmat(col8,mm,1),repmat(col9,mm,1),repmat(col10,mm,1)];
+            % col10=0;
+            Temp1=[col1,repmat(col2,mm,1),repmat(col3,mm,1),zeros(mm,1),...
+                repmat(col5,mm,1),zeros(mm,1),zeros(mm,1),...
+                zeros(mm,1),repmat(col9,mm,1),zeros(mm,1)];
             Temp=[Temp1,((1:mm)+acc)',obj.Part{i,1}.mesh.elements+...
                 acc1*ones(mm,col9)];
             fprintf(fid, '%s\n','EBLOCK,19,SOLID,');
@@ -637,14 +637,14 @@ for i=1:m
             col3=obj.Part{i,1}.RealConstants;
             col4=obj.Part{i,1}.Sec;
             col5=obj.Part{i,1}.ESYS;
-            col6=0;
-            col7=0;
-            col8=0;
+            % col6=0;
+            % col7=0;
+            % col8=0;
             col9=4;
-            col10=0;
+            % col10=0;
             Temp1=[col1,repmat(col2,mm,1),repmat(col3,mm,1),repmat(col4,mm,1),...
-                repmat(col5,mm,1),repmat(col6,mm,1),repmat(col7,mm,1),...
-                repmat(col8,mm,1),repmat(col9,mm,1),repmat(col10,mm,1)];
+                repmat(col5,mm,1),zeros(mm,1),zeros(mm,1),...
+                zeros(mm,1),repmat(col9,mm,1),zeros(mm,1)];
 
             ENum=size(obj.Part{i,1}.mesh.elements,2);
             switch ENum
@@ -671,14 +671,14 @@ for i=1:m
             col3=obj.Part{i,1}.RealConstants;
             col4=obj.Part{i,1}.Sec;
             col5=obj.Part{i,1}.ESYS;
-            col6=0;
-            col7=0;
-            col8=0;
+            % col6=0;
+            % col7=0;
+            % col8=0;
             col9=4;
-            col10=0;
+            % col10=0;
             Temp1=[col1,repmat(col2,mm,1),repmat(col3,mm,1),repmat(col4,mm,1),...
-                repmat(col5,mm,1),repmat(col6,mm,1),repmat(col7,mm,1),...
-                repmat(col8,mm,1),repmat(col9,mm,1),repmat(col10,mm,1)];
+                repmat(col5,mm,1),zeros(mm,1),zeros(mm,1),...
+                zeros(mm,1),repmat(col9,mm,1),zeros(mm,1)];
 
             ENum=size(obj.Part{i,1}.mesh.elements,2);
             switch ENum
@@ -704,14 +704,14 @@ for i=1:m
             col3=obj.Part{i,1}.RealConstants;
             col4=obj.Part{i,1}.Sec;
             col5=obj.Part{i,1}.ESYS;
-            col6=0;
-            col7=0;
-            col8=0;
+            % col6=0;
+            % col7=0;
+            % col8=0;
             col9=8;
-            col10=0;
+            % col10=0;
             Temp1=[col1,repmat(col2,mm,1),repmat(col3,mm,1),repmat(col4,mm,1),...
-                repmat(col5,mm,1),repmat(col6,mm,1),repmat(col7,mm,1),...
-                repmat(col8,mm,1),repmat(col9,mm,1),repmat(col10,mm,1)];
+                repmat(col5,mm,1),zeros(mm,1),zeros(mm,1),...
+                zeros(mm,1),repmat(col9,mm,1),zeros(mm,1)];
 
             ENum=size(obj.Part{i,1}.mesh.elements,2);
             switch ENum
@@ -741,14 +741,14 @@ for i=1:m
             col3=obj.Part{i,1}.RealConstants;
             col4=obj.Part{i,1}.Sec;
             col5=obj.Part{i,1}.ESYS;
-            col6=0;
-            col7=0;
-            col8=0;
+            % col6=0;
+            % col7=0;
+            % col8=0;
             col9=8;
-            col10=0;
+            % col10=0;
             Temp1=[col1,repmat(col2,mm,1),repmat(col3,mm,1),repmat(col4,mm,1),...
-                repmat(col5,mm,1),repmat(col6,mm,1),repmat(col7,mm,1),...
-                repmat(col8,mm,1),repmat(col9,mm,1),repmat(col10,mm,1)];
+                repmat(col5,mm,1),zeros(mm,1),zeros(mm,1),...
+                zeros(mm,1),repmat(col9,mm,1),zeros(mm,1)];
 
             ENum=size(obj.Part{i,1}.mesh.elements,2);
             switch ENum
@@ -781,14 +781,14 @@ for i=1:m
             col3=obj.Part{i,1}.RealConstants;
             col4=obj.Part{i,1}.Sec;
             col5=obj.Part{i,1}.ESYS;
-            col6=0;
-            col7=0;
-            col8=0;
+            % col6=0;
+            % col7=0;
+            % col8=0;
             col9=20;
-            col10=0;
+            % col10=0;
             Temp1=[col1,repmat(col2,mm,1),repmat(col3,mm,1),repmat(col4,mm,1),...
-                repmat(col5,mm,1),repmat(col6,mm,1),repmat(col7,mm,1),...
-                repmat(col8,mm,1),repmat(col9,mm,1),repmat(col10,mm,1)];
+                repmat(col5,mm,1),zeros(mm,1),zeros(mm,1),...
+                zeros(mm,1),repmat(col9,mm,1),zeros(mm,1)];
 
             ENum=size(obj.Part{i,1}.mesh.elements,2);
             switch ENum
@@ -835,16 +835,15 @@ for i=1:m
             col3=obj.Part{i,1}.RealConstants;
             col4=obj.Part{i,1}.Sec;
             col5=obj.Part{i,1}.ESYS;
-            col6=0;
-            col7=0;
-            col8=0;
+            % col6=0;
+            % col7=0;
+            % col8=0;
             col9=10;
-            col10=0;
+            % col10=0;
             Temp1=[col1,repmat(col2,mm,1),repmat(col3,mm,1),repmat(col4,mm,1),...
-                repmat(col5,mm,1),repmat(col6,mm,1),repmat(col7,mm,1),...
-                repmat(col8,mm,1),repmat(col9,mm,1),repmat(col10,mm,1)];
+                repmat(col5,mm,1),zeros(mm,1),zeros(mm,1),...
+                zeros(mm,1),repmat(col9,mm,1),zeros(mm,1)];
 
-            ENum=size(obj.Part{i,1}.mesh.elements,2);
             Temp=[Temp1,((1:mm)+acc)',obj.Part{i,1}.mesh.elements+...
                 acc1*ones(mm,col9)];
 
@@ -864,14 +863,14 @@ for i=1:m
             col3=obj.Part{i,1}.RealConstants;
             col4=obj.Part{i,1}.Sec;
             col5=obj.Part{i,1}.ESYS;
-            col6=0;
-            col7=0;
-            col8=0;
+            % col6=0;
+            % col7=0;
+            % col8=0;
             col9=size(obj.Part{i,1}.mesh.elements(1,:)',1);
-            col10=0;
+            % col10=0;
             Temp1=[col1,repmat(col2,mm,1),repmat(col3,mm,1),repmat(col4,mm,1),...
-                repmat(col5,mm,1),repmat(col6,mm,1),repmat(col7,mm,1),...
-                repmat(col8,mm,1),repmat(col9,mm,1),repmat(col10,mm,1)];
+                repmat(col5,mm,1),zeros(mm,1),zeros(mm,1),...
+                zeros(mm,1),repmat(col9,mm,1),zeros(mm,1)];
             Temp=[Temp1,((1:mm)+acc)',obj.Part{i,1}.mesh.elements+...
                 acc1*ones(mm,col9)];
             fprintf(fid, '%s\n','EBLOCK,19,SOLID,');
@@ -883,19 +882,19 @@ for i=1:m
             mm=obj.Part{i,1}.NumElements;
             acc=obj.Part{i,1}.acc_el;
             acc1=obj.Part{i,1}.acc_node;
-            col1=0;
+            % col1=0;
             col2=obj.Part{i,1}.ET;
             col3=obj.Part{i,1}.RealConstants;
-            col4=0;
-            col5=0;
-            col6=0;
-            col7=0;
-            col8=0;
+            % col4=0;
+            % col5=0;
+            % col6=0;
+            % col7=0;
+            % col8=0;
             col9=2;
-            col10=0;
-            Temp1=[repmat(col1,mm,1),repmat(col2,mm,1),repmat(col3,mm,1),repmat(col4,mm,1),...
-                repmat(col5,mm,1),repmat(col6,mm,1),repmat(col7,mm,1),...
-                repmat(col8,mm,1),repmat(col9,mm,1),repmat(col10,mm,1)];
+            % col10=0;
+            Temp1=[zeros(mm,1),repmat(col2,mm,1),repmat(col3,mm,1),zeros(mm,1),...
+                zeros(mm,1),zeros(mm,1),zeros(mm,1),...
+                zeros(mm,1),repmat(col9,mm,1),zeros(mm,1)];
             Temp=[Temp1,((1:mm)+acc)',obj.Part{i,1}.mesh.elements+...
                 acc1*ones(mm,col9)];
             fprintf(fid, '%s\n','EBLOCK,19,SOLID,');
@@ -912,14 +911,14 @@ for i=1:m
             col3=obj.Part{i,1}.RealConstants;
             col4=obj.Part{i,1}.Sec;
             col5=obj.Part{i,1}.ESYS;
-            col6=0;
-            col7=0;
-            col8=0;
+            % col6=0;
+            % col7=0;
+            % col8=0;
             col9=8;
-            col10=0;
+            % col10=0;
             Temp1=[col1,repmat(col2,mm,1),repmat(col3,mm,1),repmat(col4,mm,1),...
-                repmat(col5,mm,1),repmat(col6,mm,1),repmat(col7,mm,1),...
-                repmat(col8,mm,1),repmat(col9,mm,1),repmat(col10,mm,1)];
+                repmat(col5,mm,1),zeros(mm,1),zeros(mm,1),...
+                zeros(mm,1),repmat(col9,mm,1),zeros(mm,1)];
 
             ENum=size(obj.Part{i,1}.mesh.elements,2);
             switch ENum
