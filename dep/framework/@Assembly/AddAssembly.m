@@ -1,3 +1,4 @@
+
 function obj=AddAssembly(obj,Ass,varargin)
 % Ass sub Assenbly to Assembly
 % Author : Xie Yu
@@ -86,7 +87,12 @@ else
 end
 Temp_Group=[obj.Group;GG];
 % Add CS
-Temp_CS=[obj.CS;Ass.CS];
+if ~isempty(Ass.CS)
+    CCS=TransformCS(Ass.CS,position);
+else
+    CCS=[];
+end
+Temp_CS=[obj.CS;CCS];
 
 if ~isempty(Ass.ContactPair)
     CContact=TransformContactPair(Ass.ContactPair,obj.Summary.Total_Node,size(obj.Part,1),size(obj.ET,1),size(obj.Material,1));
@@ -314,4 +320,11 @@ end
 
 function EE=TransformEndReleaseList(EndReleaseList,acc_node)
 EE=EndReleaseList+acc_node;
+end
+
+function CCS=TransformCS(CS,position)
+T=Transform(CS(:,2:4));
+T=Rotate(T,position(4),position(5),position(6));
+T=Translate(T,position(1),position(2),position(3));
+CCS=[CS(:,1),Solce(T),CS(:,5)+position(4),CS(:,6)+position(5),CS(:,7)+position(6)];
 end

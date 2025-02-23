@@ -4,7 +4,7 @@ clear
 close all
 plotFlag = true;
 Cal=1;
-flag=4;
+flag=34;
 % setRoTAPath
 % 1. Link1 Static analysis of plane trusses
 % 2. Link1 Elasto-plastic analysis of plane trusses
@@ -39,6 +39,7 @@ flag=4;
 % 31. Shell181 Shell section
 % 32. Shell281 Shell section
 % 33. Con173 Glue contact
+% 34. Reinf265 Reinforced concrete beam‌
 
 DemoANSYSElement(flag,Cal);
 function DemoANSYSElement(flag,Cal)
@@ -1954,6 +1955,24 @@ switch flag
             ANSYSSolve(Ass);
             PlotSensor(Ass,1);
         end
+    case 34
+        B=200;
+        H=300;
+        L=1600;
+        Q=1;
+        SFA=pi*20^2;
+        Spac1=B/5;
+        Spac2=B/3;
+
+        %% Specifying dimensions and number of elements
+        m=Mesh('Mesh');
+        %% Create a box with hexahedral elements
+        beamDimensions=[B H L]; %Dimensions
+        beamElementNumbers=[20 30 32]; %Number of elements
+        m=MeshCube(m,beamDimensions,beamElementNumbers);
+        PlotFace(m)
+
+
 
 
 end
