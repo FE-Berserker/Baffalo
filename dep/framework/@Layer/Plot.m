@@ -285,8 +285,6 @@ if ~isempty(obj.Duals)
             cp=Temp_cp{i,1};
             ce=Temp_ce{i,1};
             ev=Temp_ev{i,1};
-            %             Cb=Temp_Cb{i,1};
-            %             pv=Temp_pv{i,1};
             [~,Temp_tv{i,1}] = triadual2(cp,ce,ev);
         end
         g4=Rplot('faces',Temp_tv,'vertices',Temp_pv,'facecolor',Temp_Cb);

@@ -1,6 +1,6 @@
 function Temperatureprint(obj,fid)
-%TEMPERATUREPRINT 此处显示有关此函数的摘要
-%   此处显示详细说明
+% Print Temperature to ANSYS
+% Author : Xie Yu
 for i=1:size(obj.Temperature,1)
     Num=obj.Temperature(1,1);
     fprintf(fid, '%s\n','ALLSEL,ALL');

@@ -1,6 +1,6 @@
 function [AccET,AccReal]=Springprint(obj,fid)
-%SPRINGPRINT 此处显示有关此函数的摘要
-%   此处显示详细说明
+% Print spring to ANSYS
+% Author : Xie Yu
 m1=GetNET(obj);
 m2=GetNContactPair(obj);
 m=m1+m2;

@@ -15,7 +15,7 @@ if opt.Echo
     fprintf('Start output to ANSYS ...\n');
 end
 
-%calculate outputs
+% Calculate outputs
 if~isempty(opt.Name)
     filename=strcat('.\',opt.Name,'.cdb');
 else
@@ -31,17 +31,25 @@ end
 sen=strcat('/FILNAME,',obj.Name);
 fprintf(fid,'%s\n',sen);
 fprintf(fid, '%s\n','/PREP7');
+% Node print
 Nodeprint(obj,fid);
+% Material print
 Matprint(obj,fid);
+% Section print
 if ~isempty(obj.Section)
     SECprint(obj,fid);
 end
+% Element type print
 ETprint(obj,fid);
+% Coordinate system print
 CSprint(obj,fid);
+% Element print
 ELprint(obj,fid);
+% Contact pair print
 if ~isempty(obj.ContactPair)
     Contactprint(obj,fid);
 end
+% Connection print
 if ~isempty(obj.Slaver)
     Connectprint(obj,fid);
 end
@@ -53,24 +61,35 @@ m=m1+m2;
 AccET=m1;
 AccReal=m;
 
+% Spring print
 if ~isempty(obj.Spring)
     [AccET,AccReal]=Springprint(obj,fid);
 end
 
+% Bearing print
 if ~isempty(obj.Bearing)
     [AccET,AccReal]=Bearingprint(obj,fid,AccET,AccReal);
 end
 
+% Nodemass print
 if ~isempty(obj.NodeMass)
-    [AccET,~]=NodeMassprint(obj,fid,AccET,AccReal);
+    [AccET,AccReal]=NodeMassprint(obj,fid,AccET,AccReal);
 end
 
+% Joint print
+if ~isempty(obj.Joint)
+    [AccET,~]=Jointprint(obj,fid,AccET,AccReal);
+end
+
+% EndRelease print
 if ~isempty(obj.EndRelease)
     EndReleaseprint(obj,fid)
 end
 
+% D print
 Dprint(obj,fid);
 
+% BeamPreload print
 if ~isempty(obj.BeamPreload)
     BeamPreloadprint(obj,fid,AccET)
 else
@@ -79,13 +98,19 @@ end
 
 fprintf(fid, '%s\n','ALLSEL,ALL');
 fprintf(fid, '%s\n',strcat('TREF,',num2str(obj.T_Ref)));
+
+% Temperature print
 if ~isempty(obj.Temperature)
     Temperatureprint(obj,fid)
 end
 
+% Displacement print
 Disprint(obj,fid);
+% Force print
 Fprint(obj,fid);
+% SF print
 SFprint(obj,fid);
+% Insitial stress print
 ISprint(obj,fid);
 
 fprintf(fid, '%s\n','ALLSEL,ALL');

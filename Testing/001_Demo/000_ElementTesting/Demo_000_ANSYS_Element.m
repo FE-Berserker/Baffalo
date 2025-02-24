@@ -4,7 +4,7 @@ clear
 close all
 plotFlag = true;
 Cal=1;
-flag=34;
+flag=35;
 % setRoTAPath
 % 1. Link1 Static analysis of plane trusses
 % 2. Link1 Elasto-plastic analysis of plane trusses
@@ -38,7 +38,23 @@ flag=34;
 % 30. Shell93 Cylindrical shell
 % 31. Shell181 Shell section
 % 32. Shell281 Shell section
-% 33. Con173 Glue contact‌
+% 33. Con173 Glue contact
+% 34. MPC184 Add Rigid Beam
+% 35. MPC184 Add slider
+% 36. MPC184 Add revolute joint
+% 37. MPC184 Add universal joint
+% 38. MPC184 Add slot joint‌
+% 39. MPC184 Add point plane joint
+% 40. MPC184 Add translational joint
+% 41. MPC184 Add cylindrical joint
+% 42. MPC184 Add planar joint
+% 43. MPC184 Add weld joint
+% 44. MPC184 Add orient joint
+% 45. MPC184 Add spherical joint
+% 46. MPC184 Add general joint
+% 47. MPC184 Add screw joint
+% 48. MPC184 Add spotweld joint
+% 49. MPC184 Add genb joint
 
 DemoANSYSElement(flag,Cal);
 function DemoANSYSElement(flag,Cal)
@@ -1955,6 +1971,153 @@ switch flag
             PlotSensor(Ass,1);
         end
     case 34
+        % Create points
+        a=Point2D('Point1');
+        a=AddPoint(a,(1000:100:11000)',zeros(101,1));
+        % Create lines
+        b=Line2D('Line1');
+        b=AddCurve(b,a,1);
+        b=Meshoutput(b);
+        % Add assembly
+        Ass=Assembly('Beam');
+        pos=[0,0,0,0,0,0];
+        Ass=AddPart(Ass,b.Meshoutput,'position',pos);
+        % Material
+        mat.table=["EX",2.1e5;"PRXY",0.3];
+        Ass=AddMaterial(Ass,mat);
+        Ass=SetMaterial(Ass,1,1);
+        % Add load
+        Ass=AddLoad(Ass,1,'No',(1:101)');
+        Load1=[0,0,-100,0,0,0];
+        Ass=SetLoad(Ass,1,Load1);
+        % Element type
+        ET.name='188';
+        ET.opt=[4,2];
+        ET.R=[];
+        Ass=AddET(Ass,ET);
+        Ass=SetET(Ass,1,1);
+        % Section
+        Sec.type="beam";
+        Sec.subtype="CTUBE";
+        Sec.data=[190,200];
+        Ass=AddSection(Ass,Sec);
+        Ass=SetSection(Ass,1,1);
+        Ass=BeamK(Ass,1);
+       
+        % Rigid beam
+        Ass=AddCnode(Ass,0,0,0);
+        Ass=AddRigidBeam(Ass,0,1,1,1);
+        Ass=AddCnode(Ass,12000,0,0);
+        Ass=AddRigidBeam(Ass,0,2,1,101);
+        % Boundary
+        Ass=AddBoundary(Ass,0,'No',[1;2]);
+        Bound1=[1,1,1,1,1,1];
+        Ass=SetBoundaryType(Ass,1,Bound1);
+        Plot(Ass,'boundary',1,'load',1,'load_scale',0.02,'ylim',[-400,400],'zlim',[-400,400],'BeamGeom',1);
+        % Static analysis
+        opt.ANTYPE=0;
+        Ass=AddSolu(Ass,opt);
+        % Add sensor
+        Ass=AddSensor(Ass,'U',1);
+        % Output to ANSYS
+        ANSYS_Output(Ass);
+        if Cal
+            ANSYSSolve(Ass);
+            PlotSensor(Ass,1);
+        end
+    case 35
+        l1=1000;
+        l2=400;
+        l3=100;
+        l4=500;
+        % Create points
+        a=Point2D('Point1');
+        a=AddPoint(a,(0:50:l1)',zeros(21,1));
+        a=AddPoint(a,(0:50:l2)',zeros(9,1));
+        a=AddPoint(a,(0:50:l4)',zeros(11,1));
+
+        % Create lines
+        b1=Line2D('Line1');
+        b1=AddCurve(b1,a,1);
+        b1=Meshoutput(b1);
+
+        b2=Line2D('Line2');
+        b2=AddCurve(b2,a,2);
+        b2=Meshoutput(b2);
+
+        b3=Line2D('Line3');
+        b3=AddCurve(b3,a,3);
+        b3=Meshoutput(b3);
+
+        % Add assembly
+        Ass=Assembly('Beam');
+        pos=[0,0,0,0,0,0];
+        Ass=AddPart(Ass,b1.Meshoutput,'position',pos);
+
+        pos=[0,0,-(l1-l2)*tan(30/180*pi),0,0,0];
+        Ass=AddPart(Ass,b2.Meshoutput,'position',pos);
+
+        pos=[l1+l3+l4,0,100*tan(30/180*pi),0,0,180];
+        Ass=AddPart(Ass,b3.Meshoutput,'position',pos);
+
+        % Material
+        mat.table=["EX",2.1e5;"PRXY",0.3];
+        Ass=AddMaterial(Ass,mat);
+        Ass=SetMaterial(Ass,1,1);
+        Ass=SetMaterial(Ass,2,1);
+        Ass=SetMaterial(Ass,3,1);
+
+        % Add load
+        Ass=AddLoad(Ass,1,'No',21);
+        Load1=[0,0,-2000,0,0,0];
+        Ass=SetLoad(Ass,1,Load1);
+        % Element type
+        ET.name='188';
+        ET.opt=[4,2];
+        ET.R=[];
+        Ass=AddET(Ass,ET);
+        Ass=SetET(Ass,1,1);
+        Ass=SetET(Ass,2,1);
+        Ass=SetET(Ass,3,1);
+        % Section
+        Sec.type="beam";
+        Sec.subtype="CTUBE";
+        Sec.data=[8,10];
+        Ass=AddSection(Ass,Sec);
+        Ass=SetSection(Ass,1,1);
+        Ass=SetSection(Ass,2,1);
+        Ass=SetSection(Ass,3,1);
+        Ass=BeamK(Ass,1);
+        Ass=BeamK(Ass,2);
+        Ass=BeamK(Ass,3);
+
+        % Slider
+        Ass=AddSlider(Ass,1,21,2,9,3,11);
+        % Boundary
+        Ass=AddBoundary(Ass,1,'No',1);
+        Ass=AddBoundary(Ass,2,'No',1);
+        Ass=AddBoundary(Ass,3,'No',1);
+        Bound1=[1,1,1,1,1,1];
+        Ass=SetBoundaryType(Ass,1,Bound1);
+        Ass=SetBoundaryType(Ass,2,Bound1);
+        Ass=SetBoundaryType(Ass,3,Bound1);
+        Plot(Ass,'boundary',1,'load',1,'load_scale',0.02,'ylim',[-400,400],'zlim',[-400,400],'BeamGeom',1);
+        % Static analysis
+        opt.ANTYPE=0;
+        opt.NLGEOM=1;
+        opt.TIME=1;
+        opt.NSUBST=20;
+        opt.OUTRES={'All','All'};
+        Ass=AddSolu(Ass,opt);
+
+        % Add sensor
+        Ass=AddSensor(Ass,'U',1);
+        % Output to ANSYS
+        ANSYS_Output(Ass);
+        if Cal
+            ANSYSSolve(Ass);
+            PlotSensor(Ass,1);
+        end
 
 
 end

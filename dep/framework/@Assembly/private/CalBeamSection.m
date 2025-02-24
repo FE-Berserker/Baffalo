@@ -51,13 +51,13 @@ switch Section.subtype
         SectionNum=size(BNode,1);
         BNode=[BNode,zeros(SectionNum,1);BNode,ones(SectionNum,1)];
         BFace=[BFace;BFace+SectionNum];
-        TempX=[1:SectionNum/2-1,SectionNum/2+1:SectionNum-1;[2:SectionNum/2-1,1,SectionNum/2+2:SectionNum-1,SectionNum]];
+        TempX=[1:SectionNum/2,SectionNum/2+1:SectionNum;[2:SectionNum/2,1,SectionNum/2+2:SectionNum,SectionNum/2+1]];
         TempX=reshape(TempX,[],1);
-        TempY=[[2:SectionNum/2-1,1,SectionNum/2+2:SectionNum-1,SectionNum];...
-            [2+SectionNum:SectionNum/2*3-1,SectionNum+1,2+SectionNum/2*3:SectionNum*2-1,SectionNum/2*3+1]];
+        TempY=[[2:SectionNum/2,1,SectionNum/2+2:SectionNum,SectionNum/2+1];...
+            [2+SectionNum:SectionNum/2*3,SectionNum+1,2+SectionNum/2*3:SectionNum*2,SectionNum/2*3+1]];
         TempY=reshape(TempY,[],1);
-        TempZ=[[1+SectionNum:SectionNum/2*3-1,1+SectionNum/2*3:SectionNum*2-1];...
-            [1+SectionNum:SectionNum/2*3-1,1+SectionNum/2*3:SectionNum*2-1]];
+        TempZ=[[1+SectionNum:SectionNum/2*3,1+SectionNum/2*3:SectionNum*2];...
+            [1+SectionNum:SectionNum/2*3,1+SectionNum/2*3:SectionNum*2]];
         TempZ=reshape(TempZ,[],1);
         BFace=[BFace;TempX,TempY,TempZ];
 end

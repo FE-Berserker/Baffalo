@@ -1,4 +1,7 @@
 function [AccET,AccReal]=NodeMassprint(obj,fid,m2,m)
+% Print Node mass to ANSYS
+% Author : Xie Yu
+
 m1=size(obj.NodeMass,1);
 for i=1:m1
     % Element Type
