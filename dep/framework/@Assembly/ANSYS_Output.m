@@ -78,7 +78,7 @@ end
 
 % Joint print
 if ~isempty(obj.Joint)
-    [AccET,~]=Jointprint(obj,fid,AccET,AccReal);
+    [AccET,~,AccCS,AccSec]=Jointprint(obj,fid,AccET,AccReal);
 end
 
 % EndRelease print
@@ -91,7 +91,7 @@ Dprint(obj,fid);
 
 % BeamPreload print
 if ~isempty(obj.BeamPreload)
-    BeamPreloadprint(obj,fid,AccET)
+    BeamPreloadprint(obj,fid,AccET,AccCS,AccSec)
 else
     fprintf(fid, '%s\n','/SOLU');
 end

@@ -1,10 +1,10 @@
 function obj=CalculateShape(obj)
-% OutputAss
+% Calculate shape of rotor
 % Author : Xie YU
-L=Layer('Space');
+L=Layer('Space','Echo',0);
 % Add Shaft
-Temp2D= Mesh2D('Temp2D');
-Temp3D=Mesh('Temp3D');
+Temp2D= Mesh2D('Temp2D','Echo',0);
+Temp3D=Mesh('Temp3D','Echo',0);
 Node=obj.input.Shaft.Meshoutput.nodes;
 Element=obj.input.Shaft.Meshoutput.elements;
 ElementLength=Node(2:end,1)-Node(1:end-1,1);

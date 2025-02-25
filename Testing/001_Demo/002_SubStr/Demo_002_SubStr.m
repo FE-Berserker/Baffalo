@@ -1,11 +1,11 @@
-% Test SubStr
+% Demo SubStr
 clc
 clear
 close all
 plotFlag = true;
-% setRoTAPath
-%% 1. Shaft1 compare (Rigid connection)
-%% 2. Shaft1 compare (flexibe connection)
+% setBaffaloPath
+% 1. Shaft1 compare (Rigid connection)
+% 2. Shaft1 compare (flexibe connection)
 flag=1;
 DemoSubStr(flag);
 

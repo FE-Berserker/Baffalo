@@ -2,29 +2,29 @@ clc
 clear
 close all
 % Test object Mesh2D
-%% 1 Create gear obj
-%% 2 Create quad circle
-%% 3 Create quad plate
-%% 4 Add Elements
-%% 5 Convhull
-%% 6 Convcave1
-%% 7 Convcave2
-%% 8 Covert quad to tri
-%% 9 Mesh 2D Tensor Grid
-%% 10 Mesh 2D Grid
-%% 11 Compute MRST G
-%% 12 Load msh file
-%% 13 MeshDual
-%% 14 Plot Dual center and area
-%% 15 Calculate geometry information
-%% 16 Plot Mesh2D in paraview
-%% 17 Plot Mesh2D G and celldata in paraview
-%% 18 Mesh edge
-%% 19 Mesh ring
-%% 20 Mesh edge layer
-%% 21 Baffalo logo
+% 1 Create gear obj
+% 2 Create quad circle
+% 3 Create quad plate
+% 4 Add Elements
+% 5 Convhull
+% 6 Convcave1
+% 7 Convcave2
+% 8 Covert quad to tri
+% 9 Mesh 2D Tensor Grid
+% 10 Mesh 2D Grid
+% 11 Compute MRST G
+% 12 Load msh file
+% 13 MeshDual
+% 14 Plot Dual center and area
+% 15 Calculate geometry information
+% 16 Plot Mesh2D in paraview
+% 17 Plot Mesh2D G and celldata in paraview
+% 18 Mesh edge
+% 19 Mesh ring
+% 20 Mesh edge layer
+% 21 Baffalo logo
 
-flag=21;
+flag=1;
 testMesh2D(flag);
 function testMesh2D(flag)
 switch flag

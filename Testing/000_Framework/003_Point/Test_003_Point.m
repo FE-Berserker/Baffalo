@@ -2,8 +2,8 @@ clc
 clear
 close all
 % Test Object Point
-%% 1 AddPoint
-%% 2 Calculate normal
+% 1 AddPoint
+% 2 Calculate normal
 flag=2;
 testPoint(flag);
 

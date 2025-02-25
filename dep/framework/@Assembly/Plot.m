@@ -35,6 +35,9 @@ if opt.connection==1
 end
 
 P=obj.V;
+if isempty(P)
+    P=[0,0,0];
+end
 if isempty(opt.xlim)
     xmmin=0.95.*min(P(:,1)).*(min(P(:,1))>0)+...
         1.05.*min(P(:,1)).*(min(P(:,1))<0)-...
@@ -317,6 +320,28 @@ if opt.dis==1
 
     draw(g);
 
+end
+
+%% Plot Joint
+if ~isempty(obj.Joint)
+
+    Coor1=cellfun(@(x)GetNodeCoor(obj,x.Node(1),x.Node(2)),obj.Joint,'UniformOutput',false);
+    Coor2=cellfun(@(x)GetNodeCoor(obj,x.Node(end-1),x.Node(end)),obj.Joint,'UniformOutput',false);
+
+    X=cellfun(@(x,y)[x(:,1);y(:,1)],Coor1,Coor2,'UniformOutput',false);
+    Y=cellfun(@(x,y)[x(:,2);y(:,2)],Coor1,Coor2,'UniformOutput',false);
+    Z=cellfun(@(x,y)[x(:,3);y(:,3)],Coor1,Coor2,'UniformOutput',false);
+
+    g=Rplot('x',X,'y',Y,'z',Z,'color',ones(1,size(X,1)));
+    g=axe_property(g,'xlim',[xmmin,xmmax],...
+        'ylim',[ymmin,ymmax],...
+        'zlim',[zmmin,zmmax],...
+        'view',opt.view);
+    g=set_layout_options(g,'hold',1);
+    g=set_color_options(g,'map','red');
+    g=set_line_options(g,'base_size',4,'step_size',0);
+    g=geom_line(g);
+    draw(g);
 end
 
 

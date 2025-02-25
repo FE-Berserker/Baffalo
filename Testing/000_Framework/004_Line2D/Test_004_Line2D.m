@@ -2,25 +2,25 @@ clc
 clear
 close all
 % Test object Line2D
-%% 1 Add different curves
-%% 2 Calculate the boundary of points
-%% 3 Draw arrow
-%% 4 Polygon
-%% 5 AddStar
-%% 6 DeleteCurve
-%% 7 Bounding box
-%% 8 Create radius
-%% 9 Circle fit
-%% 10 Curve Intersection
-%% 11 Add Round Polygon
-%% 12 Plot Line2D in ParaView
-%% 13 Add Nurb curve
-%% 14 Convert to nurbs 
-%% 15 Add Cell data
-%% 16 Max Inscribed Circle
-%% 17 ArchFit
+% 1 Add different curves
+% 2 Calculate the boundary of points
+% 3 Draw arrow
+% 4 Polygon
+% 5 AddStar
+% 6 DeleteCurve
+% 7 Bounding box
+% 8 Create radius
+% 9 Circle fit
+% 10 Curve Intersection
+% 11 Add Round Polygon
+% 12 Plot Line2D in ParaView
+% 13 Add Nurb curve
+% 14 Convert to nurbs 
+% 15 Add Cell data
+% 16 Max Inscribed Circle
+% 17 ArchFit
 
-flag=17;
+flag=1;
 testLine2D(flag);
 function testLine2D(flag)
 switch flag

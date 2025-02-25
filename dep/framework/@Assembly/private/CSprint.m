@@ -7,5 +7,6 @@ for i=1:m
     end
     fprintf(fid, '%s\n',Sen);
 end
+fprintf(fid, '%s\n','CSYS,0');
 end
 

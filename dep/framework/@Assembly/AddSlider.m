@@ -1,6 +1,11 @@
-function obj=AddSlider(obj,Numpart1,Nodenum1,Numpart2,Nodenum2,Numpart3,Nodenum3)
+function obj=AddSlider(obj,Numpart1,Nodenum1,Numpart2,Nodenum2,Numpart3,Nodenum3,varargin)
 % Add slider to Assembl
 % Author : Xie Yu
+p=inputParser;
+addParameter(p,'DJType',[]);
+addParameter(p,'DJValue',[]);
+parse(p,varargin{:});
+opt=p.Results;
 
 if size(Nodenum1,2)==1
     if Numpart1~=0
@@ -73,6 +78,8 @@ obj.Summary.Total_Joint=Id;
 Temp=[Numpart1,Nodenum1,Numpart2,Nodenum2,Numpart3,Nodenum3];
 obj.Joint{Id,1}.Node=Temp;
 obj.Joint{Id,1}.Option=[1,3];
+obj.Joint{Id,1}.DJType=opt.DJType;
+obj.Joint{Id,1}.DJValue=opt.DJValue;
 
 
 %% Print

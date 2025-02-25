@@ -8,8 +8,12 @@ end
 
 function value=GetCoor(obj,num,node)
 if num==0
-    Vert=obj.Cnode;
-    value=Vert(node,:);
+    if node~=0
+        Vert=obj.Cnode;
+        value=Vert(node,:);
+    else
+        value=[NaN,NaN,NaN];
+    end
 else
     value=obj.V(node,:);
 end

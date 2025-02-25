@@ -1,10 +1,10 @@
-% Test ISO1940
+% Demo ISO1940
 clc
 clear
 close all
 plotFlag = true;
-% setRoTAPath
-%% 1. Calculate Uper
+% setBaffaloPath
+% 1. Calculate Uper
 flag=1;
 DemoISO1940(flag);
 

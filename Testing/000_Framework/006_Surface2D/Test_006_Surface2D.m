@@ -2,13 +2,13 @@ clc
 clear
 close all
 % Test object Surface2D
-%% 1 Create gear obj
-%% 2 Create plate obj
-%% 3 Calculate geometry
-%% 4 Plot Surface2D inParaView
-%% 5 Create Mesh Hole
-%% 6 Create Circle Hole
-flag=6;
+% 1 Create gear obj
+% 2 Create plate obj
+% 3 Calculate geometry
+% 4 Plot Surface2D inParaView
+% 5 Create Mesh Hole
+% 6 Create Circle Hole
+flag=1;
 testSurface2D(flag);
 function testSurface2D(flag)
 switch flag

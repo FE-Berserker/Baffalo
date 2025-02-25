@@ -2,12 +2,12 @@ clc
 clear
 close all
 % Test Object Point2D
-%% 1 AddPoint
-%% 2 calculate the distance
-%% 3 Delete Point
-%% 4 Plot Point2D in paraview
-%% 5 Add PointData
-%% 6 Add PointVector
+% 1 AddPoint
+% 2 calculate the distance
+% 3 Delete Point
+% 4 Plot Point2D in paraview
+% 5 Add PointData
+% 6 Add PointVector
 flag=6;
 testPoint(flag);
 

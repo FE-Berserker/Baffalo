@@ -2,40 +2,40 @@ clc
 clear
 close all
 % Test object Mesh
-%% 1 Create cube mesh
-%% 2 Create cylinder mesh
-%% 3 Create sphere mesh
-%% 4 Hex20 Plot
-%% 5 MeshHemiSphere
-%% 6 Mesh plate1
-%% 7 Mesh plate2
-%% 8 Mesh TriplyPeriodicMinimalSurface
-%% 9 Mesh StochasticMicroStructure
-%% 10 Mesh Spinodoid
-%% 11 Group Test
-%% 12 Remesh
-%% 13 Drill holes
-%% 14 MeshQuadSphere
-%% 15 Mesh TensorGrid
-%% 16 PlotG
-%% 17 Simple sculpture Mesh
-%% 18 Check G center inner mesh
-%% 19 MeshOctahedron
-%% 20 Image read
-%% 21 Plot Face in ParaView
-%% 22 Plot Element in ParaView
-%% 23 Plot G and cell data in ParaView
-%% 24 Tri3 to voronoi
-%% 25 Nurb4Surf
-%% 26 Nurb Surface
-%% 27 NurbRuled
-%% 28 Extrude2Solid
-%% 29 Rotate to shell
-%% 30 Drill through holes
-%% 31 Mesh prism
-%% 32 Mesh Geosphere
-%% 33 Mesh pyramid
-%% 34 Add internal points
+% 1 Create cube mesh
+% 2 Create cylinder mesh
+% 3 Create sphere mesh
+% 4 Hex20 Plot
+% 5 MeshHemiSphere
+% 6 Mesh plate1
+% 7 Mesh plate2
+% 8 Mesh TriplyPeriodicMinimalSurface
+% 9 Mesh StochasticMicroStructure
+% 10 Mesh Spinodoid
+% 11 Group Test
+% 12 Remesh
+% 13 Drill holes
+% 14 MeshQuadSphere
+% 15 Mesh TensorGrid
+% 16 PlotG
+% 17 Simple sculpture Mesh
+% 18 Check G center inner mesh
+% 19 MeshOctahedron
+% 20 Image read
+% 21 Plot Face in ParaView
+% 22 Plot Element in ParaView
+% 23 Plot G and cell data in ParaView
+% 24 Tri3 to voronoi
+% 25 Nurb4Surf
+% 26 Nurb Surface
+% 27 NurbRuled
+% 28 Extrude2Solid
+% 29 Rotate to shell
+% 30 Drill through holes
+% 31 Mesh prism
+% 32 Mesh Geosphere
+% 33 Mesh pyramid
+% 34 Add internal points
 flag=34;
 testMesh(flag);
 function testMesh(flag)

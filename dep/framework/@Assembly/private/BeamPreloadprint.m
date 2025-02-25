@@ -1,4 +1,4 @@
-function BeamPreloadprint(obj,fid,AccET)
+function BeamPreloadprint(obj,fid,AccET,AccCS,AccSec)
 % Beampreloadprint
 % Author：Xie Yu
 Num=GetNBeamPreload(obj);
@@ -7,8 +7,7 @@ Sen_ET=strcat('ET,',num2str(AccET+1),',179');
 fprintf(fid, '%s\n',Sen_ET);
 fprintf(fid, '%s\n','CSYS,0');
 fprintf(fid, '%s\n','WPCSYS,,0');
-AccCS=obj.Summary.Total_CS;
-AccSec=obj.Summary.Total_Section;
+
 for i=1:Num
     ElNum=obj.BeamPreload{i,1}.El;
     Node=obj.BeamPreload{i,1}.Node;
@@ -29,8 +28,6 @@ fprintf(fid, '%s\n','WPCSYS,,0');
 fprintf(fid, '%s\n','/SOLU');
 for i=1:Num
     Preload=obj.BeamPreload{i,1}.Preload;
-    % fprintf(fid, '%s\n',strcat('SLOAD,',num2str(AccSec+i),',PL01,LOCK,DISP,0.1,1,20'));
-    % fprintf(fid, '%s\n',strcat('SLOAD,',num2str(AccSec+i),',PL02,TINNY,FORC,',num2str(Preload),',2,3'));
     fprintf(fid, '%s\n',strcat('SLOAD,',num2str(AccSec+i),',PL01,LOCK,Force,',num2str(Preload),',1,2'));
 end
 

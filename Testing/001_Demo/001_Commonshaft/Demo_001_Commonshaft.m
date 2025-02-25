@@ -1,22 +1,22 @@
-% Test Commonshaft
+% Demo Commonshaft
 clc
 clear
 close all
 plotFlag = true;
-% setRoTAPath
-%% 1 shaft1
-%% 2 shaft2
-%% 3 shaft3
-%% 4 shaft4
-%% 5 shaft5
-%% 6 shaft6
-%% 7 shaft7
-%% 8 Shaft8
-%% 9 OutputSoliodModel to ANSYS
-%% 10 OutputBeamModel to ANSYS
-%% 11 Deform face
-%% 12 Plot Face No
-%% 13 Output STL
+% setBaffaloPath
+% 1 shaft1
+% 2 shaft2
+% 3 shaft3
+% 4 shaft4
+% 5 shaft5
+% 6 shaft6
+% 7 shaft7
+% 8 Shaft8
+% 9 OutputSoliodModel to ANSYS
+% 10 OutputBeamModel to ANSYS
+% 11 Deform face
+% 12 Plot Face No
+% 13 Output STL
 
 flag=12;
 obj1=DemoCommmonshaft(flag);

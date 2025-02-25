@@ -2,12 +2,12 @@ clc
 clear
 close all
 % Test object Line
-%% 1 Add different curves
-%% 2 Insert new knots
-%% 3 Move curve
-%% 4 Rotate curve
-%% 5 Scale curve
-flag=5;
+% 1 Add different curves
+% 2 Insert new knots
+% 3 Move curve
+% 4 Rotate curve
+% 5 Scale curve
+flag=1;
 testLine(flag);
 function testLine(flag)
 switch flag

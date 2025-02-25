@@ -52,6 +52,8 @@ obj.Summary.Total_Joint=Id;
 Temp=[Numpart1,Nodenum1,Numpart2,Nodenum2];
 obj.Joint{Id,1}.Node=Temp;
 obj.Joint{Id,1}.Option=[1,1;2,1];
+obj.Joint{Id,1}.DJType=[];
+obj.Joint{Id,1}.DJValue=[];
 
 
 %% Print

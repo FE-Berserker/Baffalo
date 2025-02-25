@@ -2,30 +2,30 @@ clc
 clear
 close all
 % Test object Layer
-%% 1 LoftLinear
-%% 2 Extrude to face
-%% 3 Helical Line
-%% 4 Add Mesh
-%% 5 Add Curve and calculate curvature
-%% 6 Add thickness of a plate
-%% 7 Bounding Box
-%% 8 Sweep loft
-%% 9 Read STL file
-%% 10 Read msh file
-%% 11 Tri to Dual
-%% 12 Plane Mesh intersections
-%% 13 Mesh Mesh intersections
-%% 14 Combine Mesh pair
-%% 15 Curve to Mesh
-%% 16 Line Mesh intersections
-%% 17 Project points to plane
-%% 18 Project curves to plane
-%% 19 Line Plane intersections
-%% 20 Scale
-%% 21 Add Grid
-%% 22 Add ShellGrid
-%% 23 Add Line
-flag=23;
+% 1 LoftLinear
+% 2 Extrude to face
+% 3 Helical Line
+% 4 Add Mesh
+% 5 Add Curve and calculate curvature
+% 6 Add thickness of a plate
+% 7 Bounding Box
+% 8 Sweep loft
+% 9 Read STL file
+% 10 Read msh file
+% 11 Tri to Dual
+% 12 Plane Mesh intersections
+% 13 Mesh Mesh intersections
+% 14 Combine Mesh pair
+% 15 Curve to Mesh
+% 16 Line Mesh intersections
+% 17 Project points to plane
+% 18 Project curves to plane
+% 19 Line Plane intersections
+% 20 Scale
+% 21 Add Grid
+% 22 Add ShellGrid
+% 23 Add Line
+flag=1;
 testLayer(flag);
 function testLayer(flag)
 switch flag
