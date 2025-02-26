@@ -6,6 +6,10 @@ addParameter(p,'NMode',[]);
 parse(p,varargin{:});
 opt=p.Results;
 
+if isempty(opt.NMode)
+    opt.NMode=obj.params.NMode;
+end
+
 if isempty(obj.output.Campbell)
     obj=ImportCampbell(obj,'Campbell.txt',opt.NMode);
 end

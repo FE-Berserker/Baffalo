@@ -1,4 +1,4 @@
-function obj=PlotSpeedup(obj,varargin)
+function PlotSpeedup(obj,varargin)
 % Plot Speedup curve of RotDyn
 % Author : XieYu
 p=inputParser;

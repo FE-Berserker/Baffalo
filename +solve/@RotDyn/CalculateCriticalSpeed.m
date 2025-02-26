@@ -3,11 +3,16 @@ function obj=CalculateCriticalSpeed(obj,varargin)
 % Author : Xie Yu
 p=inputParser;
 addParameter(p,'Mul',1);% Frequency multiplier
+addParameter(p,'NMode',[]);
 parse(p,varargin{:});
 opt=p.Results;
 
+if isempty(opt.NMode)
+    opt.NMode=obj.params.NMode;
+end
+
 if isempty(obj.output.Campbell)
-    obj=ImportCampbell(obj,'Campbell.txt');
+    obj=ImportCampbell(obj,'Campbell.txt',opt.NMode);
 end
 X=obj.input.Speed;
 Y=table2array(obj.output.Campbell(:,3:end));

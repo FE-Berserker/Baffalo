@@ -3,6 +3,10 @@ classdef RotDyn < Component
     % Single shaft rotor dynamic analysis
     % Author: Xie Yu
     
+    properties
+        %other cComponentTemplate specific properties...
+    end
+
     properties(Hidden, Constant)
 
         paramsExpectedFields = {
