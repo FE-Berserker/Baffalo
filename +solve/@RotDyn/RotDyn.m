@@ -26,20 +26,23 @@ classdef RotDyn < Component
             'Echo'
             };
 
-        inputExpectedFields = {
-           
+        inputExpectedFields = {     
             'Shaft'
             'MaterialNum'
             'Speed' % RPM
-            'Discs' % Outer diameter, Inner diameter,Length, Material Num
+            'Discs' % NodeNum, Outer diameter, Inner diameter,Length, Material Num
             'Springs' % Node number, Kxx, Kyy
             'PointMass' % Node number, m, JT, JD
             'BCNode'% boundry conditions
             'Support'% Spring connected to ground
             % Node number,kx,K11,K22,K12,K21,Cx,C11,C22,C12,C21
             'KeyNode' % Node Number
-            'Unbalance'
-            % Unbalance=[node1 m1 uy1 uz1 ; node2 m2 uy2 uz2; ... nodeQ mQ uxQ uyQ]   node=1,2, ..       
+            'UnBalanceForce' % UnbalanceForce
+            % Node number, me
+            'UnBalance'
+            % UnBalance=[node1 m1 uy1 uz1 ; node2 m2 uy2 uz2; ... nodeQ mQ uxQ uyQ]   node=1,2, .. 
+            'BalanceQuality'
+            % G,n,positionA,positionB
             };
 
         outputExpectedFields = {
@@ -49,7 +52,9 @@ classdef RotDyn < Component
             'CriticalSpeed'
             'TotalNode'
             'TotalElement'
-            'SpeedUp'  
+            'SpeedUp'
+            'Mass' % Total mass of shaft
+            'Xc' % center of the shaft in the x direction
             };
 
         baselineExpectedFields = {
@@ -112,7 +117,9 @@ classdef RotDyn < Component
         end
 
         function obj = solve(obj)
+            % Calculate Mass
             obj=CalculateMass(obj);
+
             obj=GenerateKeyNode(obj);
             obj=OutputAss(obj);
             if size(obj.input.Speed,2)>1

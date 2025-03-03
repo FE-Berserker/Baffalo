@@ -147,6 +147,17 @@ switch obj.params.Type
         opt.NSUBST=obj.params.NStep;
         opt.KBC=1;
         Ass=AddSolu(Ass,opt);
+
+        for i=1:size(obj.input.UnBalanceForce,1)
+            Temp=obj.input.UnBalanceForce(i,:);
+            opt2.F=[Temp(1),"FY",Temp(2)];
+            Ass=AddSolu(Ass,opt2);
+            opt2=[];
+            opt2.F=[Temp(1),"FZ",0,-Temp(2)];
+            Ass=AddSolu(Ass,opt2);
+            opt2=[];
+        end
+
         opt2.OMEGA=1;
         opt2.SOLVE=[];
         Ass=AddSolu(Ass,opt2);

@@ -26,13 +26,25 @@ else
     Node4=[];
 end
 
-if ~isempty(obj.input.KeyNode)
-    Node6=obj.input.KeyNode(:,1);
+if ~isempty(obj.input.UnBalanceForce)
+    Node5=obj.input.UnBalanceForce(:,1);
+else
+    Node5=[];
+end
+
+if ~isempty(obj.input.UnBalance)
+    Node6=obj.input.UnBalance(:,1);
 else
     Node6=[];
 end
 
-Node=[Node1;Node2;Node3;Node4;Node6];
+if ~isempty(obj.input.KeyNode)
+    Node7=obj.input.KeyNode(:,1);
+else
+    Node7=[];
+end
+
+Node=[Node1;Node2;Node3;Node4;Node5;Node6;Node7];
 Node=unique(Node);
 obj.input.KeyNode=Node;
 

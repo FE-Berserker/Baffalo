@@ -1,6 +1,8 @@
 function obj = CalculateMass(obj)
-% Calculate Disc Mass
+% Calculate total mass of shaft
 % Author : Xie Yu
+
+% Calculate Disc mass
 if ~isempty(obj.input.Discs)
     Disc=obj.input.Discs;
     Dens=cellfun(@(x)x.Dens,obj.params.Material,'UniformOutput',false);
@@ -14,9 +16,38 @@ if ~isempty(obj.input.Discs)
     JP=1/4.*Mass.*((Disc(:,2).^2+Disc(:,3).^2)/4+Disc(:,4).^2/3);
     obj.input.PointMass=[obj.input.PointMass;Disc(:,1),Mass,JT,JP];
 end
+
+
+% Calculate Shaft mass center
+Shaft=obj.input.Shaft;
+Node=Shaft.Meshoutput.nodes(:,1);
+Element=Shaft.Meshoutput.elements;
+Center1=(Node(Element(:,1),1)+Node(Element(:,2),1))/2;
+Dens=obj.params.Material{obj.input.MaterialNum,1}.Dens;
+Length=Node(2:end,1)-Node(1:end-1,1);
+Area=cellfun(@(x)CalArea(x),Shaft.Section,'UniformOutput',false);
+Mass1=cell2mat(Area).*Length*Dens;
+
+% Calculate PointMass
+if ~isempty(obj.input.PointMass)
+    Mass2=obj.input.PointMass(:,2);
+    Center2=Node(obj.input.PointMass(:,1),:);
+else
+    Mass2=[];
+    Center2=[];
+end
+
+% Calculate mass
+Mass=sum([Mass1;Mass2]);
+obj.output.Mass=Mass;
+obj.output.Xc=sum([Mass1;Mass2].*[Center1;Center2])/Mass;
+
 end
 
 function rou=Calrou(Dens,num)
 rou=Dens(num,1);
 end
 
+function Area=CalArea(Section)
+Area=pi*(Section.data(1)^2).*(Section.subtype=='CSOLID')+pi*(Section.data(2)^2-Section.data(1)^2).*(Section.subtype=='CTUBE');
+end

@@ -16,16 +16,23 @@ FacePoint=cellfun(@(x)Vert(x,:),Temp,'UniformOutput',false);
 Dens=cellfun(@(x)x.Dens,obj.params.Material,'UniformOutput',false);
 Dens=cell2mat(Dens);
 Gamma=Dens(MatNum,1);
-[Mass,JT,JP]=cellfun(@(x)CalG(x,Gamma),FacePoint,'UniformOutput',false);
+[Mass0,JT,JP,Xc]=cellfun(@(x)CalG(x,Gamma),FacePoint,'UniformOutput',false);
 Percent=BladeNum*Degree/360;
 % Mass calculation
-Mass=sum(cell2mat(Mass))*Percent;
+Mass=sum(cell2mat(Mass0))*Percent;
 % JT calculation
 JT=sum(cell2mat(JT))*Percent;
+% Center calculation
+Xc=sum(cell2mat(Mass0).*cell2mat(Xc))./Mass;
 % JP calculation
-JP=sum(cell2mat(JP))*Percent;
+JP=(sum(cell2mat(JP))-Mass*Xc^2)*Percent;
+
+[obj,NodeNum1]=AddCnode(obj,Xc+obj.input.Shaft.Meshoutput.nodes(NodeNum,1));
+warning('The nodenum will adjust according to the mass center .')
+
 % Add Point Mass
-obj.input.PointMass=[obj.input.PointMass;NodeNum,Mass,JT,JP];
+obj.input.PointMass=[obj.input.PointMass;NodeNum1,Mass,JT,JP];
+
 % Update Shape
 mm=Mesh('Disc Mesh');
 RotNum=ceil(obj.input.Shaft.Section{1,1}.data(1,end)/BladeNum);
@@ -39,7 +46,7 @@ for i=1:BladeNum
 end
 end
 
-function [Mass,JT,JP]=CalG(Point,Gamma)
+function [Mass,JT,JP,Xc]=CalG(Point,Gamma)
 x1=Point(1,1);
 x2=Point(2,1);
 x3=Point(3,1);
@@ -118,4 +125,5 @@ end
 Mass=abs(M1+M2+M3);
 JT=abs(JT1+JT2+JT3);
 JP=abs(JP1+JP2+JP3)+Mass*xc^2;
+Xc=xc;
 end

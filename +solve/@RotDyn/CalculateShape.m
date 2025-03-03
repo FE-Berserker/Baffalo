@@ -1,6 +1,7 @@
 function obj=CalculateShape(obj)
 % Calculate shape of rotor
 % Author : Xie YU
+
 L=Layer('Space','Echo',0);
 % Add Shaft
 Temp2D= Mesh2D('Temp2D','Echo',0);

@@ -76,14 +76,6 @@ if ~isempty(obj.input.PointMass)
         obj.input.PointMass(Judge>=NodeNum,1)+1;
 end
 
-% UnBalanceForce update
-% UnBalanceForce=obj.input.UnBalanceForce;
-% if ~isempty(obj.input.UnBalanceForce)
-%     Judge=UnBalanceForce(:,1)-NodeNum;
-%     obj.input.UnBalanceForce(Judge>=NodeNum,1)=...
-%         obj.input.UnBalanceForce(Judge>=NodeNum,1)+1;
-% end
-
 % KeyNode update
 KeyNode=obj.input.KeyNode;
 if ~isempty(obj.input.KeyNode)
