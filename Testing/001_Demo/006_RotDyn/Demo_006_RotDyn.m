@@ -3,7 +3,7 @@ clc
 clear
 close all
 plotFlag = true;
-% setRoTAPath
+% setBaffaloPath
 % 1. Shaft modal analysis
 % 2. Add Discs
 % 3. Add Userdefined Disc, output moment of inertia

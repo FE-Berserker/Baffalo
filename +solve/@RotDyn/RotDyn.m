@@ -59,7 +59,6 @@ classdef RotDyn < Component
         baselineExpectedFields = {
             };
 
-        statesExpectedFields = {};
         default_Name='RotDyn1';
         default_Material=[];
         default_Damping=[];
