@@ -4,7 +4,7 @@ clear
 close all
 plotFlag = true;
 % setRoTAPath
-% 1. Create RotDyn
+% 1. Shaft modal analysis
 % 2. Add Discs
 % 3. Add Userdefined Disc, output moment of inertia
 % 4. Add Blade
@@ -14,8 +14,9 @@ plotFlag = true;
 % 8. Eccentricity of shaft
 % 9. High speed rotor example
 % 10. High speed rotor Harmonic analysis
+% 11. High speed unbalance
 
-flag=1;
+flag=11;
 DemoRotDyn(flag);
 
 function DemoRotDyn(flag)
@@ -95,7 +96,8 @@ switch flag
         paramsRotDyn.Position=[0,0,0,0,0,0];
         Dyn = solve.RotDyn(paramsRotDyn,inputRotDyn);
         [Dyn,Num1]= AddCnode(Dyn,250);
-        [Dyn,Num2]= AddCnode(Dyn,500);
+        % [Dyn,Num2]= AddCnode(Dyn,500);
+        [Dyn,Num2]= AddCnode(Dyn,520);
 
         a1=Point2D('Circle center');
         a1=AddPoint(a1,0,0);
@@ -106,7 +108,8 @@ switch flag
         S1=Surface2D(b1);
 
         a2=Point2D('Square corner');
-        a2=AddPoint(a2,[-100;-100;100;100],[0;50;50;0]);
+        % a2=AddPoint(a2,[-100;-100;100;100],[0;50;50;0]);
+        a2=AddPoint(a2,[-120;-120;80;80],[0;50;50;0]);
         b2=Line2D('Square');
         b2=AddCurve(b2,a2,1);
         S2=Surface2D(b2);
@@ -199,7 +202,7 @@ switch flag
         ANSYSSolve(Dyn.output.Assembly);
 
         PlotCampbell(Dyn,'NMode',12);
-        Dyn=CalculateCriticalSpeed(Dyn);
+        Dyn=CalculateCriticalSpeed(Dyn,'NMode',12);
 
         disp(Dyn.output.CriticalSpeed);
     case 6
@@ -354,10 +357,10 @@ switch flag
         Dyn1 = solve.RotDyn(paramsRotDyn,inputRotDyn);
 
         [Dyn1,Num1]= AddCnode(Dyn1,70);
-        Dyn1=AddSupport(Dyn1,Num1,[1e10,8e4,1e5,1e4,6e4,0,0.0001,12/1e5,3/1e4,3/6e4]);
+        Dyn1=AddSupport(Dyn1,Num1,[1e10,8e4,1e5,1e4,6e4,0,8,12,3,3]);
 
         [Dyn1,Num2]= AddCnode(Dyn1,200);
-        Dyn1=AddSupport(Dyn1,Num2,[0,5e4,7e4,2e4,4e4,0,6/5e4,8/7e4,1.5/2e4,1.5/4e4]);
+        Dyn1=AddSupport(Dyn1,Num2,[0,5e4,7e4,2e4,4e4,0,6,8,1.5,1.5]);
         Dyn1 = Dyn1.solve();
 
         ANSYSSolve(Dyn1.output.Assembly);
@@ -393,14 +396,45 @@ switch flag
         Dyn1 = solve.RotDyn(paramsRotDyn,inputRotDyn);
 
         [Dyn1,Num1]= AddCnode(Dyn1,70);
-        Dyn1=AddSupport(Dyn1,Num1,[1e10,8e4,1e5,1e4,6e4,0,0.0001,12/1e5,3/1e4,3/6e4]);
+        Dyn1=AddSupport(Dyn1,Num1,[1e10,8e4,1e5,1e4,6e4,0,8,12,3,3]);
 
         [Dyn1,Num2]= AddCnode(Dyn1,200);
-        Dyn1=AddSupport(Dyn1,Num2,[0,5e4,7e4,2e4,4e4,0,6/5e4,8/7e4,1.5/2e4,1.5/4e4]);
+        Dyn1=AddSupport(Dyn1,Num2,[0,5e4,7e4,2e4,4e4,0,6,8,1.5,1.5]);
         Dyn1 = Dyn1.solve();
 
         ANSYSSolve(Dyn1.output.Assembly);
-        Dyn1=PlotSpeedup(Dyn1);
+        PlotSpeedup(Dyn1);
+    case 11
+        % Shaft
+        inputshaft1.Length = [35;45;70;200;250;300];
+        inputshaft1.ID = [[0,0];[10,10];[10,10];[10,10];[10,10];[10,10]];
+        inputshaft1.OD = [[40,40];[70,70];[40,40];[40,40];[40,40];[70,70]];
+        paramsshaft1.Beam_N = 16;
+        paramsshaft1.N_Slice=201;
+        obj1 = shaft.Commonshaft(paramsshaft1, inputshaft1);
+        obj1 = obj1.solve();
+        Plot3D(obj1)
+
+        mat{1,1}=obj1.params.Material;
+        inputRotDyn.Shaft=obj1.output.BeamMesh;
+        inputRotDyn.Speed=[0,10000,20000,30000,40000,50000,60000];
+        inputRotDyn.PointMass=[1,1.2e-3,2.4,1.2;size(obj1.output.Node,1),1e-3,2,1];
+        inputRotDyn.MaterialNum=1;
+        inputRotDyn.BalanceQuality=[2.5,3000,0,300,0];
+        paramsRotDyn.Material=mat;
+        paramsRotDyn.Type=3;
+
+        Dyn1 = solve.RotDyn(paramsRotDyn,inputRotDyn);
+
+        [Dyn1,Num1]= AddCnode(Dyn1,70);
+        Dyn1=AddSupport(Dyn1,Num1,[1e10,8e4,1e5,1e4,6e4,0,8,12,3,3]);
+
+        [Dyn1,Num2]= AddCnode(Dyn1,200);
+        Dyn1=AddSupport(Dyn1,Num2,[0,5e4,7e4,2e4,4e4,0,6,8,1.5,1.5]);
+        Dyn1 = Dyn1.solve();
+
+        ANSYSSolve(Dyn1.output.Assembly);
+        PlotSpeedup(Dyn1);
 
 end
 end

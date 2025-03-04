@@ -42,6 +42,10 @@ Mass=sum([Mass1;Mass2]);
 obj.output.Mass=Mass;
 obj.output.Xc=sum([Mass1;Mass2].*[Center1;Center2])/Mass;
 
+if obj.params.Echo
+    fprintf('Successfully calculate mass .\n');
+end
+
 end
 
 function rou=Calrou(Dens,num)

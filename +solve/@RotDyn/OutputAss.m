@@ -35,7 +35,7 @@ end
 if ~isempty(obj.input.Support)
     % Add Element
     ET1.name='21';ET1.opt=[3,0];ET1.R=[0,0,0,0,0,0];
-    AddET(Ass,ET1);
+    Ass=AddET(Ass,ET1);
     Acc_ET=GetNET(Ass);
     Bound=[1,1,1,1,1,1];
     % Add Bearing
@@ -53,11 +53,12 @@ if ~isempty(obj.input.Support)
         K22=obj.input.Support(i,4);
         K12=obj.input.Support(i,5);
         K21=obj.input.Support(i,6);
-        Cx=obj.input.Support(i,7)*Kx;
-        C11=obj.input.Support(i,8)*K11;
-        C22=obj.input.Support(i,9)*K22;
-        C12=obj.input.Support(i,10)*K12;
-        C21=obj.input.Support(i,11)*K21;
+        Cx=obj.input.Support(i,7);
+        C11=obj.input.Support(i,8);
+        C22=obj.input.Support(i,9);
+        C12=obj.input.Support(i,10);
+        C21=obj.input.Support(i,11);
+
         Ass=SetBearing(Ass,Acc_Mas-1,Acc_Mas,[K11,K22,K12,K21],[C11,C22,C12,C21]);
         Ass=SetSpring(Ass,Acc_Mas-1,Acc_Mas,[Kx,0,0,0,0,0],[Cx,0,0,0,0,0]);
         Ass=SetCnode(Ass,Acc_Cnode,Acc_ET);
@@ -65,24 +66,6 @@ if ~isempty(obj.input.Support)
         Ass=AddBoundary(Ass,0,'No',i);
         AccBC=GetNBoundary(Ass);
         Ass=SetBoundaryType(Ass,AccBC,Bound);
-    end
-end
-
-%% Unbalance
-if ~isempty(obj.input.Unbalance)
-    % Add Element
-    for i=1:size(obj.input.Unbalance,1)
-        M=obj.input.Unbalance(i,2);
-        ET1.name='21';ET1.opt=[3,0];ET1.R=[M,M,M,0,0,0];
-        Ass=AddET(Ass,ET1);
-        Acc_ET=GetNET(Ass);
-        x=Ass.Part{obj.output.TotalElement,1}.mesh.nodes(obj.input.Unbalance(i,1),1);
-        y=Ass.Part{obj.output.TotalElement,1}.mesh.nodes(obj.input.Unbalance(i,1),2)+obj.input.Unbalance(i,3);
-        z=Ass.Part{obj.output.TotalElement,1}.mesh.nodes(obj.input.Unbalance(i,1),3)+obj.input.Unbalance(i,4);
-        Ass=AddCnode(Ass,x,y,z);
-        Acc_Cnode=GetNCnode(Ass);
-        Ass=SetCnode(Ass,Acc_Cnode,Acc_ET);
-        Ass=AddRigidBeam(Ass,1,obj.input.Unbalance(i,1),0,Acc_Cnode);
     end
 end
 

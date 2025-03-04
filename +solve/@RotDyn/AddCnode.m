@@ -41,13 +41,18 @@ else
         obj=Update(obj,NodeNum);
     end
 end
+
+if obj.params.Echo
+    fprintf('Successfully add cnode .\n');
+end
+
 end
 
 function obj=Update(obj,NodeNum)
 % BCNode update
 Bound=obj.input.BCNode;
 if ~isempty(obj.input.BCNode)
-    Judge=Bound(:,1)-NodeNum;
+    Judge=Bound(:,1);
     obj.input.BCNode(Judge>=NodeNum,1)=...
         obj.input.BCNode(Judge>=NodeNum,1)+1;
 end
@@ -55,7 +60,7 @@ end
 % Support update
 Support=obj.input.Support;
 if ~isempty(obj.input.Support)
-    Judge=Support(:,1)-NodeNum;
+    Judge=Support(:,1);
     obj.input.Support(Judge>=NodeNum,1)=...
         obj.input.Support(Judge>=NodeNum,1)+1;
 end
@@ -63,7 +68,7 @@ end
 % Spring update
 Springs=obj.input.Springs;
 if ~isempty(obj.input.Springs)
-    Judge=Springs(:,1)-NodeNum;
+    Judge=Springs(:,1);
     obj.input.Springs(Judge>=NodeNum,1)=...
         obj.input.Springs(Judge>=NodeNum,1)+1;
 end
@@ -71,15 +76,24 @@ end
 % Pointmass update
 PointMass=obj.input.PointMass;
 if ~isempty(obj.input.PointMass)
-    Judge=PointMass(:,1)-NodeNum;
+    Judge=PointMass(:,1);
     obj.input.PointMass(Judge>=NodeNum,1)=...
         obj.input.PointMass(Judge>=NodeNum,1)+1;
 end
 
+% UnBalanceForce update
+UnBalanceForce=obj.input.UnBalanceForce;
+if ~isempty(obj.input.UnBalanceForce)
+    Judge=UnBalanceForce(:,1);
+    obj.input.UnBalanceForce(Judge>=NodeNum,1)=...
+        obj.input.UnBalanceForce(Judge>=NodeNum,1)+1;
+end
+
+
 % KeyNode update
 KeyNode=obj.input.KeyNode;
 if ~isempty(obj.input.KeyNode)
-    Judge=KeyNode(:,1)-NodeNum;
+    Judge=KeyNode(:,1);
     obj.input.KeyNode(Judge>=NodeNum,1)=...
         obj.input.KeyNode(Judge>=NodeNum,1)+1;
 end

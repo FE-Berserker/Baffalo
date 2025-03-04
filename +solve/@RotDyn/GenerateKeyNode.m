@@ -15,7 +15,7 @@ else
 end
 
 if ~isempty(obj.input.BCNode)
-Node3=obj.input.BCNode(:,1);
+    Node3=obj.input.BCNode(:,1);
 else
     Node3=[];
 end
@@ -32,20 +32,18 @@ else
     Node5=[];
 end
 
-if ~isempty(obj.input.UnBalance)
-    Node6=obj.input.UnBalance(:,1);
+if ~isempty(obj.input.KeyNode)
+    Node6=obj.input.KeyNode(:,1);
 else
     Node6=[];
 end
 
-if ~isempty(obj.input.KeyNode)
-    Node7=obj.input.KeyNode(:,1);
-else
-    Node7=[];
-end
-
-Node=[Node1;Node2;Node3;Node4;Node5;Node6;Node7];
+Node=[Node1;Node2;Node3;Node4;Node5;Node6];
 Node=unique(Node);
 obj.input.KeyNode=Node;
+
+if obj.params.Echo
+    fprintf('Successfully generate keynode .\n');
+end
 
 end

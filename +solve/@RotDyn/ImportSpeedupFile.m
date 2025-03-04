@@ -4,12 +4,12 @@ function obj = ImportSpeedupFile(obj)
 
 KN=obj.input.KeyNode;
 
-    for i=1:size(KN,1)
-        filename=strcat(num2str(KN(i,1)),'Uy.txt');
-        obj.output.SpeedUp.Uy{i,1}= ImportFile(filename);
-        filename=strcat(num2str(KN(i,1)),'Uz.txt');
-        obj.output.SpeedUp.Uz{i,1}=  ImportFile(filename);
-    end
+for i=1:size(KN,1)
+    filename=strcat(num2str(KN(i,1)),'Uy.txt');
+    obj.output.SpeedUp.Uy{i,1}= ImportFile(filename);
+    filename=strcat(num2str(KN(i,1)),'Uz.txt');
+    obj.output.SpeedUp.Uz{i,1}=  ImportFile(filename);
+end
 
 end
 

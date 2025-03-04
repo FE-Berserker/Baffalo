@@ -39,10 +39,9 @@ classdef RotDyn < Component
             'KeyNode' % Node Number
             'UnBalanceForce' % UnbalanceForce
             % Node number, me
-            'UnBalance'
-            % UnBalance=[node1 m1 uy1 uz1 ; node2 m2 uy2 uz2; ... nodeQ mQ uxQ uyQ]   node=1,2, .. 
             'BalanceQuality'
-            % G,n,positionA,positionB
+            % G,n,positionA,positionB,Type
+            % Type=0 in the same parse Type=1 reverse parse
             };
 
         outputExpectedFields = {
@@ -119,6 +118,10 @@ classdef RotDyn < Component
         function obj = solve(obj)
             % Calculate Mass
             obj=CalculateMass(obj);
+            % Calculate balance quality
+            if ~isempty(obj.input.BalanceQuality)
+                obj=CalculateBalanceQuality(obj);
+            end
 
             obj=GenerateKeyNode(obj);
             obj=OutputAss(obj);
