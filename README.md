@@ -4,7 +4,7 @@
 
 Baffalo是开源的Matlab工具箱来建立机械系统分析的工具，提供网格、画图和工程计算的功能，可直接进行网格层级的部件装配，并直接将文件导出到ANSYS和Simpack中进行分析。
 
-<img src="./icons/Fig1.jpg" style="zoom: 10%;" />
+<img src="./icons/Fig1.jpg" style="zoom: 30%;" />
 
 ---
 
