@@ -2,9 +2,9 @@
 
 <img src="./icons/Baffalo3.png" alt="Baffalo" style="zoom: 50%;" />
 
-Baffalo是开源的Matlab工具箱来建立系统分析的工具，他可将文件导出到ANSYS或者Simpack
+Baffalo是开源的Matlab工具箱来建立机械系统分析的工具，提供网格、画图和工程计算的功能，可直接进行网格层级的部件装配，并直接将文件导出到ANSYS和Simpack中进行分析。
 
-Baffalo本身不是求解器，他可以提供网格、画图和工程计算的功能.
+<img src="./icons/Fig1.jpg" style="zoom: 30%;" />
 
 ---
 
