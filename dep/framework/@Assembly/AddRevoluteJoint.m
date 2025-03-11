@@ -71,6 +71,28 @@ else
 end
 
 obj.Joint{Id,1}.DJType=opt.DJType;
+% unit Convert
+switch opt.DJType
+    case 'ROTX'
+        opt.DJValue=opt.DJValue/180*pi; % unit: °
+    case 'ROTY'
+        opt.DJValue=opt.DJValue/180*pi;
+    case 'ROTZ'
+        opt.DJValue=opt.DJValue/180*pi;
+    case 'OMGX'
+        opt.DJValue=opt.DJValue/60*2*pi; % unit: RPM
+    case 'OMGY'
+        opt.DJValue=opt.DJValue/60*2*pi;
+    case 'OMGZ'
+        opt.DJValue=opt.DJValue/60*2*pi;
+    case 'DMGX'
+        opt.DJValue=opt.DJValue/60*2*pi; % unit: RPM/s
+    case 'DMGY'
+        opt.DJValue=opt.DJValue/60*2*pi;
+    case 'DMGZ'
+        opt.DJValue=opt.DJValue/60*2*pi;
+end
+
 obj.Joint{Id,1}.DJValue=opt.DJValue;
 
 %% Print

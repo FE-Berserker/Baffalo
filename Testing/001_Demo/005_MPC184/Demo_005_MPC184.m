@@ -200,7 +200,7 @@ switch flag
         Ass=AddCS(Ass,0,[0,0,0,0,0,0]);
         Ass=AddCS(Ass,0,[0,0,0,0,0,0]);
         % Add RevoluteJoint
-        Ass=AddRevoluteJoint(Ass,0,0,0,2,'axis','z','cs',11,'DJType','ROTZ','DJValue',2*pi);
+        Ass=AddRevoluteJoint(Ass,0,0,0,2,'axis','z','cs',11,'DJType','ROTZ','DJValue',360);
         Ass=AddRevoluteJoint(Ass,0,3,0,4,'axis','z','cs',12);
         % Slider
         Ass=AddSlider(Ass,0,5,0,7,0,8);
@@ -231,6 +231,11 @@ switch flag
             ANSYSSolve(Ass);
             PlotSensor(Ass,1);
         end
+    case 4
+        
+
+    case 5
+
 
 end
 end

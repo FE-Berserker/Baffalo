@@ -25,7 +25,7 @@ end
 fid=fopen(filename,'w');
 
 if opt.Warning==0
-    fprintf(fid, '%s\n','/NERR,0');
+    fprintf(fid, '%s\n','/NERR,0,,,1');
 end
 
 sen=strcat('/FILNAME,',obj.Name);

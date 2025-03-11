@@ -15,10 +15,18 @@ addParameter(k,'Etable',[]);% Get element Etable
 addParameter(k,'TableNum',[]);% Get element table option number
 addParameter(k,'Sys',[]);% Set coordinate for sensor
 addParameter(k,'Name',[]);% Set name for sensor
+addParameter(k,'Set',[]);% Set set for sensor
+addParameter(k,'SetList',[]);% Set set vlist for sensor
 parse(k,varargin{:});
 opt=k.Results;
 
 num=GetNSensor(obj);
+
+if ~isempty(opt.SetList)
+    obj.Sensor{num+1,1}.Type='SetList';
+    obj.Sensor{num+1,1}.Name=opt.SetList;
+end
+
 if ~isempty(opt.Freq)
     obj.Sensor{num+1,1}.Type='Freq';
     obj.Sensor{num+1,1}.Mode=opt.Freq;
@@ -60,6 +68,12 @@ if ~isempty(opt.U)
         obj.Sensor{num+1,1}.Set=[];
     end
 
+    if isfield(opt,'Name')
+        obj.Sensor{num+1,1}.Name=opt.Name;
+    else
+        obj.Sensor{num+1,1}.Name=[];
+    end
+
 end
 
 if ~isempty(opt.Stress)
@@ -76,6 +90,12 @@ if ~isempty(opt.Stress)
     else
         obj.Sensor{num+1,1}.Sys=[];
     end
+
+    if isfield(opt,'Name')
+        obj.Sensor{num+1,1}.Name=opt.Name;
+    else
+        obj.Sensor{num+1,1}.Name=[];
+    end
 end
 
 if ~isempty(opt.Strain)
@@ -91,6 +111,12 @@ if ~isempty(opt.Strain)
         obj.Sensor{num+1,1}.Sys=opt.Sys;
     else
         obj.Sensor{num+1,1}.Sys=[];
+    end
+
+    if isfield(opt,'Name')
+        obj.Sensor{num+1,1}.Name=opt.Name;
+    else
+        obj.Sensor{num+1,1}.Name=[];
     end
 end
 

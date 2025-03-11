@@ -9,13 +9,17 @@ Name=obj.Name;
 for i=1:size(obj.Sensor,1)
     Type=obj.Sensor{i,1}.Type;
     switch Type
+        case "SetList"
+            fprintf(fid, '%s\n','ALLSEL,ALL');
+            fprintf(fid, '%s\n',strcat('/OUTPUT,',obj.Sensor{i,1}.Name,',txt'));
+            fprintf(fid, '%s\n','SET,LIST');
+            fprintf(fid, '%s\n','/OUTPUT');
         case "Freq"
             fprintf(fid, '%s\n','ALLSEL,ALL');        
             fprintf(fid, '%s\n',strcat('*CFOPEN,',Name,'_Sensor',num2str(i),'.txt'));
             sen=strcat('*DO,i,',num2str(obj.Sensor{i,1}.Mode(1,1)),',',num2str(obj.Sensor{i,1}.Mode(1,2)));
             fprintf(fid, '%s\n',sen);
             fprintf(fid, '%s\n','SET,,, ,,, ,i');
-            fprintf(fid, '%s\n','*GET,FF,MODE,i,FREQ'); 
             fprintf(fid, '%s\n','*Vwrite,FF');
             fprintf(fid, '%s\n','(1f16.3)');
             fprintf(fid, '%s\n','*ENDDO');
@@ -58,10 +62,16 @@ for i=1:size(obj.Sensor,1)
             Set=obj.Sensor{i,1}.Set;
             if isempty(Set)
                 fprintf(fid, '%s\n','SET,LAST');
-            else
+            elseif size(Set,2)==1
                 fprintf(fid, '%s\n',strcat('SET,,,,,,,',num2str(Set)));
+            elseif size(Set,2)==2
+                fprintf(fid, '%s\n',strcat('SET,',num2str(Set(1)),',',num2str(Set(2))));
             end
-            fprintf(fid, '%s\n',strcat('/OUTPUT,',Name,'_Sensor',num2str(i),',txt'));
+            if isempty(obj.Sensor{i,1}.Name)
+                fprintf(fid, '%s\n',strcat('/OUTPUT,',Name,'_Sensor',num2str(i),',txt'));
+            else
+                fprintf(fid, '%s\n',strcat('/OUTPUT,',obj.Sensor{i,1}.Name,',txt'));
+            end
             fprintf(fid, '%s\n','PRNSOL,U');
             fprintf(fid, '%s\n','/OUTPUT');
         case "Stress"
@@ -90,7 +100,11 @@ for i=1:size(obj.Sensor,1)
                 end
             end
             fprintf(fid, '%s\n','NSLE,R,CORNER');
-            fprintf(fid, '%s\n',strcat('/OUTPUT,',Name,'_Sensor',num2str(i),',txt'));
+            if isempty(obj.Sensor{i,1}.Name)
+                fprintf(fid, '%s\n',strcat('/OUTPUT,',Name,'_Sensor',num2str(i),',txt'));
+            else
+                fprintf(fid, '%s\n',strcat('/OUTPUT,',obj.Sensor{i,1}.Name,',txt'));
+            end
             fprintf(fid, '%s\n','PRNSOL,S');
             fprintf(fid, '%s\n','/OUTPUT');
         case "Strain"
@@ -119,7 +133,11 @@ for i=1:size(obj.Sensor,1)
                 end
             end
             fprintf(fid, '%s\n','NSLE,R,CORNER');
-            fprintf(fid, '%s\n',strcat('/OUTPUT,',Name,'_Sensor',num2str(i),',txt'));
+            if isempty(obj.Sensor{i,1}.Name)
+                fprintf(fid, '%s\n',strcat('/OUTPUT,',Name,'_Sensor',num2str(i),',txt'));
+            else
+                fprintf(fid, '%s\n',strcat('/OUTPUT,',obj.Sensor{i,1}.Name,',txt'));
+            end
             fprintf(fid, '%s\n','PRNSOL,EPEL');
             fprintf(fid, '%s\n','/OUTPUT');
         case "Etable"
