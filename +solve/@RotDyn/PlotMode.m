@@ -1,17 +1,27 @@
-function PlotORB(obj,loadstep,subloadstep,varargin)
-% Plot ORB of RotDyn
+function PlotMode(obj,loadstep,subloadstep,varargin)
+% Plot ModeShape of RotDyn
 % Author : XieYu
 p=inputParser;
 addParameter(p,'scale',10);
 parse(p,varargin{:});
 opt=p.Results;
 
-filename=strcat('ORB',num2str(loadstep),'_',num2str(subloadstep),'.txt');
-ORB=ImportORB(filename);
+Speed=obj.input.Speed(loadstep);
+
+
+if Speed~=0
+    filename=strcat('ORB',num2str(loadstep),'_',num2str(subloadstep),'.txt');
+    ORB=ImportORB(filename);
+    R=ORB.A*opt.scale;
+else
+    filename=strcat('ORB',num2str(loadstep),'_',num2str(subloadstep),'.txt');
+    ORB=ImportU(filename);
+    R=ORB.Usum*opt.scale;
+end
 
 P=[obj.output.Assembly.V;obj.output.Assembly.Cnode];
 Elements=cell2mat(cellfun(@(x)(x.mesh.elements(:,1:2)),obj.output.Assembly.Part,'UniformOutput',false));
-R=ORB.A*opt.scale;
+
 
 xmmin=0.95.*min(P(:,1)).*(min(P(:,1))>0)+...
     1.05.*min(P(:,1)).*(min(P(:,1))<0)-...
@@ -61,11 +71,17 @@ for i=1:Num
     Z=cellfun(@(x)P(x',3)',EE,'UniformOutput',false);
     XX=X;
 
-    TempYY=cellfun(@(x)ORB.A(x',1)'.*opt.scale.*cos(ORB.PHI(x',1)'/180*pi),EE,'UniformOutput',false);
-    TempZZ=cellfun(@(x)ORB.B(x',1)'.*opt.scale.*sin(ORB.PHI(x',1)'/180*pi),EE,'UniformOutput',false);
+    if Speed~=0
+        TempYY=cellfun(@(x)ORB.A(x',1)'.*opt.scale.*cos(ORB.PHI(x',1)'/180*pi),EE,'UniformOutput',false);
+        TempZZ=cellfun(@(x)ORB.B(x',1)'.*opt.scale.*sin(ORB.PHI(x',1)'/180*pi),EE,'UniformOutput',false);
 
-    YY=cellfun(@(x,y,z)y.*cos(ORB.PSI(x',1)'/180*pi)+z.*sin(ORB.PSI(x',1)'/180*pi),EE,TempYY,TempZZ,'UniformOutput',false);
-    ZZ=cellfun(@(x,y,z)-y.*sin(ORB.PSI(x',1)'/180*pi)+z.*cos(ORB.PSI(x',1)'/180*pi),EE,TempYY,TempZZ,'UniformOutput',false);
+        YY=cellfun(@(x,y,z)y.*cos(ORB.PSI(x',1)'/180*pi)+z.*sin(ORB.PSI(x',1)'/180*pi),EE,TempYY,TempZZ,'UniformOutput',false);
+        ZZ=cellfun(@(x,y,z)-y.*sin(ORB.PSI(x',1)'/180*pi)+z.*cos(ORB.PSI(x',1)'/180*pi),EE,TempYY,TempZZ,'UniformOutput',false);
+    else
+        YY=cellfun(@(x)ORB.Uy(x',1)'.*opt.scale,EE,'UniformOutput',false);
+        ZZ=cellfun(@(x)ORB.Uz(x',1)'.*opt.scale,EE,'UniformOutput',false);
+    end
+
 
     Beam.x=[Beam.x;X];
     Beam.y=[Beam.y;Y];
@@ -102,17 +118,20 @@ end
 rotnum=60;
 ang=linspace(0,2*pi,rotnum);
 
-for i=1:size(ORB.Nodes,1)
-    A=ORB.A(i,1)*opt.scale;
-    B=ORB.B(i,1)*opt.scale;
-    phi=ORB.PSI(i,1);
+if Speed~=0
+    for i=1:size(ORB.Nodes,1)
 
-    Tempyy=A*cos(ang);
-    Tempzz=B*sin(ang);
+        A=ORB.A(i,1)*opt.scale;
+        B=ORB.B(i,1)*opt.scale;
+        phi=ORB.PSI(i,1);
 
-    yy=Tempyy.*cos(phi/180*pi)+Tempzz.*sin(phi/180*pi);
-    zz=-Tempyy.*sin(phi/180*pi)+Tempzz.*cos(phi/180*pi);
-    num=ORB.Nodes(i,1);
-    xx=repmat(P(num,1),1,rotnum);
-    line(xx,yy,zz)
+        Tempyy=A*cos(ang);
+        Tempzz=B*sin(ang);
+
+        yy=Tempyy.*cos(phi/180*pi)+Tempzz.*sin(phi/180*pi);
+        zz=-Tempyy.*sin(phi/180*pi)+Tempzz.*cos(phi/180*pi);
+        num=ORB.Nodes(i,1);
+        xx=repmat(P(num,1),1,rotnum);
+        line(xx,yy,zz)
+    end
 end

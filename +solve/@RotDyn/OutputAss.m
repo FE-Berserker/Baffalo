@@ -32,41 +32,64 @@ if obj.params.ShaftTorsion==0
     end
 end
 %% Elastic Support
-if ~isempty(obj.input.Support)
+if or(~isempty(obj.input.Bearing),~isempty(obj.input.TorBearing))
     % Add Element
     ET1.name='21';ET1.opt=[3,0];ET1.R=[0,0,0,0,0,0];
     Ass=AddET(Ass,ET1);
     Acc_ET=GetNET(Ass);
     Bound=[1,1,1,1,1,1];
     % Add Bearing
-    for i=1:size(obj.input.Support,1)
-        x=Ass.Part{obj.output.TotalElement,1}.mesh.nodes(obj.input.Support(i,1),1);
-        y=Ass.Part{obj.output.TotalElement,1}.mesh.nodes(obj.input.Support(i,1),2);
-        z=Ass.Part{obj.output.TotalElement,1}.mesh.nodes(obj.input.Support(i,1),3);
-        Ass=AddCnode(Ass,x,y,z);
-        Acc_Cnode=GetNCnode(Ass);
-        Ass=AddMaster(Ass,obj.output.TotalElement,obj.input.Support(i,1));
-        Ass=AddMaster(Ass,0,Acc_Cnode);
-        Acc_Mas=GetNMaster(Ass);
-        Kx=obj.input.Support(i,2);
-        K11=obj.input.Support(i,3);
-        K22=obj.input.Support(i,4);
-        K12=obj.input.Support(i,5);
-        K21=obj.input.Support(i,6);
-        Cx=obj.input.Support(i,7);
-        C11=obj.input.Support(i,8);
-        C22=obj.input.Support(i,9);
-        C12=obj.input.Support(i,10);
-        C21=obj.input.Support(i,11);
+    if ~isempty(obj.input.Bearing)
+        for i=1:size(obj.input.Bearing,1)
+            x=Ass.Part{obj.output.TotalElement,1}.mesh.nodes(obj.input.Bearing(i,1),1);
+            y=Ass.Part{obj.output.TotalElement,1}.mesh.nodes(obj.input.Bearing(i,1),2);
+            z=Ass.Part{obj.output.TotalElement,1}.mesh.nodes(obj.input.Bearing(i,1),3);
+            Ass=AddCnode(Ass,x,y,z);
+            Acc_Cnode=GetNCnode(Ass);
+            Ass=AddMaster(Ass,obj.output.TotalElement,obj.input.Bearing(i,1));
+            Ass=AddMaster(Ass,0,Acc_Cnode);
+            Acc_Mas=GetNMaster(Ass);
+            Kx=obj.input.Bearing(i,2);
+            K11=obj.input.Bearing(i,3);
+            K22=obj.input.Bearing(i,4);
+            K12=obj.input.Bearing(i,5);
+            K21=obj.input.Bearing(i,6);
+            Cx=obj.input.Bearing(i,7);
+            C11=obj.input.Bearing(i,8);
+            C22=obj.input.Bearing(i,9);
+            C12=obj.input.Bearing(i,10);
+            C21=obj.input.Bearing(i,11);
 
-        Ass=SetBearing(Ass,Acc_Mas-1,Acc_Mas,[K11,K22,K12,K21],[C11,C22,C12,C21]);
-        Ass=SetSpring(Ass,Acc_Mas-1,Acc_Mas,[Kx,0,0,0,0,0],[Cx,0,0,0,0,0]);
-        Ass=SetCnode(Ass,Acc_Cnode,Acc_ET);
+            Ass=SetBearing(Ass,Acc_Mas-1,Acc_Mas,[K11,K22,K12,K21],[C11,C22,C12,C21]);
+            Ass=SetSpring(Ass,Acc_Mas-1,Acc_Mas,[Kx,0,0,0,0,0],[Cx,0,0,0,0,0]);
+            Ass=SetCnode(Ass,Acc_Cnode,Acc_ET);
 
-        Ass=AddBoundary(Ass,0,'No',i);
-        AccBC=GetNBoundary(Ass);
-        Ass=SetBoundaryType(Ass,AccBC,Bound);
+            Ass=AddBoundary(Ass,0,'No',Acc_Cnode);
+            AccBC=GetNBoundary(Ass);
+            Ass=SetBoundaryType(Ass,AccBC,Bound);
+        end
     end
+    % Add TorBearing
+    if ~isempty(obj.input.TorBearing)
+        for i=1:size(obj.input.TorBearing,1)
+            x=Ass.Part{obj.output.TotalElement,1}.mesh.nodes(obj.input.TorBearing(i,1),1);
+            y=Ass.Part{obj.output.TotalElement,1}.mesh.nodes(obj.input.TorBearing(i,1),2);
+            z=Ass.Part{obj.output.TotalElement,1}.mesh.nodes(obj.input.TorBearing(i,1),3);
+            Ass=AddCnode(Ass,x,y,z);
+            Acc_Cnode=GetNCnode(Ass);
+            Ass=AddMaster(Ass,obj.output.TotalElement,obj.input.TorBearing(i,1));
+            Ass=AddMaster(Ass,0,Acc_Cnode);
+            Acc_Mas=GetNMaster(Ass);
+            Ktor=obj.input.TorBearing(i,2);
+            Ctor=obj.input.TorBearing(i,3);
+            Ass=SetSpring(Ass,Acc_Mas-1,Acc_Mas,[0,0,0,Ktor,0,0],[0,0,0,Ctor,0,0]);
+            Ass=SetCnode(Ass,Acc_Cnode,Acc_ET);
+            Ass=AddBoundary(Ass,0,'No',Acc_Cnode);
+            AccBC=GetNBoundary(Ass);
+            Ass=SetBoundaryType(Ass,AccBC,Bound);
+        end
+    end
+
 end
 
 %% Solution
@@ -94,23 +117,31 @@ switch obj.params.Type
             Ass=AddSolu(Ass,opt1);
         end
 
+
         %% Sensor
         if obj.params.PrintCampbell==1
-            Ass=AddSensor(Ass,'Campbell',1);
+            if isempty(obj.input.Speed)
+                Ass=AddSensor(Ass,'SetList','Frequency');
+            elseif and(size(obj.input.Speed,2)==1,obj.input.Speed(1)==0)
+                Ass=AddSensor(Ass,'SetList','Frequency');
+            else
+                Ass=AddSensor(Ass,'Campbell',1);
+            end
         end
 
-        if obj.params.PrintORB==1
+        if obj.params.PrintMode==1
             for i=1:size(obj.input.Speed,2)
-                if obj.input.Speed(1,i)==0
-                    continue
-                end
                 for j=1:obj.params.NMode
-                    Ass=AddSensor(Ass,'ORB',[i,j]);
+                    if obj.input.Speed(1,i)==0
+                        Ass=AddSensor(Ass,'U',1,'Name',strcat('ORB',num2str(i),'_',num2str(j)),'Set',[i,j]);
+                    else
+                        Ass=AddSensor(Ass,'ORB',[i,j]);
+                    end
                 end
             end
         end
     case 3
-        
+
         opt.ANTYPE=3;
         opt.HROPT=obj.params.HRopt;
         opt.SYNCHRO=[];

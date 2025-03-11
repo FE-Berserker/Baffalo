@@ -16,13 +16,16 @@ classdef RotDyn < Component
             'Freq'
             'Coriolis'
             'PrintCampbell'
-            'PrintORB'
+            'PrintMode'
             'Position'  
             'ShaftTorsion' % Consider Shaft torsional
             'PStress' % Consider pre stress
             'ey' % Eccentricity [mm]
             'ez' % Eccentricity [mm]
-            'Type' % Solution Type  Type=2：Modal analysis Type=3: Harmonic analysis
+            'Type' % Solution Type  Type=2：Modal analysis Type=3: Harmonic analysis Type=4 : Time series analysis
+            'Solver' % Solver='ANSYS' RotDyn will use ANSYS to simulate Solver='Local' RotDyn will use AMRotor solver to simulate
+            'Rayleigh'% Rayleigh damping
+            'FRFType'
             'Echo'
             };
 
@@ -34,18 +37,25 @@ classdef RotDyn < Component
             'Springs' % Node number, Kxx, Kyy
             'PointMass' % Node number, m, JT, JD
             'BCNode'% boundry conditions
-            'Support'% Spring connected to ground
+            % Node
+            % number,ux,uy,uz,rotx,roty,rotz,cux,cuy,cuz,crotx,croty,crotz
+            'Bearing'% Bearing connected to ground
             % Node number,kx,K11,K22,K12,K21,Cx,C11,C22,C12,C21
+            'TorBearing'
+            % Node number,krot,Crot
             'KeyNode' % Node Number
             'UnBalanceForce' % UnbalanceForce
             % Node number, me
             'BalanceQuality'
             % G,n,positionA,positionB,Type
             % Type=0 in the same parse Type=1 reverse parse
+            'InNode' % NodeNum
+            'OutNode' % NodeNum
             };
 
         outputExpectedFields = {
             'Assembly'
+            'RotorSystem'
             'Campbell'
             'Shape'
             'CriticalSpeed'
@@ -54,6 +64,8 @@ classdef RotDyn < Component
             'SpeedUp'
             'Mass' % Total mass of shaft
             'Xc' % center of the shaft in the x direction
+            'FRFResult' % FRF result
+            'eigenVectors'
             };
 
         baselineExpectedFields = {
@@ -67,8 +79,8 @@ classdef RotDyn < Component
         default_NMode=12
         default_Freq=[0,2000]
         default_Coriolis=1;
-        default_PrintCampbell=0;
-        default_PrintORB=0;
+        default_PrintCampbell=1;
+        default_PrintMode=1;
         default_Position=[0,0,0,0,0,0];
         default_AccNode=[];
         default_AccElement=[];
@@ -80,6 +92,9 @@ classdef RotDyn < Component
         default_G=0;
         default_Type=2;
         default_NStep=400;
+        default_Solver='ANSYS' % Local
+        default_Rayleigh=[];
+        default_FRFType='d'% displacement 'd', velocity 'v',accleration 'a'
         
     end
     methods
@@ -104,6 +119,12 @@ classdef RotDyn < Component
                 obj.params.Position=repmat(Temp,Num,1);
             end
 
+            if ~isempty(obj.params.Rayleigh)
+                if size(obj.params.Rayleigh,2)~=2
+                    error('Please input rayleigh damping parameter alpha and beta !')
+                end
+            end
+
             obj.documentname='RotDyn.pdf';
          
             Num=size(obj.input.Shaft.Meshoutput.nodes,1);
@@ -123,11 +144,35 @@ classdef RotDyn < Component
             end
 
             obj=GenerateKeyNode(obj);
-            obj=OutputAss(obj);
-            if size(obj.input.Speed,2)>1
-                ANSYS_Output(obj.output.Assembly,'MultiSolve',1)
-            else
-                ANSYS_Output(obj.output.Assembly,'MultiSolve',0)
+
+            switch obj.params.Type
+                case 1
+                    obj=OutputAMrotorSystem(obj);
+                    obj=CalculateFRF(obj);
+                case 2
+                  if obj.params.Solver=="ANSYS"
+                    obj=OutputAss(obj);
+                    if size(obj.input.Speed,2)>1
+                        ANSYS_Output(obj.output.Assembly,'MultiSolve',1,'Warning',0)
+                    else
+                        ANSYS_Output(obj.output.Assembly,'MultiSolve',0,'Warning',0)
+                    end
+                  else
+                      obj=OutputAMrotorSystem(obj);
+                      obj=CalculateModal(obj);
+                  end
+                case 3
+                    if obj.params.Solver=="ANSYS"
+                        obj=OutputAss(obj);
+                        if size(obj.input.Speed,2)>1
+                            ANSYS_Output(obj.output.Assembly,'MultiSolve',1)
+                        else
+                            ANSYS_Output(obj.output.Assembly,'MultiSolve',0)
+                        end
+                    else
+                    end
+                case 4
+
             end
         end
 

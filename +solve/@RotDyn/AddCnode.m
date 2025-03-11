@@ -57,12 +57,20 @@ if ~isempty(obj.input.BCNode)
         obj.input.BCNode(Judge>=NodeNum,1)+1;
 end
 
-% Support update
-Support=obj.input.Support;
-if ~isempty(obj.input.Support)
-    Judge=Support(:,1);
-    obj.input.Support(Judge>=NodeNum,1)=...
-        obj.input.Support(Judge>=NodeNum,1)+1;
+% Bearing update
+Bearing=obj.input.Bearing;
+if ~isempty(obj.input.Bearing)
+    Judge=Bearing(:,1);
+    obj.input.Bearing(Judge>=NodeNum,1)=...
+        obj.input.Bearing(Judge>=NodeNum,1)+1;
+end
+
+% TorBearing update
+TorBearing=obj.input.TorBearing;
+if ~isempty(obj.input.TorBearing)
+    Judge=TorBearing(:,1);
+    obj.input.TorBearing(Judge>=NodeNum,1)=...
+        obj.input.TorBearing(Judge>=NodeNum,1)+1;
 end
 
 % Spring update
@@ -98,5 +106,20 @@ if ~isempty(obj.input.KeyNode)
         obj.input.KeyNode(Judge>=NodeNum,1)+1;
 end
 
+% InNode update
+InNode=obj.input.InNode;
+if ~isempty(obj.input.InNode)
+    Judge=InNode(:,1);
+    obj.input.InNode(Judge>=NodeNum,1)=...
+        obj.input.InNode(Judge>=NodeNum,1)+1;
+end
+
+% OutNode update
+OutNode=obj.input.OutNode;
+if ~isempty(obj.input.OutNode)
+    Judge=OutNode(:,1);
+    obj.input.OutNode(Judge>=NodeNum,1)=...
+        obj.input.OutNode(Judge>=NodeNum,1)+1;
+end
 
 end

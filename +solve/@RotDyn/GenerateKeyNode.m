@@ -20,8 +20,8 @@ else
     Node3=[];
 end
 
-if ~isempty(obj.input.Support)
-    Node4=obj.input.Support(:,1);
+if ~isempty(obj.input.Bearing)
+    Node4=obj.input.Bearing(:,1);
 else
     Node4=[];
 end
@@ -38,7 +38,25 @@ else
     Node6=[];
 end
 
-Node=[Node1;Node2;Node3;Node4;Node5;Node6];
+if ~isempty(obj.input.TorBearing)
+    Node7=obj.input.TorBearing(:,1);
+else
+    Node7=[];
+end
+
+if ~isempty(obj.input.InNode)
+    Node8=obj.input.InNode(:,1);
+else
+    Node8=[];
+end
+
+if ~isempty(obj.input.OutNode)
+    Node9=obj.input.OutNode(:,1);
+else
+    Node9=[];
+end
+
+Node=[Node1;Node2;Node3;Node4;Node5;Node6;Node7;Node8;Node9];
 Node=unique(Node);
 obj.input.KeyNode=Node;
 
