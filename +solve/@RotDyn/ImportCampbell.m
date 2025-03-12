@@ -11,8 +11,6 @@ else
     a=0;
     b=0;
 end
-startRow=7:NMode+1:a*(NMode+1)+7;
-endRow = startRow+NMode;
 
 if NSpeed<=6
     formatSpec1 = '%6f%5C';
@@ -35,27 +33,32 @@ end
 %% Open file
 fileID = fopen(filename,'r');
 %% Data read
-textscan(fileID, '%[^\n\r]', startRow(1)-2, 'WhiteSpace', '', 'ReturnOnError', false);
 for i=1:1
     Temp=textscan(fileID, '%[^\n\r]', 1, 'WhiteSpace', '', 'ReturnOnError', false);
     while Temp{1,1}{1,1}(1:11)~="  Spin(rpm)"
         Temp=textscan(fileID, '%[^\n\r]', 1, 'WhiteSpace', '', 'ReturnOnError', false);
     end
-    dataArray= textscan(fileID, formatSpec1, endRow(i)-startRow(i), 'Delimiter', '', 'WhiteSpace', '', 'TextType', 'string', 'ReturnOnError', false, 'EndOfLine', '\r\n');
+    dataArray= textscan(fileID, formatSpec1,NMode, 'Delimiter', '', 'WhiteSpace', '', 'TextType', 'string', 'ReturnOnError', false, 'EndOfLine', '\r\n');
     dataArray=dataArray(1,1:end-1);
 end
 
 if a>1
     for i=2:a
-        textscan(fileID, '%[^\n\r]', 1, 'WhiteSpace', '', 'ReturnOnError', false);
-        dataArray1 = textscan(fileID, formatSpec1, endRow(i)-startRow(i), 'Delimiter', '', 'WhiteSpace', '', 'TextType', 'string', 'ReturnOnError', false, 'EndOfLine', '\r\n');
+        Temp=textscan(fileID, '%[^\n\r]', 1, 'WhiteSpace', '', 'ReturnOnError', false);
+        while Temp{1,1}{1,1}(1:11)~="  Spin(rpm)"
+            Temp=textscan(fileID, '%[^\n\r]', 1, 'WhiteSpace', '', 'ReturnOnError', false);
+        end
+        dataArray1 = textscan(fileID, formatSpec1, NMode, 'Delimiter', '', 'WhiteSpace', '', 'TextType', 'string', 'ReturnOnError', false, 'EndOfLine', '\r\n');
         dataArray=[dataArray,dataArray1(1,3:end-1)];
     end
 end
 
 if b>0
-    textscan(fileID, '%[^\n\r]', 1, 'WhiteSpace', '', 'ReturnOnError', false);
-    dataArray1 = textscan(fileID, formatSpec2, endRow(end)-startRow(end), 'Delimiter', '', 'WhiteSpace', '', 'TextType', 'string', 'ReturnOnError', false, 'EndOfLine', '\r\n');
+    Temp=textscan(fileID, '%[^\n\r]', 1, 'WhiteSpace', '', 'ReturnOnError', false);
+    while Temp{1,1}{1,1}(1:11)~="  Spin(rpm)"
+        Temp=textscan(fileID, '%[^\n\r]', 1, 'WhiteSpace', '', 'ReturnOnError', false);
+    end
+    dataArray1 = textscan(fileID, formatSpec2, NMode, 'Delimiter', '', 'WhiteSpace', '', 'TextType', 'string', 'ReturnOnError', false, 'EndOfLine', '\r\n');
     dataArray=[dataArray,dataArray1(1,3:end-1)]; 
 end
 %% Close file

@@ -31,6 +31,7 @@ if obj.params.ShaftTorsion==0
         Ass=SetBoundaryType(Ass,AccBC,Bound2);
     end
 end
+
 %% Elastic Support
 if or(~isempty(obj.input.Bearing),~isempty(obj.input.TorBearing))
     % Add Element
@@ -89,7 +90,6 @@ if or(~isempty(obj.input.Bearing),~isempty(obj.input.TorBearing))
             Ass=SetBoundaryType(Ass,AccBC,Bound);
         end
     end
-
 end
 
 %% Solution
@@ -98,6 +98,12 @@ switch obj.params.Type
         opt.ANTYPE=2;
         opt.MODOPT=[obj.params.Modopt,obj.params.NMode,obj.params.Freq,"ON"];
         opt.MXPAND=[obj.params.NMode,obj.params.Freq,1];
+
+        % if ~isempty(obj.params.Rayleigh)
+        %     opt.ALPHAD=obj.params.Rayleigh(1);
+        %     opt.BETAD=obj.params.Rayleigh(2);
+        % end
+
         if obj.params.Coriolis==1
             opt.CORIOlIS=[1,0,0,1];
         end
@@ -111,18 +117,20 @@ switch obj.params.Type
         end
 
         Ass=AddSolu(Ass,opt);
+
+        if isempty(obj.input.Speed)
+            obj.input.Speed=0;
+        end
+
         for i=1:size(obj.input.Speed,2)
             opt1.OMEGA=obj.input.Speed(1,i)/60*2*pi;% RPM to rad/s
             opt1.SOLVE=[];
             Ass=AddSolu(Ass,opt1);
         end
 
-
         %% Sensor
-        if obj.params.PrintCampbell==1
-            if isempty(obj.input.Speed)
-                Ass=AddSensor(Ass,'SetList','Frequency');
-            elseif and(size(obj.input.Speed,2)==1,obj.input.Speed(1)==0)
+        if obj.params.PrintCampbell==1      
+            if and(size(obj.input.Speed,2)==1,obj.input.Speed(1)==0)
                 Ass=AddSensor(Ass,'SetList','Frequency');
             else
                 Ass=AddSensor(Ass,'Campbell',1);

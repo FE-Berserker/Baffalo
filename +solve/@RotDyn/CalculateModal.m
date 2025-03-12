@@ -17,7 +17,7 @@ end
 
 D_tmp = imag(D);
 
-%negative D / V Eintr鋑e wegwerfen --> nModes=nModes
+% negative D / V Eintr鋑e wegwerfen --> nModes=nModes
 
 tmp = find(D_tmp >=0);
 tmp2 = sparse(size(V,1),length(tmp));
@@ -26,7 +26,7 @@ for i = 1:length(tmp)
     tmp2(:,i) = V(:,EV_nr); %#ok<SPRIX>
 end
 D = D(tmp);
-D_tmp = D_tmp(tmp);
+D_tmp = D_tmp(tmp); %#ok<NASGU>
 V = tmp2;
 
 V = get_position_entries(obj.output.RotorSystem,V,mat);
@@ -69,7 +69,7 @@ obj.output.eigenVectors.lateral_y=Ev_lat_y;
 obj.output.eigenVectors.lateral_z=Ev_lat_z;
 obj.output.eigenVectors.torsional_psi_z=Ev_tor_psi_z;
 obj.output.eigenValues.lateral =D;
-%     obj.eigenValues.full = V;
+% obj.eigenValues.full = V;
 
 obj.output.eigenVectors.lat_complex.x=CEv_lat_x;
 obj.output.eigenVectors.lat_complex.y=CEv_lat_y;
@@ -77,5 +77,18 @@ obj.output.eigenVectors.lat_complex.z=CEv_lat_z;
 obj.output.eigenVectors.lat_complex.psi_z=CEv_tor_psi_z;
 
 obj.output.eigenVectors.complex = V;
+% Calculate frequency
+Frequency=NaN(n_ew,2);
+
+for s=1:n_ew
+    D = imag(obj.output.eigenValues.lateral(s));
+    Frequency(s,1)=D/2/pi;
+    delta = -real(obj.output.eigenValues.lateral(s));
+    omegad = imag(obj.output.eigenValues.lateral(s));
+    D = delta/omegad; % Lehr damping
+    Frequency(s,2)=D; % Damping ratio
+end
+
+obj.output.Frequency=Frequency;
 
 end

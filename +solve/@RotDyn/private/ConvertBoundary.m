@@ -42,12 +42,12 @@ function stiffness_matrix = get_loc_stiffness_matrix(Bound)
             
     K=sparse(6,6);
 
-    K(3,3)=Bound(1)*1e15;
-    K(1,1)=Bound(2)*1e15;
-    K(2,2)=Bound(3)*1e15;
-    K(6,6)=Bound(4)*1e15;
-    K(4,4)=Bound(5)*1e15;
-    K(5,5)=Bound(6)*1e15;
+    K(3,3)=Bound(1)*1e8;
+    K(1,1)=Bound(2)*1e8;
+    K(2,2)=Bound(3)*1e8;
+    K(6,6)=Bound(4)*1e8;
+    K(4,4)=Bound(5)*1e8;
+    K(5,5)=Bound(6)*1e8;
    
     stiffness_matrix = K;
 end

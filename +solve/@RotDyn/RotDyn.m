@@ -2,7 +2,7 @@ classdef RotDyn < Component
     % Class RotDyn
     % Single shaft rotor dynamic analysis
     % Author: Xie Yu
-    
+
     properties(Hidden, Constant)
 
         paramsExpectedFields = {
@@ -17,19 +17,19 @@ classdef RotDyn < Component
             'Coriolis'
             'PrintCampbell'
             'PrintMode'
-            'Position'  
+            'Position'
             'ShaftTorsion' % Consider Shaft torsional
             'PStress' % Consider pre stress
             'ey' % Eccentricity [mm]
             'ez' % Eccentricity [mm]
-            'Type' % Solution Type  Type=2：Modal analysis Type=3: Harmonic analysis Type=4 : Time series analysis
+            'Type' % Solution Type  Type=2：Modal analysis Type=3: Harmonic analysis Type=4 : Stationary solution (Time integration with constant rotation speed)
             'Solver' % Solver='ANSYS' RotDyn will use ANSYS to simulate Solver='Local' RotDyn will use AMRotor solver to simulate
             'Rayleigh'% Rayleigh damping
             'FRFType'
             'Echo'
             };
 
-        inputExpectedFields = {     
+        inputExpectedFields = {
             'Shaft'
             'MaterialNum'
             'Speed' % RPM
@@ -65,7 +65,11 @@ classdef RotDyn < Component
             'Mass' % Total mass of shaft
             'Xc' % center of the shaft in the x direction
             'FRFResult' % FRF result
+            'ModeResult'% Modal result
             'eigenVectors'
+            'eigenValues'
+            'EWf'
+            'EWb'
             };
 
         baselineExpectedFields = {
@@ -95,7 +99,7 @@ classdef RotDyn < Component
         default_Solver='ANSYS' % Local
         default_Rayleigh=[];
         default_FRFType='d'% displacement 'd', velocity 'v',accleration 'a'
-        
+
     end
     methods
 
@@ -126,7 +130,7 @@ classdef RotDyn < Component
             end
 
             obj.documentname='RotDyn.pdf';
-         
+
             Num=size(obj.input.Shaft.Meshoutput.nodes,1);
             obj.output.TotalNode=Num;
 
@@ -147,29 +151,32 @@ classdef RotDyn < Component
 
             switch obj.params.Type
                 case 1
+                    obj.output.FRFResult=[];
                     obj=OutputAMrotorSystem(obj);
                     obj=CalculateFRF(obj);
                 case 2
-                  if obj.params.Solver=="ANSYS"
-                    obj=OutputAss(obj);
-                    if size(obj.input.Speed,2)>1
-                        ANSYS_Output(obj.output.Assembly,'MultiSolve',1,'Warning',0)
-                    else
-                        ANSYS_Output(obj.output.Assembly,'MultiSolve',0,'Warning',0)
-                    end
-                  else
-                      obj=OutputAMrotorSystem(obj);
-                      obj=CalculateModal(obj);
-                  end
-                case 3
+                    obj.output.Campbell=[];
                     if obj.params.Solver=="ANSYS"
                         obj=OutputAss(obj);
                         if size(obj.input.Speed,2)>1
-                            ANSYS_Output(obj.output.Assembly,'MultiSolve',1)
+                            ANSYS_Output(obj.output.Assembly,'MultiSolve',1,'Warning',0)
                         else
-                            ANSYS_Output(obj.output.Assembly,'MultiSolve',0)
+                            ANSYS_Output(obj.output.Assembly,'MultiSolve',0,'Warning',0)
                         end
                     else
+                        obj=OutputAMrotorSystem(obj);
+                        if size(obj.input.Speed,2)>1
+                            obj=CalculateCampbell(obj);
+                        else
+                            obj=CalculateModal(obj);
+                        end
+                    end
+                case 3
+                    obj=OutputAss(obj);
+                    if size(obj.input.Speed,2)>1
+                        ANSYS_Output(obj.output.Assembly,'MultiSolve',1)
+                    else
+                        ANSYS_Output(obj.output.Assembly,'MultiSolve',0)
                     end
                 case 4
 
