@@ -45,6 +45,8 @@ ETprint(obj,fid);
 CSprint(obj,fid);
 % Element print
 ELprint(obj,fid);
+% Table print
+Tableprint(obj,fid);
 % Contact pair print
 if ~isempty(obj.ContactPair)
     Contactprint(obj,fid);
@@ -67,7 +69,7 @@ if ~isempty(obj.Spring)
 end
 
 % Bearing print
-if ~isempty(obj.Bearing)
+if or(~isempty(obj.Bearing),~isempty(obj.LUTBearing))
     [AccET,AccReal]=Bearingprint(obj,fid,AccET,AccReal);
 end
 

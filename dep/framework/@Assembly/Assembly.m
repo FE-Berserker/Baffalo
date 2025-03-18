@@ -1,5 +1,5 @@
 classdef Assembly< handle & matlab.mixin.Copyable
-    %Assembly Create Assembly object 
+    % Assembly Create Assembly object 
     % Author: Xie Yu
     
     properties
@@ -26,6 +26,7 @@ classdef Assembly< handle & matlab.mixin.Copyable
         Slaver
         Spring
         Bearing
+        LUTBearing
         Section
         Material
         V % Nodes of the Assembly

@@ -1,8 +1,9 @@
-
 function obj=AddAssembly(obj,Ass,varargin)
 % Ass sub Assenbly to Assembly
 % Author : Xie Yu
-% SubStrM, Solu, Load, SF, Boundary will not add to new Assembly
+% Note : SubStrM, Solu, Load, SF, Boundary will not add to new Assembly
+% Note : Bearing and LUTBearing property will not change, so keep the same 
+% direction of rotating axis
 p=inputParser;
 addParameter(p,'position',[0,0,0,0,0,0]);
 parse(p,varargin{:});
@@ -69,6 +70,14 @@ else
     SBearing=[];
 end
 Temp_Bearing=[obj.Bearing;SBearing];
+
+% Add LUTBearing
+if ~isempty(Ass.LUTBearing)
+    LUTBearing=TransformLUTBearing(Ass.LUTBearing,obj.Summary.Total_Cnode);
+else
+    LUTBearing=[];
+end
+Temp_LUTBearing=[obj.LUTBearing;LUTBearing];
 
 % Add Section
 Temp_Section=[obj.Section;Ass.Section];
@@ -151,6 +160,7 @@ obj.Master=Temp_Master;
 obj.Slaver=Temp_Slaver;
 obj.Spring=Temp_Spring;
 obj.Bearing=Temp_Bearing;
+obj.LUTBearing=Temp_LUTBearing;
 obj.Section=Temp_Section;
 obj.Material=Temp_Material;
 obj.V=Temp_V;
@@ -162,9 +172,6 @@ obj.NodeMass=Temp_NodeMass;
 obj.EndRelease=Temp_EndRelease;
 obj.EndReleaseList=Temp_EndReleaseList;
 obj.BeamPreload=Temp_BeamPreload;
-
-% Sensor
-% Solu
 obj.ContactPair=Temp_ContactPair;
 
 %% Update summary
@@ -260,6 +267,11 @@ end
 function SBearing=TransformBearing(Bearing,acc_Cnode)
 Temp1=Bearing(:,1:2)+acc_Cnode;
 SBearing=[Temp1,Bearing(:,3:end)];
+end
+
+function LUTBearing=TransformLUTBearing(Bearing,acc_Cnode)
+Temp1=Bearing(:,1:2)+acc_Cnode;
+LUTBearing=[Temp1,Bearing(:,3:end)];
 end
 
 function VV=TransformV(V,position)

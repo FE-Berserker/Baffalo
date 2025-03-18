@@ -44,8 +44,8 @@ for i=1:size(obj.LUTBearing,1)
     acc=acc+1;
     TableNo=obj.LUTBearing(i,3);
     fprintf(fid, '%s\n',strcat('R,',num2str(m+acc),',%LUT',num2str(TableNo),'_K11%,%LUT',num2str(TableNo),...
-        '_K22%,%LUT',num2str(TableNo),'_K12%,%LUT',num2str(TableNo),'_K21%,%LUT',num2str(TableNo),'_C11%,%LUT',num2str(TableNo),'_C22%'));
-    fprintf(fid, '%s\n',strcat('RMORE,%LUT',num2str(TableNo),'_C12%,%LUT',num2str(TableNo),'_C21%'));
+        '_K11%,%LUT',num2str(obj.Bearing(i,5)),',',num2str(obj.Bearing(i,6)),',',num2str(obj.Bearing(i,7)),',',num2str(obj.Bearing(i,8))));
+    fprintf(fid, '%s\n',strcat('RMORE,',num2str(obj.Bearing(i,9)),',',num2str(obj.Bearing(i,10))));
 
     switch obj.LUTBearing(i,4)
         case 0
