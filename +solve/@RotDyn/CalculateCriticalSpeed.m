@@ -14,6 +14,7 @@ end
 if isempty(obj.output.Campbell)
     obj=ImportCampbell(obj,'Campbell.txt',opt.NMode);
 end
+
 X=obj.input.Speed;
 Y=table2array(obj.output.Campbell(:,3:end));
 

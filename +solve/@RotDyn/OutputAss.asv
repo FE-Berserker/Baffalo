@@ -96,21 +96,17 @@ if or(~isempty(obj.input.Bearing),~isempty(obj.input.TorBearing))
     % Add LUTBearing
     if ~isempty(obj.input.LUTBearing)
         for i=1:size(obj.input.LUTBearing,1)
-            TableNo=obj.input.LUTBearing(i,2);
-            Ass=AddTable(Ass,obj.input.Table{TableNo,1},'OMEGS');
+            Ass=AddTable(Ass,obj.input.LUTBearing{i,1},'OMEGS');
             x=Ass.Part{obj.output.TotalElement,1}.mesh.nodes(obj.input.LUTBearing(i,1),1);
             y=Ass.Part{obj.output.TotalElement,1}.mesh.nodes(obj.input.LUTBearing(i,1),2);
             z=Ass.Part{obj.output.TotalElement,1}.mesh.nodes(obj.input.LUTBearing(i,1),3);
             Ass=AddCnode(Ass,x,y,z);
             Acc_Cnode=GetNCnode(Ass);
-            Ass=AddMaster(Ass,obj.output.TotalElement,obj.input.LUTBearing(i,1));
+            Ass=AddMaster(Ass,obj.output.TotalElement,obj.input.TorBearing(i,1));
             Ass=AddMaster(Ass,0,Acc_Cnode);
             Acc_Mas=GetNMaster(Ass);
-            Ass=SetLUTBearing(Ass,Acc_Mas-1,Acc_Mas,i);
-            Ass=SetCnode(Ass,Acc_Cnode,Acc_ET);
-            Ass=AddBoundary(Ass,0,'No',Acc_Cnode);
-            AccBC=GetNBoundary(Ass);
-            Ass=SetBoundaryType(Ass,AccBC,Bound);
+            Ass=SetBearing(Ass,Acc_Mas-1,Acc_Mas,[K11,K22,K12,K21],[C11,C22,C12,C21]);
+
         end
     end
 

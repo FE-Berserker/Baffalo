@@ -7,8 +7,8 @@ function num = set_dof_number(direction)
 
 % Licensed under GPL-3.0-or-later, check attached LICENSE file
 
-dof_name = {'u_x','u_y','u_z','psi_x','psi_y','psi_z'};
-dof_loc = [1,2,3,4,5,6];
+dof_name = {'Ux','Uy','Uz','Rotx','Roty','Rotz'};
+dof_loc = [3,1,2,6,4,5];
 ldof = containers.Map(dof_name,dof_loc);
 
 if strcmpi(direction,'all')

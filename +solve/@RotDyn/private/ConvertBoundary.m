@@ -1,18 +1,19 @@
-function Bearing = ConvertBoundary(BCNode)
+function BC = ConvertBoundary(BCNode)
 % Convert BCNode to AMRotor bearng matrix
 % Author : Xie Yu
 
 Num=size(BCNode,1);
-Bearing=cell(1,Num);
+BC=cell(1,Num);
 for i=1:Num
-    Bearing{1,i}.Name=strcat('BC',num2str(i));
-    Bearing{1,i}.Node=BCNode(i,1);
-    Bearing{1,i}.localisation_matrix=create_ele_loc_matrix;
+    BC{1,i}.Name=strcat('BC',num2str(i));
+    BC{1,i}.Type='Boundary';
+    BC{1,i}.Node=BCNode(i,1);
+    BC{1,i}.localisation_matrix=create_ele_loc_matrix;
     Bound=BCNode(i,2:7);
-    Bearing{1,i}.stiffness_matrix=get_loc_stiffness_matrix(Bound);
-    Bearing{1,i}.damping_matrix=sparse(6,6);
-    Bearing{1,i}.mass_matrix=sparse(6,6);
-    Bearing{1,i}.gyroscopic_matrix=sparse(6,6);
+    BC{1,i}.stiffness_matrix=get_loc_stiffness_matrix(Bound);
+    BC{1,i}.damping_matrix=sparse(6,6);
+    BC{1,i}.mass_matrix=sparse(6,6);
+    BC{1,i}.gyroscopic_matrix=sparse(6,6);
 end
 
 end

@@ -7,7 +7,6 @@ function VMassNormalized = do_mass_normalization(V,M)
 %    :type M: matrix
 %    :return: Normalized eigenvector matrix V
 
-% Licensed under GPL-3.0-or-later, check attached LICENSE file
 
 modalMasses = diag(transpose(V)*M*V);
 tmp = 1./sqrt(modalMasses);

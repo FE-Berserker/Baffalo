@@ -18,13 +18,27 @@ K_Comp =sparse(6*n_nodes,6*n_nodes);
 
 for i=1:size(Component,2)    
     component_node =Component{i}.Node;
+    Type=Component{i}.Type;
+
     L_ele = sparse(6,6*n_nodes);
     L_ele(1:6,(component_node-1)*6+1:(component_node-1)*6+6)=Component{i}.localisation_matrix; %#ok<SPRIX>
+
+    if Type=="LUTBearing"
+        mass_matrix=Component{i}.mass_matrix;
+        damping_matrix= get_LUTBearing_loc_damping_matrix(Component{i},rpm);
+        gyroscopic_matrix=Component{i}.gyroscopic_matrix;
+        stiffness_matrix= get_LUTBearing_loc_stiffness_matrix(Component{i},rpm);
+    else
+        mass_matrix=Component{i}.mass_matrix;
+        damping_matrix=Component{i}.damping_matrix;
+        gyroscopic_matrix=Component{i}.gyroscopic_matrix;
+        stiffness_matrix=Component{i}.stiffness_matrix;
+    end
     
-    M_Comp  = M_Comp +L_ele'*Component{i}.mass_matrix*L_ele;
-    D_Comp  = D_Comp +L_ele'*Component{i}.damping_matrix*L_ele;
-    G_Comp  = G_Comp +L_ele'*Component{i}.gyroscopic_matrix*L_ele;
-    K_Comp  = K_Comp +L_ele'*Component{i}.stiffness_matrix*L_ele;
+    M_Comp  = M_Comp +L_ele'*mass_matrix*L_ele;
+    D_Comp  = D_Comp +L_ele'*damping_matrix*L_ele;
+    G_Comp  = G_Comp +L_ele'*gyroscopic_matrix*L_ele;
+    K_Comp  = K_Comp +L_ele'*stiffness_matrix*L_ele;
 end
 
 end

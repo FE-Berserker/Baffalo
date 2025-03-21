@@ -80,7 +80,7 @@ g(2,1)=set_line_options(g(2,1),'base_size',1,'step_size',0);
 g(2,1)=set_text_options(g(2,1),'interpreter','latex');
 g(2,1)=axe_property(g(2,1),'XLim',obj.params.Freq);
 g(2,1)=set_axe_options(g(2,1),'grid',1);
-g(2,1)=set_names(g(2,1),'column','Origin','x','f (Hz)','y','rad','color','Position');
+g(2,1)=set_names(g(2,1),'column','Origin','x','f (Hz)','y',opt.phase,'color','Position');
 g(2,1)=geom_line(g(2,1));
 draw(g);
 

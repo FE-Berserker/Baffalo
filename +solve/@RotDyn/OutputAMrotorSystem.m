@@ -42,13 +42,6 @@ alpha1=obj.params.Rayleigh(1);
 alpha2=obj.params.Rayleigh(2);
 Rotor.damping_matrix = alpha1*K + alpha2*M;
 
-%% Add sensors to System
-% Transfer keynode to the sensor
-
-%% Add Load to Rotor
-
-%% Add PID-Controller to System
-
 %% Add Bearing
 if ~isempty(obj.input.BCNode)
     Bearing1=ConvertBoundary(obj.input.BCNode);
@@ -70,10 +63,32 @@ end
 
 Bearing=[Bearing1,Bearing2,Bearing3];
 %% Add Disc
+if ~isempty(obj.input.PointMass)
+    Disc=ConvertDisc(obj.input.PointMass);
+else
+    Disc=[];
+end
+%% Add LUTBearing
+if ~isempty(obj.input.LUTBearing)
+    LUTBearing=ConvertLUTBearing(obj.input.LUTBearing,obj.input.Table);
+else
+    LUTBearing=[];
+end
+%% PIDController
+if ~isempty(obj.input.PIDController)
+    row=size(obj.input.PIDController,1);
+    PIDController=cell(1,row);
+    for i=1:row
+        PIDController{i}=control.RotDynPIDController(obj.input.PIDController{i,1});
+    end
+else
+    PIDController=[];
+end
+
 
 %% Parse
 RotorSystem.Rotor=Rotor;
-% RotorSystem.Sensor=Sensor;
-RotorSystem.Component=Bearing;
+RotorSystem.Component=[Bearing,Disc,LUTBearing];
+RotorSystem.PIDController=PIDController;
 obj.output.RotorSystem=RotorSystem;
 end

@@ -56,7 +56,14 @@ else
     Node9=[];
 end
 
-Node=[Node1;Node2;Node3;Node4;Node5;Node6;Node7;Node8;Node9];
+if ~isempty(obj.input.LUTBearing)
+    Node10=obj.input.LUTBearing(:,1);
+else
+    Node10=[];
+end
+
+
+Node=[Node1;Node2;Node3;Node4;Node5;Node6;Node7;Node8;Node9;Node10];
 Node=unique(Node);
 obj.input.KeyNode=Node;
 

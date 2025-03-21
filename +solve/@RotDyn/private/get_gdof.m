@@ -27,8 +27,8 @@ else
 end
 n.dofPerNode = n.dof/n.nodes;
 
-dof_name = {'u_x','u_y','u_z','psi_x','psi_y','psi_z'};
-dof_loc = [1,2,3,4,5,6];
+dof_name = {'Ux','Uy','Uz','Rotx','Roty','Rotz'};
+dof_loc = [3,1,2,6,4,5];
 
 ldof = containers.Map(dof_name,dof_loc);
 

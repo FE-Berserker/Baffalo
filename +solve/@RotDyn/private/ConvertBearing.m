@@ -6,6 +6,7 @@ Num=size(inputBearing,1);
 Bearing=cell(1,Num);
 for i=1:Num
     Bearing{1,i}.Name=strcat('Bearing',num2str(i));
+    Bearing{1,i}.Type='Bearing';
     Bearing{1,i}.Node=inputBearing(i,1);
     Bearing{1,i}.localisation_matrix=create_ele_loc_matrix;
     Stiff=inputBearing(i,2:6);

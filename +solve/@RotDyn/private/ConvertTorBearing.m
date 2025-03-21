@@ -6,6 +6,7 @@ Num=size(TorBearing,1);
 Bearing=cell(1,Num);
 for i=1:Num
     Bearing{1,i}.Name=strcat('TorBearing',num2str(i));
+    Bearing{1,i}.Type='TorBearing';
     Bearing{1,i}.Node=TorBearing(i,1);
     Bearing{1,i}.localisation_matrix=create_ele_loc_matrix;
     Stiff=TorBearing(i,2);

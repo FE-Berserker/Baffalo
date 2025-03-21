@@ -22,10 +22,14 @@ classdef RotDyn < Component
             'PStress' % Consider pre stress
             'ey' % Eccentricity [mm]
             'ez' % Eccentricity [mm]
-            'Type' % Solution Type  Type=2：Modal analysis Type=3: Harmonic analysis Type=4 : Stationary solution (Time integration with constant rotation speed)
+            'Type' % Solution Type  Type=2：Modal analysis Type=3: Harmonic analysis 
+            % Type=4 : Stationary solution (Time integration with constant rotation speed)
+            % Type=5 : Speedup solution (Time integration with speed range)
+            % Type=6 : Time series analysis with RPM series
             'Solver' % Solver='ANSYS' RotDyn will use ANSYS to simulate Solver='Local' RotDyn will use AMRotor solver to simulate
             'Rayleigh'% Rayleigh damping
             'FRFType'
+            'StationaryType'% 'ode15s'
             'Echo'
             };
 
@@ -33,6 +37,7 @@ classdef RotDyn < Component
             'Shaft'
             'MaterialNum'
             'Speed' % RPM
+            'SpeedRange' %RPM range (Type=5)
             'Discs' % NodeNum, Outer diameter, Inner diameter,Length, Material Num
             'Springs' % Node number, Kxx, Kyy
             'PointMass' % Node number, m, JT, JD
@@ -43,6 +48,9 @@ classdef RotDyn < Component
             % Node number,kx,K11,K22,K12,K21,Cx,C11,C22,C12,C21
             'TorBearing'
             % Node number,krot,Crot
+            'Table'
+            'LUTBearing'
+            % Node number,Table no
             'KeyNode' % Node Number
             'UnBalanceForce' % UnbalanceForce
             % Node number, me
@@ -51,6 +59,8 @@ classdef RotDyn < Component
             % Type=0 in the same parse Type=1 reverse parse
             'InNode' % NodeNum
             'OutNode' % NodeNum
+            'TimeSeries' % NodeNum, TimeSeries
+            'PIDController'% PID controller
             };
 
         outputExpectedFields = {
@@ -70,6 +80,8 @@ classdef RotDyn < Component
             'eigenValues'
             'EWf'
             'EWb'
+            'Time'
+            'TimeSeriesResult'
             };
 
         baselineExpectedFields = {
@@ -99,6 +111,7 @@ classdef RotDyn < Component
         default_Solver='ANSYS' % Local
         default_Rayleigh=[];
         default_FRFType='d'% displacement 'd', velocity 'v',accleration 'a'
+        default_StationaryType='ode15s'
 
     end
     methods
@@ -178,7 +191,37 @@ classdef RotDyn < Component
                     else
                         ANSYS_Output(obj.output.Assembly,'MultiSolve',0)
                     end
-                case 4
+                case 4        
+                    if isempty(obj.input.TimeSeries)
+                        error('Please input Time series !')
+                    else
+                        obj.output.Time=obj.input.TimeSeries{1,1}.Time;
+                    end
+
+                    if isempty(obj.input.Speed)
+                        obj.input.Speed=0;
+                    end
+                    obj=OutputAMrotorSystem(obj);
+                    switch obj.params.StationaryType
+                        case 'ode15s'
+                            obj=compute_ode15s_ss(obj);
+                    end
+                case 5
+                    if isempty(obj.input.SpeedRange)
+                        error('Please input Speed range !')
+                    end
+                    if isempty(obj.input.TimeSeries)
+                        error('Please input Time series !')
+                    else
+                        obj.output.Time=obj.input.TimeSeries{1,1}.Time;
+                    end
+                    obj=OutputAMrotorSystem(obj);
+                    switch obj.params.StationaryType
+                        case 'ode15s'
+                            obj=compute_ode15s_ss_1(obj);
+                    end
+                case 6
+
 
             end
         end

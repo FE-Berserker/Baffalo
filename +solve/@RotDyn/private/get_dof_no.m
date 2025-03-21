@@ -10,8 +10,6 @@ function dofNo= get_dof_no(RotorSystem,nodeNo)
 
 %GET_DOF_NO - get the dofs of selected nodes
 % dofNo= get_dof_no(rotor,nodeNo)
-%
-% Licensed under GPL-3.0-or-later, check attached LICENSE file
 
 
 dofPerNode = length(RotorSystem.Rotor.mass_matrix)/size(RotorSystem.Rotor.Mesh.Node,1);

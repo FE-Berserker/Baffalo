@@ -73,6 +73,14 @@ if ~isempty(obj.input.TorBearing)
         obj.input.TorBearing(Judge>=NodeNum,1)+1;
 end
 
+% LUTBearing update
+LUTBearing=obj.input.LUTBearing;
+if ~isempty(obj.input.LUTBearing)
+    Judge=LUTBearing(:,1);
+    obj.input.LUTBearing(Judge>=NodeNum,1)=...
+        obj.input.LUTBearing(Judge>=NodeNum,1)+1;
+end
+
 % Spring update
 Springs=obj.input.Springs;
 if ~isempty(obj.input.Springs)
@@ -120,6 +128,24 @@ if ~isempty(obj.input.OutNode)
     Judge=OutNode(:,1);
     obj.input.OutNode(Judge>=NodeNum,1)=...
         obj.input.OutNode(Judge>=NodeNum,1)+1;
+end
+
+% TimeSeries update
+TimeSeries=obj.input.TimeSeries;
+if ~isempty(obj.input.TimeSeries)
+    for i=1:size(obj.input.TimeSeries,1)
+        TimeSeries{i,1}.Node=TimeSeries{i,1}.Node+(TimeSeries{i,1}.Node>=NodeNum);
+    end
+    obj.input.TimeSeries=TimeSeries;
+end
+
+% PIDController update
+PIDController=obj.input.PIDController;
+if ~isempty(obj.input.PIDController)
+    for i=1:size(obj.input.PIDController,1)
+        PIDController{i,1}.Node=PIDController{i,1}.Node+(PIDController{i,1}.Node>=NodeNum);
+    end
+    obj.input.PIDController=PIDController;
 end
 
 end

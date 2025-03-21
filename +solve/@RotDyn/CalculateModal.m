@@ -48,10 +48,10 @@ CEv_tor_psi_z = Ev_lat_x;
 
 for mode = 1:n_ew
     for node = 1:length(nNodes)
-        dof_u_x = get_gdof(obj.output.RotorSystem,'u_x',node,mat.A);
-        dof_u_y = get_gdof(obj.output.RotorSystem,'u_y',node,mat.A);
-        dof_u_z = get_gdof(obj.output.RotorSystem,'u_z',node,mat.A);
-        dof_psi_z = get_gdof(obj.output.RotorSystem,'psi_z',node,mat.A);
+        dof_u_x = get_gdof(obj.output.RotorSystem,'Uy',node,mat.A);
+        dof_u_y = get_gdof(obj.output.RotorSystem,'Uz',node,mat.A);
+        dof_u_z = get_gdof(obj.output.RotorSystem,'Ux',node,mat.A);
+        dof_psi_z = get_gdof(obj.output.RotorSystem,'Rotx',node,mat.A);
 
         Ev_lat_x(node,mode)=V_real(dof_u_x,mode);
         Ev_lat_y(node,mode)=V_real(dof_u_y,mode);

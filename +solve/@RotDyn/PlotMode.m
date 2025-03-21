@@ -2,19 +2,26 @@ function PlotMode(obj,loadstep,subloadstep,varargin)
 % Plot ModeShape of RotDyn
 % Author : XieYu
 p=inputParser;
-addParameter(p,'scale',10);
+addParameter(p,'scale',0);
 parse(p,varargin{:});
 opt=p.Results;
 
 if obj.params.Solver=="ANSYS"
     PlotMode1(obj,loadstep,subloadstep,opt)
 else
-    PlotMode2(obj,loadstep,subloadstep,opt)
+    PlotMode2(obj,subloadstep,opt)
 end
 
 end
 
-function PlotMode2(obj,loadstep,subloadstep,opt)
+function PlotMode2(obj,subloadstep,opt)
+
+if opt.scale==0
+    length=obj.input.Shaft.Meshoutput.nodes(end,1)-obj.input.Shaft.Meshoutput.nodes(1,1);
+    dy=obj.output.eigenVectors.lateral_x(:,subloadstep);
+    dz=obj.output.eigenVectors.lateral_y(:,subloadstep);
+    opt.scale=length/2/max(abs([dy;dz]));
+end
 
 dy=obj.output.eigenVectors.lateral_x(:,subloadstep)*opt.scale;
 dz=obj.output.eigenVectors.lateral_y(:,subloadstep)*opt.scale;
@@ -114,13 +121,20 @@ function PlotMode1(obj,loadstep,subloadstep,opt)
 
 Speed=obj.input.Speed(loadstep);
 
+length=obj.input.Shaft.Meshoutput.nodes(end,1)-obj.input.Shaft.Meshoutput.nodes(1,1);
 if Speed~=0
     filename=strcat('ORB',num2str(loadstep),'_',num2str(subloadstep),'.txt');
     ORB=ImportORB(filename);
+    if opt.scale==0
+        opt.scale=length/2/max(ORB.A);
+    end
     R=ORB.A*opt.scale;
 else
     filename=strcat('ORB',num2str(loadstep),'_',num2str(subloadstep),'.txt');
     ORB=ImportU(filename);
+    if opt.scale==0
+        opt.scale=length/2/max(ORB.Usum);ll
+    end
     R=ORB.Usum*opt.scale;
 end
 
