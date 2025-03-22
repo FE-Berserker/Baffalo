@@ -34,12 +34,6 @@ res.F = calculate_force_load_post_sensor(obj.output.RotorSystem,obj.input.TimeSe
 res.FBearing = calculate_bearing_force(obj.output.RotorSystem,obj.output.Time,res.X,res.X_d);
 res.Fcontroller = calculate_controller_force(obj.output.RotorSystem,obj.output.Time,res.X,res.X_d);
 
-res.X = Z(1:6*n_nodes,:)*1000; % Unit m --> mm
-res.X_d = Z(6*n_nodes+1:2*6*n_nodes,:)*1000; % Unit m/s --> mm/s
-res.X_dd= Zp(6*n_nodes+1:2*6*n_nodes,:)*1000; % Unit m/s2 --> mm/s2
-
-
 obj.output.TimeSeriesResult(0)=res;
-% obj.result(rpm_span(1))=res;
-% obj.result(rpm_span(2))=res;
+
 end

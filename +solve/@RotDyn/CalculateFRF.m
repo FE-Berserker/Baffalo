@@ -15,8 +15,8 @@ outputNode = obj.input.OutNode;
 inputDofNode = get_dof_no(obj.output.RotorSystem,inputNode);
 outputDofNode = get_dof_no(obj.output.RotorSystem,outputNode);
 
-inputDirection = set_dof_number('u_x');
-outputDirection = set_dof_number('u_x');
+inputDirection = set_dof_number('Uy');
+outputDirection = set_dof_number('Uy');
 
 nNodesOut = length(outputNode);
 nNodesIn = length(inputNode);
