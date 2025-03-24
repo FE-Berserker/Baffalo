@@ -90,5 +90,6 @@ end
 RotorSystem.Rotor=Rotor;
 RotorSystem.Component=[Bearing,Disc,LUTBearing];
 RotorSystem.PIDController=PIDController;
+RotorSystem.UnBalance=obj.input.UnBalanceForce;
 obj.output.RotorSystem=RotorSystem;
 end

@@ -13,7 +13,6 @@ h_controllers = assemble_system_controller_forces(obj,t,Z);
 
 %% Put together
 h = h_loads + h_controllers;
-% h=h_loads;
 
 ss_h=[zeros(length(h),1);h];
          

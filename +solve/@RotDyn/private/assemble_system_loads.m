@@ -7,7 +7,6 @@ function h = assemble_system_loads(obj,time,Z,load)
 %    :type Z: vector
 %    :return: System load vector h
 
-
 n_nodes=length(obj.Rotor.Mesh.Node);
 h = sparse(6*n_nodes,1);
 
@@ -19,7 +18,6 @@ for i=1:size(load,1)
     
     load{i,1}.localisation_matrix=create_ele_loc_matrix;
     load{i,1}.h=get_loc_load_vec(load{i,1},time,node);
-
 
     L_ele = sparse(6,6*n_nodes);
     L_ele(1:6,(load_node-1)*6+1:(load_node-1)*6+6)=load{i,1}.localisation_matrix; %#ok<SPRIX>

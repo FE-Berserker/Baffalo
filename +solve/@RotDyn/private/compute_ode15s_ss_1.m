@@ -22,15 +22,35 @@ options = odeset('AbsTol', 1e-5, 'RelTol', 1e-5,'OutputFcn',@odeOutputFcnControl
 
 disp('... integration started...')
 
-sol = ode15s(@integrate_function1,obj.output.Time,Z0, options, rpm_span, t_span, obj.output.RotorSystem,obj.input.TimeSeries);
+TimeSeries=obj.input.TimeSeries;
+% Unbalance
+if ~isempty(obj.input.UnBalanceForce)
+    Omega=rpm_span(1)/60*2*pi+...
+        (rpm_span(2)-rpm_span(1))/(obj.output.Time(end)-obj.output.Time(1)).*(obj.output.Time-obj.output.Time(1))/60*2*pi;
+    rad=(Omega(2:end)+Omega(1:end-1))/2.*(obj.output.Time(2:end)-obj.output.Time(1:end-1));
+    accrad=[0,rad]*triu(ones(length(obj.output.Time),length(obj.output.Time)));
+    for i=1:size(obj.input.UnBalanceForce,1)
+        % Load
+        inputStruct.Time=obj.output.Time;
+        inputStruct.Fy=obj.input.UnBalanceForce(i,2)*Omega.^2.*cos(accrad);
+        inputStruct.Fz=obj.input.UnBalanceForce(i,2)*Omega.^2.*sin(accrad);
+        paramsStruct=struct();
+        Load=signal.ForceLoad(paramsStruct, inputStruct);
+        Load=Load.solve();
+        Temp=Load.output.Load;
+        Temp.Node=obj.input.UnBalanceForce(i,1);
+        TimeSeries{end+1,1}=Temp; %#ok<AGROW>
+    end
+end
 
+sol = ode15s(@integrate_function1,obj.output.Time,Z0, options, rpm_span, t_span, obj.output.RotorSystem,TimeSeries);
 
 [Z,Zp] = deval(sol,obj.output.Time);
 
 res.X = Z(1:6*n_nodes,:); % Displacement
 res.X_d = Z(6*n_nodes+1:2*6*n_nodes,:); % Velocity
 res.X_dd= Zp(6*n_nodes+1:2*6*n_nodes,:); % Accleration
-res.F = calculate_force_load_post_sensor(obj.output.RotorSystem,obj.input.TimeSeries,obj.output.Time,res.X,res.X_d);
+res.F = calculate_force_load_post_sensor(obj.output.RotorSystem,TimeSeries,obj.output.Time,res.X,res.X_d);
 res.FBearing = calculate_bearing_force(obj.output.RotorSystem,obj.output.Time,res.X,res.X_d);
 res.Fcontroller = calculate_controller_force(obj.output.RotorSystem,obj.output.Time,res.X,res.X_d);
 

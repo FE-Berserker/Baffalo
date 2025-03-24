@@ -22,10 +22,10 @@ classdef RotDyn < Component
             'PStress' % Consider pre stress
             'ey' % Eccentricity [mm]
             'ez' % Eccentricity [mm]
-            'Type' % Solution Type  Type=2：Modal analysis Type=3: Harmonic analysis 
+            'Type' % Solution Type  Type=2：Modal analysis Type=3: Harmonic analysis
             % Type=4 : Stationary solution (Time integration with constant rotation speed)
             % Type=5 : Speedup solution (Time integration with speed range)
-      
+
             'Solver' % Solver='ANSYS' RotDyn will use ANSYS to simulate Solver='Local' RotDyn will use AMRotor solver to simulate
             'Rayleigh'% Rayleigh damping
             'FRFType'
@@ -59,6 +59,7 @@ classdef RotDyn < Component
             % Type=0 in the same parse Type=1 reverse parse
             'InNode' % NodeNum
             'OutNode' % NodeNum
+            'Time'
             'TimeSeries' % NodeNum, TimeSeries
             'PIDController'% PID controller
             };
@@ -155,11 +156,11 @@ classdef RotDyn < Component
         function obj = solve(obj)
             % Calculate Mass
             obj=CalculateMass(obj);
+
             % Calculate balance quality
             if ~isempty(obj.input.BalanceQuality)
                 obj=CalculateBalanceQuality(obj);
             end
-
             obj=GenerateKeyNode(obj);
 
             switch obj.params.Type
@@ -191,9 +192,14 @@ classdef RotDyn < Component
                     else
                         ANSYS_Output(obj.output.Assembly,'MultiSolve',0)
                     end
-                case 4        
+                case 4
+                     % Check input
                     if isempty(obj.input.TimeSeries)
-                        error('Please input Time series !')
+                        if isempty(obj.input.UnBalanceForce)
+                            error('Please input Time series !')
+                        else
+                            obj.output.Time=obj.input.Time;
+                        end
                     else
                         obj.output.Time=obj.input.TimeSeries{1,1}.Time;
                     end
@@ -201,20 +207,36 @@ classdef RotDyn < Component
                     if isempty(obj.input.Speed)
                         obj.input.Speed=0;
                     end
+
+                    if isempty(obj.params.Rayleigh)
+                        error('Please define the rayleigh damping !')
+                    end
+
                     obj=OutputAMrotorSystem(obj);
                     switch obj.params.StationaryType
                         case 'ode15s'
                             obj=compute_ode15s_ss(obj);
                     end
                 case 5
+                    % Check input
                     if isempty(obj.input.SpeedRange)
                         error('Please input Speed range !')
                     end
+
                     if isempty(obj.input.TimeSeries)
-                        error('Please input Time series !')
+                        if isempty(obj.input.UnBalanceForce)
+                            error('Please input Time series !')
+                        else
+                            obj.output.Time=obj.input.Time;
+                        end
                     else
                         obj.output.Time=obj.input.TimeSeries{1,1}.Time;
                     end
+
+                    if isempty(obj.params.Rayleigh)
+                        error('Please define the rayleigh damping !')
+                    end
+
                     obj=OutputAMrotorSystem(obj);
                     switch obj.params.StationaryType
                         case 'ode15s'

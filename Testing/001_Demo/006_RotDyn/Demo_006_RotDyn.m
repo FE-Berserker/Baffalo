@@ -24,7 +24,8 @@ plotFlag = true;
 % 18. Disc rotor stationary analysis with PID controller
 % 19. Disc rotor speedup analysis with PID controller
 % 20. Rotor speedup analysis with AMB
-flag=3;
+% 21. Generate unbalance time series
+flag=21;
 DemoRotDyn(flag);
 
 function DemoRotDyn(flag)
@@ -858,10 +859,40 @@ switch flag
         Dyn1 = Dyn1.solve();
 
         PlotTimeSeriesResult(Dyn1,'Node',Dyn1.input.KeyNode,'Component',[1;2;3],'Load',[1;2],'PIDController',[1;3]);
-        
+    case 21
+        % Shaft
+        inputshaft1.Length = [35;45;70;200;250;300];
+        inputshaft1.ID = [[0,0];[10,10];[10,10];[10,10];[10,10];[10,10]];
+        inputshaft1.OD = [[40,40];[70,70];[40,40];[40,40];[40,40];[70,70]];
+        paramsshaft1.Beam_N = 16;
+        paramsshaft1.N_Slice=201;
+        obj1 = shaft.Commonshaft(paramsshaft1, inputshaft1);
+        obj1 = obj1.solve();
+        Plot3D(obj1)
 
+        mat{1,1}=obj1.params.Material;
+        inputRotDyn.Shaft=obj1.output.BeamMesh;
+        inputRotDyn.Speed=1000;
+        inputRotDyn.SpeedRange=[0,1000];
+        inputRotDyn.PointMass=[1,1.2e-3,2.4,1.2;size(obj1.output.Node,1),1e-3,2,1];
+        inputRotDyn.MaterialNum=1;
+        inputRotDyn.Time=0:1e-4:1;
+        inputRotDyn.BalanceQuality=[2.5,3000,0,300,0];
+        paramsRotDyn.Material=mat;
+        paramsRotDyn.Rayleigh=[1e-5,10];
+        % paramsRotDyn.Type=4;
+        paramsRotDyn.Type=5;
 
+        Dyn1 = solve.RotDyn(paramsRotDyn,inputRotDyn);
 
+        [Dyn1,Num1]= AddCnode(Dyn1,70);
+        Dyn1=AddBearing(Dyn1,Num1,[1e10,8e4,1e5,1e4,6e4,0,8,12,3,3]);
+
+        [Dyn1,Num2]= AddCnode(Dyn1,200);
+        Dyn1=AddBearing(Dyn1,Num2,[0,5e4,7e4,2e4,4e4,0,6,8,1.5,1.5]);
+        Dyn1 = Dyn1.solve();
+
+        PlotTimeSeriesResult(Dyn1,'Node',Dyn1.input.KeyNode,'Component',[1;2]);
 
 end
 end
