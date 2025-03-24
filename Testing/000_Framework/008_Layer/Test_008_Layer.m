@@ -25,7 +25,7 @@ close all
 % 21 Add Grid
 % 22 Add ShellGrid
 % 23 Add Line
-flag=1;
+flag=8;
 testLayer(flag);
 function testLayer(flag)
 switch flag
