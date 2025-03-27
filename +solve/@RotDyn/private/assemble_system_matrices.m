@@ -28,5 +28,4 @@ G = obj.Rotor.gyroscopic_matrix + G_Comp;
 K = obj.Rotor.stiffness_matrix + K_Comp ;
 
         
-      
 end
