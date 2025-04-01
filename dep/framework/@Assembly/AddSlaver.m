@@ -197,12 +197,16 @@ if opt.body==1
     end
 end
 
-    acc=obj.Part{Numpart,1}.acc_node;
-    num=GetNSlaver(obj)+1;
-    obj.Slaver{num,1}=SlaverList+acc;
-    obj.Summary.Total_Slaver=GetNSlaver(obj);
+if isempty(SlaverList)
+    warning('Nothing added to slaver !')
+end
 
-    %% Print
+acc=obj.Part{Numpart,1}.acc_node;
+num=GetNSlaver(obj)+1;
+obj.Slaver{num,1}=SlaverList+acc;
+obj.Summary.Total_Slaver=GetNSlaver(obj);
+
+%% Print
 if obj.Echo
     fprintf('Successfully add slaver . \n');
 end
