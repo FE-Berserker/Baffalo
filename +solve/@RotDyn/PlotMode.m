@@ -133,7 +133,7 @@ else
     filename=strcat('ORB',num2str(loadstep),'_',num2str(subloadstep),'.txt');
     ORB=ImportU(filename);
     if opt.scale==0
-        opt.scale=length/2/max(ORB.Usum);ll
+        opt.scale=length/2/max(ORB.Usum);
     end
     R=ORB.Usum*opt.scale;
 end
