@@ -1,27 +1,42 @@
-function obj=ReadSensor(obj)
+function [Data,Vector]=ReadSensor(obj,Num)
 % Read sensor result
 % Author : Xie Yu
 
-Name=obj.Name;
-for i=1:size(obj.Sensor,1)
-    Type=obj.Sensor{i,1}.Type;
-    switch Type
-        case "Freq"
+Type=obj.Sensor{Num,1}.Type;
+filename=strcat(obj.Name,'_Sensor',num2str(Num),'.txt');
 
-        case "SENE"
+switch Type
+    case "U"
+        data=importdata(filename);
+        U=data.data;
+        Data.Ux=U(:,2);
+        Data.Uy=U(:,3);
+        Data.Uz=U(:,4);
+        Data.Usum=U(:,5);
+        Vector.Usum=U(:,2:4);
 
-        case "Campbell"
+    case "Stress"
+        data=importdata(filename);
+        S=data.data;
+        Data.Sx=S(:,2);
+        Data.Sy=S(:,3);
+        Data.Sz=S(:,4);
+        Data.Sxy=S(:,5);
+        Data.Syz=S(:,6);
+        Data.Sxz=S(:,7);
+        Vector.S=S(:,2:4);
 
-        case "ORB"
+    case "Strain"
+        data=ImportElementResult(filename);
+        e=data.data;
+        Data.ex=e(:,2);
+        Data.ey=e(:,3);
+        Data.ez=e(:,4);
+        Data.exy=e(:,5);
+        Data.eyz=e(:,6);
+        Data.exz=e(:,7);
+        Vector.e=e(:,2:4);
 
-        case "U"
-
-        case "Stress"
-            filename=strcat(Name,'_Sensor',num2str(i),'.txt');
-            data=importdata(filename);
-            U=data.data;
-        case "Strain"
-
-    end
 end
+
 end

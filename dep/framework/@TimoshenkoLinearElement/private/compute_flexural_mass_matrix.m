@@ -4,9 +4,10 @@ function [M_F1, M_F2] = compute_flexural_mass_matrix(Element)
 %    :return: Bending mass submatrices M_F1, M_F2
 E = Element;
 r_bar = E.radius_inner./E.radius_outer;
-k_sc = (6*(1+E.Material.v).*(1+r_bar).^2)./((7+6*E.Material.v).*(1+r_bar).^2+(20+12*E.Material.v).*r_bar.^2); %Tiwari p.608
-phi = (12*E.Material.E*cell2mat(E.I_y)')./... % in rt_chapter10 auf S. 620 steht: Phi = 12*E*I_xx/(k_sc*G*A*l^2), also ohne shear-factor; in Genta S. 372 steht 12*E*I_xx*xi/(G*A*l^2), ohne k_sc aber mit xi,welches evtl. shear_factor ist
-    (k_sc.*E.Material.G.*cell2mat(E.Area)'.*cell2mat(E.Length)'.^2); % ratio between the shear and the flexural flexibility of the beam
+v=(cell2mat(E.v))';
+k_sc = (6*(1+v).*(1+r_bar).^2)./((7+6*v).*(1+r_bar).^2+(20+12*v).*r_bar.^2); %Tiwari p.608
+phi = (12*cell2mat(E.E)'.*cell2mat(E.I_y)')./... % in rt_chapter10 auf S. 620 steht: Phi = 12*E*I_xx/(k_sc*G*A*l^2), also ohne shear-factor; in Genta S. 372 steht 12*E*I_xx*xi/(G*A*l^2), ohne k_sc aber mit xi,welches evtl. shear_factor ist
+    (k_sc.*cell2mat(E.G)'.*cell2mat(E.Area)'.*cell2mat(E.Length)'.^2); % ratio between the shear and the flexural flexibility of the beam
 m1 = 156+294.*phi+140.*phi.^2;
 m2 = 22+38.5.*phi+17.5.*phi.^2;
 m3 = 54+126.*phi+70.*phi.^2;
@@ -18,8 +19,8 @@ m8 = 3-15.*phi;
 m9 = 4+5.*phi+10.*phi.^2;
 m10 = 1+5.*phi-5.*phi.^2;%ausgebessert siehe Genta S.163
 
-a = (E.Material.Dens.*cell2mat(E.Area)'.*cell2mat(E.Length)')./(420*(1+phi).^2);
-b = (E.Material.Dens.*cell2mat(E.I_y)')./(30*cell2mat(E.Length)'.*(1+phi).^2);
+a = (cell2mat(E.Dens)'.*cell2mat(E.Area)'.*cell2mat(E.Length)')./(420*(1+phi).^2);
+b = (cell2mat(E.Dens)'.*cell2mat(E.I_y)')./(30*cell2mat(E.Length)'.*(1+phi).^2);
 
 
 m1=mat2cell(m1,ones(1,numel(m1)))';
