@@ -230,13 +230,6 @@ ET.name='188';ET.opt=[];ET.R=[];
 SubAss=AddET(SubAss,ET);
 SubAss=SetET(SubAss,1,1);
 SubAss=BeamK(SubAss,1);
-%% Material
-MatNum=obj.input.MaterialNum;
-mat1.name=obj.params.Material{MatNum,1}.Name;
-mat1.table=["DENS",obj.params.Material{MatNum,1}.Dens;"EX",obj.params.Material{MatNum,1}.E;...
-    "NUXY",obj.params.Material{MatNum,1}.v;"ALPX",obj.params.Material{MatNum,1}.a];
-SubAss=AddMaterial(SubAss,mat1);
-SubAss=SetMaterial(SubAss,1,1);
 %% Section
 Section=obj.input.Shaft.Section;
 
@@ -249,6 +242,17 @@ for i=1:size(Section,1)
 end
 
 SubAss=DividePart(SubAss,1,mat2cell((1:size(Section,1))',ones(1,size(Section,1))));
+%% Material
+MatNum=obj.input.MaterialNum;
+for i=1:size(MatNum,1)
+    k=MatNum(i,1);
+    mat1.name=obj.params.Material{k,1}.Name;
+    mat1.table=["DENS",obj.params.Material{k,1}.Dens;"EX",obj.params.Material{k,1}.E;...
+        "NUXY",obj.params.Material{k,1}.v;"ALPX",obj.params.Material{k,1}.a];
+    SubAss=AddMaterial(SubAss,mat1);
+    SubAss=SetMaterial(SubAss,i,i);
+end
+
 for i=1:size(Section,1)
     SubAss=AddSection(SubAss,Section{i,1});
     SubAss=SetSection(SubAss,i,i);

@@ -5,9 +5,10 @@ function obj=OutputAMrotorSystem(obj)
 Node=obj.input.Shaft.Meshoutput.nodes;
 Element=obj.input.Shaft.Meshoutput.elements;
 Section=obj.input.Shaft.Section;
-Mat=obj.params.Material{obj.input.MaterialNum,1};
+Mat=obj.params.Material;
+MatNum=obj.input.MaterialNum;
 % Create Beam Mesh
-BeamMesh=TimoshenkoLinearElement(Node,Element,Section,Mat);
+BeamMesh=TimoshenkoLinearElement(Node,Element,Section,Mat,MatNum);
 BeamMesh=solve(BeamMesh);
 Rotor.Mesh=BeamMesh;
 

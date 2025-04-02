@@ -23,10 +23,13 @@ Shaft=obj.input.Shaft;
 Node=Shaft.Meshoutput.nodes(:,1);
 Element=Shaft.Meshoutput.elements;
 Center1=(Node(Element(:,1),1)+Node(Element(:,2),1))/2;
-Dens=obj.params.Material{obj.input.MaterialNum,1}.Dens;
+Dens=NaN(size(Element,1),1);
+for i=1:size(Element,1)
+    Dens(i,1)=obj.params.Material{obj.input.MaterialNum(i,1),1}.Dens;
+end
 Length=Node(2:end,1)-Node(1:end-1,1);
 Area=cellfun(@(x)CalArea(x),Shaft.Section,'UniformOutput',false);
-Mass1=cell2mat(Area).*Length*Dens;
+Mass1=cell2mat(Area).*Length.*Dens;
 
 % Calculate PointMass
 if ~isempty(obj.input.PointMass)

@@ -127,18 +127,18 @@ classdef RotDyn < Component
             end
 
             if isempty(obj.input.MaterialNum)
-                Num=size(obj.input.Shaft.Meshoutput.elements,1);
+                Num=size(obj.input.Shaft,1);
                 obj.input.MaterialNum=ones(Num,1);
             elseif size(obj.input.MaterialNum,1)==1
-                Num=size(obj.input.Shaft.Meshoutput.elements,1);
+                Num=size(obj.input.Shaft,1);
                 obj.input.MaterialNum=ones(Num,1)*obj.input.MaterialNum;
             else
                 MatNum=size(obj.input.MaterialNum,1);
-                Num=size(obj.input.Shaft.Meshoutput.elements,1);
+                Num=size(obj.input.Shaft,1);
                 if MatNum~=Num
-                    error('Wrong material number input! ')
+                    error('Please  ')
                 end
-                obj.input.MaterialNum=obj.input.MaterialNum;
+
             end
 
             if isempty(obj.params.Position)
