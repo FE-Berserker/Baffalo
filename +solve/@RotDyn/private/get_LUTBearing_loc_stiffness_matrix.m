@@ -4,10 +4,10 @@ function stiffnes_matrix  = get_LUTBearing_loc_stiffness_matrix(bearing,rpm)
 Table=bearing.Table;
 
 RPM=Table.RPM;
-K11=interp1(RPM,Table.K11,rpm,"spline");
-K22=interp1(RPM,Table.K22,rpm,"spline");
-K12=interp1(RPM,Table.K12,rpm,"spline");
-K21=interp1(RPM,Table.K21,rpm,"spline");
+K11=interp1(RPM,Table.K11,rpm,"linear");
+K22=interp1(RPM,Table.K22,rpm,"linear");
+K12=interp1(RPM,Table.K12,rpm,"linear");
+K21=interp1(RPM,Table.K21,rpm,"linear");
 
 K = sparse(6,6);
 K(1,1)=K11*1000;

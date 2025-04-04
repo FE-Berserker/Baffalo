@@ -33,8 +33,8 @@ switch flag
         status=0;
         
         %Zeit ausgeben
-        fprintf(repmat('\b', 1, 11)); % Zeit ausgeben und wieder loeschen, sodass Uebersichtlichkeit erhalten bleibt
-        fprintf('t = %04.0f',t(end)*1000)
+        fprintf(repmat('\b', 1, 13)); % Zeit ausgeben und wieder loeschen, sodass Uebersichtlichkeit erhalten bleibt
+        fprintf('t = %06.0f',t(end)*1000)
         fprintf(' ms')
 
         % set the new controller force
