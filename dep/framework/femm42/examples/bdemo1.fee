@@ -1,0 +1,48 @@
+[Format]      =  1
+[Precision]   =  1e-008
+[MinAngle]    =  30
+[Depth]       =  100
+[LengthUnits] =  centimeters
+[ProblemType] =  planar
+[Coordinates] =  cartesian
+[Comment]     =  "square capacitor"
+[PointProps]   = 0
+[BdryProps]   = 0
+[BlockProps]  = 1
+  <BeginBlock>
+    <BlockName> = "air"
+    <ex> = 1
+    <ey> = 1
+    <qv> = 0
+  <EndBlock>
+[ConductorProps]  = 2
+  <BeginConductor>
+    <ConductorName> = "zero"
+    <Vc> = 0
+    <qc> = 0
+    <ConductorType> = 1
+  <EndConductor>
+  <BeginConductor>
+    <ConductorName> = "one"
+    <Vc> = 1
+    <qc> = 0
+    <ConductorType> = 1
+  <EndConductor>
+[NumPoints] = 6
+1	0	0	0	0
+2	0	0	0	0
+2	2	0	0	0
+0	2	0	0	0
+0	1	0	0	0
+1	1	0	0	0
+[NumSegments] = 6
+3	2	-1	0	0	0	1
+2	1	-1	0	0	0	1
+1	0	-1	0	0	0	0
+5	0	-1	0	0	0	2
+5	4	-1	0	0	0	2
+3	4	-1	0	0	0	0
+[NumArcSegments] = 0
+[NumHoles] = 0
+[NumBlockLabels] = 1
+0.79000000000000004	1.51	1	0.025000000000000001	0	0

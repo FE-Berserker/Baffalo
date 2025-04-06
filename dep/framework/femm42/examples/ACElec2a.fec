@@ -1,0 +1,89 @@
+[Format]      =  1
+[Precision]   =  1e-008
+[Frequency]   =  1000
+[MinAngle]    =  30
+[Depth]       =  1
+[LengthUnits] =  millimeters
+[ProblemType] =  axisymmetric
+[extZo] = 4
+[extRo] = 1
+[extRi] = 3
+[Coordinates] =  cartesian
+[Comment]     =  "See:\nhttp://www.quickfield.com/advanced/ACElec2.htm"
+[PointProps]   = 0
+[BdryProps]   = 2
+  <BeginBdry>
+    <BdryName> = "U+"
+    <BdryType> = 0
+    <vsr> = 5
+    <vsi> = 0
+    <qsr> = 0
+    <qsi> = 0
+    <c0r>  = 0
+    <c0i>  = 0
+    <c1r>  = 0
+    <c1i>  = 0
+  <EndBdry>
+  <BeginBdry>
+    <BdryName> = "U-"
+    <BdryType> = 0
+    <vsr> = -5
+    <vsi> = 0
+    <qsr> = 0
+    <qsi> = 0
+    <c0r>  = 0
+    <c0i>  = 0
+    <c1r>  = 0
+    <c1i>  = 0
+  <EndBdry>
+[BlockProps]  = 2
+  <BeginBlock>
+    <BlockName> = "Air"
+    <ox> = 0
+    <oy> = 0
+    <ex> = 1
+    <ey> = 1
+    <ltx> = 0
+    <lty> = 0
+  <EndBlock>
+  <BeginBlock>
+    <BlockName> = "Ceramic"
+    <ox> = 1e-008
+    <oy> = 1e-008
+    <ex> = 6
+    <ey> = 6
+    <ltx> = 0
+    <lty> = 0
+  <EndBlock>
+[ConductorProps]  = 0
+[NumPoints] = 11
+1	-1.5	0	0	0
+1	1.5	0	0	0
+1.5	1.5	0	0	0
+1.5	-1.5	0	0	0
+1	1.3999999999999999	0	0	0
+1.5	-1.3500000000000001	0	0	0
+1.5	-1.25	0	0	0
+0	3	0	0	0
+0	-3	0	0	0
+0	25	0	0	0
+0	-25	0	0	0
+[NumSegments] = 10
+0	4	-1	1	0	0	0
+1	2	-1	0	0	0	0
+2	6	-1	2	0	0	0
+0	3	-1	1	0	0	0
+4	1	-1	0	0	0	0
+5	3	-1	1	0	0	0
+5	6	-1	0	0	0	0
+7	8	-1	0	0	0	0
+9	7	-1	0	0	0	0
+8	10	-1	0	0	0	0
+[NumArcSegments] = 2
+8	7	180	2.5	0	0	0	0
+10	9	180	5	0	0	0	0
+[NumHoles] = 0
+[NumBlockLabels] = 3
+1.25	0	2	0.012500000000000001	0	0
+0.5	0	1	0.025000000000000001	0	0
+11.199999999999999	16.600000000000001	1	0.5	0	0

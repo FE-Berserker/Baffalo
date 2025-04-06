@@ -1,0 +1,58 @@
+[Format]      =  1
+[Precision]   =  1e-008
+[MinAngle]    =  30
+[DoSmartMesh] =  1
+[Depth]       =  20
+[LengthUnits] =  meters
+[ProblemType] =  planar
+[Coordinates] =  cartesian
+[PrevSoln] = ""
+[dT] = 0
+[Comment]     =  "Add comments here."
+[PointProps]   = 0
+[BdryProps]   = 2
+  <BeginBdry>
+    <BdryName> = "Outer Boundary"
+    <BdryType> = 2
+    <Tset> = 0
+    <qs>   = 0
+    <beta> = 0
+    <h>    = 5
+    <Tinf> = 300
+  <EndBdry>
+  <BeginBdry>
+    <BdryName> = "Inner Boundary"
+    <BdryType> = 2
+    <Tset> = 0
+    <qs>   = 0
+    <beta> = 0
+    <h>    = 10
+    <Tinf> = 800
+  <EndBdry>
+[BlockProps]  = 1
+  <BeginBlock>
+    <BlockName> = "Brick"
+    <Kx> = 0.69999999999999996
+    <Ky> = 0.69999999999999996
+    <Kt> = 0
+    <qv> = 0
+  <EndBlock>
+[ConductorProps]  = 0
+[NumPoints] = 6
+0	1	0	0	0
+0	2	0	0	0
+2	2	0	0	0
+2	0	0	0	0
+1	0	0	0	0
+1	1	0	0	0
+[NumSegments] = 6
+0	1	-1	0	0	0	0
+1	2	-1	1	0	0	0
+2	3	-1	1	0	0	0
+3	4	-1	0	0	0	0
+4	5	-1	2	0	0	0
+0	5	-1	2	0	0	0
+[NumArcSegments] = 0
+[NumHoles] = 0
+[NumBlockLabels] = 1
+1.5	1.5	1	0.050000000000000003	0	0

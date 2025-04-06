@@ -1,0 +1,92 @@
+[Format]      =  1
+[Precision]   =  1e-008
+[Frequency]   =  500
+[MinAngle]    =  30
+[Depth]       =  1
+[LengthUnits] =  centimeters
+[ProblemType] =  axisymmetric
+[Coordinates] =  cartesian
+[Comment]     =  "Compare to:\nhttp://www.fieldp.com/library/pac_walkthrough.pdf"
+[PointProps]   = 0
+[BdryProps]   = 1
+  <BeginBdry>
+    <BdryName> = "Boundary"
+    <BdryType> = 0
+    <vsr> = 0
+    <vsi> = 0
+    <qsr> = 0
+    <qsi> = 0
+    <c0r>  = 0
+    <c0i>  = 0
+    <c1r>  = 0
+    <c1i>  = 0
+  <EndBdry>
+[BlockProps]  = 3
+  <BeginBlock>
+    <BlockName> = "Conductive Medium"
+    <ox> = 1.2
+    <oy> = 1.2
+    <ex> = 2000
+    <ey> = 2000
+    <ltx> = 0
+    <lty> = 0
+  <EndBlock>
+  <BeginBlock>
+    <BlockName> = "Normal Medium"
+    <ox> = 0.12
+    <oy> = 0.12
+    <ex> = 2000
+    <ey> = 2000
+    <ltx> = 0
+    <lty> = 0
+  <EndBlock>
+  <BeginBlock>
+    <BlockName> = "Sheath"
+    <ox> = 0
+    <oy> = 0
+    <ex> = 2.7999999999999998
+    <ey> = 2.7999999999999998
+    <ltx> = 0
+    <lty> = 0
+  <EndBlock>
+[ConductorProps]  = 1
+  <BeginConductor>
+    <ConductorName> = "Sheath"
+    <vcr> = 30
+    <vci> = 0
+    <qcr> = 0
+    <qci> = 0
+    <ConductorType> = 1
+  <EndConductor>
+[NumPoints] = 11
+0	10	0	0	0
+10	10	0	0	0
+10	-10	0	0	0
+0	3	0	0	0
+0	1.3999999999999999	0	0	0
+0.20000000000000001	1.2	0	0	0
+0.20000000000000001	-1.3999999999999999	0	0	0
+0.10000000000000001	-1.3999999999999999	0	0	0
+0.10000000000000001	-10	0	0	0
+0.20000000000000001	-10	0	0	0
+0.20000000000000001	-2.9933259094191529	0	0	0
+[NumSegments] = 11
+0	1	-1	1	0	0	0
+1	2	-1	1	0	0	0
+2	9	-1	0	0	0	0
+9	8	-1	0	0	0	0
+0	3	-1	0	0	0	0
+3	4	-1	0	0	0	0
+5	6	-1	0	0	0	1
+6	7	-1	0	0	0	1
+6	10	-1	0	0	0	0
+10	9	-1	0	0	0	0
+7	8	-1	0	0	0	1
+[NumArcSegments] = 2
+10	3	176.17744627072523	2	0	0	0	0
+5	4	90	10	0	0	0	1
+[NumHoles] = 0
+[NumBlockLabels] = 3
+6.5	-4.5999999999999996	2	0.10000000000000001	0	0
+2	-0.69999999999999996	1	0.050000000000000003	0	0
+0.156	-3.9079999999999999	3	0.10000000000000001	0	0
