@@ -57,4 +57,5 @@ function openfemm(fn)
    % make sure that FEMM isn't in FEMM 4.0 compatibility mode,
    % otherwise some commands won't work right
    callfemm('setcompatibilitymode(0)');
+end
 

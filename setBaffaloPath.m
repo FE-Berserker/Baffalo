@@ -16,6 +16,8 @@ addpath( fullfile( rootDir, 'dep', 'framework','external') );
 addpath( fullfile( rootDir, 'dep','framework','external','abravibe' ));
 
 % SetFEMMPath
+% First install FEMM in 'c:/femm42/bin/' 
+% FEMM中的一些函数路径写死了，更改安装路径可能会有一些问题
 addpath( fullfile( rootDir, 'dep', 'framework','femm42','mfiles' ) );
 
 % Set ANSYS Path
