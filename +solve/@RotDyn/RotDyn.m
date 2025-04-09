@@ -123,7 +123,7 @@ classdef RotDyn < Component
         default_Type=2;
         default_NStep=400;
         default_Solver='ANSYS' % Local
-        default_Rayleigh=[];
+        default_Rayleigh=[0,0];
         default_FRFType='d'% displacement 'd', velocity 'v',accleration 'a'
         default_StationaryType='ode15s'
 

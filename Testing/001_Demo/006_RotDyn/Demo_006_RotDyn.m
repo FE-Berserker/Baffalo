@@ -25,7 +25,8 @@ plotFlag = true;
 % 19. Disc rotor speedup analysis with PID controller
 % 20. Rotor speedup analysis with AMB
 % 21. Generate unbalance time series
-flag=21;
+% 22. Modal analysis with housing
+flag=22;
 DemoRotDyn(flag);
 
 function DemoRotDyn(flag)
@@ -893,6 +894,47 @@ switch flag
         Dyn1 = Dyn1.solve();
 
         PlotTimeSeriesResult(Dyn1,'Node',Dyn1.input.KeyNode,'Component',[1;2]);
+    case 22
+        % Shaft
+        inputshaft1.Length = 300;
+        inputshaft1.ID = [0,0];
+        inputshaft1.OD = [40,40];
+        paramsshaft1.Beam_N = 16;
+        paramsshaft1.N_Slice=20;
+        obj1 = shaft.Commonshaft(paramsshaft1, inputshaft1);
+        obj1 = obj1.solve();
+        Plot3D(obj1)
+        % Housing
+        inputshaft2.Length = 300;
+        inputshaft2.ID = [50,50];
+        inputshaft2.OD = [100,100];
+        paramsshaft2.Beam_N = 16;
+        paramsshaft2.N_Slice=20;
+        obj2 = shaft.Commonshaft(paramsshaft2, inputshaft2);
+        obj2 = obj2.solve();
+        Plot3D(obj2)
+
+        mat{1,1}=obj1.params.Material;
+        inputRotDyn.Shaft=obj1.output.BeamMesh;
+        inputRotDyn.Housing=obj2.output.BeamMesh;
+        inputRotDyn.Speed=0;
+        inputRotDyn.MaterialNum=1;
+        paramsRotDyn.Material=mat;
+        paramsRotDyn.Type=2;
+        paramsRotDyn.PrintMode=1;
+        paramsRotDyn.PrintCampbell=1;
+        % paramsRotDyn.Solver='ANSYS';
+        paramsRotDyn.Solver='Local';
+
+        Dyn1 = solve.RotDyn(paramsRotDyn,inputRotDyn);
+        Plot(Dyn1)
+
+        Dyn1=AddHousingBCNode(Dyn1,1,[1,1,1,1,1,1]);
+        Dyn1=AddBearing(Dyn1,5,[1e10,2e4,2e4,0,0,0,0,0,0,0],1);
+        Dyn1=AddBearing(Dyn1,15,[0,2e4,2e4,0,0,0,0,0,0,0],1);
+        Dyn1 = Dyn1.solve();
+        % ANSYSSolve(Dyn1.output.Assembly)
+
 
 end
 end
