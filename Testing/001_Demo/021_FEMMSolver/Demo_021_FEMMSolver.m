@@ -38,6 +38,8 @@ switch flag
         ei_saveas('Box_problem.FEE')
         ei_createmesh;    
         ei_analyze(0)
+    case 2
+        
 
 
 

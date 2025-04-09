@@ -39,6 +39,20 @@ for i=1:size(Component,2)
     D_Comp  = D_Comp +L_ele'*damping_matrix*L_ele;
     G_Comp  = G_Comp +L_ele'*gyroscopic_matrix*L_ele;
     K_Comp  = K_Comp +L_ele'*stiffness_matrix*L_ele;
+
+    if isfield(Component{i},'IsCon')
+        IsCon=Component{i}.IsCon;
+        if IsCon~=0
+            L_ele1 = sparse(6,6*n_nodes);
+            L_ele1(1:6,(IsCon-1)*6+1:(IsCon-1)*6+6)=Component{i}.localisation_matrix; %#ok<SPRIX>
+
+            D_Comp  = D_Comp +L_ele1'*damping_matrix*L_ele1...
+                -L_ele'*damping_matrix*L_ele1-L_ele1'*damping_matrix*L_ele;% 交叉项
+            K_Comp  = K_Comp +L_ele1'*stiffness_matrix*L_ele1...
+                -L_ele'*stiffness_matrix*L_ele1-L_ele1'*stiffness_matrix*L_ele;% 交叉项
+
+        end
+    end
 end
 
 end

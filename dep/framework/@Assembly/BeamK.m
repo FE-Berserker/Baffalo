@@ -72,7 +72,8 @@ end
 Total_Part=GetNPart(obj);
 obj.Summary.Total_Node=obj.Summary.Total_Node+obj.Part{Numpart,1}.NumElements;
 if Numpart==Total_Part
-    obj.V=[obj.V;Nodek];
+    obj.BeamDirectionNode=[obj.BeamDirectionNode;(size(obj.V,1)+1:size(obj.V,1)+size(Nodek,1))'];
+    obj.V=[obj.V;Nodek];  
 else
     Temp1=obj.V(1:obj.Part{Numpart,1}.acc_node,:);
     Temp2=obj.Part{Numpart,1}.mesh.nodes;
@@ -88,8 +89,9 @@ else
         
     end
     obj.V=[Temp1;Temp2;Temp3];
-
+    obj.BeamDirectionNode=[obj.BeamDirectionNode;(size(obj.V,1)-size(Temp3,1)+1:size(obj.V,1))'];
 end
+
 
 %% Print
 if obj.Echo

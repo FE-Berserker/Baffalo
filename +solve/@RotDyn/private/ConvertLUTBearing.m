@@ -1,4 +1,4 @@
-function LUTBearing = ConvertLUTBearing(inputBearing,Table)
+function LUTBearing = ConvertLUTBearing(inputBearing,Table,NumNode)
 % Convert LUTBearing to AMRotor bearng matrix
 % Author : Xie Yu
 
@@ -14,6 +14,7 @@ for i=1:Num
     LUTBearing{1,i}.damping_matrix=[];
     LUTBearing{1,i}.mass_matrix=sparse(6,6);
     LUTBearing{1,i}.gyroscopic_matrix=sparse(6,6);
+    LUTBearing{1,i}.IsCon=inputBearing(i,4)+NumNode;
 end
 
 end

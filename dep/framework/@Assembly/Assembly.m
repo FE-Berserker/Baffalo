@@ -47,6 +47,7 @@ classdef Assembly< handle & matlab.mixin.Copyable
         IStress % Intial stress
         CutBoundary % Submodel cutboundary
         Joint % MPC 184
+        BeamDirectionNode % Beam direction node
     end
 
     properties
@@ -110,6 +111,7 @@ classdef Assembly< handle & matlab.mixin.Copyable
             obj.Solu=[];
             obj.NodeMass=[];
             obj.BeamPreload=[];
+            obj.BeamDirectionNode=[];
 
 
             if obj.Echo

@@ -1,4 +1,4 @@
-function Bearing = ConvertBearing(inputBearing)
+function Bearing = ConvertBearing(inputBearing,NumNode)
 % Convert Bearing to AMRotor bearng matrix
 % Author : Xie Yu
 
@@ -15,6 +15,7 @@ for i=1:Num
     Bearing{1,i}.damping_matrix=get_loc_damping_matrix(Damping);
     Bearing{1,i}.mass_matrix=sparse(6,6);
     Bearing{1,i}.gyroscopic_matrix=sparse(6,6);
+    Bearing{1,i}.IsCon=inputBearing(i,13)+NumNode;
 end
 
 end

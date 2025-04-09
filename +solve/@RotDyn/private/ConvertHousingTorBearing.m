@@ -1,13 +1,13 @@
-function Bearing = ConvertTorBearing(TorBearing,NumNode)
-% Convert TorBearing to AMRotor torsional bearng matrix
+function Bearing = ConvertHousingTorBearing(TorBearing,NumNode)
+% Convert HousingTorBearing to AMRotor torsional bearng matrix
 % Author : Xie Yu
 
 Num=size(TorBearing,1);
 Bearing=cell(1,Num);
 for i=1:Num
-    Bearing{1,i}.Name=strcat('TorBearing',num2str(i));
-    Bearing{1,i}.Type='TorBearing';
-    Bearing{1,i}.Node=TorBearing(i,1);
+    Bearing{1,i}.Name=strcat('HousingTorBearing',num2str(i));
+    Bearing{1,i}.Type='HousingTorBearing';
+    Bearing{1,i}.Node=TorBearing(i,1)+NumNode;
     Bearing{1,i}.localisation_matrix=create_ele_loc_matrix;
     Stiff=TorBearing(i,2);
     Bearing{1,i}.stiffness_matrix=get_loc_stiffness_matrix(Stiff);
@@ -15,7 +15,6 @@ for i=1:Num
     Bearing{1,i}.damping_matrix=get_loc_damping_matrix(Damping);
     Bearing{1,i}.mass_matrix=sparse(6,6);
     Bearing{1,i}.gyroscopic_matrix=sparse(6,6);
-    Bearing{1,i}.IsCon=TorBearing(i,5)+NumNode;
 end
 
 end

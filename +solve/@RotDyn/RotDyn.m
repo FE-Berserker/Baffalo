@@ -18,6 +18,7 @@ classdef RotDyn < Component
             'PrintCampbell'
             'PrintMode'
             'Position'
+            'HousingPosition'
             'ShaftTorsion' % Consider Shaft torsional
             'PStress' % Consider pre stress
             'ey' % Eccentricity [mm]
@@ -35,23 +36,34 @@ classdef RotDyn < Component
 
         inputExpectedFields = {
             'Shaft'
+            'Housing'
             'MaterialNum'
+            'HousingMaterialNum'
             'Speed' % RPM
             'SpeedRange' %RPM range (Type=5)
             'Discs' % NodeNum, Outer diameter, Inner diameter,Length, Material Num
-            'Springs' % Node number, Kxx, Kyy
             'PointMass' % Node number, m, JT, JD
             'BCNode'% boundry conditions
-            % Node
-            % number,ux,uy,uz,rotx,roty,rotz,cux,cuy,cuz,crotx,croty,crotz
-            'Bearing'% Bearing connected to ground
+            % Node number,ux,uy,uz,rotx,roty,rotz
+            'HousingBCNode'% Housing boundry conditions
+            % Node number,ux,uy,uz,rotx,roty,rotz
+            'Bearing'% Rotor Bearing
             % Node number,kx,K11,K22,K12,K21,Cx,C11,C22,C12,C21
+            'HousingBearing'% Housing bearing connected to ground
+            % Housing Node number,kx,K11,K22,K12,K21,Cx,C11,C22,C12,C21
             'TorBearing'
             % Node number,krot,Crot
+            'HousingTorBearing'
+            % Housing node number,krot,Crot
+            'BendingBearing'
+            % Node number,kroty,krotz,Croty,Crotz
+            'HousingBendingBearing'
+            % Housing node number,kroty,krotz,Croty,Crotz
             'Table'
             'LUTBearing'
             % Node number,Table no
-            'KeyNode' % Node Number
+            'KeyNode' % Key Node Number
+            'HousingKeyNode'% Housing key Node
             'UnBalanceForce' % UnbalanceForce
             % Node number, me
             'BalanceQuality'
@@ -99,6 +111,7 @@ classdef RotDyn < Component
         default_PrintCampbell=1;
         default_PrintMode=1;
         default_Position=[0,0,0,0,0,0];
+        default_HousingPosition=[0,0,0,0,0,0];
         default_AccNode=[];
         default_AccElement=[];
         default_ShaftTorsion=0;
@@ -119,6 +132,11 @@ classdef RotDyn < Component
 
         function obj = RotDyn(paramsStruct,inputStruct)
             obj = obj@Component(paramsStruct,inputStruct);
+
+            if isempty(obj.input.Shaft)
+                error('Please input shaft !')
+            end
+
             % Material setting
             if isempty(obj.params.Material)
                 S=RMaterial('FEA');
@@ -141,6 +159,23 @@ classdef RotDyn < Component
                 obj.input.MaterialNum=obj.input.MaterialNum;
             end
 
+            if ~isempty(obj.input.Housing)
+                if isempty(obj.input.HousingMaterialNum)
+                    Num=size(obj.input.Housing.Meshoutput.elements,1);
+                    obj.input.HousingMaterialNum=ones(Num,1);
+                elseif size(obj.input.HousingMaterialNum,1)==1
+                    Num=size(obj.input.Housing.Meshoutput.elements,1);
+                    obj.input.HousingMaterialNum=ones(Num,1)*obj.input.HousingMaterialNum;
+                else
+                    MatNum=size(obj.input.HousingMaterialNum,1);
+                    Num=size(obj.input.Housing.Meshoutput.elements,1);
+                    if MatNum~=Num
+                        error('Wrong housing material number input! ')
+                    end
+                    obj.input.HousingMaterialNum=obj.input.HousingMaterialNum;
+                end
+            end
+
             if isempty(obj.params.Position)
                 Num=size(obj.input.Shaft,1);
                 Temp=[0,0,0,0,0,0];
@@ -155,15 +190,26 @@ classdef RotDyn < Component
 
             obj.documentname='RotDyn.pdf';
 
-            Num=size(obj.input.Shaft.Meshoutput.nodes,1);
-            obj.output.TotalNode=Num;
+            if isempty(obj.input.Housing)
+                Num=size(obj.input.Shaft.Meshoutput.nodes,1);
+                obj.output.TotalNode=Num;
+                Num=size(obj.input.Shaft.Meshoutput.elements,1);
+                obj.output.TotalElement=Num;
+            else
+                Num1=size(obj.input.Shaft.Meshoutput.nodes,1);
+                Num2=size(obj.input.Housing.Meshoutput.nodes,1);
+                obj.output.TotalNode=Num1+Num2;
+                Num1=size(obj.input.Shaft.Meshoutput.elements,1);
+                Num2=size(obj.input.Housing.Meshoutput.elements,1);
+                obj.output.TotalElement=Num1+Num2;
+            end
 
-            Num=size(obj.input.Shaft.Meshoutput.elements,1);
-            obj.output.TotalElement=Num;
-            obj=CalculateShape(obj);
         end
 
         function obj = solve(obj)
+            % Update shape
+            obj=CalculateShape(obj);
+
             % Calculate Mass
             obj=CalculateMass(obj);
 

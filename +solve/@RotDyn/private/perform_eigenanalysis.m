@@ -5,8 +5,6 @@ function [V,D] = perform_eigenanalysis(mat,n_ew)
 %    :type mat: struct
 %    :return: Eigenvector (V) and eigenvalue (D) matrices
 
-% Licensed under GPL-3.0-or-later, check attached LICENSE file
-
     opts.tol = 1e-16;
     criteria = true;
     num.eigenVectors = 4*(n_ew);

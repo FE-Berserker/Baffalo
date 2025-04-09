@@ -9,6 +9,11 @@ opt=p.Results;
 Shaft=obj.input.Shaft;
 Section=Shaft.Section;
 NodeX=Shaft.Meshoutput.nodes(:,1);
+
+if or(x<NodeX(1,1),x>NodeX(end,1))
+    error('Exceed the shaft range!')
+end
+
 dis=NodeX-x;
 row=find(abs(dis)==min(abs(dis)));
 row=row(1,1);
@@ -42,6 +47,8 @@ else
         NodeNum=row;
         obj=Update(obj,NodeNum);
     end
+    obj.output.TotalNode=obj.output.TotalNode+1;
+    obj.output.TotalElement=obj.output.TotalElement+1;
 end
 
 if obj.params.Echo
@@ -75,20 +82,20 @@ if ~isempty(obj.input.TorBearing)
         obj.input.TorBearing(Judge>=NodeNum,1)+1;
 end
 
+% BendingBearing update
+BendingBearing=obj.input.BendingBearing;
+if ~isempty(obj.input.BendingBearing)
+    Judge=BendingBearing(:,1);
+    obj.input.BendingBearing(Judge>=NodeNum,1)=...
+        obj.input.BendingBearing(Judge>=NodeNum,1)+1;
+end
+
 % LUTBearing update
 LUTBearing=obj.input.LUTBearing;
 if ~isempty(obj.input.LUTBearing)
     Judge=LUTBearing(:,1);
     obj.input.LUTBearing(Judge>=NodeNum,1)=...
         obj.input.LUTBearing(Judge>=NodeNum,1)+1;
-end
-
-% Spring update
-Springs=obj.input.Springs;
-if ~isempty(obj.input.Springs)
-    Judge=Springs(:,1);
-    obj.input.Springs(Judge>=NodeNum,1)=...
-        obj.input.Springs(Judge>=NodeNum,1)+1;
 end
 
 % Pointmass update

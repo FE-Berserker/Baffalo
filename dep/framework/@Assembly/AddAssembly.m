@@ -86,6 +86,9 @@ Temp_Material=[obj.Material;Ass.Material];
 % Add Node
 VV=TransformV(Ass.V,position);
 Temp_V=[obj.V;VV];
+
+Temp_BeamDirectionNode=[obj.BeamDirectionNode;...
+    Ass.BeamDirectionNode+obj.Summary.Total_Node];
 % Add ET
 Temp_ET=[obj.ET;Ass.ET];
 % Add Group
@@ -164,6 +167,7 @@ obj.LUTBearing=Temp_LUTBearing;
 obj.Section=Temp_Section;
 obj.Material=Temp_Material;
 obj.V=Temp_V;
+obj.BeamDirectionNode=Temp_BeamDirectionNode;
 obj.ET=Temp_ET;
 obj.Group=Temp_Group;
 obj.CS=Temp_CS;

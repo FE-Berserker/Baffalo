@@ -2,44 +2,44 @@ function obj = GenerateKeyNode(obj)
 % Generate KeyNode
 % Author : Xie Yu
 
-if ~isempty(obj.input.Springs)
-    Node1=obj.input.Springs(:,1);
+if ~isempty(obj.input.PointMass)
+    Node1=obj.input.PointMass(:,1);
 else
     Node1=[];
 end
 
-if ~isempty(obj.input.PointMass)
-    Node2=obj.input.PointMass(:,1);
+if ~isempty(obj.input.BCNode)
+    Node2=obj.input.BCNode(:,1);
 else
     Node2=[];
 end
 
-if ~isempty(obj.input.BCNode)
-    Node3=obj.input.BCNode(:,1);
+if ~isempty(obj.input.Bearing)
+    Node3=obj.input.Bearing(:,1);
 else
     Node3=[];
 end
 
-if ~isempty(obj.input.Bearing)
-    Node4=obj.input.Bearing(:,1);
+if ~isempty(obj.input.UnBalanceForce)
+    Node4=obj.input.UnBalanceForce(:,1);
 else
     Node4=[];
 end
 
-if ~isempty(obj.input.UnBalanceForce)
-    Node5=obj.input.UnBalanceForce(:,1);
+if ~isempty(obj.input.KeyNode)
+    Node5=obj.input.KeyNode(:,1);
 else
     Node5=[];
 end
 
-if ~isempty(obj.input.KeyNode)
-    Node6=obj.input.KeyNode(:,1);
+if ~isempty(obj.input.TorBearing)
+    Node6=obj.input.TorBearing(:,1);
 else
     Node6=[];
 end
 
-if ~isempty(obj.input.TorBearing)
-    Node7=obj.input.TorBearing(:,1);
+if ~isempty(obj.input.BendingBearing)
+    Node7=obj.input.BendingBearing(:,1);
 else
     Node7=[];
 end
