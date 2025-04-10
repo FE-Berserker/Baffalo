@@ -5,7 +5,6 @@ classdef TimoshenkoLinearElement < handle
 %   they consist of 2 nodes with 6 degrees of freedom each, so that 1
 %   element has 12 degrees of freedom
 
-
     properties
         E
         G

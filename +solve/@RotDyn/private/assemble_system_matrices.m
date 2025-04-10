@@ -11,8 +11,7 @@ if nargin == 1
 end
 
 %% Rotormatrizen aus FEM erstellen
-            
-            
+                
 %Lokalisierungsmatrix hat 6x6n 0 Einträge
 %Element L wird dann an der Stelle (i-1)*6 drauf addiert.
 
@@ -20,8 +19,7 @@ end
 %% Add component matrices
 [M_Comp,D_Comp,G_Comp,K_Comp]= get_component_matrices(obj,rpm);
 
-
-%% Add to global matrices
+%% Add to global matricesl
 M = obj.Rotor.mass_matrix + M_Comp;
 C = obj.Rotor.damping_matrix + D_Comp ;
 G = obj.Rotor.gyroscopic_matrix + G_Comp;

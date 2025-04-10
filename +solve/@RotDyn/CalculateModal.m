@@ -91,4 +91,6 @@ end
 
 obj.output.Frequency=Frequency;
 
+disp(Frequency)
+
 end

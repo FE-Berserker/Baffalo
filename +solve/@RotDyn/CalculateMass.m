@@ -17,7 +17,6 @@ if ~isempty(obj.input.Discs)
     obj.input.PointMass=[obj.input.PointMass;Disc(:,1),Mass,JT,JP];
 end
 
-
 % Calculate Shaft mass center
 Shaft=obj.input.Shaft;
 Node=Shaft.Meshoutput.nodes(:,1);

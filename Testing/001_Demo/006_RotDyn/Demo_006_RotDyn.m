@@ -900,7 +900,7 @@ switch flag
         inputshaft1.ID = [0,0];
         inputshaft1.OD = [40,40];
         paramsshaft1.Beam_N = 16;
-        paramsshaft1.N_Slice=20;
+        paramsshaft1.N_Slice=5;
         obj1 = shaft.Commonshaft(paramsshaft1, inputshaft1);
         obj1 = obj1.solve();
         Plot3D(obj1)
@@ -909,7 +909,7 @@ switch flag
         inputshaft2.ID = [50,50];
         inputshaft2.OD = [100,100];
         paramsshaft2.Beam_N = 16;
-        paramsshaft2.N_Slice=20;
+        paramsshaft2.N_Slice=5;
         obj2 = shaft.Commonshaft(paramsshaft2, inputshaft2);
         obj2 = obj2.solve();
         Plot3D(obj2)
@@ -923,18 +923,25 @@ switch flag
         paramsRotDyn.Type=2;
         paramsRotDyn.PrintMode=1;
         paramsRotDyn.PrintCampbell=1;
+        % paramsRotDyn.ShaftTorsion=1;
+        paramsRotDyn.NMode=5;
         % paramsRotDyn.Solver='ANSYS';
         paramsRotDyn.Solver='Local';
 
         Dyn1 = solve.RotDyn(paramsRotDyn,inputRotDyn);
-        Plot(Dyn1)
+        
+        Dyn1=AddHousingBearing(Dyn1,1,[1e8,1e8,1e8,0,0,0,0,0,0,0]);
+        Dyn1=AddHousingBendingBearing(Dyn1,1,[1e13,1e13,0,0]);
+        Dyn1=AddHousingTorBearing(Dyn1,1,[1e13,0]);
 
-        Dyn1=AddHousingBCNode(Dyn1,1,[1,1,1,1,1,1]);
-        Dyn1=AddBearing(Dyn1,5,[1e10,2e4,2e4,0,0,0,0,0,0,0],1);
-        Dyn1=AddBearing(Dyn1,15,[0,2e4,2e4,0,0,0,0,0,0,0],1);
+
+        Dyn1=AddBCNode(Dyn1,1,[0,0,0,1,0,0]);
+        Dyn1=AddBCNode(Dyn1,6,[0,0,0,1,0,0]);
+        Dyn1=AddBearing(Dyn1,2,[1e10,2e4,2e4,0,0,0,0,0,0,0],1);
+        Dyn1=AddBearing(Dyn1,4,[0,2e4,2e4,0,0,0,0,0,0,0],1);
         Dyn1 = Dyn1.solve();
+
+        Plot(Dyn1)
         % ANSYSSolve(Dyn1.output.Assembly)
-
-
 end
 end

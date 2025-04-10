@@ -26,7 +26,6 @@ classdef RotDyn < Component
             'Type' % Solution Type  Type=2：Modal analysis Type=3: Harmonic analysis
             % Type=4 : Stationary solution (Time integration with constant rotation speed)
             % Type=5 : Speedup solution (Time integration with speed range)
-
             'Solver' % Solver='ANSYS' RotDyn will use ANSYS to simulate Solver='Local' RotDyn will use AMRotor solver to simulate
             'Rayleigh'% Rayleigh damping
             'FRFType'

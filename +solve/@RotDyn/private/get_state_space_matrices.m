@@ -10,6 +10,9 @@ n.nodes = length(obj.Rotor.Mesh.Node);
 n.entries = n.nodes*6*2; % 6 because of 6 dof per node and 2 because
 % matrices will be stated as state space
 % system, including torsional and axial modes
+
+sort(obj.Rotor.Mesh.Node(:,1));
+
 [M,C,G,K]=assemble_system_matrices(obj,omega*60/2/pi);
 
 A = sparse(n.entries,n.entries);

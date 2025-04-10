@@ -53,6 +53,33 @@ for i=1:size(obj.input.Discs,1)
     Temp3D=Revolve2Solid(Temp3D,Temp2D,'Slice',RotNum);
     L=AddElement(L,Temp3D,'Transform',obj.params.Position);
 end
+% Add Housing
+if ~isempty(obj.input.Housing)
+    Temp2D= Mesh2D('Temp2D','Echo',0);
+    Temp3D=Mesh('Temp3D','Echo',0);
+    Node=obj.input.Housing.Meshoutput.nodes;
+    Element=obj.input.Housing.Meshoutput.elements;
+    ElementLength=Node(2:end,1)-Node(1:end-1,1);
+    RotNum=obj.input.Housing.Section{1,1}.data(1,end);
+    Section=cellfun(@(x)x.data(1,1:end-1),obj.input.Housing.Section,'UniformOutput',false);
+    Section=cellfun(@(x)ExpandSection(x),Section,'UniformOutput',false);
+    Section=cell2mat(Section);
+    AccLength=tril(ones(size(Element,1)))*ElementLength;
+    Node1x=AccLength-ElementLength;
+    Node2x=AccLength;
+    Node3x=AccLength;
+    Node4x=AccLength-ElementLength;
+    Node1y=Section(:,1);
+    Node2y=Section(:,1);
+    Node3y=Section(:,2);
+    Node4y=Section(:,2);
+    x=reshape([Node1x,Node2x,Node3x,Node4x]',[],1);
+    y=reshape([Node1y,Node2y,Node3y,Node4y]',[],1);
+    Temp2D.Vert=[x,y];
+    Temp2D.Face=reshape((1:size(x,1))',[],size(x,1)/4)';
+    Temp3D=Revolve2Solid(Temp3D,Temp2D,'Slice',RotNum);
+    L=AddElement(L,Temp3D,'Transform',obj.params.HousingPosition);
+end
 
 obj.output.Shape=L;
 
