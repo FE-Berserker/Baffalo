@@ -62,8 +62,33 @@ else
     Node10=[];
 end
 
+NumNode=size(obj.input.Shaft.Meshoutput.nodes,1);
+if ~isempty(obj.input.HousingBCNode)
+    Node11=obj.input.HousingBCNode(:,1)+NumNode;
+else
+    Node11=[];
+end
 
-Node=[Node1;Node2;Node3;Node4;Node5;Node6;Node7;Node8;Node9;Node10];
+if ~isempty(obj.input.HousingBearing)
+    Node12=obj.input.HousingBearing(:,1)+NumNode;
+else
+    Node12=[];
+end
+
+if ~isempty(obj.input.HousingTorBearing)
+    Node13=obj.input.HousingTorBearing(:,1)+NumNode;
+else
+    Node13=[];
+end
+
+if ~isempty(obj.input.HousingBendingBearing)
+    Node14=obj.input.HousingBendingBearing(:,1)+NumNode;
+else
+    Node14=[];
+end
+
+Node=[Node1;Node2;Node3;Node4;Node5;Node6;Node7;Node8;Node9;Node10;...
+    Node11;Node12;Node13;Node14];
 Node=unique(Node);
 obj.input.KeyNode=Node;
 

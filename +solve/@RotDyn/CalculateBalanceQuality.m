@@ -8,8 +8,8 @@ posA=obj.input.BalanceQuality(3);
 posB=obj.input.BalanceQuality(4);
 Type=obj.input.BalanceQuality(5);
 
-Mass=obj.output.Mass;
-Xc=obj.output.Xc;
+Mass=obj.output.Mass(1);
+Xc=obj.output.Xc(1);
 
 % Check
 if (Xc-posA)*(Xc-posB)>0

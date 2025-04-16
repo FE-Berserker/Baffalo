@@ -44,6 +44,25 @@ Mass=sum([Mass1;Mass2]);
 obj.output.Mass=Mass;
 obj.output.Xc=sum([Mass1;Mass2].*[Center1;Center2])/Mass;
 
+% Calculate Housing mass center
+if ~isempty(obj.input.Housing)
+    Housing=obj.input.Shaft;
+    Node=Housing.Meshoutput.nodes(:,1);
+    Element=Housing.Meshoutput.elements;
+    Center1=(Node(Element(:,1),1)+Node(Element(:,2),1))/2;
+    Dens=NaN(size(Element,1),1);
+    for i=1:size(Element,1)
+        Dens(i,1)=obj.params.Material{obj.input.HousingMaterialNum(i,1),1}.Dens;
+    end
+    Length=Node(2:end,1)-Node(1:end-1,1);
+    Area=cellfun(@(x)CalArea(x),Housing.Section,'UniformOutput',false);
+    Mass1=cell2mat(Area).*Length.*Dens;
+
+   obj.output.Mass=[obj.output.Mass,sum(Mass1)];
+   obj.output.Xc=[obj.output.Xc,sum(Center1.*Mass1)/sum(Mass1)];
+end
+
+
 if obj.params.Echo
     fprintf('Successfully calculate mass .\n');
 end
