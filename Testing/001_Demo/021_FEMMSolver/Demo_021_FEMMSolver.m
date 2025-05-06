@@ -241,6 +241,7 @@ switch flag
 
         % Save, analyze, and view results
         ci_saveas('ACElec2.fec');
+        ci_createmesh;
         ci_analyze;
         ci_loadsolution;
     case 6
@@ -263,7 +264,7 @@ switch flag
 
         % The package must be initialized with the openfemm command.
         % This command starts up a FEMM process and connects to it
-        %addpath('/cygdrive/c/femm42/octavefemm/mfiles');
+
         openfemm;
 
         % We need to create a new Magnetostatics document to work on.
@@ -361,7 +362,7 @@ switch flag
 
 
         % Now,analyze the problem and load the solution when the analysis is finished
-
+        mi_createmesh;
         mi_analyze
         mi_loadsolution
 
@@ -433,7 +434,7 @@ switch flag
 
         % the file has to be saved before it can be analyzed.
         hi_saveas('auto-htutor.feh');
-
+        hi_createmesh;
         hi_analyze
 
         % view the results
@@ -606,7 +607,7 @@ switch flag
 
         % Save the geometry to disk so we can analyze it
         ei_saveas('strips.fee');
-
+        ei_createmesh;
         % Analyze the problem
         ei_analyze
 
@@ -640,7 +641,7 @@ switch flag
         % And infer the third row from symmetry...
         c(3,:)=c(2,:)*[0,0,0,1;0,0,1,0;0,1,0,0;1,0,0,0];
 
-        disp('The capacitance matrix is:'); c
+        disp('The capacitance matrix is:'); 
 
         % Now that we are done, shut down FEMM
         closefemm

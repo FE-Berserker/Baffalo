@@ -149,7 +149,7 @@
 8	0	-1	0	0	0
 1	9	-1	0	0	0
 [NumArcSegments] = 1
-8	9	180	2.5	1	0	0	1
+8	9	180	2.5	1	0	0	2.5
 [NumHoles] = 0
 [NumBlockLabels] = 3
 5	0	4	1	0	0	0	1	0
