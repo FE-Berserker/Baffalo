@@ -1,10 +1,6 @@
-classdef ElasticConstants < cComponent
+classdef ElasticConstants < Component
     % ElasticConstants.m
     % Author: Xie Yu
-
-    properties
-        %other cComponentTemplate specific properties...
-    end
 
     properties (Hidden, Constant)
 
@@ -22,7 +18,7 @@ classdef ElasticConstants < cComponent
             'E_eq'%Ex Ey Gxy vxy vyx Etaxyx Etaxyy
             };
 
-        statesExpectedFields = {};
+        baselineExpectedFields = {};
 
         default_Slice=90
         default_Echo=1
@@ -31,7 +27,8 @@ classdef ElasticConstants < cComponent
     methods
 
         function obj = ElasticConstants(paramsStruct,inputStruct)
-            obj = obj@cComponent(paramsStruct,inputStruct);
+            obj = obj@Component(paramsStruct,inputStruct);
+            obj.documentname='Composite_ElasticConstants.pdf';
         end
 
         function obj = solve(obj)
