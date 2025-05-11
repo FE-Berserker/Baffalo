@@ -5,10 +5,10 @@ classdef Component
 
         % Design input for component
         input = struct();
-        
+
         % Design output (Safety factor, element assembly)
         output = struct();
-        
+
         % Design params (Materials, settings)
         params = struct();
 
@@ -19,30 +19,30 @@ classdef Component
         capacity = struct()
 
     end
-    
+
     properties (Constant, Abstract, Hidden)
         inputExpectedFields
         outputExpectedFields
         paramsExpectedFields
         baselineExpectedFields
     end
-    
+
     properties (Hidden)
         documentname % document name
     end
-    
+
     methods
-        function obj = Component(paramsStruct,inputStruct,baselineStruct)       
+        function obj = Component(paramsStruct,inputStruct,baselineStruct)
             %set all expected inputs to empty
             for ii=1:numel(obj.inputExpectedFields)
                 obj.input.(obj.inputExpectedFields{ii}) = [];
             end
-            
+
             %set all expected params to empty
             for ii=1:numel(obj.paramsExpectedFields)
                 obj.params.(obj.paramsExpectedFields{ii}) = [];
             end
-            
+
             %set all expected output to empty
             for ii=1:numel(obj.outputExpectedFields)
                 obj.output.(obj.outputExpectedFields{ii}) = [];
@@ -51,7 +51,7 @@ classdef Component
             %set all expected baseline to empty
             for ii=1:numel(obj.baselineExpectedFields)
                 obj.baseline.(obj.baselineExpectedFields{ii}) = [];
-            end    
+            end
             %cComponent constructor simply extracts the param set sent as
             %input and applies to fields of obj.params
             for ii=1:numel(obj.paramsExpectedFields)
@@ -65,7 +65,7 @@ classdef Component
                 end
             end
             obj.params = orderfields(obj.params);
-            
+
             for ii=1:numel(obj.inputExpectedFields)
                 if isfield(inputStruct, obj.inputExpectedFields{ii})
                     obj.input.(obj.inputExpectedFields{ii}) = inputStruct.(obj.inputExpectedFields{ii});
@@ -74,10 +74,17 @@ classdef Component
 
             if nargin==3
                 for ii=1:numel(obj.baselineExpectedFields)
-                    if isfield(baselineStruct{1,1},obj.baselineExpectedFields{ii}) && ~isempty(baselineStruct{1,1}.(obj.baselineExpectedFields{ii}))
-                        % set value if defined by user
-                        obj.baseline.(obj.baselineExpectedFields{ii}) = baselineStruct{1,1}.(obj.baselineExpectedFields{ii});
-                        obj.capacity.(obj.baselineExpectedFields{ii})=[];
+                    if ~isempty(baselineStruct)
+                        if isfield(baselineStruct{1,1},obj.baselineExpectedFields{ii}) && ~isempty(baselineStruct{1,1}.(obj.baselineExpectedFields{ii}))
+                            % set value if defined by user
+                            obj.baseline.(obj.baselineExpectedFields{ii}) = baselineStruct{1,1}.(obj.baselineExpectedFields{ii});
+                            obj.capacity.(obj.baselineExpectedFields{ii})=[];
+                        else
+                            % otherwise, if empty or nonexistant use hidden default
+                            BaseName = ['base_',obj.baselineExpectedFields{ii}];
+                            obj.baseline.(obj.baselineExpectedFields{ii}) = obj.(BaseName);
+                            obj.capacity.(obj.baselineExpectedFields{ii}) = [];
+                        end
                     else
                         % otherwise, if empty or nonexistant use hidden default
                         BaseName = ['base_',obj.baselineExpectedFields{ii}];
@@ -92,14 +99,14 @@ classdef Component
             obj.capacity = orderfields(obj.capacity);
         end
     end
-    
+
     %abstract methods that will be fully defined in child classes - that
     %is, any class that inherits Component will need to define these
     %methods in order to be functional
     methods (Abstract)
         obj = solve(obj)
     end
-    
+
     methods (Hidden)
         function PlotStruct(obj)
             % Plot Structure of component
