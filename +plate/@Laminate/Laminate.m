@@ -43,8 +43,8 @@ classdef Laminate < Component
     end
     methods
         
-        function obj = Laminate(paramsStruct,inputStruct)
-            obj = obj@Component(paramsStruct,inputStruct);
+        function obj = Laminate(paramsStruct,inputStruct,varargin)
+            obj = obj@Component(paramsStruct,inputStruct,varargin);
             obj.documentname='Laminate.pdf';
         end
         

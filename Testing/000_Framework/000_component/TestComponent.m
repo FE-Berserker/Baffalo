@@ -22,7 +22,6 @@ classdef TestComponent < Component
             'S2'
             };
 
-        statesExpectedFields = {};
         default_p=1;
         base_S1=1;
         base_S2=1;
