@@ -10,6 +10,7 @@ classdef CompositeRing < Component
             'Echo' % Print
             'NRot' % Number of elements in rotate direction
             'NHeight' % Number of elements in height direction
+            'T' % Temperature
             'Order'
             };
         
@@ -35,6 +36,7 @@ classdef CompositeRing < Component
         default_Echo=1;
         default_NHeight=40;
         default_Order=1;
+        default_T=20;
     end
     methods
         

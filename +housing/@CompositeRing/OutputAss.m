@@ -22,6 +22,11 @@ for i=1:size(Material,1)
     mat.table=["DENS",Material{i,1}.Dens;"EX",Material{i,1}.E1;"EY",Material{i,1}.E2;"EZ",Material{i,1}.E3;...
         "PRXY",Material{i,1}.v12;"PRYZ",Material{i,1}.v23;"PRXZ",Material{i,1}.v13;...
         "GXY",Material{i,1}.G12;"GYZ",Material{i,1}.G23;"GXZ",Material{i,1}.G13];
+    if isfield(Material{i,1},"a1")
+        mat.table=[mat.table;...
+            "ALPX",Material{i,1}.a1;"ALPY",Material{i,1}.a2;"ALPZ",Material{i,1}.a3];
+    end
+
     if isfield(Material{i,1},"allowables")
         FC=Material{i,1}.allowables;
         mat.FC=["XTEN",FC.F1t;"XCMP",-FC.F1c;...
@@ -69,6 +74,7 @@ for i=1:TotalLayers
     Ass=SetMaterial(Ass,i,MatNum(i));
     Ass=SetET(Ass,i,i);
     Ass=SetSection(Ass,i,i);
+    Ass=AddTemperature(Ass,i,obj.params.T);
 end
 
 % Parse
