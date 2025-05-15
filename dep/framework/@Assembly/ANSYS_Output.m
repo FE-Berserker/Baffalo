@@ -81,6 +81,9 @@ end
 % Joint print
 if ~isempty(obj.Joint)
     [AccET,~,AccCS,AccSec]=Jointprint(obj,fid,AccET,AccReal);
+else
+    AccCS=0;
+    AccSec=0;
 end
 
 % EndRelease print
