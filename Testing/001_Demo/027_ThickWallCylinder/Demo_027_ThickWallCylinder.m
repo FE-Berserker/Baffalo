@@ -12,8 +12,10 @@ switch flag
     case 1
         inputStruct.Ri=140;
         inputStruct.Ro=500;
-        inputStruct.Pi=0;
-        inputStruct.Po=-36.4;
+        inputStruct.Pi=-40;
+        % inputStruct.Pi=0;
+        % inputStruct.Po=-36.4;
+        inputStruct.Po=0;
         inputStruct.Location=140;
         paramsStruct=struct();
         C=method.ThickWallCylinder(paramsStruct, inputStruct);
