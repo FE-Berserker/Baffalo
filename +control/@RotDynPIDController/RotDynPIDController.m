@@ -20,6 +20,7 @@ classdef  RotDynPIDController < matlab.mixin.Heterogeneous & handle
         Type
         Target
         Node
+        Node1
 
         P; % A/mm
         I; % A/(mm*s)
@@ -50,6 +51,10 @@ classdef  RotDynPIDController < matlab.mixin.Heterogeneous & handle
             obj.P = cnfg.P;
             obj.I = cnfg.I;
             obj.D = cnfg.D;
+            if isfield(cnfg,'Node1')
+                obj.Node1=cnfg.Node1;
+            end
+
             if isfield(cnfg,'Table')
                 obj.Table=cnfg.Table;
             end
@@ -77,7 +82,6 @@ classdef  RotDynPIDController < matlab.mixin.Heterogeneous & handle
             if isfield(cnfg,'d')
                 obj.d = cnfg.d;
             end
-
 
         end
 
@@ -109,9 +113,7 @@ classdef  RotDynPIDController < matlab.mixin.Heterogeneous & handle
             currVal = y(entryNo);
             dt = tCurr - obj.prevTime;
 
-
             target = obj.Target/1000; % Unit mm -->m
-
 
             % "loop"
             % P
@@ -172,7 +174,6 @@ classdef  RotDynPIDController < matlab.mixin.Heterogeneous & handle
                     entryNo = ldof(obj.Direction);
 
                     u = displacement(entryNo);
-
 
                     uTable = obj.Table.displacement/1000; % Unit mm-->m
                     iTable = obj.Table.current;

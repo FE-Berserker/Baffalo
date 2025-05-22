@@ -41,7 +41,12 @@ switch flag
         for i=1:length(rotorsystem.PIDController)
             Control=rotorsystem.PIDController{i};
             [displacementCntrNode, ~] = find_state_vector(rotorsystem,Control.Node, y);
-            get_controller_current(Control,t(end),displacementCntrNode);
+            if ~isempty(Control.Node1)
+                [displacementCntrNode1, ~] = find_state_vector(rotorsystem,Control.Node1, y);
+            else
+                displacementCntrNode1=0;
+            end
+            get_controller_current(Control,t(end),displacementCntrNode-displacementCntrNode1);
         end        
 end
 

@@ -152,11 +152,13 @@ if ~isempty(obj.input.PIDController)
     PIDController=cell(1,row);
     for i=1:row
         PIDController{i}=control.RotDynPIDController(obj.input.PIDController{i,1});
+        if ~isempty(PIDController{i}.Node1)
+            PIDController{i}.Node1=PIDController{i}.Node1+NumNode;
+        end
     end
 else
     PIDController=[];
 end
-
 
 %% Parse
 RotorSystem.Rotor=Rotor;

@@ -13,6 +13,7 @@ addParameter(p,'B',[]);
 addParameter(p,'C',[]);
 addParameter(p,'cT',[]);
 addParameter(p,'d',[]);
+addParameter(p,'IsConnection',0);
 
 parse(p,varargin{:});
 opt=p.Results;
@@ -32,5 +33,15 @@ obj.input.PIDController{row+1,1}.B=opt.B;
 obj.input.PIDController{row+1,1}.C=opt.C;
 obj.input.PIDController{row+1,1}.cT=opt.cT;
 obj.input.PIDController{row+1,1}.d=opt.d;
+
+IsCon=opt.IsConnection;
+obj.input.PIDController{row+1,1}.IsConnection=IsCon;
+
+if IsCon==1
+    % GetNodePosition
+    Pos=obj.input.Shaft.Meshoutput.nodes(NodeNum,1);
+    [obj,NodeNum1]=AddHousingCnode(obj,Pos);
+    obj.input.PIDController{row+1,1}.Node1=NodeNum1;
+end
 
 end

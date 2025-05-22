@@ -135,5 +135,15 @@ if ~isempty(obj.input.HousingKeyNode)
         obj.input.HousingKeyNode(Judge>=NodeNum,1)+1;
 end
 
+% PIDController update
+for i=1:size(obj.input.PIDController,1)
+    Judge=obj.input.PIDController{i, 1}.Node1;
+    if ~isempty(Judge)
+        if Judge>=NodeNum
+            obj.input.PIDController{i, 1}.Node1=...
+                obj.input.PIDController{i, 1}.Node1+1;
+        end
+    end
+end
 
 end
