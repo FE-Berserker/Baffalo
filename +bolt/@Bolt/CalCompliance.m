@@ -7,6 +7,8 @@ AN=pi/4*d^2;
 d3=obj.output.d3;
 Ad3=pi/4*d3^2;
 switch obj.params.BoltType
+    case 0
+        lsk=0.5*d;
     case 1
         lsk=0.4*d;
     case 2

@@ -5,6 +5,7 @@ function obj=CalOutput(obj)
 d=obj.input.d;
 l=obj.input.l;
 lk=obj.input.lk;
+d0=obj.input.d0;
 
 % Thread Pitch
 switch obj.params.ThreadType
@@ -35,6 +36,32 @@ ds=(d2+d3)/2;
 
 % Inner diameter of head support
 switch obj.params.BoltType
+    case 0
+        if d>10
+            Bolt=load('ISO4017.mat').Bolt;
+        else
+            Bolt=load('ISO4762.mat').Bolt;
+        end
+
+        if ~any(Bolt.d==d, "all")
+            error('Please input the right bolt size !')
+        else
+            da=Bolt.da(Bolt.d==d,:);
+            dw=Bolt.dw(Bolt.d==d,:);
+            K=Bolt.K(Bolt.d==d,:);
+            if d>10
+                sw=Bolt.sw(Bolt.d==d,:);
+            else
+                sw=Bolt.dk(Bolt.d==d,:);
+            end
+            % l1=Bolt.l1(Bolt.d==d,:);
+            da=da(1,1);
+            dw=dw(1,1);
+            K=K(1,1);
+            sw=sw(1,1);
+            l1=0;
+        end
+
     case 1
         Bolt=load('ISO4762.mat').Bolt;
         if isempty(and(Bolt.d==d,Bolt.l==l))
@@ -139,21 +166,24 @@ end
 Dki=max([da,obj.input.dh,obj.input.dha]);
 Dkm=(dw+Dki)/2;
 
-As=pi/4*ds^2;
+As=pi/4*ds^2-pi/4*d0^2;
 
 % Strength
 Strength=load('Strength.mat').Strength;
 Rp=Strength.Rp(Strength.Class==obj.params.Strength,:);
 Rm=Strength.Rm(Strength.Class==obj.params.Strength,:);
 TauB=Strength.TauB(Strength.Class==obj.params.Strength,:);
-
+if and(obj.params.Strength=="8.8",d>16)
+    Rm=830;
+    Rp=660;  
+end
 MuG=obj.params.MuG;
 v=obj.params.v;
 alpha=obj.params.alpha;
 
 
 MuGG=1/cos(alpha/2/180*pi)*MuG;% Increased coefficient of friction in angular threads
-SigmaM=v*Rp/sqrt(1+3*(1.5*d2/ds*(P/pi/d2+MuGG))^2);
+SigmaM=v*Rp/sqrt(1+3*(1.5*d2*(ds^2-d0^2)/(ds^3-d0^3)*(P/pi/d2+MuGG))^2);
 FMmax=SigmaM*As;
 
 MuK=obj.params.MuK;
@@ -199,6 +229,7 @@ obj.output.Nut_sw=Nut_sw;
 obj.output.NutWasher_d1=NutWasher_d1;
 obj.output.NutWasher_d2=NutWasher_d2;
 obj.output.NutWasher_h=NutWasher_h;
+obj.output.d0=d0;
 
 %% Print
 if obj.params.Echo

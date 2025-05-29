@@ -7,16 +7,25 @@ L=Layer(obj.params.Name,'Echo',0);
 % Parse
 l=obj.input.l;
 ds=obj.output.ds;
+d0=obj.output.d0;
 
 % Add Bolt Mesh
 dw=obj.output.dw;
 K=obj.output.K;
 
 m1=Mesh2D('Mesh1','Echo',0);
-x = [0:K/2:K,K+l/10:l/10:l+K];
-y = [-dw/2:(dw-ds)/2:-ds/2,-ds/2+ds/10:ds/10:ds/2-ds/10,ds/2:(dw-ds)/2:dw/2];
-m1=MeshTensorGrid(m1,x,y);
-m1= RemoveCells(m1,[3:12,135:144]);
+if d0==0
+    x = [0:K/2:K,K+l/10:l/10:l+K];
+    y = [-dw/2:(dw-ds)/2:-ds/2,-ds/2+ds/10:ds/10:ds/2-ds/10,ds/2:(dw-ds)/2:dw/2];
+    m1=MeshTensorGrid(m1,x,y);
+    m1= RemoveCells(m1,[3:12,135:144]);
+else
+    x = [0:K/2:K,K+l/10:l/10:l+K];
+    Step=(ds-d0)/8;
+    y = [-dw/2:(dw-ds)/2:-ds/2,-ds/2+Step:Step:-d0/2,0,d0/2:Step:ds/2-Step,ds/2:(dw-ds)/2:dw/2];
+    m1=MeshTensorGrid(m1,x,y);
+    m1= RemoveCells(m1,[3:12,61:84,135:144]);
+end
 
 % Add Washer Mesh
 if obj.params.Washer

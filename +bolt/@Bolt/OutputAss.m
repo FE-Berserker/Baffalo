@@ -11,10 +11,15 @@ sw=obj.output.sw;
 ds=obj.output.ds;
 lk=obj.input.lk;
 l1=obj.output.l1;
+d0=obj.output.d0;
 
 m1=Mesh2D('Bolt','Echo',0);
 m1=MeshRing(m1,ds/2,sw/2,'Seg',8,'Num',2,'ElementType','tri');
-m1=MeshEdge(m1,1);
+if d0==0
+    m1=MeshEdge(m1,1);
+else
+    m1=MeshLayerEdge(m1,1,(ds-d0)/2);
+end
 
 mm1=Mesh('Bolt Head','Echo',0);
 mm1=Extrude2Solid(mm1,m1,K,2);
@@ -42,11 +47,11 @@ end
 
 if l1~=0
     inputShank.Length = [l1;lk];
-    inputShank.ID = [[0,0];[0,0]];
+    inputShank.ID = [[d0,d0];[d0,d0]];
     inputShank.OD = [[d,d];[ds,ds]];
 else
     inputShank.Length = lk;
-    inputShank.ID = [0,0];
+    inputShank.ID = [d0,d0];
     inputShank.OD = [ds,ds];
 end
 paramsShank.Material=obj.params.Material{1,1};

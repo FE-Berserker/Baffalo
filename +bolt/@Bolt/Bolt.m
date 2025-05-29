@@ -13,7 +13,7 @@ classdef Bolt < Component
             'WasherType' % 1.Type =1 DIN 7089
             'NutType' % Type=1 ISO 4032
             'ThreadType' % Thread Pitch Type=1 standard thread Type=2 fine therad
-            'BoltType' % Type=1 ISO 4672 Type=2 ISO 4014 Type=3 ISO 4017
+            'BoltType' % Type=0 User defined Type=1 ISO 4762 Type=2 ISO 4014 Type=3 ISO 4017
             'v' % Utilization of yield strength
             'MuG' % Coefficient of friction in thread
             'MuK' % Coefficient of friction at head support
@@ -33,6 +33,7 @@ classdef Bolt < Component
             'lk' % Clamping length [mm]
             'dh' % The hole diameter
             'dha' % The chamfer diameter at the clamped components
+            'd0' % Hollow bolt inner diameter [mm]
             };
 
         outputExpectedFields = {
@@ -121,6 +122,10 @@ classdef Bolt < Component
 
             if isempty(obj.input.dha)
                 obj.input.dha=obj.input.dh;
+            end
+
+            if isempty(obj.input.d0)
+                obj.input.d0=0;
             end
 
             % Calculate outputs
