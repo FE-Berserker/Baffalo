@@ -17,6 +17,7 @@ addParameter(k,'Sys',[]);% Set coordinate for sensor
 addParameter(k,'Name',[]);% Set name for sensor
 addParameter(k,'Set',[]);% Set set for sensor
 addParameter(k,'SetList',[]);% Set set vlist for sensor
+addParameter(k,'Corner',1);% Select corner or not
 parse(k,varargin{:});
 opt=k.Results;
 
@@ -96,6 +97,9 @@ if ~isempty(opt.Stress)
     else
         obj.Sensor{num+1,1}.Name=[];
     end
+
+    obj.Sensor{num+1,1}.Corner=opt.Corner;
+
 end
 
 if ~isempty(opt.Strain)
@@ -118,6 +122,8 @@ if ~isempty(opt.Strain)
     else
         obj.Sensor{num+1,1}.Name=[];
     end
+
+    obj.Sensor{num+1,1}.Corner=opt.Corner;
 end
 
 if ~isempty(opt.FAIL)

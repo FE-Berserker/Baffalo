@@ -80,9 +80,17 @@ end
 Temp_LUTBearing=[obj.LUTBearing;LUTBearing];
 
 % Add Section
-Temp_Section=[obj.Section;Ass.Section];
+if ~isempty(Ass.Section)
+    Section=TransformSection(Ass.Section,GetNMaterial(obj));
+else
+    Section=[];
+end
+
+Temp_Section=[obj.Section;Section];
+
 % Add Material
 Temp_Material=[obj.Material;Ass.Material];
+
 % Add Node
 VV=TransformV(Ass.V,position);
 Temp_V=[obj.V;VV];
@@ -343,4 +351,16 @@ T=Transform(CS(:,2:4));
 T=Rotate(T,position(4),position(5),position(6));
 T=Translate(T,position(1),position(2),position(3));
 CCS=[CS(:,1),Solce(T),CS(:,5)+position(4),CS(:,6)+position(5),CS(:,7)+position(6)];
+end
+
+
+function Sec=TransformSection(Sec,acc_mat)
+for i=1:size(Sec,1)
+    Type=Sec{i, 1}.type;
+    if Type=="shell"
+        if size(Sec{i, 1}.data,2)>1
+            Sec{i, 1}.data(1,2)=Sec{i, 1}.data(1,2)+acc_mat; 
+        end
+    end
+end
 end

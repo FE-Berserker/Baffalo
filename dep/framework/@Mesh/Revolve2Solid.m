@@ -13,7 +13,7 @@ Slice=opt.Slice;
 Degree=opt.Degree;
 Type=opt.Type;
 
-V=mesh2D.Vert;
+V=mesh2D.Vert(:,1:2);
 F=mesh2D.Face;
 Num_node_2D=size(V,1);
 if Degree==360

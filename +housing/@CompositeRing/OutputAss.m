@@ -1,6 +1,10 @@
-function obj=OutputAss(obj)
+function obj=OutputAss(obj,varargin)
 % Output Assembly
 % Author : Xie Yu
+k=inputParser;
+addParameter(k,'Mat_Sep',0);
+parse(k,varargin{:});
+opt=k.Results;
 
 Material=obj.params.Material;
 Thickness=obj.input.Thickness;

@@ -99,7 +99,11 @@ for i=1:size(obj.Sensor,1)
                     fprintf(fid, '%s\n',strcat('CMSEL,A,Part',num2str(obj.Sensor{i,1}.Part(j,1))));
                 end
             end
-            fprintf(fid, '%s\n','NSLE,R,CORNER');
+            % Corner
+            if obj.Sensor{i,1}.Corner==1
+                fprintf(fid, '%s\n','NSLE,R,CORNER');
+            end
+
             if isempty(obj.Sensor{i,1}.Name)
                 fprintf(fid, '%s\n',strcat('/OUTPUT,',Name,'_Sensor',num2str(i),',txt'));
             else
@@ -132,7 +136,11 @@ for i=1:size(obj.Sensor,1)
                     fprintf(fid, '%s\n',strcat('CMSEL,A,Part',num2str(obj.Sensor{i,1}.Part(j,1))));
                 end
             end
-            fprintf(fid, '%s\n','NSLE,R,CORNER');
+            % Corner
+            if obj.Sensor{i,1}.Corner==1
+                fprintf(fid, '%s\n','NSLE,R,CORNER');
+            end
+
             if isempty(obj.Sensor{i,1}.Name)
                 fprintf(fid, '%s\n',strcat('/OUTPUT,',Name,'_Sensor',num2str(i),',txt'));
             else
@@ -140,6 +148,7 @@ for i=1:size(obj.Sensor,1)
             end
             fprintf(fid, '%s\n','PRNSOL,EPEL');
             fprintf(fid, '%s\n','/OUTPUT');
+
         case "Etable"
             fprintf(fid, '%s\n','ALLSEL,ALL');
             % Set

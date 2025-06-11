@@ -10,10 +10,12 @@ switch opt.unit
     case 1 % tonne mm s ℃ mA mN mV
         adjust1=1e-12;
         adjust2=1;
+        adjust3=1e-3;
 
     case 2 % kg m s ℃ A N V
         adjust1=1;
         adjust2=1e6;
+        adjust3=1;
 end
 
 switch obj.SheetName
@@ -94,8 +96,19 @@ switch obj.SheetName
             Mat{i,1}.a=obj.Sheet.a(num(i,1),1)*1e-6;
         end
     case 'Magnetic'
-
-
+        Mat=cell(size(num,1),1);
+        for i=1:size(num,1)
+            Mat{i,1}.ID=obj.Sheet.No(num(i,1),1);
+            Mat{i,1}.Name=obj.Sheet.Name{num(i,1),1};
+            Mat{i,1}.Dens=obj.Sheet.Density(num(i,1),1)*adjust1;
+            Mat{i,1}.v=obj.Sheet.v(num(i,1),1);
+            Mat{i,1}.E=obj.Sheet.E(num(i,1),1)*adjust2;
+            Mat{i,1}.a=obj.Sheet.a(num(i,1),1)*1e-6;
+            Mat{i,1}.Mux=obj.Sheet.Mu_x(num(i,1),1);
+            Mat{i,1}.Muy=obj.Sheet.Mu_y(num(i,1),1);
+            Mat{i,1}.Hc=obj.Sheet.H_c(num(i,1),1);% A/m -> mA/mm
+            Mat{i,1}.Sigma=obj.Sheet.Sigma(num(i,1),1)*adjust3;% S/m -> S/mm
+        end
 end
 
 
