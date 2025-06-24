@@ -1,0 +1,989 @@
+<?xml version="1.0" ?>
+<TexGenModel version="3.13.1">
+    <Textile name="2DWeave(W:2,H:2)" YoungsModulusValue="2.000000000000e+05" YoungsModulusUnits="MPa" YoungsModulusYValue="1.000000000000e+04" YoungsModulusYUnits="MPa" YoungsModulusZValue="1.000000000000e+04" YoungsModulusZUnits="MPa" PoissonsRatio="3.000000000000e-01" PoissonsRatioY="4.000000000000e-01" PoissonsRatioZ="4.000000000000e-01" ShearModulusXYValue="5.000000000000e+03" ShearModulusXYUnits="MPa" ShearModulusXZValue="5.000000000000e+03" ShearModulusXZUnits="MPa" ShearModulusYZValue="5.000000000000e+03" ShearModulusYZUnits="MPa" AlphaXValue="-2.000000000000e-07" AlphaXUnits="/K" AlphaYValue="3.000000000000e-06" AlphaYUnits="/K" AlphaZValue="3.000000000000e-06" AlphaZUnits="/K" GeometryScale="mm" MatrixYoungsModulusValue="3.000000000000e+03" MatrixYoungsModulusUnits="MPa" MatrixPoissonsRatio="2.000000000000e-01" MatrixAlpha="6.500000000000e-06" type="CTextileWeave2D" NeedsBuilding="0" NumXYarns="2" NumYYarns="2" GapSize="0.000000000000e+00" FabricThickness="1.610000000000e-01" Resolution="40" Refine="1" InPlaneTangents="1">
+        <Domain type="CDomainPlanes">
+            <Plane Normal="1.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00" d="-6.250000000000e-01" />
+            <Plane Normal="-1.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00" d="-1.875000000000e+00" />
+            <Plane Normal="0.000000000000e+00, 1.000000000000e+00, 0.000000000000e+00" d="-6.250000000000e-01" />
+            <Plane Normal="0.000000000000e+00, -1.000000000000e+00, 0.000000000000e+00" d="-1.875000000000e+00" />
+            <Plane Normal="0.000000000000e+00, 0.000000000000e+00, 1.000000000000e+00" d="-0.000000000000e+00" />
+            <Plane Normal="0.000000000000e+00, 0.000000000000e+00, -1.000000000000e+00" d="-1.610000000000e-01" />
+        </Domain>
+        <Yarn index="0" YoungsModulusValue="2.000000000000e+05" YoungsModulusUnits="MPa" YoungsModulusYValue="1.000000000000e+04" YoungsModulusYUnits="MPa" YoungsModulusZValue="1.000000000000e+04" YoungsModulusZUnits="MPa" PoissonsRatio="3.000000000000e-01" PoissonsRatioY="4.000000000000e-01" PoissonsRatioZ="4.000000000000e-01" ShearModulusXYValue="5.000000000000e+03" ShearModulusXYUnits="MPa" ShearModulusXZValue="5.000000000000e+03" ShearModulusXZUnits="MPa" ShearModulusYZValue="5.000000000000e+03" ShearModulusYZUnits="MPa" AlphaXValue="-2.000000000000e-07" AlphaXUnits="/K" AlphaYValue="3.000000000000e-06" AlphaYUnits="/K" AlphaZValue="3.000000000000e-06" AlphaZUnits="/K" NumSlaveNodes="49" NumSectionPoints="40" NeedsBuilding="7">
+            <Interpolation Periodic="1" ForceInPlaneTangent="0" ForceMasterNodeTangent="1" type="CInterpolationBezier" />
+            <YarnSection type="CYarnSectionInterpNode" ConstMesh="1" Ramped="0" Polar="1">
+                <NodeSection nodeindex="0">
+                    <Section type="CSectionPolygon" RetainPoints="0">
+                        <SectionMesh type="CSectionMeshRectangular" NumLayers="2" TriangleCorners="1" />
+                        <PolygonPoint value="5.150000000000e-01, 0.000000000000e+00" />
+                        <PolygonPoint value="4.669977029612e-01, 1.673924324969e-02" />
+                        <PolygonPoint value="4.155136231141e-01, 2.376177241296e-02" />
+                        <PolygonPoint value="3.637548169978e-01, 2.848809378640e-02" />
+                        <PolygonPoint value="3.118959516016e-01, 3.194972315732e-02" />
+                        <PolygonPoint value="2.599910901405e-01, 3.460887020436e-02" />
+                        <PolygonPoint value="2.080603220092e-01, 3.669644857920e-02" />
+                        <PolygonPoint value="1.561122109205e-01, 3.833690691286e-02" />
+                        <PolygonPoint value="1.041470871676e-01, 3.931195123839e-02" />
+                        <PolygonPoint value="5.217750469717e-02, 3.992905832666e-02" />
+                        <PolygonPoint value="2.042173349518e-04, 4.024874386762e-02" />
+                        <PolygonPoint value="-5.176907002726e-02, 3.993157059142e-02" />
+                        <PolygonPoint value="-1.037387166519e-01, 3.931961367283e-02" />
+                        <PolygonPoint value="-1.557038404047e-01, 3.834456934731e-02" />
+                        <PolygonPoint value="-2.076520934710e-01, 3.670966416237e-02" />
+                        <PolygonPoint value="-2.595831153830e-01, 3.462840960618e-02" />
+                        <PolygonPoint value="-3.114884161225e-01, 3.197692654431e-02" />
+                        <PolygonPoint value="-3.633472815186e-01, 2.851529717339e-02" />
+                        <PolygonPoint value="-4.151068801477e-01, 2.379899270759e-02" />
+                        <PolygonPoint value="-4.665963426050e-01, 1.681497339923e-02" />
+                        <PolygonPoint value="-5.147101833740e-01, 2.878046461668e-04" />
+                        <PolygonPoint value="-4.671056884568e-01, -1.458948340461e-02" />
+                        <PolygonPoint value="-4.153451860530e-01, -1.929250475531e-02" />
+                        <PolygonPoint value="-3.635488524009e-01, -2.358668719618e-02" />
+                        <PolygonPoint value="-3.117250694671e-01, -2.753410086828e-02" />
+                        <PolygonPoint value="-2.598718279773e-01, -3.107098306802e-02" />
+                        <PolygonPoint value="-2.079896769127e-01, -3.415330682805e-02" />
+                        <PolygonPoint value="-1.560798740932e-01, -3.674119579654e-02" />
+                        <PolygonPoint value="-1.041336924310e-01, -3.843653560260e-02" />
+                        <PolygonPoint value="-5.217408866506e-02, -3.957215639608e-02" />
+                        <PolygonPoint value="-2.042039649573e-04, -4.024734699053e-02" />
+                        <PolygonPoint value="5.176568073514e-02, -3.957746241503e-02" />
+                        <PolygonPoint value="1.037254547109e-01, -3.844946444345e-02" />
+                        <PolygonPoint value="1.556719383197e-01, -3.676153285102e-02" />
+                        <PolygonPoint value="2.075817411393e-01, -3.417364388253e-02" />
+                        <PolygonPoint value="2.594641684149e-01, -3.109625898980e-02" />
+                        <PolygonPoint value="3.113176704975e-01, -2.756327741067e-02" />
+                        <PolygonPoint value="3.631416887118e-01, -2.361898148868e-02" />
+                        <PolygonPoint value="4.149382276800e-01, -1.932729086794e-02" />
+                        <PolygonPoint value="4.666990702835e-01, -1.462804312706e-02" />
+                    </Section>
+                    <MidNodeSection nodeindex="0" t="5.000000000000e-01">
+                        <Section type="CSectionPolygon" RetainPoints="0">
+                            <SectionMesh type="CSectionMeshRectangular" NumLayers="2" TriangleCorners="1" />
+                            <PolygonPoint value="5.150000000000e-01, 0.000000000000e+00" />
+                            <PolygonPoint value="4.667194011921e-01, 1.462611514094e-02" />
+                            <PolygonPoint value="4.149789235173e-01, 1.932381225668e-02" />
+                            <PolygonPoint value="3.632027632652e-01, 2.361413734480e-02" />
+                            <PolygonPoint value="3.113991502914e-01, 2.755744210219e-02" />
+                            <PolygonPoint value="2.595660833055e-01, 3.108994000935e-02" />
+                            <PolygonPoint value="2.077041218713e-01, 3.416754276618e-02" />
+                            <PolygonPoint value="1.558147158404e-01, 3.675441488195e-02" />
+                            <PolygonPoint value="1.038887497990e-01, 3.844429290711e-02" />
+                            <PolygonPoint value="5.194946430361e-02, 3.957507470650e-02" />
+                            <PolygonPoint value="2.927648772798e-17, 4.025000000000e-02" />
+                            <PolygonPoint value="-5.194946430361e-02, 3.957507470650e-02" />
+                            <PolygonPoint value="-1.038887497990e-01, 3.844429290711e-02" />
+                            <PolygonPoint value="-1.558147158404e-01, 3.675441488195e-02" />
+                            <PolygonPoint value="-2.077041218713e-01, 3.416754276618e-02" />
+                            <PolygonPoint value="-2.595660833055e-01, 3.108994000935e-02" />
+                            <PolygonPoint value="-3.113991502914e-01, 2.755744210219e-02" />
+                            <PolygonPoint value="-3.632027632652e-01, 2.361413734480e-02" />
+                            <PolygonPoint value="-4.149789235173e-01, 1.932381225668e-02" />
+                            <PolygonPoint value="-4.667194011921e-01, 1.462611514094e-02" />
+                            <PolygonPoint value="-5.150000000000e-01, 6.306931015609e-17" />
+                            <PolygonPoint value="-4.667194011921e-01, -1.462611514094e-02" />
+                            <PolygonPoint value="-4.149789235173e-01, -1.932381225668e-02" />
+                            <PolygonPoint value="-3.632027632652e-01, -2.361413734480e-02" />
+                            <PolygonPoint value="-3.113991502914e-01, -2.755744210219e-02" />
+                            <PolygonPoint value="-2.595660833055e-01, -3.108994000935e-02" />
+                            <PolygonPoint value="-2.077041218713e-01, -3.416754276618e-02" />
+                            <PolygonPoint value="-1.558147158404e-01, -3.675441488195e-02" />
+                            <PolygonPoint value="-1.038887497990e-01, -3.844429290711e-02" />
+                            <PolygonPoint value="-5.194946430361e-02, -3.957507470650e-02" />
+                            <PolygonPoint value="-9.584564714727e-17, -4.025000000000e-02" />
+                            <PolygonPoint value="5.194946430361e-02, -3.957507470650e-02" />
+                            <PolygonPoint value="1.038887497990e-01, -3.844429290711e-02" />
+                            <PolygonPoint value="1.558147158404e-01, -3.675441488195e-02" />
+                            <PolygonPoint value="2.077041218713e-01, -3.416754276618e-02" />
+                            <PolygonPoint value="2.595660833055e-01, -3.108994000935e-02" />
+                            <PolygonPoint value="3.113991502914e-01, -2.755744210219e-02" />
+                            <PolygonPoint value="3.632027632652e-01, -2.361413734480e-02" />
+                            <PolygonPoint value="4.149789235173e-01, -1.932381225668e-02" />
+                            <PolygonPoint value="4.667194011921e-01, -1.462611514094e-02" />
+                        </Section>
+                    </MidNodeSection>
+                </NodeSection>
+                <NodeSection nodeindex="1">
+                    <Section type="CSectionPolygon" RetainPoints="0">
+                        <SectionMesh type="CSectionMeshRectangular" NumLayers="2" TriangleCorners="1" />
+                        <PolygonPoint value="5.150000000000e-01, 0.000000000000e+00" />
+                        <PolygonPoint value="4.666990702835e-01, 1.462804312706e-02" />
+                        <PolygonPoint value="4.149382276800e-01, 1.932729086794e-02" />
+                        <PolygonPoint value="3.631416887118e-01, 2.361898148868e-02" />
+                        <PolygonPoint value="3.113176704975e-01, 2.756327741067e-02" />
+                        <PolygonPoint value="2.594641684149e-01, 3.109625898980e-02" />
+                        <PolygonPoint value="2.075817411393e-01, 3.417364388253e-02" />
+                        <PolygonPoint value="1.556719383197e-01, 3.676153285102e-02" />
+                        <PolygonPoint value="1.037254547109e-01, 3.844946444345e-02" />
+                        <PolygonPoint value="5.176568073514e-02, 3.957746241503e-02" />
+                        <PolygonPoint value="-2.042039649569e-04, 4.024734699053e-02" />
+                        <PolygonPoint value="-5.217408866506e-02, 3.957215639608e-02" />
+                        <PolygonPoint value="-1.041336924310e-01, 3.843653560260e-02" />
+                        <PolygonPoint value="-1.560798740932e-01, 3.674119579654e-02" />
+                        <PolygonPoint value="-2.079896769127e-01, 3.415330682805e-02" />
+                        <PolygonPoint value="-2.598718279773e-01, 3.107098306802e-02" />
+                        <PolygonPoint value="-3.117250694671e-01, 2.753410086828e-02" />
+                        <PolygonPoint value="-3.635488524009e-01, 2.358668719618e-02" />
+                        <PolygonPoint value="-4.153451860530e-01, 1.929250475531e-02" />
+                        <PolygonPoint value="-4.671056884568e-01, 1.458948340461e-02" />
+                        <PolygonPoint value="-5.147101833740e-01, -2.878046461667e-04" />
+                        <PolygonPoint value="-4.665963426050e-01, -1.681497339923e-02" />
+                        <PolygonPoint value="-4.151068801477e-01, -2.379899270759e-02" />
+                        <PolygonPoint value="-3.633472815186e-01, -2.851529717339e-02" />
+                        <PolygonPoint value="-3.114884161225e-01, -3.197692654431e-02" />
+                        <PolygonPoint value="-2.595831153830e-01, -3.462840960618e-02" />
+                        <PolygonPoint value="-2.076520934710e-01, -3.670966416237e-02" />
+                        <PolygonPoint value="-1.557038404047e-01, -3.834456934731e-02" />
+                        <PolygonPoint value="-1.037387166519e-01, -3.931961367283e-02" />
+                        <PolygonPoint value="-5.176907002726e-02, -3.993157059142e-02" />
+                        <PolygonPoint value="2.042173349516e-04, -4.024874386762e-02" />
+                        <PolygonPoint value="5.217750469717e-02, -3.992905832666e-02" />
+                        <PolygonPoint value="1.041470871676e-01, -3.931195123839e-02" />
+                        <PolygonPoint value="1.561122109204e-01, -3.833690691286e-02" />
+                        <PolygonPoint value="2.080603220092e-01, -3.669644857920e-02" />
+                        <PolygonPoint value="2.599910901405e-01, -3.460887020436e-02" />
+                        <PolygonPoint value="3.118959516016e-01, -3.194972315732e-02" />
+                        <PolygonPoint value="3.637548169978e-01, -2.848809378640e-02" />
+                        <PolygonPoint value="4.155136231141e-01, -2.376177241296e-02" />
+                        <PolygonPoint value="4.669977029612e-01, -1.673924324969e-02" />
+                    </Section>
+                    <MidNodeSection nodeindex="1" t="5.000000000000e-01">
+                        <Section type="CSectionPolygon" RetainPoints="0">
+                            <SectionMesh type="CSectionMeshRectangular" NumLayers="2" TriangleCorners="1" />
+                            <PolygonPoint value="5.150000000000e-01, 0.000000000000e+00" />
+                            <PolygonPoint value="4.667194011921e-01, 1.462611514094e-02" />
+                            <PolygonPoint value="4.149789235173e-01, 1.932381225668e-02" />
+                            <PolygonPoint value="3.632027632652e-01, 2.361413734480e-02" />
+                            <PolygonPoint value="3.113991502914e-01, 2.755744210219e-02" />
+                            <PolygonPoint value="2.595660833055e-01, 3.108994000935e-02" />
+                            <PolygonPoint value="2.077041218713e-01, 3.416754276618e-02" />
+                            <PolygonPoint value="1.558147158404e-01, 3.675441488195e-02" />
+                            <PolygonPoint value="1.038887497990e-01, 3.844429290711e-02" />
+                            <PolygonPoint value="5.194946430361e-02, 3.957507470650e-02" />
+                            <PolygonPoint value="2.927648772798e-17, 4.025000000000e-02" />
+                            <PolygonPoint value="-5.194946430361e-02, 3.957507470650e-02" />
+                            <PolygonPoint value="-1.038887497990e-01, 3.844429290711e-02" />
+                            <PolygonPoint value="-1.558147158404e-01, 3.675441488195e-02" />
+                            <PolygonPoint value="-2.077041218713e-01, 3.416754276618e-02" />
+                            <PolygonPoint value="-2.595660833055e-01, 3.108994000935e-02" />
+                            <PolygonPoint value="-3.113991502914e-01, 2.755744210219e-02" />
+                            <PolygonPoint value="-3.632027632652e-01, 2.361413734480e-02" />
+                            <PolygonPoint value="-4.149789235173e-01, 1.932381225668e-02" />
+                            <PolygonPoint value="-4.667194011921e-01, 1.462611514094e-02" />
+                            <PolygonPoint value="-5.150000000000e-01, 6.306931015609e-17" />
+                            <PolygonPoint value="-4.667194011921e-01, -1.462611514094e-02" />
+                            <PolygonPoint value="-4.149789235173e-01, -1.932381225668e-02" />
+                            <PolygonPoint value="-3.632027632652e-01, -2.361413734480e-02" />
+                            <PolygonPoint value="-3.113991502914e-01, -2.755744210219e-02" />
+                            <PolygonPoint value="-2.595660833055e-01, -3.108994000935e-02" />
+                            <PolygonPoint value="-2.077041218713e-01, -3.416754276618e-02" />
+                            <PolygonPoint value="-1.558147158404e-01, -3.675441488195e-02" />
+                            <PolygonPoint value="-1.038887497990e-01, -3.844429290711e-02" />
+                            <PolygonPoint value="-5.194946430361e-02, -3.957507470650e-02" />
+                            <PolygonPoint value="-9.584564714727e-17, -4.025000000000e-02" />
+                            <PolygonPoint value="5.194946430361e-02, -3.957507470650e-02" />
+                            <PolygonPoint value="1.038887497990e-01, -3.844429290711e-02" />
+                            <PolygonPoint value="1.558147158404e-01, -3.675441488195e-02" />
+                            <PolygonPoint value="2.077041218713e-01, -3.416754276618e-02" />
+                            <PolygonPoint value="2.595660833055e-01, -3.108994000935e-02" />
+                            <PolygonPoint value="3.113991502914e-01, -2.755744210219e-02" />
+                            <PolygonPoint value="3.632027632652e-01, -2.361413734480e-02" />
+                            <PolygonPoint value="4.149789235173e-01, -1.932381225668e-02" />
+                            <PolygonPoint value="4.667194011921e-01, -1.462611514094e-02" />
+                        </Section>
+                    </MidNodeSection>
+                </NodeSection>
+                <NodeSection nodeindex="2">
+                    <Section type="CSectionPolygon" RetainPoints="0">
+                        <SectionMesh type="CSectionMeshRectangular" NumLayers="2" TriangleCorners="1" />
+                        <PolygonPoint value="5.150000000000e-01, 0.000000000000e+00" />
+                        <PolygonPoint value="4.669977029612e-01, 1.673924324969e-02" />
+                        <PolygonPoint value="4.155136231141e-01, 2.376177241296e-02" />
+                        <PolygonPoint value="3.637548169978e-01, 2.848809378640e-02" />
+                        <PolygonPoint value="3.118959516016e-01, 3.194972315732e-02" />
+                        <PolygonPoint value="2.599910901405e-01, 3.460887020436e-02" />
+                        <PolygonPoint value="2.080603220092e-01, 3.669644857920e-02" />
+                        <PolygonPoint value="1.561122109205e-01, 3.833690691286e-02" />
+                        <PolygonPoint value="1.041470871676e-01, 3.931195123839e-02" />
+                        <PolygonPoint value="5.217750469717e-02, 3.992905832666e-02" />
+                        <PolygonPoint value="2.042173349518e-04, 4.024874386762e-02" />
+                        <PolygonPoint value="-5.176907002726e-02, 3.993157059142e-02" />
+                        <PolygonPoint value="-1.037387166519e-01, 3.931961367283e-02" />
+                        <PolygonPoint value="-1.557038404047e-01, 3.834456934731e-02" />
+                        <PolygonPoint value="-2.076520934710e-01, 3.670966416237e-02" />
+                        <PolygonPoint value="-2.595831153830e-01, 3.462840960618e-02" />
+                        <PolygonPoint value="-3.114884161225e-01, 3.197692654431e-02" />
+                        <PolygonPoint value="-3.633472815186e-01, 2.851529717339e-02" />
+                        <PolygonPoint value="-4.151068801477e-01, 2.379899270759e-02" />
+                        <PolygonPoint value="-4.665963426050e-01, 1.681497339923e-02" />
+                        <PolygonPoint value="-5.147101833740e-01, 2.878046461668e-04" />
+                        <PolygonPoint value="-4.671056884568e-01, -1.458948340461e-02" />
+                        <PolygonPoint value="-4.153451860530e-01, -1.929250475531e-02" />
+                        <PolygonPoint value="-3.635488524009e-01, -2.358668719618e-02" />
+                        <PolygonPoint value="-3.117250694671e-01, -2.753410086828e-02" />
+                        <PolygonPoint value="-2.598718279773e-01, -3.107098306802e-02" />
+                        <PolygonPoint value="-2.079896769127e-01, -3.415330682805e-02" />
+                        <PolygonPoint value="-1.560798740932e-01, -3.674119579654e-02" />
+                        <PolygonPoint value="-1.041336924310e-01, -3.843653560260e-02" />
+                        <PolygonPoint value="-5.217408866506e-02, -3.957215639608e-02" />
+                        <PolygonPoint value="-2.042039649573e-04, -4.024734699053e-02" />
+                        <PolygonPoint value="5.176568073514e-02, -3.957746241503e-02" />
+                        <PolygonPoint value="1.037254547109e-01, -3.844946444345e-02" />
+                        <PolygonPoint value="1.556719383197e-01, -3.676153285102e-02" />
+                        <PolygonPoint value="2.075817411393e-01, -3.417364388253e-02" />
+                        <PolygonPoint value="2.594641684149e-01, -3.109625898980e-02" />
+                        <PolygonPoint value="3.113176704975e-01, -2.756327741067e-02" />
+                        <PolygonPoint value="3.631416887118e-01, -2.361898148868e-02" />
+                        <PolygonPoint value="4.149382276800e-01, -1.932729086794e-02" />
+                        <PolygonPoint value="4.666990702835e-01, -1.462804312706e-02" />
+                    </Section>
+                </NodeSection>
+            </YarnSection>
+            <FibreDistribution type="CFibreDistributionConst" />
+            <Repeat value="2.500000000000e+00, 0.000000000000e+00, 0.000000000000e+00" />
+            <Repeat value="0.000000000000e+00, 2.500000000000e+00, 0.000000000000e+00" />
+            <MasterNode index="0" Position="0.000000000000e+00, 0.000000000000e+00, 1.207500000000e-01" Tangent="1.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00" Up="0.000000000000e+00, 0.000000000000e+00, 1.000000000000e+00" Angle="0.000000000000e+00" />
+            <MasterNode index="1" Position="1.250000000000e+00, 0.000000000000e+00, 4.025000000000e-02" Tangent="1.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00" Up="0.000000000000e+00, 0.000000000000e+00, 1.000000000000e+00" Angle="0.000000000000e+00" />
+            <MasterNode index="2" Position="2.500000000000e+00, 0.000000000000e+00, 1.207500000000e-01" Tangent="1.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00" Up="0.000000000000e+00, 0.000000000000e+00, 1.000000000000e+00" Angle="0.000000000000e+00" />
+        </Yarn>
+        <Yarn index="1" YoungsModulusValue="2.000000000000e+05" YoungsModulusUnits="MPa" YoungsModulusYValue="1.000000000000e+04" YoungsModulusYUnits="MPa" YoungsModulusZValue="1.000000000000e+04" YoungsModulusZUnits="MPa" PoissonsRatio="3.000000000000e-01" PoissonsRatioY="4.000000000000e-01" PoissonsRatioZ="4.000000000000e-01" ShearModulusXYValue="5.000000000000e+03" ShearModulusXYUnits="MPa" ShearModulusXZValue="5.000000000000e+03" ShearModulusXZUnits="MPa" ShearModulusYZValue="5.000000000000e+03" ShearModulusYZUnits="MPa" AlphaXValue="-2.000000000000e-07" AlphaXUnits="/K" AlphaYValue="3.000000000000e-06" AlphaYUnits="/K" AlphaZValue="3.000000000000e-06" AlphaZUnits="/K" NumSlaveNodes="49" NumSectionPoints="40" NeedsBuilding="7">
+            <Interpolation Periodic="1" ForceInPlaneTangent="0" ForceMasterNodeTangent="1" type="CInterpolationBezier" />
+            <YarnSection type="CYarnSectionInterpNode" ConstMesh="1" Ramped="0" Polar="1">
+                <NodeSection nodeindex="0">
+                    <Section type="CSectionPolygon" RetainPoints="0">
+                        <SectionMesh type="CSectionMeshRectangular" NumLayers="2" TriangleCorners="1" />
+                        <PolygonPoint value="5.150000000000e-01, 0.000000000000e+00" />
+                        <PolygonPoint value="4.666990702835e-01, 1.462804312706e-02" />
+                        <PolygonPoint value="4.149382276800e-01, 1.932729086794e-02" />
+                        <PolygonPoint value="3.631416887118e-01, 2.361898148868e-02" />
+                        <PolygonPoint value="3.113176704975e-01, 2.756327741067e-02" />
+                        <PolygonPoint value="2.594641684149e-01, 3.109625898980e-02" />
+                        <PolygonPoint value="2.075817411393e-01, 3.417364388253e-02" />
+                        <PolygonPoint value="1.556719383197e-01, 3.676153285102e-02" />
+                        <PolygonPoint value="1.037254547109e-01, 3.844946444345e-02" />
+                        <PolygonPoint value="5.176568073514e-02, 3.957746241503e-02" />
+                        <PolygonPoint value="-2.042039649569e-04, 4.024734699053e-02" />
+                        <PolygonPoint value="-5.217408866506e-02, 3.957215639608e-02" />
+                        <PolygonPoint value="-1.041336924310e-01, 3.843653560260e-02" />
+                        <PolygonPoint value="-1.560798740932e-01, 3.674119579654e-02" />
+                        <PolygonPoint value="-2.079896769127e-01, 3.415330682805e-02" />
+                        <PolygonPoint value="-2.598718279773e-01, 3.107098306802e-02" />
+                        <PolygonPoint value="-3.117250694671e-01, 2.753410086828e-02" />
+                        <PolygonPoint value="-3.635488524009e-01, 2.358668719618e-02" />
+                        <PolygonPoint value="-4.153451860530e-01, 1.929250475531e-02" />
+                        <PolygonPoint value="-4.671056884568e-01, 1.458948340461e-02" />
+                        <PolygonPoint value="-5.147101833740e-01, -2.878046461667e-04" />
+                        <PolygonPoint value="-4.665963426050e-01, -1.681497339923e-02" />
+                        <PolygonPoint value="-4.151068801477e-01, -2.379899270759e-02" />
+                        <PolygonPoint value="-3.633472815186e-01, -2.851529717339e-02" />
+                        <PolygonPoint value="-3.114884161225e-01, -3.197692654431e-02" />
+                        <PolygonPoint value="-2.595831153830e-01, -3.462840960618e-02" />
+                        <PolygonPoint value="-2.076520934710e-01, -3.670966416237e-02" />
+                        <PolygonPoint value="-1.557038404047e-01, -3.834456934731e-02" />
+                        <PolygonPoint value="-1.037387166519e-01, -3.931961367283e-02" />
+                        <PolygonPoint value="-5.176907002726e-02, -3.993157059142e-02" />
+                        <PolygonPoint value="2.042173349516e-04, -4.024874386762e-02" />
+                        <PolygonPoint value="5.217750469717e-02, -3.992905832666e-02" />
+                        <PolygonPoint value="1.041470871676e-01, -3.931195123839e-02" />
+                        <PolygonPoint value="1.561122109204e-01, -3.833690691286e-02" />
+                        <PolygonPoint value="2.080603220092e-01, -3.669644857920e-02" />
+                        <PolygonPoint value="2.599910901405e-01, -3.460887020436e-02" />
+                        <PolygonPoint value="3.118959516016e-01, -3.194972315732e-02" />
+                        <PolygonPoint value="3.637548169978e-01, -2.848809378640e-02" />
+                        <PolygonPoint value="4.155136231141e-01, -2.376177241296e-02" />
+                        <PolygonPoint value="4.669977029612e-01, -1.673924324969e-02" />
+                    </Section>
+                    <MidNodeSection nodeindex="0" t="5.000000000000e-01">
+                        <Section type="CSectionPolygon" RetainPoints="0">
+                            <SectionMesh type="CSectionMeshRectangular" NumLayers="2" TriangleCorners="1" />
+                            <PolygonPoint value="5.150000000000e-01, 0.000000000000e+00" />
+                            <PolygonPoint value="4.667194011921e-01, 1.462611514094e-02" />
+                            <PolygonPoint value="4.149789235173e-01, 1.932381225668e-02" />
+                            <PolygonPoint value="3.632027632652e-01, 2.361413734480e-02" />
+                            <PolygonPoint value="3.113991502914e-01, 2.755744210219e-02" />
+                            <PolygonPoint value="2.595660833055e-01, 3.108994000935e-02" />
+                            <PolygonPoint value="2.077041218713e-01, 3.416754276618e-02" />
+                            <PolygonPoint value="1.558147158404e-01, 3.675441488195e-02" />
+                            <PolygonPoint value="1.038887497990e-01, 3.844429290711e-02" />
+                            <PolygonPoint value="5.194946430361e-02, 3.957507470650e-02" />
+                            <PolygonPoint value="2.927648772798e-17, 4.025000000000e-02" />
+                            <PolygonPoint value="-5.194946430361e-02, 3.957507470650e-02" />
+                            <PolygonPoint value="-1.038887497990e-01, 3.844429290711e-02" />
+                            <PolygonPoint value="-1.558147158404e-01, 3.675441488195e-02" />
+                            <PolygonPoint value="-2.077041218713e-01, 3.416754276618e-02" />
+                            <PolygonPoint value="-2.595660833055e-01, 3.108994000935e-02" />
+                            <PolygonPoint value="-3.113991502914e-01, 2.755744210219e-02" />
+                            <PolygonPoint value="-3.632027632652e-01, 2.361413734480e-02" />
+                            <PolygonPoint value="-4.149789235173e-01, 1.932381225668e-02" />
+                            <PolygonPoint value="-4.667194011921e-01, 1.462611514094e-02" />
+                            <PolygonPoint value="-5.150000000000e-01, 6.306931015609e-17" />
+                            <PolygonPoint value="-4.667194011921e-01, -1.462611514094e-02" />
+                            <PolygonPoint value="-4.149789235173e-01, -1.932381225668e-02" />
+                            <PolygonPoint value="-3.632027632652e-01, -2.361413734480e-02" />
+                            <PolygonPoint value="-3.113991502914e-01, -2.755744210219e-02" />
+                            <PolygonPoint value="-2.595660833055e-01, -3.108994000935e-02" />
+                            <PolygonPoint value="-2.077041218713e-01, -3.416754276618e-02" />
+                            <PolygonPoint value="-1.558147158404e-01, -3.675441488195e-02" />
+                            <PolygonPoint value="-1.038887497990e-01, -3.844429290711e-02" />
+                            <PolygonPoint value="-5.194946430361e-02, -3.957507470650e-02" />
+                            <PolygonPoint value="-9.584564714727e-17, -4.025000000000e-02" />
+                            <PolygonPoint value="5.194946430361e-02, -3.957507470650e-02" />
+                            <PolygonPoint value="1.038887497990e-01, -3.844429290711e-02" />
+                            <PolygonPoint value="1.558147158404e-01, -3.675441488195e-02" />
+                            <PolygonPoint value="2.077041218713e-01, -3.416754276618e-02" />
+                            <PolygonPoint value="2.595660833055e-01, -3.108994000935e-02" />
+                            <PolygonPoint value="3.113991502914e-01, -2.755744210219e-02" />
+                            <PolygonPoint value="3.632027632652e-01, -2.361413734480e-02" />
+                            <PolygonPoint value="4.149789235173e-01, -1.932381225668e-02" />
+                            <PolygonPoint value="4.667194011921e-01, -1.462611514094e-02" />
+                        </Section>
+                    </MidNodeSection>
+                </NodeSection>
+                <NodeSection nodeindex="1">
+                    <Section type="CSectionPolygon" RetainPoints="0">
+                        <SectionMesh type="CSectionMeshRectangular" NumLayers="2" TriangleCorners="1" />
+                        <PolygonPoint value="5.150000000000e-01, 0.000000000000e+00" />
+                        <PolygonPoint value="4.669977029612e-01, 1.673924324969e-02" />
+                        <PolygonPoint value="4.155136231141e-01, 2.376177241296e-02" />
+                        <PolygonPoint value="3.637548169978e-01, 2.848809378640e-02" />
+                        <PolygonPoint value="3.118959516016e-01, 3.194972315732e-02" />
+                        <PolygonPoint value="2.599910901405e-01, 3.460887020436e-02" />
+                        <PolygonPoint value="2.080603220092e-01, 3.669644857920e-02" />
+                        <PolygonPoint value="1.561122109205e-01, 3.833690691286e-02" />
+                        <PolygonPoint value="1.041470871676e-01, 3.931195123839e-02" />
+                        <PolygonPoint value="5.217750469717e-02, 3.992905832666e-02" />
+                        <PolygonPoint value="2.042173349518e-04, 4.024874386762e-02" />
+                        <PolygonPoint value="-5.176907002726e-02, 3.993157059142e-02" />
+                        <PolygonPoint value="-1.037387166519e-01, 3.931961367283e-02" />
+                        <PolygonPoint value="-1.557038404047e-01, 3.834456934731e-02" />
+                        <PolygonPoint value="-2.076520934710e-01, 3.670966416237e-02" />
+                        <PolygonPoint value="-2.595831153830e-01, 3.462840960618e-02" />
+                        <PolygonPoint value="-3.114884161225e-01, 3.197692654431e-02" />
+                        <PolygonPoint value="-3.633472815186e-01, 2.851529717339e-02" />
+                        <PolygonPoint value="-4.151068801477e-01, 2.379899270759e-02" />
+                        <PolygonPoint value="-4.665963426050e-01, 1.681497339923e-02" />
+                        <PolygonPoint value="-5.147101833740e-01, 2.878046461668e-04" />
+                        <PolygonPoint value="-4.671056884568e-01, -1.458948340461e-02" />
+                        <PolygonPoint value="-4.153451860530e-01, -1.929250475531e-02" />
+                        <PolygonPoint value="-3.635488524009e-01, -2.358668719618e-02" />
+                        <PolygonPoint value="-3.117250694671e-01, -2.753410086828e-02" />
+                        <PolygonPoint value="-2.598718279773e-01, -3.107098306802e-02" />
+                        <PolygonPoint value="-2.079896769127e-01, -3.415330682805e-02" />
+                        <PolygonPoint value="-1.560798740932e-01, -3.674119579654e-02" />
+                        <PolygonPoint value="-1.041336924310e-01, -3.843653560260e-02" />
+                        <PolygonPoint value="-5.217408866506e-02, -3.957215639608e-02" />
+                        <PolygonPoint value="-2.042039649571e-04, -4.024734699053e-02" />
+                        <PolygonPoint value="5.176568073514e-02, -3.957746241503e-02" />
+                        <PolygonPoint value="1.037254547109e-01, -3.844946444345e-02" />
+                        <PolygonPoint value="1.556719383197e-01, -3.676153285102e-02" />
+                        <PolygonPoint value="2.075817411393e-01, -3.417364388253e-02" />
+                        <PolygonPoint value="2.594641684149e-01, -3.109625898980e-02" />
+                        <PolygonPoint value="3.113176704975e-01, -2.756327741067e-02" />
+                        <PolygonPoint value="3.631416887118e-01, -2.361898148868e-02" />
+                        <PolygonPoint value="4.149382276800e-01, -1.932729086794e-02" />
+                        <PolygonPoint value="4.666990702835e-01, -1.462804312706e-02" />
+                    </Section>
+                    <MidNodeSection nodeindex="1" t="5.000000000000e-01">
+                        <Section type="CSectionPolygon" RetainPoints="0">
+                            <SectionMesh type="CSectionMeshRectangular" NumLayers="2" TriangleCorners="1" />
+                            <PolygonPoint value="5.150000000000e-01, 0.000000000000e+00" />
+                            <PolygonPoint value="4.667194011921e-01, 1.462611514094e-02" />
+                            <PolygonPoint value="4.149789235173e-01, 1.932381225668e-02" />
+                            <PolygonPoint value="3.632027632652e-01, 2.361413734480e-02" />
+                            <PolygonPoint value="3.113991502914e-01, 2.755744210219e-02" />
+                            <PolygonPoint value="2.595660833055e-01, 3.108994000935e-02" />
+                            <PolygonPoint value="2.077041218713e-01, 3.416754276618e-02" />
+                            <PolygonPoint value="1.558147158404e-01, 3.675441488195e-02" />
+                            <PolygonPoint value="1.038887497990e-01, 3.844429290711e-02" />
+                            <PolygonPoint value="5.194946430361e-02, 3.957507470650e-02" />
+                            <PolygonPoint value="2.927648772798e-17, 4.025000000000e-02" />
+                            <PolygonPoint value="-5.194946430361e-02, 3.957507470650e-02" />
+                            <PolygonPoint value="-1.038887497990e-01, 3.844429290711e-02" />
+                            <PolygonPoint value="-1.558147158404e-01, 3.675441488195e-02" />
+                            <PolygonPoint value="-2.077041218713e-01, 3.416754276618e-02" />
+                            <PolygonPoint value="-2.595660833055e-01, 3.108994000935e-02" />
+                            <PolygonPoint value="-3.113991502914e-01, 2.755744210219e-02" />
+                            <PolygonPoint value="-3.632027632652e-01, 2.361413734480e-02" />
+                            <PolygonPoint value="-4.149789235173e-01, 1.932381225668e-02" />
+                            <PolygonPoint value="-4.667194011921e-01, 1.462611514094e-02" />
+                            <PolygonPoint value="-5.150000000000e-01, 6.306931015609e-17" />
+                            <PolygonPoint value="-4.667194011921e-01, -1.462611514094e-02" />
+                            <PolygonPoint value="-4.149789235173e-01, -1.932381225668e-02" />
+                            <PolygonPoint value="-3.632027632652e-01, -2.361413734480e-02" />
+                            <PolygonPoint value="-3.113991502914e-01, -2.755744210219e-02" />
+                            <PolygonPoint value="-2.595660833055e-01, -3.108994000935e-02" />
+                            <PolygonPoint value="-2.077041218713e-01, -3.416754276618e-02" />
+                            <PolygonPoint value="-1.558147158404e-01, -3.675441488195e-02" />
+                            <PolygonPoint value="-1.038887497990e-01, -3.844429290711e-02" />
+                            <PolygonPoint value="-5.194946430361e-02, -3.957507470650e-02" />
+                            <PolygonPoint value="-9.584564714727e-17, -4.025000000000e-02" />
+                            <PolygonPoint value="5.194946430361e-02, -3.957507470650e-02" />
+                            <PolygonPoint value="1.038887497990e-01, -3.844429290711e-02" />
+                            <PolygonPoint value="1.558147158404e-01, -3.675441488195e-02" />
+                            <PolygonPoint value="2.077041218713e-01, -3.416754276618e-02" />
+                            <PolygonPoint value="2.595660833055e-01, -3.108994000935e-02" />
+                            <PolygonPoint value="3.113991502914e-01, -2.755744210219e-02" />
+                            <PolygonPoint value="3.632027632652e-01, -2.361413734480e-02" />
+                            <PolygonPoint value="4.149789235173e-01, -1.932381225668e-02" />
+                            <PolygonPoint value="4.667194011921e-01, -1.462611514094e-02" />
+                        </Section>
+                    </MidNodeSection>
+                </NodeSection>
+                <NodeSection nodeindex="2">
+                    <Section type="CSectionPolygon" RetainPoints="0">
+                        <SectionMesh type="CSectionMeshRectangular" NumLayers="2" TriangleCorners="1" />
+                        <PolygonPoint value="5.150000000000e-01, 0.000000000000e+00" />
+                        <PolygonPoint value="4.666990702835e-01, 1.462804312706e-02" />
+                        <PolygonPoint value="4.149382276800e-01, 1.932729086794e-02" />
+                        <PolygonPoint value="3.631416887118e-01, 2.361898148868e-02" />
+                        <PolygonPoint value="3.113176704975e-01, 2.756327741067e-02" />
+                        <PolygonPoint value="2.594641684149e-01, 3.109625898980e-02" />
+                        <PolygonPoint value="2.075817411393e-01, 3.417364388253e-02" />
+                        <PolygonPoint value="1.556719383197e-01, 3.676153285102e-02" />
+                        <PolygonPoint value="1.037254547109e-01, 3.844946444345e-02" />
+                        <PolygonPoint value="5.176568073514e-02, 3.957746241503e-02" />
+                        <PolygonPoint value="-2.042039649569e-04, 4.024734699053e-02" />
+                        <PolygonPoint value="-5.217408866506e-02, 3.957215639608e-02" />
+                        <PolygonPoint value="-1.041336924310e-01, 3.843653560260e-02" />
+                        <PolygonPoint value="-1.560798740932e-01, 3.674119579654e-02" />
+                        <PolygonPoint value="-2.079896769127e-01, 3.415330682805e-02" />
+                        <PolygonPoint value="-2.598718279773e-01, 3.107098306802e-02" />
+                        <PolygonPoint value="-3.117250694671e-01, 2.753410086828e-02" />
+                        <PolygonPoint value="-3.635488524009e-01, 2.358668719618e-02" />
+                        <PolygonPoint value="-4.153451860530e-01, 1.929250475531e-02" />
+                        <PolygonPoint value="-4.671056884568e-01, 1.458948340461e-02" />
+                        <PolygonPoint value="-5.147101833740e-01, -2.878046461667e-04" />
+                        <PolygonPoint value="-4.665963426050e-01, -1.681497339923e-02" />
+                        <PolygonPoint value="-4.151068801477e-01, -2.379899270759e-02" />
+                        <PolygonPoint value="-3.633472815186e-01, -2.851529717339e-02" />
+                        <PolygonPoint value="-3.114884161225e-01, -3.197692654431e-02" />
+                        <PolygonPoint value="-2.595831153830e-01, -3.462840960618e-02" />
+                        <PolygonPoint value="-2.076520934710e-01, -3.670966416237e-02" />
+                        <PolygonPoint value="-1.557038404047e-01, -3.834456934731e-02" />
+                        <PolygonPoint value="-1.037387166519e-01, -3.931961367283e-02" />
+                        <PolygonPoint value="-5.176907002726e-02, -3.993157059142e-02" />
+                        <PolygonPoint value="2.042173349516e-04, -4.024874386762e-02" />
+                        <PolygonPoint value="5.217750469717e-02, -3.992905832666e-02" />
+                        <PolygonPoint value="1.041470871676e-01, -3.931195123839e-02" />
+                        <PolygonPoint value="1.561122109204e-01, -3.833690691286e-02" />
+                        <PolygonPoint value="2.080603220092e-01, -3.669644857920e-02" />
+                        <PolygonPoint value="2.599910901405e-01, -3.460887020436e-02" />
+                        <PolygonPoint value="3.118959516016e-01, -3.194972315732e-02" />
+                        <PolygonPoint value="3.637548169978e-01, -2.848809378640e-02" />
+                        <PolygonPoint value="4.155136231141e-01, -2.376177241296e-02" />
+                        <PolygonPoint value="4.669977029612e-01, -1.673924324969e-02" />
+                    </Section>
+                </NodeSection>
+            </YarnSection>
+            <FibreDistribution type="CFibreDistributionConst" />
+            <Repeat value="2.500000000000e+00, 0.000000000000e+00, 0.000000000000e+00" />
+            <Repeat value="0.000000000000e+00, 2.500000000000e+00, 0.000000000000e+00" />
+            <MasterNode index="0" Position="0.000000000000e+00, 1.250000000000e+00, 4.025000000000e-02" Tangent="1.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00" Up="0.000000000000e+00, 0.000000000000e+00, 1.000000000000e+00" Angle="0.000000000000e+00" />
+            <MasterNode index="1" Position="1.250000000000e+00, 1.250000000000e+00, 1.207500000000e-01" Tangent="1.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00" Up="0.000000000000e+00, 0.000000000000e+00, 1.000000000000e+00" Angle="0.000000000000e+00" />
+            <MasterNode index="2" Position="2.500000000000e+00, 1.250000000000e+00, 4.025000000000e-02" Tangent="1.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00" Up="0.000000000000e+00, 0.000000000000e+00, 1.000000000000e+00" Angle="0.000000000000e+00" />
+        </Yarn>
+        <Yarn index="2" YoungsModulusValue="2.000000000000e+05" YoungsModulusUnits="MPa" YoungsModulusYValue="1.000000000000e+04" YoungsModulusYUnits="MPa" YoungsModulusZValue="1.000000000000e+04" YoungsModulusZUnits="MPa" PoissonsRatio="3.000000000000e-01" PoissonsRatioY="4.000000000000e-01" PoissonsRatioZ="4.000000000000e-01" ShearModulusXYValue="5.000000000000e+03" ShearModulusXYUnits="MPa" ShearModulusXZValue="5.000000000000e+03" ShearModulusXZUnits="MPa" ShearModulusYZValue="5.000000000000e+03" ShearModulusYZUnits="MPa" AlphaXValue="-2.000000000000e-07" AlphaXUnits="/K" AlphaYValue="3.000000000000e-06" AlphaYUnits="/K" AlphaZValue="3.000000000000e-06" AlphaZUnits="/K" NumSlaveNodes="49" NumSectionPoints="40" NeedsBuilding="7">
+            <Interpolation Periodic="1" ForceInPlaneTangent="0" ForceMasterNodeTangent="1" type="CInterpolationBezier" />
+            <YarnSection type="CYarnSectionInterpNode" ConstMesh="1" Ramped="0" Polar="1">
+                <NodeSection nodeindex="0">
+                    <Section type="CSectionPolygon" RetainPoints="0">
+                        <SectionMesh type="CSectionMeshRectangular" NumLayers="2" TriangleCorners="1" />
+                        <PolygonPoint value="5.150000000000e-01, 0.000000000000e+00" />
+                        <PolygonPoint value="4.666990702835e-01, 1.462804312706e-02" />
+                        <PolygonPoint value="4.149382276800e-01, 1.932729086794e-02" />
+                        <PolygonPoint value="3.631416887118e-01, 2.361898148868e-02" />
+                        <PolygonPoint value="3.113176704975e-01, 2.756327741067e-02" />
+                        <PolygonPoint value="2.594641684149e-01, 3.109625898980e-02" />
+                        <PolygonPoint value="2.075817411393e-01, 3.417364388253e-02" />
+                        <PolygonPoint value="1.556719383197e-01, 3.676153285102e-02" />
+                        <PolygonPoint value="1.037254547109e-01, 3.844946444345e-02" />
+                        <PolygonPoint value="5.176568073514e-02, 3.957746241503e-02" />
+                        <PolygonPoint value="-2.042039649569e-04, 4.024734699053e-02" />
+                        <PolygonPoint value="-5.217408866506e-02, 3.957215639608e-02" />
+                        <PolygonPoint value="-1.041336924310e-01, 3.843653560260e-02" />
+                        <PolygonPoint value="-1.560798740932e-01, 3.674119579654e-02" />
+                        <PolygonPoint value="-2.079896769127e-01, 3.415330682805e-02" />
+                        <PolygonPoint value="-2.598718279773e-01, 3.107098306802e-02" />
+                        <PolygonPoint value="-3.117250694671e-01, 2.753410086828e-02" />
+                        <PolygonPoint value="-3.635488524009e-01, 2.358668719618e-02" />
+                        <PolygonPoint value="-4.153451860530e-01, 1.929250475531e-02" />
+                        <PolygonPoint value="-4.671056884568e-01, 1.458948340461e-02" />
+                        <PolygonPoint value="-5.147101833740e-01, -2.878046461667e-04" />
+                        <PolygonPoint value="-4.665963426050e-01, -1.681497339923e-02" />
+                        <PolygonPoint value="-4.151068801477e-01, -2.379899270759e-02" />
+                        <PolygonPoint value="-3.633472815186e-01, -2.851529717339e-02" />
+                        <PolygonPoint value="-3.114884161225e-01, -3.197692654431e-02" />
+                        <PolygonPoint value="-2.595831153830e-01, -3.462840960618e-02" />
+                        <PolygonPoint value="-2.076520934710e-01, -3.670966416237e-02" />
+                        <PolygonPoint value="-1.557038404047e-01, -3.834456934731e-02" />
+                        <PolygonPoint value="-1.037387166519e-01, -3.931961367283e-02" />
+                        <PolygonPoint value="-5.176907002726e-02, -3.993157059142e-02" />
+                        <PolygonPoint value="2.042173349516e-04, -4.024874386762e-02" />
+                        <PolygonPoint value="5.217750469717e-02, -3.992905832666e-02" />
+                        <PolygonPoint value="1.041470871676e-01, -3.931195123839e-02" />
+                        <PolygonPoint value="1.561122109204e-01, -3.833690691286e-02" />
+                        <PolygonPoint value="2.080603220092e-01, -3.669644857920e-02" />
+                        <PolygonPoint value="2.599910901405e-01, -3.460887020436e-02" />
+                        <PolygonPoint value="3.118959516016e-01, -3.194972315732e-02" />
+                        <PolygonPoint value="3.637548169978e-01, -2.848809378640e-02" />
+                        <PolygonPoint value="4.155136231141e-01, -2.376177241296e-02" />
+                        <PolygonPoint value="4.669977029612e-01, -1.673924324969e-02" />
+                    </Section>
+                    <MidNodeSection nodeindex="0" t="5.000000000000e-01">
+                        <Section type="CSectionPolygon" RetainPoints="0">
+                            <SectionMesh type="CSectionMeshRectangular" NumLayers="2" TriangleCorners="1" />
+                            <PolygonPoint value="5.150000000000e-01, 0.000000000000e+00" />
+                            <PolygonPoint value="4.667194011921e-01, 1.462611514094e-02" />
+                            <PolygonPoint value="4.149789235173e-01, 1.932381225668e-02" />
+                            <PolygonPoint value="3.632027632652e-01, 2.361413734480e-02" />
+                            <PolygonPoint value="3.113991502914e-01, 2.755744210219e-02" />
+                            <PolygonPoint value="2.595660833055e-01, 3.108994000935e-02" />
+                            <PolygonPoint value="2.077041218713e-01, 3.416754276618e-02" />
+                            <PolygonPoint value="1.558147158404e-01, 3.675441488195e-02" />
+                            <PolygonPoint value="1.038887497990e-01, 3.844429290711e-02" />
+                            <PolygonPoint value="5.194946430361e-02, 3.957507470650e-02" />
+                            <PolygonPoint value="2.927648772798e-17, 4.025000000000e-02" />
+                            <PolygonPoint value="-5.194946430361e-02, 3.957507470650e-02" />
+                            <PolygonPoint value="-1.038887497990e-01, 3.844429290711e-02" />
+                            <PolygonPoint value="-1.558147158404e-01, 3.675441488195e-02" />
+                            <PolygonPoint value="-2.077041218713e-01, 3.416754276618e-02" />
+                            <PolygonPoint value="-2.595660833055e-01, 3.108994000935e-02" />
+                            <PolygonPoint value="-3.113991502914e-01, 2.755744210219e-02" />
+                            <PolygonPoint value="-3.632027632652e-01, 2.361413734480e-02" />
+                            <PolygonPoint value="-4.149789235173e-01, 1.932381225668e-02" />
+                            <PolygonPoint value="-4.667194011921e-01, 1.462611514094e-02" />
+                            <PolygonPoint value="-5.150000000000e-01, 6.306931015609e-17" />
+                            <PolygonPoint value="-4.667194011921e-01, -1.462611514094e-02" />
+                            <PolygonPoint value="-4.149789235173e-01, -1.932381225668e-02" />
+                            <PolygonPoint value="-3.632027632652e-01, -2.361413734480e-02" />
+                            <PolygonPoint value="-3.113991502914e-01, -2.755744210219e-02" />
+                            <PolygonPoint value="-2.595660833055e-01, -3.108994000935e-02" />
+                            <PolygonPoint value="-2.077041218713e-01, -3.416754276618e-02" />
+                            <PolygonPoint value="-1.558147158404e-01, -3.675441488195e-02" />
+                            <PolygonPoint value="-1.038887497990e-01, -3.844429290711e-02" />
+                            <PolygonPoint value="-5.194946430361e-02, -3.957507470650e-02" />
+                            <PolygonPoint value="-9.584564714727e-17, -4.025000000000e-02" />
+                            <PolygonPoint value="5.194946430360e-02, -3.957507470650e-02" />
+                            <PolygonPoint value="1.038887497990e-01, -3.844429290711e-02" />
+                            <PolygonPoint value="1.558147158404e-01, -3.675441488195e-02" />
+                            <PolygonPoint value="2.077041218713e-01, -3.416754276618e-02" />
+                            <PolygonPoint value="2.595660833055e-01, -3.108994000935e-02" />
+                            <PolygonPoint value="3.113991502914e-01, -2.755744210219e-02" />
+                            <PolygonPoint value="3.632027632652e-01, -2.361413734480e-02" />
+                            <PolygonPoint value="4.149789235173e-01, -1.932381225668e-02" />
+                            <PolygonPoint value="4.667194011921e-01, -1.462611514094e-02" />
+                        </Section>
+                    </MidNodeSection>
+                </NodeSection>
+                <NodeSection nodeindex="1">
+                    <Section type="CSectionPolygon" RetainPoints="0">
+                        <SectionMesh type="CSectionMeshRectangular" NumLayers="2" TriangleCorners="1" />
+                        <PolygonPoint value="5.150000000000e-01, 0.000000000000e+00" />
+                        <PolygonPoint value="4.669977029612e-01, 1.673924324969e-02" />
+                        <PolygonPoint value="4.155136231141e-01, 2.376177241296e-02" />
+                        <PolygonPoint value="3.637548169978e-01, 2.848809378640e-02" />
+                        <PolygonPoint value="3.118959516016e-01, 3.194972315732e-02" />
+                        <PolygonPoint value="2.599910901405e-01, 3.460887020436e-02" />
+                        <PolygonPoint value="2.080603220092e-01, 3.669644857920e-02" />
+                        <PolygonPoint value="1.561122109205e-01, 3.833690691286e-02" />
+                        <PolygonPoint value="1.041470871676e-01, 3.931195123839e-02" />
+                        <PolygonPoint value="5.217750469717e-02, 3.992905832666e-02" />
+                        <PolygonPoint value="2.042173349519e-04, 4.024874386762e-02" />
+                        <PolygonPoint value="-5.176907002726e-02, 3.993157059142e-02" />
+                        <PolygonPoint value="-1.037387166519e-01, 3.931961367283e-02" />
+                        <PolygonPoint value="-1.557038404047e-01, 3.834456934731e-02" />
+                        <PolygonPoint value="-2.076520934710e-01, 3.670966416237e-02" />
+                        <PolygonPoint value="-2.595831153830e-01, 3.462840960618e-02" />
+                        <PolygonPoint value="-3.114884161225e-01, 3.197692654431e-02" />
+                        <PolygonPoint value="-3.633472815186e-01, 2.851529717339e-02" />
+                        <PolygonPoint value="-4.151068801477e-01, 2.379899270759e-02" />
+                        <PolygonPoint value="-4.665963426050e-01, 1.681497339923e-02" />
+                        <PolygonPoint value="-5.147101833740e-01, 2.878046461670e-04" />
+                        <PolygonPoint value="-4.671056884568e-01, -1.458948340461e-02" />
+                        <PolygonPoint value="-4.153451860530e-01, -1.929250475531e-02" />
+                        <PolygonPoint value="-3.635488524009e-01, -2.358668719618e-02" />
+                        <PolygonPoint value="-3.117250694671e-01, -2.753410086828e-02" />
+                        <PolygonPoint value="-2.598718279773e-01, -3.107098306802e-02" />
+                        <PolygonPoint value="-2.079896769127e-01, -3.415330682805e-02" />
+                        <PolygonPoint value="-1.560798740932e-01, -3.674119579654e-02" />
+                        <PolygonPoint value="-1.041336924310e-01, -3.843653560260e-02" />
+                        <PolygonPoint value="-5.217408866506e-02, -3.957215639608e-02" />
+                        <PolygonPoint value="-2.042039649573e-04, -4.024734699053e-02" />
+                        <PolygonPoint value="5.176568073514e-02, -3.957746241503e-02" />
+                        <PolygonPoint value="1.037254547109e-01, -3.844946444345e-02" />
+                        <PolygonPoint value="1.556719383197e-01, -3.676153285102e-02" />
+                        <PolygonPoint value="2.075817411393e-01, -3.417364388253e-02" />
+                        <PolygonPoint value="2.594641684149e-01, -3.109625898980e-02" />
+                        <PolygonPoint value="3.113176704975e-01, -2.756327741067e-02" />
+                        <PolygonPoint value="3.631416887118e-01, -2.361898148868e-02" />
+                        <PolygonPoint value="4.149382276800e-01, -1.932729086794e-02" />
+                        <PolygonPoint value="4.666990702835e-01, -1.462804312706e-02" />
+                    </Section>
+                    <MidNodeSection nodeindex="1" t="5.000000000000e-01">
+                        <Section type="CSectionPolygon" RetainPoints="0">
+                            <SectionMesh type="CSectionMeshRectangular" NumLayers="2" TriangleCorners="1" />
+                            <PolygonPoint value="5.150000000000e-01, 0.000000000000e+00" />
+                            <PolygonPoint value="4.667194011921e-01, 1.462611514094e-02" />
+                            <PolygonPoint value="4.149789235173e-01, 1.932381225668e-02" />
+                            <PolygonPoint value="3.632027632652e-01, 2.361413734480e-02" />
+                            <PolygonPoint value="3.113991502914e-01, 2.755744210219e-02" />
+                            <PolygonPoint value="2.595660833055e-01, 3.108994000935e-02" />
+                            <PolygonPoint value="2.077041218713e-01, 3.416754276618e-02" />
+                            <PolygonPoint value="1.558147158404e-01, 3.675441488195e-02" />
+                            <PolygonPoint value="1.038887497990e-01, 3.844429290711e-02" />
+                            <PolygonPoint value="5.194946430361e-02, 3.957507470650e-02" />
+                            <PolygonPoint value="2.927648772798e-17, 4.025000000000e-02" />
+                            <PolygonPoint value="-5.194946430361e-02, 3.957507470650e-02" />
+                            <PolygonPoint value="-1.038887497990e-01, 3.844429290711e-02" />
+                            <PolygonPoint value="-1.558147158404e-01, 3.675441488195e-02" />
+                            <PolygonPoint value="-2.077041218713e-01, 3.416754276618e-02" />
+                            <PolygonPoint value="-2.595660833055e-01, 3.108994000935e-02" />
+                            <PolygonPoint value="-3.113991502914e-01, 2.755744210219e-02" />
+                            <PolygonPoint value="-3.632027632652e-01, 2.361413734480e-02" />
+                            <PolygonPoint value="-4.149789235173e-01, 1.932381225668e-02" />
+                            <PolygonPoint value="-4.667194011921e-01, 1.462611514094e-02" />
+                            <PolygonPoint value="-5.150000000000e-01, 6.306931015609e-17" />
+                            <PolygonPoint value="-4.667194011921e-01, -1.462611514094e-02" />
+                            <PolygonPoint value="-4.149789235173e-01, -1.932381225668e-02" />
+                            <PolygonPoint value="-3.632027632652e-01, -2.361413734480e-02" />
+                            <PolygonPoint value="-3.113991502914e-01, -2.755744210219e-02" />
+                            <PolygonPoint value="-2.595660833055e-01, -3.108994000935e-02" />
+                            <PolygonPoint value="-2.077041218713e-01, -3.416754276618e-02" />
+                            <PolygonPoint value="-1.558147158404e-01, -3.675441488195e-02" />
+                            <PolygonPoint value="-1.038887497990e-01, -3.844429290711e-02" />
+                            <PolygonPoint value="-5.194946430361e-02, -3.957507470650e-02" />
+                            <PolygonPoint value="-9.584564714727e-17, -4.025000000000e-02" />
+                            <PolygonPoint value="5.194946430360e-02, -3.957507470650e-02" />
+                            <PolygonPoint value="1.038887497990e-01, -3.844429290711e-02" />
+                            <PolygonPoint value="1.558147158404e-01, -3.675441488195e-02" />
+                            <PolygonPoint value="2.077041218713e-01, -3.416754276618e-02" />
+                            <PolygonPoint value="2.595660833055e-01, -3.108994000935e-02" />
+                            <PolygonPoint value="3.113991502914e-01, -2.755744210219e-02" />
+                            <PolygonPoint value="3.632027632652e-01, -2.361413734480e-02" />
+                            <PolygonPoint value="4.149789235173e-01, -1.932381225668e-02" />
+                            <PolygonPoint value="4.667194011921e-01, -1.462611514094e-02" />
+                        </Section>
+                    </MidNodeSection>
+                </NodeSection>
+                <NodeSection nodeindex="2">
+                    <Section type="CSectionPolygon" RetainPoints="0">
+                        <SectionMesh type="CSectionMeshRectangular" NumLayers="2" TriangleCorners="1" />
+                        <PolygonPoint value="5.150000000000e-01, 0.000000000000e+00" />
+                        <PolygonPoint value="4.666990702835e-01, 1.462804312706e-02" />
+                        <PolygonPoint value="4.149382276800e-01, 1.932729086794e-02" />
+                        <PolygonPoint value="3.631416887118e-01, 2.361898148868e-02" />
+                        <PolygonPoint value="3.113176704975e-01, 2.756327741067e-02" />
+                        <PolygonPoint value="2.594641684149e-01, 3.109625898980e-02" />
+                        <PolygonPoint value="2.075817411393e-01, 3.417364388253e-02" />
+                        <PolygonPoint value="1.556719383197e-01, 3.676153285102e-02" />
+                        <PolygonPoint value="1.037254547109e-01, 3.844946444345e-02" />
+                        <PolygonPoint value="5.176568073514e-02, 3.957746241503e-02" />
+                        <PolygonPoint value="-2.042039649569e-04, 4.024734699053e-02" />
+                        <PolygonPoint value="-5.217408866506e-02, 3.957215639608e-02" />
+                        <PolygonPoint value="-1.041336924310e-01, 3.843653560260e-02" />
+                        <PolygonPoint value="-1.560798740932e-01, 3.674119579654e-02" />
+                        <PolygonPoint value="-2.079896769127e-01, 3.415330682805e-02" />
+                        <PolygonPoint value="-2.598718279773e-01, 3.107098306802e-02" />
+                        <PolygonPoint value="-3.117250694671e-01, 2.753410086828e-02" />
+                        <PolygonPoint value="-3.635488524009e-01, 2.358668719618e-02" />
+                        <PolygonPoint value="-4.153451860530e-01, 1.929250475531e-02" />
+                        <PolygonPoint value="-4.671056884568e-01, 1.458948340461e-02" />
+                        <PolygonPoint value="-5.147101833740e-01, -2.878046461667e-04" />
+                        <PolygonPoint value="-4.665963426050e-01, -1.681497339923e-02" />
+                        <PolygonPoint value="-4.151068801477e-01, -2.379899270759e-02" />
+                        <PolygonPoint value="-3.633472815186e-01, -2.851529717339e-02" />
+                        <PolygonPoint value="-3.114884161225e-01, -3.197692654431e-02" />
+                        <PolygonPoint value="-2.595831153830e-01, -3.462840960618e-02" />
+                        <PolygonPoint value="-2.076520934710e-01, -3.670966416237e-02" />
+                        <PolygonPoint value="-1.557038404047e-01, -3.834456934731e-02" />
+                        <PolygonPoint value="-1.037387166519e-01, -3.931961367283e-02" />
+                        <PolygonPoint value="-5.176907002726e-02, -3.993157059142e-02" />
+                        <PolygonPoint value="2.042173349516e-04, -4.024874386762e-02" />
+                        <PolygonPoint value="5.217750469717e-02, -3.992905832666e-02" />
+                        <PolygonPoint value="1.041470871676e-01, -3.931195123839e-02" />
+                        <PolygonPoint value="1.561122109204e-01, -3.833690691286e-02" />
+                        <PolygonPoint value="2.080603220092e-01, -3.669644857920e-02" />
+                        <PolygonPoint value="2.599910901405e-01, -3.460887020436e-02" />
+                        <PolygonPoint value="3.118959516016e-01, -3.194972315732e-02" />
+                        <PolygonPoint value="3.637548169978e-01, -2.848809378640e-02" />
+                        <PolygonPoint value="4.155136231141e-01, -2.376177241296e-02" />
+                        <PolygonPoint value="4.669977029612e-01, -1.673924324969e-02" />
+                    </Section>
+                </NodeSection>
+            </YarnSection>
+            <FibreDistribution type="CFibreDistributionConst" />
+            <Repeat value="2.500000000000e+00, 0.000000000000e+00, 0.000000000000e+00" />
+            <Repeat value="0.000000000000e+00, 2.500000000000e+00, 0.000000000000e+00" />
+            <MasterNode index="0" Position="0.000000000000e+00, 0.000000000000e+00, 4.025000000000e-02" Tangent="0.000000000000e+00, 1.000000000000e+00, 0.000000000000e+00" Up="0.000000000000e+00, 0.000000000000e+00, 1.000000000000e+00" Angle="0.000000000000e+00" />
+            <MasterNode index="1" Position="0.000000000000e+00, 1.250000000000e+00, 1.207500000000e-01" Tangent="0.000000000000e+00, 1.000000000000e+00, 0.000000000000e+00" Up="0.000000000000e+00, 0.000000000000e+00, 1.000000000000e+00" Angle="0.000000000000e+00" />
+            <MasterNode index="2" Position="0.000000000000e+00, 2.500000000000e+00, 4.025000000000e-02" Tangent="0.000000000000e+00, 1.000000000000e+00, 0.000000000000e+00" Up="0.000000000000e+00, 0.000000000000e+00, 1.000000000000e+00" Angle="0.000000000000e+00" />
+        </Yarn>
+        <Yarn index="3" YoungsModulusValue="2.000000000000e+05" YoungsModulusUnits="MPa" YoungsModulusYValue="1.000000000000e+04" YoungsModulusYUnits="MPa" YoungsModulusZValue="1.000000000000e+04" YoungsModulusZUnits="MPa" PoissonsRatio="3.000000000000e-01" PoissonsRatioY="4.000000000000e-01" PoissonsRatioZ="4.000000000000e-01" ShearModulusXYValue="5.000000000000e+03" ShearModulusXYUnits="MPa" ShearModulusXZValue="5.000000000000e+03" ShearModulusXZUnits="MPa" ShearModulusYZValue="5.000000000000e+03" ShearModulusYZUnits="MPa" AlphaXValue="-2.000000000000e-07" AlphaXUnits="/K" AlphaYValue="3.000000000000e-06" AlphaYUnits="/K" AlphaZValue="3.000000000000e-06" AlphaZUnits="/K" NumSlaveNodes="49" NumSectionPoints="40" NeedsBuilding="7">
+            <Interpolation Periodic="1" ForceInPlaneTangent="0" ForceMasterNodeTangent="1" type="CInterpolationBezier" />
+            <YarnSection type="CYarnSectionInterpNode" ConstMesh="1" Ramped="0" Polar="1">
+                <NodeSection nodeindex="0">
+                    <Section type="CSectionPolygon" RetainPoints="0">
+                        <SectionMesh type="CSectionMeshRectangular" NumLayers="2" TriangleCorners="1" />
+                        <PolygonPoint value="5.150000000000e-01, 0.000000000000e+00" />
+                        <PolygonPoint value="4.669977029612e-01, 1.673924324969e-02" />
+                        <PolygonPoint value="4.155136231141e-01, 2.376177241296e-02" />
+                        <PolygonPoint value="3.637548169978e-01, 2.848809378640e-02" />
+                        <PolygonPoint value="3.118959516016e-01, 3.194972315732e-02" />
+                        <PolygonPoint value="2.599910901405e-01, 3.460887020436e-02" />
+                        <PolygonPoint value="2.080603220092e-01, 3.669644857920e-02" />
+                        <PolygonPoint value="1.561122109205e-01, 3.833690691286e-02" />
+                        <PolygonPoint value="1.041470871676e-01, 3.931195123839e-02" />
+                        <PolygonPoint value="5.217750469717e-02, 3.992905832666e-02" />
+                        <PolygonPoint value="2.042173349519e-04, 4.024874386762e-02" />
+                        <PolygonPoint value="-5.176907002726e-02, 3.993157059142e-02" />
+                        <PolygonPoint value="-1.037387166519e-01, 3.931961367283e-02" />
+                        <PolygonPoint value="-1.557038404047e-01, 3.834456934731e-02" />
+                        <PolygonPoint value="-2.076520934710e-01, 3.670966416237e-02" />
+                        <PolygonPoint value="-2.595831153830e-01, 3.462840960618e-02" />
+                        <PolygonPoint value="-3.114884161225e-01, 3.197692654431e-02" />
+                        <PolygonPoint value="-3.633472815186e-01, 2.851529717339e-02" />
+                        <PolygonPoint value="-4.151068801477e-01, 2.379899270759e-02" />
+                        <PolygonPoint value="-4.665963426050e-01, 1.681497339923e-02" />
+                        <PolygonPoint value="-5.147101833740e-01, 2.878046461670e-04" />
+                        <PolygonPoint value="-4.671056884568e-01, -1.458948340461e-02" />
+                        <PolygonPoint value="-4.153451860530e-01, -1.929250475531e-02" />
+                        <PolygonPoint value="-3.635488524009e-01, -2.358668719618e-02" />
+                        <PolygonPoint value="-3.117250694671e-01, -2.753410086828e-02" />
+                        <PolygonPoint value="-2.598718279773e-01, -3.107098306802e-02" />
+                        <PolygonPoint value="-2.079896769127e-01, -3.415330682805e-02" />
+                        <PolygonPoint value="-1.560798740932e-01, -3.674119579654e-02" />
+                        <PolygonPoint value="-1.041336924310e-01, -3.843653560260e-02" />
+                        <PolygonPoint value="-5.217408866506e-02, -3.957215639608e-02" />
+                        <PolygonPoint value="-2.042039649571e-04, -4.024734699053e-02" />
+                        <PolygonPoint value="5.176568073514e-02, -3.957746241503e-02" />
+                        <PolygonPoint value="1.037254547109e-01, -3.844946444345e-02" />
+                        <PolygonPoint value="1.556719383197e-01, -3.676153285102e-02" />
+                        <PolygonPoint value="2.075817411393e-01, -3.417364388253e-02" />
+                        <PolygonPoint value="2.594641684149e-01, -3.109625898980e-02" />
+                        <PolygonPoint value="3.113176704975e-01, -2.756327741067e-02" />
+                        <PolygonPoint value="3.631416887118e-01, -2.361898148868e-02" />
+                        <PolygonPoint value="4.149382276800e-01, -1.932729086794e-02" />
+                        <PolygonPoint value="4.666990702835e-01, -1.462804312706e-02" />
+                    </Section>
+                    <MidNodeSection nodeindex="0" t="5.000000000000e-01">
+                        <Section type="CSectionPolygon" RetainPoints="0">
+                            <SectionMesh type="CSectionMeshRectangular" NumLayers="2" TriangleCorners="1" />
+                            <PolygonPoint value="5.150000000000e-01, 0.000000000000e+00" />
+                            <PolygonPoint value="4.667194011921e-01, 1.462611514094e-02" />
+                            <PolygonPoint value="4.149789235173e-01, 1.932381225668e-02" />
+                            <PolygonPoint value="3.632027632652e-01, 2.361413734480e-02" />
+                            <PolygonPoint value="3.113991502914e-01, 2.755744210219e-02" />
+                            <PolygonPoint value="2.595660833055e-01, 3.108994000935e-02" />
+                            <PolygonPoint value="2.077041218713e-01, 3.416754276618e-02" />
+                            <PolygonPoint value="1.558147158404e-01, 3.675441488195e-02" />
+                            <PolygonPoint value="1.038887497990e-01, 3.844429290711e-02" />
+                            <PolygonPoint value="5.194946430361e-02, 3.957507470650e-02" />
+                            <PolygonPoint value="2.927648772798e-17, 4.025000000000e-02" />
+                            <PolygonPoint value="-5.194946430361e-02, 3.957507470650e-02" />
+                            <PolygonPoint value="-1.038887497990e-01, 3.844429290711e-02" />
+                            <PolygonPoint value="-1.558147158404e-01, 3.675441488195e-02" />
+                            <PolygonPoint value="-2.077041218713e-01, 3.416754276618e-02" />
+                            <PolygonPoint value="-2.595660833055e-01, 3.108994000935e-02" />
+                            <PolygonPoint value="-3.113991502914e-01, 2.755744210219e-02" />
+                            <PolygonPoint value="-3.632027632652e-01, 2.361413734480e-02" />
+                            <PolygonPoint value="-4.149789235173e-01, 1.932381225668e-02" />
+                            <PolygonPoint value="-4.667194011921e-01, 1.462611514094e-02" />
+                            <PolygonPoint value="-5.150000000000e-01, 6.306931015609e-17" />
+                            <PolygonPoint value="-4.667194011921e-01, -1.462611514094e-02" />
+                            <PolygonPoint value="-4.149789235173e-01, -1.932381225668e-02" />
+                            <PolygonPoint value="-3.632027632652e-01, -2.361413734480e-02" />
+                            <PolygonPoint value="-3.113991502914e-01, -2.755744210219e-02" />
+                            <PolygonPoint value="-2.595660833055e-01, -3.108994000935e-02" />
+                            <PolygonPoint value="-2.077041218713e-01, -3.416754276618e-02" />
+                            <PolygonPoint value="-1.558147158404e-01, -3.675441488195e-02" />
+                            <PolygonPoint value="-1.038887497990e-01, -3.844429290711e-02" />
+                            <PolygonPoint value="-5.194946430361e-02, -3.957507470650e-02" />
+                            <PolygonPoint value="-9.584564714727e-17, -4.025000000000e-02" />
+                            <PolygonPoint value="5.194946430361e-02, -3.957507470650e-02" />
+                            <PolygonPoint value="1.038887497990e-01, -3.844429290711e-02" />
+                            <PolygonPoint value="1.558147158404e-01, -3.675441488195e-02" />
+                            <PolygonPoint value="2.077041218713e-01, -3.416754276618e-02" />
+                            <PolygonPoint value="2.595660833055e-01, -3.108994000935e-02" />
+                            <PolygonPoint value="3.113991502914e-01, -2.755744210219e-02" />
+                            <PolygonPoint value="3.632027632652e-01, -2.361413734480e-02" />
+                            <PolygonPoint value="4.149789235173e-01, -1.932381225668e-02" />
+                            <PolygonPoint value="4.667194011921e-01, -1.462611514094e-02" />
+                        </Section>
+                    </MidNodeSection>
+                </NodeSection>
+                <NodeSection nodeindex="1">
+                    <Section type="CSectionPolygon" RetainPoints="0">
+                        <SectionMesh type="CSectionMeshRectangular" NumLayers="2" TriangleCorners="1" />
+                        <PolygonPoint value="5.150000000000e-01, 0.000000000000e+00" />
+                        <PolygonPoint value="4.666990702835e-01, 1.462804312706e-02" />
+                        <PolygonPoint value="4.149382276800e-01, 1.932729086794e-02" />
+                        <PolygonPoint value="3.631416887118e-01, 2.361898148868e-02" />
+                        <PolygonPoint value="3.113176704975e-01, 2.756327741067e-02" />
+                        <PolygonPoint value="2.594641684149e-01, 3.109625898980e-02" />
+                        <PolygonPoint value="2.075817411393e-01, 3.417364388253e-02" />
+                        <PolygonPoint value="1.556719383197e-01, 3.676153285102e-02" />
+                        <PolygonPoint value="1.037254547109e-01, 3.844946444345e-02" />
+                        <PolygonPoint value="5.176568073514e-02, 3.957746241503e-02" />
+                        <PolygonPoint value="-2.042039649570e-04, 4.024734699053e-02" />
+                        <PolygonPoint value="-5.217408866506e-02, 3.957215639608e-02" />
+                        <PolygonPoint value="-1.041336924310e-01, 3.843653560260e-02" />
+                        <PolygonPoint value="-1.560798740932e-01, 3.674119579654e-02" />
+                        <PolygonPoint value="-2.079896769127e-01, 3.415330682805e-02" />
+                        <PolygonPoint value="-2.598718279773e-01, 3.107098306802e-02" />
+                        <PolygonPoint value="-3.117250694671e-01, 2.753410086828e-02" />
+                        <PolygonPoint value="-3.635488524009e-01, 2.358668719618e-02" />
+                        <PolygonPoint value="-4.153451860530e-01, 1.929250475531e-02" />
+                        <PolygonPoint value="-4.671056884568e-01, 1.458948340461e-02" />
+                        <PolygonPoint value="-5.147101833740e-01, -2.878046461667e-04" />
+                        <PolygonPoint value="-4.665963426050e-01, -1.681497339923e-02" />
+                        <PolygonPoint value="-4.151068801477e-01, -2.379899270759e-02" />
+                        <PolygonPoint value="-3.633472815186e-01, -2.851529717339e-02" />
+                        <PolygonPoint value="-3.114884161225e-01, -3.197692654431e-02" />
+                        <PolygonPoint value="-2.595831153830e-01, -3.462840960618e-02" />
+                        <PolygonPoint value="-2.076520934710e-01, -3.670966416237e-02" />
+                        <PolygonPoint value="-1.557038404047e-01, -3.834456934731e-02" />
+                        <PolygonPoint value="-1.037387166519e-01, -3.931961367283e-02" />
+                        <PolygonPoint value="-5.176907002726e-02, -3.993157059142e-02" />
+                        <PolygonPoint value="2.042173349516e-04, -4.024874386762e-02" />
+                        <PolygonPoint value="5.217750469717e-02, -3.992905832666e-02" />
+                        <PolygonPoint value="1.041470871676e-01, -3.931195123839e-02" />
+                        <PolygonPoint value="1.561122109204e-01, -3.833690691286e-02" />
+                        <PolygonPoint value="2.080603220092e-01, -3.669644857920e-02" />
+                        <PolygonPoint value="2.599910901405e-01, -3.460887020436e-02" />
+                        <PolygonPoint value="3.118959516016e-01, -3.194972315732e-02" />
+                        <PolygonPoint value="3.637548169978e-01, -2.848809378640e-02" />
+                        <PolygonPoint value="4.155136231141e-01, -2.376177241296e-02" />
+                        <PolygonPoint value="4.669977029612e-01, -1.673924324969e-02" />
+                    </Section>
+                    <MidNodeSection nodeindex="1" t="5.000000000000e-01">
+                        <Section type="CSectionPolygon" RetainPoints="0">
+                            <SectionMesh type="CSectionMeshRectangular" NumLayers="2" TriangleCorners="1" />
+                            <PolygonPoint value="5.150000000000e-01, 0.000000000000e+00" />
+                            <PolygonPoint value="4.667194011921e-01, 1.462611514094e-02" />
+                            <PolygonPoint value="4.149789235173e-01, 1.932381225668e-02" />
+                            <PolygonPoint value="3.632027632652e-01, 2.361413734480e-02" />
+                            <PolygonPoint value="3.113991502914e-01, 2.755744210219e-02" />
+                            <PolygonPoint value="2.595660833055e-01, 3.108994000935e-02" />
+                            <PolygonPoint value="2.077041218713e-01, 3.416754276618e-02" />
+                            <PolygonPoint value="1.558147158404e-01, 3.675441488195e-02" />
+                            <PolygonPoint value="1.038887497990e-01, 3.844429290711e-02" />
+                            <PolygonPoint value="5.194946430361e-02, 3.957507470650e-02" />
+                            <PolygonPoint value="2.927648772798e-17, 4.025000000000e-02" />
+                            <PolygonPoint value="-5.194946430361e-02, 3.957507470650e-02" />
+                            <PolygonPoint value="-1.038887497990e-01, 3.844429290711e-02" />
+                            <PolygonPoint value="-1.558147158404e-01, 3.675441488195e-02" />
+                            <PolygonPoint value="-2.077041218713e-01, 3.416754276618e-02" />
+                            <PolygonPoint value="-2.595660833055e-01, 3.108994000935e-02" />
+                            <PolygonPoint value="-3.113991502914e-01, 2.755744210219e-02" />
+                            <PolygonPoint value="-3.632027632652e-01, 2.361413734480e-02" />
+                            <PolygonPoint value="-4.149789235173e-01, 1.932381225668e-02" />
+                            <PolygonPoint value="-4.667194011921e-01, 1.462611514094e-02" />
+                            <PolygonPoint value="-5.150000000000e-01, 6.306931015609e-17" />
+                            <PolygonPoint value="-4.667194011921e-01, -1.462611514094e-02" />
+                            <PolygonPoint value="-4.149789235173e-01, -1.932381225668e-02" />
+                            <PolygonPoint value="-3.632027632652e-01, -2.361413734480e-02" />
+                            <PolygonPoint value="-3.113991502914e-01, -2.755744210219e-02" />
+                            <PolygonPoint value="-2.595660833055e-01, -3.108994000935e-02" />
+                            <PolygonPoint value="-2.077041218713e-01, -3.416754276618e-02" />
+                            <PolygonPoint value="-1.558147158404e-01, -3.675441488195e-02" />
+                            <PolygonPoint value="-1.038887497990e-01, -3.844429290711e-02" />
+                            <PolygonPoint value="-5.194946430361e-02, -3.957507470650e-02" />
+                            <PolygonPoint value="-9.584564714727e-17, -4.025000000000e-02" />
+                            <PolygonPoint value="5.194946430361e-02, -3.957507470650e-02" />
+                            <PolygonPoint value="1.038887497990e-01, -3.844429290711e-02" />
+                            <PolygonPoint value="1.558147158404e-01, -3.675441488195e-02" />
+                            <PolygonPoint value="2.077041218713e-01, -3.416754276618e-02" />
+                            <PolygonPoint value="2.595660833055e-01, -3.108994000935e-02" />
+                            <PolygonPoint value="3.113991502914e-01, -2.755744210219e-02" />
+                            <PolygonPoint value="3.632027632652e-01, -2.361413734480e-02" />
+                            <PolygonPoint value="4.149789235173e-01, -1.932381225668e-02" />
+                            <PolygonPoint value="4.667194011921e-01, -1.462611514094e-02" />
+                        </Section>
+                    </MidNodeSection>
+                </NodeSection>
+                <NodeSection nodeindex="2">
+                    <Section type="CSectionPolygon" RetainPoints="0">
+                        <SectionMesh type="CSectionMeshRectangular" NumLayers="2" TriangleCorners="1" />
+                        <PolygonPoint value="5.150000000000e-01, 0.000000000000e+00" />
+                        <PolygonPoint value="4.669977029612e-01, 1.673924324969e-02" />
+                        <PolygonPoint value="4.155136231141e-01, 2.376177241296e-02" />
+                        <PolygonPoint value="3.637548169978e-01, 2.848809378640e-02" />
+                        <PolygonPoint value="3.118959516016e-01, 3.194972315732e-02" />
+                        <PolygonPoint value="2.599910901405e-01, 3.460887020436e-02" />
+                        <PolygonPoint value="2.080603220092e-01, 3.669644857920e-02" />
+                        <PolygonPoint value="1.561122109205e-01, 3.833690691286e-02" />
+                        <PolygonPoint value="1.041470871676e-01, 3.931195123839e-02" />
+                        <PolygonPoint value="5.217750469717e-02, 3.992905832666e-02" />
+                        <PolygonPoint value="2.042173349519e-04, 4.024874386762e-02" />
+                        <PolygonPoint value="-5.176907002726e-02, 3.993157059142e-02" />
+                        <PolygonPoint value="-1.037387166519e-01, 3.931961367283e-02" />
+                        <PolygonPoint value="-1.557038404047e-01, 3.834456934731e-02" />
+                        <PolygonPoint value="-2.076520934710e-01, 3.670966416237e-02" />
+                        <PolygonPoint value="-2.595831153830e-01, 3.462840960618e-02" />
+                        <PolygonPoint value="-3.114884161225e-01, 3.197692654431e-02" />
+                        <PolygonPoint value="-3.633472815186e-01, 2.851529717339e-02" />
+                        <PolygonPoint value="-4.151068801477e-01, 2.379899270759e-02" />
+                        <PolygonPoint value="-4.665963426050e-01, 1.681497339923e-02" />
+                        <PolygonPoint value="-5.147101833740e-01, 2.878046461670e-04" />
+                        <PolygonPoint value="-4.671056884568e-01, -1.458948340461e-02" />
+                        <PolygonPoint value="-4.153451860530e-01, -1.929250475531e-02" />
+                        <PolygonPoint value="-3.635488524009e-01, -2.358668719618e-02" />
+                        <PolygonPoint value="-3.117250694671e-01, -2.753410086828e-02" />
+                        <PolygonPoint value="-2.598718279773e-01, -3.107098306802e-02" />
+                        <PolygonPoint value="-2.079896769127e-01, -3.415330682805e-02" />
+                        <PolygonPoint value="-1.560798740932e-01, -3.674119579654e-02" />
+                        <PolygonPoint value="-1.041336924310e-01, -3.843653560260e-02" />
+                        <PolygonPoint value="-5.217408866506e-02, -3.957215639608e-02" />
+                        <PolygonPoint value="-2.042039649571e-04, -4.024734699053e-02" />
+                        <PolygonPoint value="5.176568073514e-02, -3.957746241503e-02" />
+                        <PolygonPoint value="1.037254547109e-01, -3.844946444345e-02" />
+                        <PolygonPoint value="1.556719383197e-01, -3.676153285102e-02" />
+                        <PolygonPoint value="2.075817411393e-01, -3.417364388253e-02" />
+                        <PolygonPoint value="2.594641684149e-01, -3.109625898980e-02" />
+                        <PolygonPoint value="3.113176704975e-01, -2.756327741067e-02" />
+                        <PolygonPoint value="3.631416887118e-01, -2.361898148868e-02" />
+                        <PolygonPoint value="4.149382276800e-01, -1.932729086794e-02" />
+                        <PolygonPoint value="4.666990702835e-01, -1.462804312706e-02" />
+                    </Section>
+                </NodeSection>
+            </YarnSection>
+            <FibreDistribution type="CFibreDistributionConst" />
+            <Repeat value="2.500000000000e+00, 0.000000000000e+00, 0.000000000000e+00" />
+            <Repeat value="0.000000000000e+00, 2.500000000000e+00, 0.000000000000e+00" />
+            <MasterNode index="0" Position="1.250000000000e+00, 0.000000000000e+00, 1.207500000000e-01" Tangent="0.000000000000e+00, 1.000000000000e+00, 0.000000000000e+00" Up="0.000000000000e+00, 0.000000000000e+00, 1.000000000000e+00" Angle="0.000000000000e+00" />
+            <MasterNode index="1" Position="1.250000000000e+00, 1.250000000000e+00, 4.025000000000e-02" Tangent="0.000000000000e+00, 1.000000000000e+00, 0.000000000000e+00" Up="0.000000000000e+00, 0.000000000000e+00, 1.000000000000e+00" Angle="0.000000000000e+00" />
+            <MasterNode index="2" Position="1.250000000000e+00, 2.500000000000e+00, 1.207500000000e-01" Tangent="0.000000000000e+00, 1.000000000000e+00, 0.000000000000e+00" Up="0.000000000000e+00, 0.000000000000e+00, 1.000000000000e+00" Angle="0.000000000000e+00" />
+        </Yarn>
+        <PatternCell x="0" y="0">
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+        </PatternCell>
+        <PatternCell x="1" y="0">
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+        </PatternCell>
+        <PatternCell x="0" y="1">
+            <PatternElement value="1" />
+            <PatternElement value="0" />
+        </PatternCell>
+        <PatternCell x="1" y="1">
+            <PatternElement value="0" />
+            <PatternElement value="1" />
+        </PatternCell>
+        <XYarnData index="0" Width="1.030000000000e+00" Height="8.050000000000e-02" Spacing="1.250000000000e+00" />
+        <XYarnData index="1" Width="1.030000000000e+00" Height="8.050000000000e-02" Spacing="1.250000000000e+00" />
+        <YYarnData index="0" Width="1.030000000000e+00" Height="8.050000000000e-02" Spacing="1.250000000000e+00" />
+        <YYarnData index="1" Width="1.030000000000e+00" Height="8.050000000000e-02" Spacing="1.250000000000e+00" />
+        <XYarns index="0">
+            <XYarn yarnindex="0" />
+        </XYarns>
+        <XYarns index="1">
+            <XYarn yarnindex="1" />
+        </XYarns>
+        <YYarns index="0">
+            <YYarn yarnindex="2" />
+        </YYarns>
+        <YYarns index="1">
+            <YYarn yarnindex="3" />
+        </YYarns>
+    </Textile>
+</TexGenModel>
