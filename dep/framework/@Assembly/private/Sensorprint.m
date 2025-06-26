@@ -20,6 +20,7 @@ for i=1:size(obj.Sensor,1)
             sen=strcat('*DO,i,',num2str(obj.Sensor{i,1}.Mode(1,1)),',',num2str(obj.Sensor{i,1}.Mode(1,2)));
             fprintf(fid, '%s\n',sen);
             fprintf(fid, '%s\n','SET,,, ,,, ,i');
+            fprintf(fid, '%s\n','*GET,FF,MODE,i,FREQ');
             fprintf(fid, '%s\n','*Vwrite,FF');
             fprintf(fid, '%s\n','(1f16.3)');
             fprintf(fid, '%s\n','*ENDDO');
@@ -38,7 +39,6 @@ for i=1:size(obj.Sensor,1)
             fprintf(fid, '%s\n','SET,,, ,,, ,i');
             fprintf(fid, '%s\n','ETABLE,SE,SENE');
             fprintf(fid, '%s\n','SSUM');
-            fprintf(fid, '%s\n','*GET,FF,MODE,i,FREQ');
             fprintf(fid, '%s\n','*GET,SS,SSUM,0,ITEM,SE');
             fprintf(fid, '%s\n','*Vwrite,SS');
             fprintf(fid, '%s\n','(1f16.3)');
