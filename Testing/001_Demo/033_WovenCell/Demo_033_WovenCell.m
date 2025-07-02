@@ -4,7 +4,7 @@ close all
 % Demo_WovenCell
 % 1. Weave 2D
 % 2. Weave 3D
-flag=2;
+flag=1;
 DemoWovenCell(flag);
 
 function DemoWovenCell(flag)
