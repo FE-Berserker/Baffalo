@@ -108,6 +108,18 @@ switch obj.SheetName
             Mat{i,1}.Muy=obj.Sheet.Mu_y(num(i,1),1);
             Mat{i,1}.Hc=obj.Sheet.H_c(num(i,1),1);% A/m -> mA/mm
             Mat{i,1}.Sigma=obj.Sheet.Sigma(num(i,1),1)*adjust3;% S/m -> S/mm
+            Mat{i,1}.d_lam=obj.Sheet.d_lam(num(i,1),1);% mm
+            Mat{i,1}.LamFill=obj.Sheet.LamFill(num(i,1),1);
+            Mat{i,1}.Phi_h=obj.Sheet.Phi_h(num(i,1),1);
+            Mat{i,1}.LamType=obj.Sheet.LamType(num(i,1),1);
+            Mat{i,1}.NStrands=obj.Sheet.NStrands(num(i,1),1);
+            Mat{i,1}.Phi_hx=obj.Sheet.Phi_hx(num(i,1),1);
+            Mat{i,1}.Phi_hy=obj.Sheet.Phi_hy(num(i,1),1);
+            Mat{i,1}.WireD=obj.Sheet.WireD(num(i,1),1);
+            Temp=obj.Sheet.BHPoints(num(i,1),1);
+            if size(Temp{1,1},2)==2
+                Mat{i,1}.BHPoints=Temp{1,1};
+            end
         end
 end
 

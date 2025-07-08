@@ -2,4 +2,5 @@
 
 function mi_addbhpoint(name,b,h)
 callfemm(['mi_addbhpoint(' , quotec(name) , numc(b) , num(h) , ')' ]);
+end
 
