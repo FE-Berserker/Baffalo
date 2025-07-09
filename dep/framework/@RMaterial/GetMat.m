@@ -121,6 +121,14 @@ switch obj.SheetName
                 Mat{i,1}.BHPoints=Temp{1,1};
             end
         end
+    case 'Lubricant'
+        Mat=cell(size(num,1),1);
+        for i=1:size(num,1)
+            Mat{i,1}.Name=obj.Sheet.Name{num(i,1),1};
+            Mat{i,1}.v40=obj.Sheet.v40(num(i,1),1);
+            Mat{i,1}.v100=obj.Sheet.v100(num(i,1),1);
+            Mat{i,1}.Dens=obj.Sheet.Dens(num(i,1),1);
+        end
 end
 
 

@@ -38,6 +38,9 @@ classdef RMaterial<handle
                 case 'Magnetic_User'
                 case 'FEA'
                     Mat=load('FEA.mat');
+                case 'Lubricant'
+                    Mat=load('Lubricant.mat');
+
             end
             obj.Sheet=Mat.Mat;
             obj.SheetName=tablename;
