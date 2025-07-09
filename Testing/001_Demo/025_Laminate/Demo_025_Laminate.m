@@ -11,7 +11,7 @@ plotflag=true;
 % 6. Calculate lamminate [60,-60,0]s failure Criterion
 % 7. Ply-level failure envelopes
 
-flag=5;
+flag=2;
 DemoLaminate(flag);
 
 function DemoLaminate(flag)
@@ -55,14 +55,18 @@ switch flag
         S=RMaterial('Composite');
         mat=GetMat(S,22);
         inputStruct.Orient=45;
+        % inputStruct.Orient=0;
         inputStruct.Tply=0.15;
         inputStruct.Plymat=1;
         inputStruct.Load.Type  = [2, 2, 2, 2, 2, 2];
         inputStruct.Load.Value = [1, 0, 0, 0, 0, 0];
+        % inputStruct.Load.Type  = [1, 1, 1, 2, 2, 2];
+        % inputStruct.Load.Value = [0, 0, 0.01, 0, 0, 0];
         paramsStruct.Material=mat;
         L= plate.Laminate(paramsStruct, inputStruct);
         L=L.solve();
         PlotResult(L);
+        PlotResult(L,'MC',1);
 
     case 3
         S=RMaterial('Composite');

@@ -11,7 +11,7 @@ close all
 % 7. Auto-htutor
 % 8. Roters1b: Simulation of a Tapered Plunger Magnet
 % 9. Strips
-flag=9;
+flag=4;
 DemoFEMMSolver(flag);
 
 function DemoFEMMSolver(flag)

@@ -18,7 +18,6 @@ if mean(StatorR)>mean(RotorR)
     State=0;
     Reqv=(min(StatorR)+max(RotorR))/2;
     dis=min(StatorR)-max(RotorR);
-
 else
     State=1;
     Reqv=(max(StatorR)+min(RotorR))/2;

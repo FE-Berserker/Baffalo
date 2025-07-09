@@ -266,6 +266,10 @@ obj.output.Property.v13=LoadResult(strcat('RF_v',num2str(13),'.txt'))/(xmax-xmin
     (LoadResult(strcat('RF_E',num2str(1),'.txt'))/(ymax-ymin)/(zmax-zmin))*E1;
 obj.output.Property.v23=LoadResult(strcat('RF_v',num2str(23),'.txt'))/(xmax-xmin)/(ymax-ymin)/E3/...
     (LoadResult(strcat('RF_E',num2str(2),'.txt'))/(xmax-xmin)/(zmax-zmin))*E2;
+YarnVolumeRatio=obj.output.YarnVolumeRatio;
+obj.output.Property.Dens=obj.output.Yarn.Dens*YarnVolumeRatio+...
+    obj.input.Matrix.Dens*(1-YarnVolumeRatio);
+obj.output.Property.Vf=obj.params.Vf*YarnVolumeRatio;
 end
 
 function SolveANSYS

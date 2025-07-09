@@ -70,7 +70,7 @@ mi_addblocklabel(0.1,Height(1)-Height(end)/2+0.1);
 
 % Add Material
 mi_addmaterial(Material.Name,Material.Mux,Material.Muy,Material.Hc,...
-    0,Material.Sigma,0,0,1,0,0,0,0,0)
+    0,Material.Sigma*1000,0,0,1,0,0,0,0,0)
 mi_getmaterial('Air');
 
 % Set properties
