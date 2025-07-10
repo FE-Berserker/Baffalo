@@ -4,6 +4,7 @@ function obj=AddPart(obj,Meshoutput,varargin)
 
 p=inputParser;
 addParameter(p,'position',[0,0,0,0,0,0]);
+addParameter(p,'Seq','ZYX');%'XYZ'
 parse(p,varargin{:});
 opt=p.Results;
 
@@ -15,7 +16,7 @@ NumElements=size(Meshoutput.elements,1);
 NumNodes=size(Meshoutput.nodes,1);
 mesh=Meshoutput;
 T=Transform(mesh.nodes);
-T=Rotate(T,position(4),position(5),position(6));
+T=Rotate(T,position(4),position(5),position(6),'Seq',opt.Seq);
 T=Translate(T,position(1),position(2),position(3));
 mesh.nodes=Solve(T);
 
