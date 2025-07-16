@@ -1,10 +1,6 @@
-classdef LaminateStiff < cComponent
+classdef LaminateStiff < Component
     %% Laminate.m
     % Author: Yu Xie, Sep 2023
-
-    properties
-        %other cComponentTemplate specific properties...
-    end
 
     properties (Hidden, Constant)
 
@@ -30,7 +26,7 @@ classdef LaminateStiff < cComponent
             'd'
             };
 
-        statesExpectedFields = {};
+        baselineExpectedFields = {};
 
         default_Slice=90;
     end
@@ -38,7 +34,7 @@ classdef LaminateStiff < cComponent
     methods
 
         function obj = LaminateStiff(paramsStruct,inputStruct)
-            obj = obj@cComponent(paramsStruct,inputStruct);
+            obj = obj@Component(paramsStruct,inputStruct);
         end
 
         function obj = solve(obj)

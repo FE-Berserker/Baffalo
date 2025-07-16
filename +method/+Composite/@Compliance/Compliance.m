@@ -1,10 +1,6 @@
-classdef Compliance < cComponent
-    %% Compliance.m
+classdef Compliance < Component
+    % Compliance.m
     % Author: Yu Xie, Aug 2023
-
-    properties
-        %other cComponentTemplate specific properties...
-    end
 
     properties (Hidden, Constant)
 
@@ -22,14 +18,14 @@ classdef Compliance < cComponent
             'Matrix_C'% 柔度矩阵
             };
 
-        statesExpectedFields = {};
+        baselineExpectedFields = {};
 
     end
 
     methods
 
         function obj = Compliance(paramsStruct,inputStruct)
-            obj = obj@cComponent(paramsStruct,inputStruct);
+            obj = obj@Component(paramsStruct,inputStruct);
         end
 
         function obj = solve(obj)

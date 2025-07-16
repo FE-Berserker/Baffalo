@@ -1,11 +1,7 @@
-classdef ETransform < cComponent
-    %% ETransform.m
+classdef ETransform < Component
+    % ETransform.m
     % Author: Yu Xie, Aug 2023
-    
-    properties
-        %other cComponentTemplate specific properties...
-    end
-    
+      
     properties (Hidden, Constant)
         
         paramsExpectedFields = {
@@ -21,22 +17,21 @@ classdef ETransform < cComponent
             'Tans_E'% Transformed Strain
             };
         
-        statesExpectedFields = {};
+        baselineExpectedFields = {};
         
     end
     
     methods
         
         function obj = ETransform(paramsStruct,inputStruct)
-            obj = obj@cComponent(paramsStruct,inputStruct);
+            obj = obj@Component(paramsStruct,inputStruct);
         end
         
         function obj = solve(obj)
             %calculate outputs
             Te=cal_Te(obj);
             obj.output.Tans_E=Te*obj.input.Epison;
-            obj.output.Te=Te;
-            
+            obj.output.Te=Te;     
         end
         
         function Te=cal_Te(obj)

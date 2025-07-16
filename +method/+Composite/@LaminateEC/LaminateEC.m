@@ -1,10 +1,7 @@
-classdef LaminateEC < cComponent
-    %% LaminateElasticConstants.m
+classdef LaminateEC < Component
+    % LaminateElasticConstants.m
     % Author: Yu Xie, Aug 2023
 
-    properties
-        %other cComponentTemplate specific properties...
-    end
 
     properties (Hidden, Constant)
 
@@ -33,7 +30,7 @@ classdef LaminateEC < cComponent
             'E_eq2'%Ex Ey Gxy vxy vyx Etaxyx Etaxyy
             };
 
-        statesExpectedFields = {};
+        baselineExpectedFields = {};
 
         default_Slice=90;
     end
@@ -41,7 +38,7 @@ classdef LaminateEC < cComponent
     methods
 
         function obj = LaminateEC(paramsStruct,inputStruct)
-            obj = obj@cComponent(paramsStruct,inputStruct);
+            obj = obj@Component(paramsStruct,inputStruct);
         end
 
         function obj = solve(obj)

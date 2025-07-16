@@ -1,11 +1,7 @@
-classdef STransform < cComponent
-    %% STransform.m
+classdef STransform < Component
+    % STransform.m
     % Author: Yu Xie, Aug 2023
-    
-    properties
-        %other cComponentTemplate specific properties...
-    end
-    
+       
     properties (Hidden, Constant)
         
         paramsExpectedFields = {
@@ -21,14 +17,14 @@ classdef STransform < cComponent
             'Tans_S'% Transformed Stress
             };
         
-        statesExpectedFields = {};
+        baselineExpectedFields = {};
         
     end
     
     methods
         
         function obj = STransform(paramsStruct,inputStruct)
-            obj = obj@cComponent(paramsStruct,inputStruct);
+            obj = obj@Component(paramsStruct,inputStruct);
         end
         
         function obj = solve(obj)
