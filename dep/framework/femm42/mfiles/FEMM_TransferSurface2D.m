@@ -4,10 +4,17 @@ function FEMM_TransferSurface2D(Surface,varargin)
 
 p=inputParser;
 addParameter(p,'Type',0);
+addParameter(p,'Rotate',0);
+addParameter(p,'Translate',[0,0]);
 parse(p,varargin{:});
 opt=p.Results;
 
-p=Surface.N;
+p1=[Surface.N,zeros(size(Surface.N,1),1)];
+T=Transform(p1);
+T=Rotate(T,0,0,opt.Rotate);
+T=Translate(T,opt.Translate(1),opt.Translate(2),0);
+p=Solve(T);
+
 E=Surface.E;
 
 for i=1:size(p,1)
