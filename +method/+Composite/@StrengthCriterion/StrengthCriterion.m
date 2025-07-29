@@ -53,13 +53,18 @@ classdef StrengthCriterion < Component
             end
 
             % Set high allowables
-            obj.output.minR(isnan(obj.output.minR),:)=99999;
+            if isnan(obj.output.minR)
+                obj.output.minR=99999;
+            end
             for i=1:size(obj.output.minR_detail,2)
-                obj.output.minR_detail(isnan(obj.output.minR(:,i)),i)=99999;
+                if isnan(obj.output.minR_detail(i))
+                    obj.output.minR_detail(i)=99999;
+                end
             end
 
+            row=1:size(obj.output.R,1);
             for i=1:size(obj.output.R,2)
-                obj.output.R(isnan(obj.output.R(:,i)),i)=99999;
+                obj.output.R(row(isnan(obj.output.R(:,i)')),i)=99999;
             end
 
             if obj.params.Echo
