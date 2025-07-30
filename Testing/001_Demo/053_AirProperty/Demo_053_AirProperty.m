@@ -6,7 +6,7 @@
 clc
 clear
 close all
-flag=3;
+flag=1;
 DemoAirProperty(flag);
 
 function DemoAirProperty(flag)
