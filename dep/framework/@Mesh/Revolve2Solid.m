@@ -6,6 +6,7 @@ p=inputParser;
 addParameter(p,'Slice',36);
 addParameter(p,'Type',1)
 addParameter(p,'Degree',360)
+addParameter(p,'Gap',[])
 parse(p,varargin{:});
 
 opt=p.Results;
@@ -16,13 +17,35 @@ Type=opt.Type;
 V=mesh2D.Vert(:,1:2);
 F=mesh2D.Face;
 Num_node_2D=size(V,1);
+
+if ~isempty(opt.Gap)
+    Slice=size(opt.Gap,1);
+end
+
+
 if Degree==360
     V=repmat(V,Slice,1);
-    deg=0:Degree/Slice:Degree-Degree/Slice;
+    if isempty(opt.Gap)
+        deg=0:Degree/Slice:Degree-Degree/Slice;
+    else
+        % Check gap
+        if sum(opt.Gap)~=360
+            error('Gap is node match with the degree !')
+        else
+            deg=tril(ones(size(opt.Gap,1)))*opt.Gap;
+            deg=[0,deg(1:end-1,1)'];
+        end
+    end
 else
     V=repmat(V,Slice+1,1);
-    deg=0:Degree/Slice:Degree;
+    if isempty(opt.Gap)
+        deg=0:Degree/Slice:Degree-Degree/Slice;
+    else
+        deg=tril(ones(size(opt.Gap,1)))*opt.Gap;
+        deg=[0,deg(1:end,1)'];
+    end
 end
+
 Temp=repmat(deg,Num_node_2D,1);
 if Degree==360
     Temp=[V,reshape(Temp,Slice*Num_node_2D,1)];
