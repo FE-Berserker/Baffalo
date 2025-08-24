@@ -23,8 +23,9 @@ close all
 % 19 Mesh ring
 % 20 Mesh edge layer
 % 21 Baffalo logo
+% 22 Mesh with constraints
 
-flag=1;
+flag=22;
 testMesh2D(flag);
 function testMesh2D(flag)
 switch flag
@@ -285,6 +286,41 @@ switch flag
         Center = CenterCal(m);
         m=AddCellData(m,Center(:,1).^2+Center(:,2).^2);
         Plot2(m)
+    case 22
+        a=Point2D('Temp');
+        a=AddPoint(a,[1,1,-1,-1,1]',[1,-1,-1,1,1]');
+        % Add outline
+        b=Line2D('Out');
+        b=AddCurve(b,a,1);
+        Plot(b)
+        S=Surface2D(b);
+        m=Mesh2D('Temp');
+        m=AddSurface(m,S);
+        m=SetSize(m,0.1);
+        Cnode = [
+            +.0, +.0; +.2, +.7
+            +.6, +.2; +.4, +.8
+            +0., +.5; -.7, +.3
+            -.1, +.1; -.6, +.5
+            -.9, -.8; -.6, -.7
+            -.3, -.6; +.0, -.5
+            +.3, -.4; -.3, +.4
+            -.1, +.3
+            ] ;
+        Cedge = [
+            1 ,  2 ;  1 ,  3
+            1 ,  4 ;  1 ,  5
+            1 , 6 ;  1 , 7
+            1 , 8 ;  1 , 9
+            1 , 10 ;  1 , 11
+            1 , 12 ;  1 , 13
+            1 , 14 ;  1 , 15
+            ] ;
+        m=AddCNode(m,Cnode);
+        m=AddCEdge(m,Cedge);
+        m=Mesh(m);
+        Plot(m)
+
 
 
 

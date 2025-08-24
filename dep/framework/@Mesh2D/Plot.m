@@ -8,6 +8,7 @@ addParameter(p,'equal',1);
 addParameter(p,'base_size',1);
 addParameter(p,'xlim',[]);
 addParameter(p,'ylim',[]);
+addParameter(p,'constraint',1);
 parse(p,varargin{:});
 opt=p.Results;
 
@@ -72,6 +73,20 @@ switch ElNum
         draw(g);
 end
 
+%% Plot constraint
+if opt.constraint==1
+    cnode=obj.CNode;
+    cedge=obj.CEdge;
+
+    for i=1:size(cedge,1)
+        pl=line(cnode(cedge(i,:),1),cnode(cedge(i,:),2));
+        pl.Color = 'yellow';
+        pl.LineStyle = '--';
+        pl.LineWidth=1;
+        hold on
+    end
+
+end
 
 end
 

@@ -18,13 +18,34 @@ OPTS.ref2=opt.ref2;
 OPTS.siz1=opt.siz1;
 OPTS.siz2=opt.siz2;
 
-if isempty(obj.Size)
-    [obj.Vert,~,obj.Face,~] = meshtool.refine2(obj.N,obj.E,[],OPTS) ;
+if isempty(obj.CEdge)
+    if isempty(obj.Size)
+        [obj.Vert,~,obj.Face,~] = meshtool.refine2(obj.N,obj.E,[],OPTS) ;
+    else
+        [obj.Vert,~,obj.Face,~] = meshtool.refine2(obj.N,obj.E,[],OPTS,obj.Size) ;
+    end
 else
-    [obj.Vert,~,obj.Face,~] = meshtool.refine2(obj.N,obj.E,[],OPTS,obj.Size) ;
+
+    if isempty(obj.CNode)
+        error('Please define cnode !')
+    end
+
+    cnode=obj.CNode;
+    cedge=obj.CEdge;
+
+    part{1} = 1:size(obj.E,1) ;
+    E=[obj.E;cedge+size(obj.N,1)];
+    N=[obj.N;cnode];
+
+    if isempty(obj.Size)
+        [obj.Vert,~,obj.Face,~] = meshtool.refine2(N,E,part,OPTS) ;
+    else
+        [obj.Vert,~,obj.Face,~] = meshtool.refine2(N,E,part,OPTS,obj.Size) ;
+    end
+
 end
-obj.Boundary=FindBoundary(obj);
-obj.Cb=ones(size(obj.Face,1),1);
+    obj.Boundary=FindBoundary(obj);
+    obj.Cb=ones(size(obj.Face,1),1);
 
 %% Parse
 obj.Meshoutput.nodes=[obj.Vert,zeros(size(obj.Vert,1),1)];

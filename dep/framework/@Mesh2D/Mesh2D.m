@@ -13,6 +13,8 @@ classdef Mesh2D
         Face % Face
         Dual % Dual mesh
         Size % Size of mesh edge
+        CNode % Internal constraint node
+        CEdge % Internal constraint edge
         G % MRST geo
         Boundary % Boundary Node
         Cell_Data
