@@ -29,7 +29,7 @@ if Degree==360
         deg=0:Degree/Slice:Degree-Degree/Slice;
     else
         % Check gap
-        if sum(opt.Gap)~=360
+        if (sum(opt.Gap)-360)>1e-5
             error('Gap is node match with the degree !')
         else
             deg=tril(ones(size(opt.Gap,1)))*opt.Gap;
@@ -39,7 +39,7 @@ if Degree==360
 else
     V=repmat(V,Slice+1,1);
     if isempty(opt.Gap)
-        deg=0:Degree/Slice:Degree-Degree/Slice;
+        deg=0:Degree/Slice:Degree;
     else
         deg=tril(ones(size(opt.Gap,1)))*opt.Gap;
         deg=[0,deg(1:end,1)'];
@@ -47,7 +47,7 @@ else
 end
 
 Temp=repmat(deg,Num_node_2D,1);
-if Degree==360
+if Degree==360 
     Temp=[V,reshape(Temp,Slice*Num_node_2D,1)];
 else
     Temp=[V,reshape(Temp,(Slice+1)*Num_node_2D,1)];

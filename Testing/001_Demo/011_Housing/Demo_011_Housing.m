@@ -52,7 +52,9 @@ switch flag
         end
 
         inputHousing.Outline= b;
+        inputHousing.Meshsize= 2;
         paramsHousing.Degree = 360;
+        paramsHousing.N_Slice=72;
 
         obj1=housing.Housing(paramsHousing, inputHousing);
         obj1=obj1.solve();
