@@ -10,8 +10,10 @@ classdef ToothShaft < Component
             'Echo' % Print
             'Order' % Element order
             'ToothType'
+            'SlotType' % Type=1 Flat slot Type=2 Circle slot
             'ToothSlice'% Tooth rotate number
             'SlotSlice' % Slot rotate number
+            'LeftLimit'
             };
 
         inputExpectedFields = {
@@ -20,6 +22,7 @@ classdef ToothShaft < Component
             'ToothNum' % Tooth number
             'ToothPos' % Tooth position
             'ToothWidth' % Tooth width
+   
             };
 
         outputExpectedFields = {
@@ -36,8 +39,11 @@ classdef ToothShaft < Component
         default_Echo=1
         default_Order=1
         default_ToothType=1
-        defalt_ToothSlice=5
+        default_SlotType=1
+        default_ToothSlice=5
         default_SlotSlice=5
+        default_LeftLimit=[]
+
     end
     methods
 
@@ -63,6 +69,11 @@ classdef ToothShaft < Component
                     error('Tooth position exceed the limit !')
                 end
             end
+
+            if isempty(obj.params.LeftLimit)
+                obj.params.LeftLimit=minx;
+            end
+
             % Check intersection
             Tempa=Point2D('Temp','Echo',0);
             Tempa=AddPoint(Tempa,[Point(:,1);Point(1,1)],[Point(:,2);Point(1,2)]);

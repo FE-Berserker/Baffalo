@@ -7,6 +7,8 @@ ToothWidth=obj.input.ToothWidth;
 ToothNum=obj.input.ToothNum;
 SlotSlice=obj.params.SlotSlice;
 ToothSlice=obj.params.ToothSlice;
+SlotType=obj.params.SlotType;
+ToothPos=obj.input.ToothPos;
 
 m=Mesh2D('Mesh1','Echo',0);
 m=AddSurface(m,obj.output.Surface);
@@ -50,12 +52,12 @@ mm.Vert=P2;
 
 % Reflect node
 ToothType=obj.params.ToothType;
+SlotWidth=max(abs(Divider(:,2)))*sin(Angle2/2)*2;
+Bot=obj.params.LeftLimit;
 
-if ToothType==2
+if and(ToothType==1,SlotType==2)
     Node=m.Meshoutput.nodes;
     rr=Node(:,2);
-
-    SlotWidth=max(abs(Divider(:,2)))*sin(Angle2/2)*2;
 
     Ang2=asin(SlotWidth/2./rr)*2/pi*180;
     Ang1=360/ToothNum-Ang2;
@@ -63,13 +65,64 @@ if ToothType==2
     Ang1=Ang1/ToothSlice;
     Ang2=Ang2/SlotSlice;
 
-    % Acc=0;
     Acc1=-Ang1*ToothSlice-Ang2*SlotSlice/2-Ang1;
     ix=-1;
     ileft=1-size(rr,1);
     iright=0;
+
+    GrooveRadius=SlotWidth/2;
+    rf=max(abs(Divider(:,2)))*cos(Angle2/2); % reference radius
+
+
     for i=1:size(Gap,1)
-        % Acc=Acc+Gap(i,1);
+        ix=ix+1;
+        if ix<=SlotSlice
+            Acc1=Acc1+Ang1;
+        elseif ix<=ToothSlice+SlotSlice
+            Acc1=Acc1+Ang2;
+        else
+            ix=1;
+            Acc1=Acc1+Ang1;
+        end
+
+        ileft=ileft+size(rr,1);
+        iright=iright+size(rr,1);
+
+        if ix>SlotSlice
+            DD=GrooveRadius/rf.*rr*sin((ix-SlotSlice)/SlotSlice*pi);
+            mm.Vert(ileft:iright,1)=(mm.Vert(ileft:iright,1)-DD.*(mm.Vert(ileft:iright,1)-Bot)./(ToothPos-Bot)).*(mm.Vert(ileft:iright,1)>Bot)+...
+                mm.Vert(ileft:iright,1).*(mm.Vert(ileft:iright,1)<=Bot);
+        end
+
+    end
+    mm.Meshoutput.nodes=mm.Vert;
+
+
+end
+
+
+if ToothType==2
+    Node=m.Meshoutput.nodes;
+    rr=Node(:,2);
+
+    Ang2=asin(SlotWidth/2./rr)*2/pi*180;
+    Ang1=360/ToothNum-Ang2;
+
+    Ang1=Ang1/ToothSlice;
+    Ang2=Ang2/SlotSlice;
+
+    Acc1=-Ang1*ToothSlice-Ang2*SlotSlice/2-Ang1;
+    ix=-1;
+    ileft=1-size(rr,1);
+    iright=0;
+
+    if SlotType==2
+        GrooveRadius=SlotWidth/2;
+    else
+        GrooveRadius=0;
+    end
+
+    for i=1:size(Gap,1)
         ix=ix+1;
         if ix<=SlotSlice
             Acc1=Acc1+Ang1;
@@ -83,16 +136,17 @@ if ToothType==2
         ileft=ileft+size(rr,1);
         iright=iright+size(rr,1);
         
-        % ymodi=cos(Ang1/180*pi)/cos(Acc/180*pi);
-        % zmodi=sin(Ang1/180*pi)/sin(Acc/180*pi);
-        % mm.Vert(ileft:iright,2)=mm.Vert(ileft:iright,2).*ymodi;
-        % mm.Vert(ileft:iright,3)=mm.Vert(ileft:iright,3).*zmodi;
         mm.Vert(ileft:iright,2)=rr.*cos(Acc1/180*pi);
         mm.Vert(ileft:iright,3)=rr.*sin(Acc1/180*pi);
-      
+
+        if ix>SlotSlice   
+            DD=GrooveRadius*sin((ix-SlotSlice)/SlotSlice*pi);
+            mm.Vert(ileft:iright,1)=(mm.Vert(ileft:iright,1)-DD.*(mm.Vert(ileft:iright,1)-Bot)./(ToothPos-Bot)).*(mm.Vert(ileft:iright,1)>Bot)+...
+                mm.Vert(ileft:iright,1).*(mm.Vert(ileft:iright,1)<=Bot);
+        end
+
     end
     mm.Meshoutput.nodes=mm.Vert;
-
 end
 
 
