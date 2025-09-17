@@ -44,8 +44,8 @@ else
     end
 
 end
-    obj.Boundary=FindBoundary(obj);
-    obj.Cb=ones(size(obj.Face,1),1);
+obj.Boundary=FindBoundary(obj);
+obj.Cb=ones(size(obj.Face,1),1);
 
 %% Parse
 obj.Meshoutput.nodes=[obj.Vert,zeros(size(obj.Vert,1),1)];

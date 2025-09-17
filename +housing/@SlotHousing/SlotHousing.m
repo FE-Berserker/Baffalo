@@ -1,5 +1,5 @@
-classdef ToothShaft < Component
-    % Class ToothShaft
+classdef SlotHousing < Component
+    % Class SlotHousing
     % Author: Xie Yu
     
     properties(Hidden, Constant)
@@ -14,14 +14,15 @@ classdef ToothShaft < Component
             'ToothSlice'% Tooth rotate number
             'SlotSlice' % Slot rotate number
             'LeftLimit'
+            'RightLimit'
             };
 
         inputExpectedFields = {
             'Outline' % outline
             'Meshsize' % Mesh size
-            'ToothNum' % Tooth number
-            'ToothPos' % Tooth position
-            'ToothWidth' % Tooth width
+            'SlotNum' % Slot number
+            'SlotPos' % Slot position
+            'SlotWidth' % Slot width
    
             };
 
@@ -30,11 +31,12 @@ classdef ToothShaft < Component
             'SolidMesh'% ToothShaft solid mesh
             'ShellMesh'% ToothShaft shell mesh
             'Assembly'% Assembly of solid mesh
-            'Divider' % Divider of geometry 
+            'Divider1' % Divider1 of geometry
+            'Divider2' % Divider2 of geometry 
             };
 
         baselineExpectedFields = {};
-        default_Name='ToothShaft_1';
+        default_Name='SlotHousing_1';
         default_Material=[];
         default_Echo=1
         default_Order=1
@@ -43,30 +45,35 @@ classdef ToothShaft < Component
         default_ToothSlice=5
         default_SlotSlice=5
         default_LeftLimit=[]
+        default_RightLimit=[]
 
     end
     methods
 
-        function obj = ToothShaft(paramsStruct,inputStruct)
+        function obj = SlotHousing(paramsStruct,inputStruct)
             obj = obj@Component(paramsStruct,inputStruct);
-            obj.documentname='ToothShaft.pdf';
+            obj.documentname='SlotHousing.pdf';
         end
 
         function obj = solve(obj)
-            ToothPos=obj.input.ToothPos;
+            SlotPos=obj.input.SlotPos;
             %% Check input
             if isempty(obj.input.Outline)
                 error('Please input the outline !')
             end
 
-            if isempty(ToothPos)
-                error('Please input tooth position !')
+            if isempty(SlotPos)
+                error('Please input Slot position !')
+            elseif size(SlotPos,2)~=2
+                error('Wrong position input !')
             else
                 Point=obj.input.Outline.Point.P;
                 minx=min(Point(:,1));
                 maxx=max(Point(:,1));
-                if or(ToothPos<=minx,ToothPos>=maxx)
-                    error('Tooth position exceed the limit !')
+                minsx=min(SlotPos);
+                maxsx=max(SlotPos);
+                if or(minsx<=minx,maxsx>=maxx)
+                    error('Slot position exceed the limit !')
                 end
             end
 
@@ -74,10 +81,14 @@ classdef ToothShaft < Component
                 obj.params.LeftLimit=minx;
             end
 
+            if isempty(obj.params.RightLimit)
+                obj.params.RightLimit=maxx;
+            end
+
             % Check intersection
             Tempa=Point2D('Temp','Echo',0);
             Tempa=AddPoint(Tempa,[Point(:,1);Point(1,1)],[Point(:,2);Point(1,2)]);
-            Tempa=AddPoint(Tempa,[ToothPos;ToothPos],[0;max(Point(:,2))+0.01]);
+            Tempa=AddPoint(Tempa,[SlotPos(1);SlotPos(1)],[0;max(Point(:,2))+0.01]);
 
             Tempb=Line2D('Temp','Echo',0);
             Tempb=AddCurve(Tempb,Tempa,1);
@@ -91,7 +102,27 @@ classdef ToothShaft < Component
             end
 
             % Calculate outputs
-            obj.output.Divider=[x0,y0];
+            obj.output.Divider1=[x0,y0];
+
+            % Check intersection
+            Tempa=Point2D('Temp','Echo',0);
+            Tempa=AddPoint(Tempa,[Point(:,1);Point(1,1)],[Point(:,2);Point(1,2)]);
+            Tempa=AddPoint(Tempa,[SlotPos(2);SlotPos(2)],[0;max(Point(:,2))+0.01]);
+
+            Tempb=Line2D('Temp','Echo',0);
+            Tempb=AddCurve(Tempb,Tempa,1);
+
+            Tempb=AddLine(Tempb,Tempa,2);
+
+            [x1,y1]=CurveIntersection(Tempb,1,2);
+
+            if size(x1,1)~=2
+                error('Wrong geometry input !')
+            end
+
+            % Calculate outputs
+            obj.output.Divider2=[x1,y1];
+
             S=Surface2D(obj.input.Outline);
             obj.output.Surface=S;
 

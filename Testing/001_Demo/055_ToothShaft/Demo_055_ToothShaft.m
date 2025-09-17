@@ -93,7 +93,7 @@ switch flag
 
         paramsShaft.ToothSlice= 8;
         paramsShaft.SlotSlice= 8;
-        paramsShaft.ToothType= 1;
+        paramsShaft.ToothType= 2;
         paramsShaft.SlotType= 2;
         paramsShaft.LeftLimit= 4;
 
