@@ -33,27 +33,28 @@ classdef Component
 
     methods
         function obj = Component(paramsStruct,inputStruct,baselineStruct)
-            %set all expected inputs to empty
+
+            % set all expected inputs to empty
             for ii=1:numel(obj.inputExpectedFields)
                 obj.input.(obj.inputExpectedFields{ii}) = [];
             end
 
-            %set all expected params to empty
+            % set all expected params to empty
             for ii=1:numel(obj.paramsExpectedFields)
                 obj.params.(obj.paramsExpectedFields{ii}) = [];
             end
 
-            %set all expected output to empty
+            % set all expected output to empty
             for ii=1:numel(obj.outputExpectedFields)
                 obj.output.(obj.outputExpectedFields{ii}) = [];
             end
 
-            %set all expected baseline to empty
+            % set all expected baseline to empty
             for ii=1:numel(obj.baselineExpectedFields)
                 obj.baseline.(obj.baselineExpectedFields{ii}) = [];
             end
-            %cComponent constructor simply extracts the param set sent as
-            %input and applies to fields of obj.params
+            % Component constructor simply extracts the param set sent as
+            % input and applies to fields of obj.params
             for ii=1:numel(obj.paramsExpectedFields)
                 if isfield(paramsStruct,obj.paramsExpectedFields{ii}) && ~isempty(paramsStruct.(obj.paramsExpectedFields{ii}))
                     % set value if defined by user
@@ -100,9 +101,9 @@ classdef Component
         end
     end
 
-    %abstract methods that will be fully defined in child classes - that
-    %is, any class that inherits Component will need to define these
-    %methods in order to be functional
+    % abstract methods that will be fully defined in child classes - that
+    % is, any class that inherits Component will need to define these
+    % methods in order to be functional
     methods (Abstract)
         obj = solve(obj)
     end
@@ -188,5 +189,15 @@ classdef Component
                 open(filename);
             end
         end
+
+        function Check(obj)
+            for ii=1:numel(obj.inputExpectedFields)
+                if isempty(obj.input.(obj.inputExpectedFields{ii}))
+                    sen=strcat("Please input ",obj.inputExpectedFields{ii},' !');
+                    error(sen)
+                end
+            end
+        end
+
     end
 end

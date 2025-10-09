@@ -37,7 +37,11 @@ classdef ComponentModule < Component
         end
 
         function obj = solve(obj)
+            % Check input is Null
+            Check(obj)
+
             % Write the fomula of the component calculation
+            
             % Print
             if obj.params.Echo
                 fprintf('Successfully calculate results .\n');
