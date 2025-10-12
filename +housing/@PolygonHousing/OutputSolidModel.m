@@ -9,7 +9,6 @@ Ang=360/EdgeNum/2;
 
 b=Line2D('Round Polygon','Echo',0);
 b=AddRoundPolygon(b,Rref/cos(Ang/180*pi),EdgeNum,r);
-Plot(b)
 
 m=Mesh2D('Mesh1','Echo',0);
 m=AddSurface(m,obj.output.Surface);
@@ -37,7 +36,7 @@ Delta=(360/EdgeNum-SumAng)/(NumSeg/EdgeNum);
 Slice=obj.params.Slice;
 Angle=Angle+Delta;
 TempAng=(Angle(1,1)+Angle(2,1))/Slice;
-
+FixAngle=sum(Angle(3:end,:))/2;
 Angle=[repmat(TempAng,Slice,1);Angle(3:end,:)];
 
 Num1=size(Angle,1);
@@ -58,7 +57,6 @@ for i=1:Num1
 end
 
 NumNode=size(m.Vert,1);
-rrr=m.Vert(:,2);
 
 for i=1:size(Gap,1)
     j=mod(i,Num1);
@@ -70,12 +68,16 @@ for i=1:size(Gap,1)
         Rat=Ratio(j-1,1);
     end
     Start=(i-1)*NumNode+1;
-    % RRat=(Rref*Rat-(Rref-rrr))./rrr;
     RRat=Rat;
     mm.Vert(Start:Start+NumNode-1,2)=mm.Vert(Start:Start+NumNode-1,2).*RRat;
     mm.Vert(Start:Start+NumNode-1,3)=mm.Vert(Start:Start+NumNode-1,3).*RRat;
 end
 
+T=Transform(mm.Vert);
+T=Rotate(T,FixAngle,0,0);
+P2=Solve(T);
+
+mm.Vert=P2;
 mm.Meshoutput.nodes=mm.Vert;
 
 

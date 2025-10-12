@@ -1,15 +1,15 @@
 clc
 clear
 close all
-% Demo SlotHousing
-% 1. Create SlotHousing
+% Demo PolygonHousing
+% 1. Create PolygonHousing
 % 2. Change tooth type
 % 3. Circle groove slot type
 
-flag=1;
-DemoSlotHousing(flag);
+flag=3;
+DemoPolygonHousing(flag);
 
-function DemoSlotHousing(flag)
+function DemoPolygonHousing(flag)
 switch flag
 
     case 1
@@ -24,21 +24,19 @@ switch flag
 
         b=Line2D('Line Ass1');
         for i=1:7
-        b=AddCurve(b,a,i);
+            b=AddCurve(b,a,i);
         end
 
         inputHousing.Outline= b;
-        inputHousing.SlotPos= [12,20];
-        inputHousing.SlotNum= 12;
-        inputHousing.SlotWidth= 10;
-        % inputHOusing.SlotWidth= 16;
-        % inputHousing.SlotWidth= 22;
+        inputHousing.EdgeNum= 6;
+        inputHousing.r= 10;
         inputHousing.Meshsize= 1;
+        inputHousing.SlotWidth= 10;
+        inputHousing.SlotPos= [12,20];
 
-        paramsHousing.SlotSlice= 15;
-        paramsHousing.ToothSlice= 8;
+        paramsHousing.SlotSlice=15;
 
-        obj1=housing.SlotHousing(paramsHousing, inputHousing);
+        obj1=housing.SlotPolygonHousing(paramsHousing, inputHousing);
         obj1=obj1.solve();
         Plot2D(obj1);
         Plot3D(obj1);
@@ -54,26 +52,23 @@ switch flag
 
         b=Line2D('Line Ass1');
         for i=1:7
-        b=AddCurve(b,a,i);
+            b=AddCurve(b,a,i);
         end
 
         inputHousing.Outline= b;
-        inputHousing.SlotPos= [12,20];
-        inputHousing.SlotNum= 12;
-        inputHousing.SlotWidth= 10;
-        % inputHOusing.SlotWidth= 16;
-        % inputHousing.SlotWidth= 22;
+        inputHousing.EdgeNum= 6;
+        inputHousing.r= 10;
         inputHousing.Meshsize= 1;
+        inputHousing.SlotWidth= 10;
+        inputHousing.SlotPos= [12,20];
 
-        paramsHousing.SlotSlice= 15;
-        paramsHousing.ToothSlice= 8;
-        paramsHousing.ToothType= 2;
+        paramsHousing.SlotSlice=15;
+        paramsHousing.ToothType=2;
 
-        obj1=housing.SlotHousing(paramsHousing, inputHousing);
+        obj1=housing.SlotPolygonHousing(paramsHousing, inputHousing);
         obj1=obj1.solve();
         Plot2D(obj1);
         Plot3D(obj1);
-
     case 3
         a=Point2D('Point Ass1');
         a=AddPoint(a,[0;4],[110/2;110/2]);
@@ -90,24 +85,20 @@ switch flag
         end
 
         inputHousing.Outline= b;
-        inputHousing.SlotPos= [12,20];
-        inputHousing.SlotNum= 12;
-        inputHousing.SlotWidth= 5;
+        inputHousing.EdgeNum= 6;
+        inputHousing.r= 10;
         inputHousing.Meshsize= 1;
+        inputHousing.SlotWidth= 10;
+        inputHousing.SlotPos= [12,20];
 
-        paramsHousing.LeftLimit=4;
-        paramsHousing.SlotSlice= 15;
-        paramsHousing.ToothSlice= 8;
-        % paramsHousing.ToothType= 1;
-        paramsHousing.ToothType= 2;
-        paramsHousing.SlotType= 2;
-        
+        paramsHousing.SlotSlice=15;
+        paramsHousing.ToothType=2;
+        paramsHousing.SlotType=2;
 
-        obj1=housing.SlotHousing(paramsHousing, inputHousing);
+        obj1=housing.SlotPolygonHousing(paramsHousing, inputHousing);
         obj1=obj1.solve();
         Plot2D(obj1);
         Plot3D(obj1);
-
 
 end
 
