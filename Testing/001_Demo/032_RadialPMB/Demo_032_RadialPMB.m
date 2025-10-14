@@ -6,7 +6,7 @@ close all
 % 2. Multi row radial PMB
 % 3. Halbach radial PMB
 
-flag=3;
+flag=1;
 DemoRadialPMB(flag);
 
 function DemoRadialPMB(flag)
