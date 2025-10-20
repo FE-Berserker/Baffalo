@@ -7,7 +7,7 @@ col=length(opt);
 if col==6
     obj.CS(num,:)=[type,opt];
 else
-    obj.CS(num,:)=[type,opt,zero(1,6-col)];
+    obj.CS(num,:)=[type,opt,zeros(1,6-col)];
 end
 
 obj.Summary.Total_CS=num;

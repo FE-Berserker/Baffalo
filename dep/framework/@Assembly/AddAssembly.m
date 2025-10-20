@@ -350,7 +350,7 @@ function CCS=TransformCS(CS,position)
 T=Transform(CS(:,2:4));
 T=Rotate(T,position(4),position(5),position(6));
 T=Translate(T,position(1),position(2),position(3));
-CCS=[CS(:,1),Solce(T),CS(:,5)+position(4),CS(:,6)+position(5),CS(:,7)+position(6)];
+CCS=[CS(:,1),Solve(T),CS(:,5)+position(4),CS(:,6)+position(5),CS(:,7)+position(6)];
 end
 
 

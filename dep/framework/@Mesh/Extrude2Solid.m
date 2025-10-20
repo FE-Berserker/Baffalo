@@ -6,7 +6,6 @@ addParameter(p,'Cb',[]);
 parse(p,varargin{:});
 opt=p.Results;
 
-AccN=size(obj.Vert,1);
 V=mesh2D.Vert;
 
 if isempty(opt.Cb)
@@ -20,11 +19,25 @@ end
 Acc=size(obj.Vert,1);
 Num_node_2D=size(V,1);
 
-V=repmat(V,Levels+1,1);
-Temp=0:1/Levels:1;
-Temp=repmat(Temp,Num_node_2D,1);
 
-nodes=[V,reshape(Temp,(Levels+1)*Num_node_2D,1).*Height];
+
+if size(Height,1)~=1
+    warning('The levels input will be ignored !')
+    Levels=size(Height,1);
+    V=repmat(V,Levels+1,1);
+    TotalHeight=sum(Height);
+    Temp=[0;tril(ones(size(Height,1)))*Height]/TotalHeight;
+    Temp=repmat(Temp',Num_node_2D,1);
+    nodes=[V,reshape(Temp,(Levels+1)*Num_node_2D,1).*TotalHeight];
+
+else
+    V=repmat(V,Levels+1,1);
+    Temp=0:1/Levels:1;
+    Temp=repmat(Temp,Num_node_2D,1);
+    nodes=[V,reshape(Temp,(Levels+1)*Num_node_2D,1).*Height];
+end
+
+
 Temp=cell(Levels,1);
 
 if Acc==0

@@ -116,6 +116,7 @@ switch obj.SheetName
             Mat{i,1}.Phi_hx=obj.Sheet.Phi_hx(num(i,1),1);
             Mat{i,1}.Phi_hy=obj.Sheet.Phi_hy(num(i,1),1);
             Mat{i,1}.WireD=obj.Sheet.WireD(num(i,1),1);
+            Mat{i,1}.Br=obj.Sheet.Br(num(i,1),1);
             Temp=obj.Sheet.BHPoints(num(i,1),1);
             if size(Temp{1,1},2)==2
                 Mat{i,1}.BHPoints=Temp{1,1};
