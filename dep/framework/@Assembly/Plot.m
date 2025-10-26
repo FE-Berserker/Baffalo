@@ -522,7 +522,7 @@ Order=obj.Part{PartNum,1}.mesh.order;
 FF=obj.Part{PartNum,1}.mesh.facesBoundary;
 VV=obj.Part{PartNum,1}.mesh.nodes;
 Cb=obj.Part{PartNum,1}.mesh.boundaryMarker;
-El=obj.Part{PartNum,1}.mesh.elements;
+El=obj.Part{PartNum,1}.mesh.elements;  
 
 if and(~isempty(obj.Part{PartNum,1}.mesh.facesBoundary),obj.Part{PartNum,1}.New==0)
     [Face,Shell,MNode]=OutputPart(Order,FF,VV,Cb,El,Face,Shell,MNode,i);
@@ -598,6 +598,7 @@ switch Order
             Shell.el=[Shell.el;El+acc];
             Shell.V=[Shell.V;VV];
             Shell.Cb=[Shell.Cb;ones(size(El,1),1)*i];
+
         end
     case 2
         if size(FF,2)==3

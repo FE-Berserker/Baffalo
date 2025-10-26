@@ -36,7 +36,8 @@ close all
 % 32 Mesh Geosphere
 % 33 Mesh pyramid
 % 34 Add internal points
-flag=34;
+% 35 Input STP file
+flag=35;
 testMesh(flag);
 function testMesh(flag)
 switch flag
@@ -602,5 +603,10 @@ switch flag
         sec.pos=[0,0,0];
         sec.vec=[1,0,0];
         PlotElement(mm,'section',sec);
+    case 35
+        mm=Mesh('Gear');
+        mm=InputSTP(mm,'Gear.step','Size',0.01);
+        PlotFace(mm)
+
 end
 end

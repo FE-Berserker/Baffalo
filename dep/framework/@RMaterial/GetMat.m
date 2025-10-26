@@ -8,14 +8,16 @@ opt=p.Results;
 
 switch opt.unit
     case 1 % tonne mm s ℃ mA mN mV
-        adjust1=1e-12;
-        adjust2=1;
-        adjust3=1e-3;
+        adjust1=1e-12; % Density
+        adjust2=1; % Mpa 
+        adjust3=1e-3; % length
+        adjust4=1e3; %mJ
 
     case 2 % kg m s ℃ A N V
         adjust1=1;
         adjust2=1e6;
         adjust3=1;
+        adjust4=1;
 end
 
 switch obj.SheetName
@@ -107,7 +109,7 @@ switch obj.SheetName
             Mat{i,1}.Mux=obj.Sheet.Mu_x(num(i,1),1);
             Mat{i,1}.Muy=obj.Sheet.Mu_y(num(i,1),1);
             Mat{i,1}.Hc=obj.Sheet.H_c(num(i,1),1);% A/m -> mA/mm
-            Mat{i,1}.Sigma=obj.Sheet.Sigma(num(i,1),1)*adjust3;% S/m -> S/mm
+            Mat{i,1}.Sigma=obj.Sheet.Sigma(num(i,1),1)*adjust3*1e6;% MS/m -> S/mm
             Mat{i,1}.d_lam=obj.Sheet.d_lam(num(i,1),1);% mm
             Mat{i,1}.LamFill=obj.Sheet.LamFill(num(i,1),1);
             Mat{i,1}.Phi_h=obj.Sheet.Phi_h(num(i,1),1);
@@ -117,6 +119,11 @@ switch obj.SheetName
             Mat{i,1}.Phi_hy=obj.Sheet.Phi_hy(num(i,1),1);
             Mat{i,1}.WireD=obj.Sheet.WireD(num(i,1),1);
             Mat{i,1}.Br=obj.Sheet.Br(num(i,1),1);
+            Mat{i,1}.Kh=obj.Sheet.Kh(num(i,1),1)*adjust4*adjust3^3;% W/m3 -> mW/mm3
+            Mat{i,1}.Kc=obj.Sheet.Kc(num(i,1),1)*adjust4*adjust3^3;% W/m3 -> mW/mm3
+            Mat{i,1}.Ke=obj.Sheet.Ke(num(i,1),1)*adjust4*adjust3^3;% W/m3 -> mW/mm3
+            Mat{i,1}.Re=obj.Sheet.Re(num(i,1),1)/adjust3;
+            Mat{i,1}.alphat=obj.Sheet.alphat(num(i,1),1);
             Temp=obj.Sheet.BHPoints(num(i,1),1);
             if size(Temp{1,1},2)==2
                 Mat{i,1}.BHPoints=Temp{1,1};

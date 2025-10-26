@@ -11,7 +11,7 @@ plotflag=true;
 % 6. Calculate lamminate [60,-60,0]s failure Criterion
 % 7. Ply-level failure envelopes
 
-flag=2;
+flag=1;
 DemoLaminate(flag);
 
 function DemoLaminate(flag)
