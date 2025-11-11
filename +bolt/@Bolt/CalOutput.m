@@ -64,7 +64,7 @@ switch obj.params.BoltType
 
     case 1
         Bolt=load('ISO4762.mat').Bolt;
-        if isempty(and(Bolt.d==d,Bolt.l==l))
+        if ~and(Bolt.d==d,Bolt.l==l)
             error('Please input the right bolt size !')
         else
             da=Bolt.da(and(Bolt.d==d,Bolt.l==l),:);
@@ -75,7 +75,7 @@ switch obj.params.BoltType
         end
     case 2
         Bolt=load('ISO4014.mat').Bolt;
-        if isempty(and(Bolt.d==d,Bolt.l==l))
+        if ~and(Bolt.d==d,Bolt.l==l)
             error('Please input the right bolt size !')
         else
             da=Bolt.da(and(Bolt.d==d,Bolt.l==l),:);
@@ -86,7 +86,7 @@ switch obj.params.BoltType
         end
     case 3
         Bolt=load('ISO4017.mat').Bolt;
-        if isempty(and(Bolt.d==d,Bolt.l==l))
+        if ~and(Bolt.d==d,Bolt.l==l)
             error('Please input the right bolt size !')
         else
             da=Bolt.da(and(Bolt.d==d,Bolt.l==l),:);
@@ -94,6 +94,7 @@ switch obj.params.BoltType
             K=Bolt.K(and(Bolt.d==d,Bolt.l==l),:);
             sw=Bolt.sw(and(Bolt.d==d,Bolt.l==l),:);
             l1=Bolt.l1(and(Bolt.d==d,Bolt.l==l),:);
+
         end
 end
 

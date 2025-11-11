@@ -2,10 +2,6 @@ classdef Commonplate < Component
     % Common Plate
     % Author: Yu Xie
     
-    properties
-        %other cComponentTemplate specific properties...
-    end
-
     properties(Hidden, Constant)
 
         paramsExpectedFields = {

@@ -55,7 +55,7 @@ else
     inputShank.OD = [ds,ds];
 end
 paramsShank.Material=obj.params.Material{1,1};
-Slice=ceil(lk/ds);
+Slice=ceil(lk/ds*3);
 if mod(Slice,2)~=0
     Slice=Slice+1;
 end
@@ -244,6 +244,8 @@ end
 if obj.params.NutWasher
     obj.output.NutWasher_Assembly_Num= NutWasher_Assembly_Num;
 end
+
+obj.output.BoltShank_Slice=Slice;
 %% Print
 if obj.params.Echo
     fprintf('Successfully output bolt mesh assembly .\n');
