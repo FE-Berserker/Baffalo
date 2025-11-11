@@ -82,8 +82,8 @@ end
 if ~isempty(obj.Joint)
     [AccET,~,AccCS,AccSec]=Jointprint(obj,fid,AccET,AccReal);
 else
-    AccCS=0;
-    AccSec=0;
+    AccCS=obj.Summary.Total_CS;
+    AccSec=obj.Summary.Total_Section;
 end
 
 % EndRelease print
@@ -94,9 +94,9 @@ end
 % D print
 Dprint(obj,fid);
 
-% BeamPreload print
-if ~isempty(obj.BeamPreload)
-    BeamPreloadprint(obj,fid,AccET,AccCS,AccSec)
+% Preload print
+if or(~isempty(obj.BeamPreload),~isempty(obj.SolidPreload))
+    Preloadprint(obj,fid,AccET,AccCS,AccSec)
 else
     fprintf(fid, '%s\n','/SOLU');
 end

@@ -152,8 +152,6 @@ else
 end
 Temp_EndReleaseList=[obj.EndReleaseList;EEndReleaseList];
 
-
-
 % Add BeamPreload
 if ~isempty(Ass.BeamPreload)
     BBeamPreload=TransformBeamPreload(Ass.BeamPreload,obj.Summary.Total_Node,obj.Summary.Total_El);
@@ -161,6 +159,14 @@ else
      BBeamPreload=[];
 end
 Temp_BeamPreload=[obj.BeamPreload; BBeamPreload];
+
+% Add SolidPreload
+if ~isempty(Ass.SolidPreload)
+    SSolidPreload=TransformSolidPreload(Ass.SolidPreload,position,obj.Summary.Total_El);
+else
+    SSolidPreload=[];
+end
+Temp_SolidPreload=[obj.SolidPreload; SSolidPreload];
 
 obj.Id=Temp_Id;
 obj.Part=Temp_Part;
@@ -184,6 +190,7 @@ obj.NodeMass=Temp_NodeMass;
 obj.EndRelease=Temp_EndRelease;
 obj.EndReleaseList=Temp_EndReleaseList;
 obj.BeamPreload=Temp_BeamPreload;
+obj.SolidPreload=Temp_SolidPreload;
 obj.ContactPair=Temp_ContactPair;
 
 %% Update summary
@@ -332,6 +339,23 @@ BB=BeamPreload;
 for i=1:size(BB,1)
     BB{i,1}.El=BB{i,1}.El+acc_El;
     BB{i,1}.Node=BB{i,1}.Node+acc_node;
+end
+end
+
+% Transform solidpreload
+function BB=TransformSolidPreload(SolidPreload,position,acc_El)
+BB=SolidPreload;
+for i=1:size(BB,1)
+    BB{i,1}.El=BB{i,1}.El+acc_El;
+
+    nodes=BB{i,1}.Node;
+
+    T=Transform(nodes);
+    T=Rotate(T,position(4),position(5),position(6));
+    T=Translate(T,position(1),position(2),position(3));
+    Temp1=Solve(T);
+
+    BB{i,1}.Node=Temp1;
 end
 end
 

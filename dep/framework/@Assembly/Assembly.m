@@ -15,6 +15,7 @@ classdef Assembly< handle & matlab.mixin.Copyable
         Table % Table
         Boundary % Boundary of Assembly
         BeamPreload % BeamPreload
+        SolidPreload % SolidPreload
         Load  % Load of Assembly
         Displacement % Displacement of Assembly
         SF % Surface load
@@ -89,6 +90,7 @@ classdef Assembly< handle & matlab.mixin.Copyable
             obj.Summary.Total_NodeMass=0; % Total number of NodeMass
             obj.Summary.Total_EndReleease=0;% Total endrelease of Assembly
             obj.Summary.Total_BeamPreload=0; % Total number of beampreload
+            obj.Summary.Total_SolidPreload=0; % Total number of solidpreload
             obj.Summary.Total_Joint=0; % Total number of Joint
 
             obj.Echo = opt.Echo;
