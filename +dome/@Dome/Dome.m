@@ -11,6 +11,7 @@ classdef Dome < Component
             'Echo' % Print
             'Order' % Element order
             'Offset' % Shell element offset 
+            'Dtol'
             };
 
         inputExpectedFields = {
@@ -32,6 +33,7 @@ classdef Dome < Component
         default_Echo=1
         default_Order=1
         default_Offset="BOT"
+        default_Dtol=1e-3
     end
     methods
 

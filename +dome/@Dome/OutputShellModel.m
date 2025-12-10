@@ -117,7 +117,7 @@ m1.Vert=[m1.Vert;[Vert(:,1),yy,-Vert(:,2)]];
 Temp=m1.Vert;
 m1.Vert=[Temp(:,1),Temp(:,3),Temp(:,2)];
 m1.Face=[m1.Face;Face+acc];
-m1=MergeFaceNode(m1);
+m1=MergeFaceNode(m1,obj.params.Dtol);
 
 m1.Boundary=FindBoundary(m1);
 m1.Cb=ones(size(m1.Face,1),1)*size(b.Point.PP,1);
@@ -176,7 +176,7 @@ m1.Vert=[m1.Vert(:,1),m1.Vert(:,2),-m1.Vert(:,3);[Vert(:,1),yy,-Vert(:,2)]];
 Temp=m1.Vert;
 m1.Vert=[Temp(:,1),Temp(:,3),Temp(:,2)];
 m1.Face=[m1.Face;Face+acc];
-m1=MergeFaceNode(m1);
+m1=MergeFaceNode(m1,obj.params.Dtol);
 
 m1.Boundary=FindBoundary(m1);
 m1.Cb=ones(size(m1.Face,1),1);

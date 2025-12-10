@@ -16,6 +16,9 @@ m1=MeshQuadPlate(m1,[StatorR(2)-StatorR(1),Height(end)-Height(1)],[MeshNum(1),Me
 m2=Mesh2D('Mesh2','Echo',0);
 m2=MeshQuadPlate(m2,[RotorR(2)-RotorR(1),Height(end)-Height(1)],[MeshNum(1),MeshNum(2)*(Num-1)]);
 
+m3=Mesh2D('Mesh1','Echo',0);
+m3=MeshQuadPlate(m2,[StatorR(2)-StatorR(1),Height(end)-Height(1)],[MeshNum(1),MeshNum(2)*(Num-1)]);
+
 % Parse Node
 TempDelta=(StatorR(2)-StatorR(1))/MeshNum(1);
 TempR=StatorR(1):TempDelta:StatorR(2);
@@ -41,6 +44,7 @@ TempH=repmat(TempH,MeshNum(2),1)+TempDelta;
 TempH=[reshape(TempH,[],1);Height(end)];
 y2=repmat(TempH,MeshNum(1)+1,1);
 
+% m1
 m1.Meshoutput.nodes=[x1,y1,zeros(size(x1,1),1);x2,y2,zeros(size(x2,1),1)];
 m1.Meshoutput.facesBoundary=[m1.Meshoutput.facesBoundary;m2.Meshoutput.facesBoundary+size(x1,1)];
 m1.Meshoutput.boundaryMarker=[m1.Meshoutput.boundaryMarker;m2.Meshoutput.boundaryMarker*2];
@@ -62,6 +66,14 @@ TempCb2=repmat(TempCb2,MeshNum(1),1);
 TempCb=[TempCb1;TempCb2+Num-1];
 m1.Cb=TempCb;
 
+% m2
+m2.Meshoutput.nodes=[x2,y2,zeros(size(x2,1),1)];
+m2.Vert=m2.Meshoutput.nodes(:,1:2);
+
+% m3
+m3.Meshoutput.nodes=[x1,y1,zeros(size(x1,1),1)];
+m3.Vert=m3.Meshoutput.nodes(:,1:2);
+
 % Rotate angle
 P1=[m1.Vert,zeros(size(m1.Vert,1),1)];
 T=Transform(P1);
@@ -72,8 +84,25 @@ P2=Solve(T);
 m1.Vert=P2(:,1:2);
 m1.Meshoutput.nodes=P2;
 
+P1=[m2.Vert,zeros(size(m2.Vert,1),1)];
+T=Transform(P1);
+TempR1=max(StatorR(1),RotorR(1));
+TempR2=min(StatorR(end),RotorR(end));
+T=Rotate(T,0,0,TaperAngle,'Ori',[(TempR1+TempR2)/2,(Height(1)+Height(end))/2,0]);
+P2=Solve(T);
+m2.Vert=P2(:,1:2);
+m2.Meshoutput.nodes=P2;
 
+P1=[m3.Vert,zeros(size(m3.Vert,1),1)];
+T=Transform(P1);
+TempR1=max(StatorR(1),RotorR(1));
+TempR2=min(StatorR(end),RotorR(end));
+T=Rotate(T,0,0,TaperAngle,'Ori',[(TempR1+TempR2)/2,(Height(1)+Height(end))/2,0]);
+P2=Solve(T);
+m3.Vert=P2(:,1:2);
+m3.Meshoutput.nodes=P2;
 % Parse
 obj.output.ShellMesh=m1;
-
+obj.output.ShellMesh1=m3;
+obj.output.ShellMesh2=m2;
 end

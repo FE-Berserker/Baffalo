@@ -24,9 +24,15 @@ classdef TaperPMB < Component
             };
 
         outputExpectedFields = {
-            'Assembly'% Mesh assembly
+            'Assembly' % Mesh assembly
+            'Assembly1' % Stator mesh assembly
+            'Assembly2' % Rotor mesh assembly
             'SolidMesh' % Solid mesh
+            'SolidMesh1' % Stator solid mesh
+            'SolidMesh2' % Rotor solid mesh
             'ShellMesh' % Section mesh
+            'ShellMesh1' % Stator section mesh
+            'ShellMesh2' % Rotor section mesh
             'StiffnessX' % Stiffness curve of bearing
             'StiffnessY' % Stiffness curve of bearing 
             };
@@ -79,10 +85,18 @@ classdef TaperPMB < Component
 
             % Calculate section
             obj=CalSection(obj);
+
             % Output Solid mesh
             obj=OutputSolidMesh(obj);
+
             % Output Assembly
             obj=OutputAss(obj);
+
+            % Output Assembly1
+            obj=OutputAss1(obj);
+
+            % Output Assembly2
+            obj=OutputAss2(obj);
 
             % Print
             if obj.params.Echo

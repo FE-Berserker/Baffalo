@@ -16,6 +16,7 @@ classdef Bracket < Component
             'Layer' %  Layer of the bracket          
             'SectionNum'
             'Meshsize' % Mesh size [mm]
+            'Rotate'
             };
         
         outputExpectedFields = {
@@ -47,6 +48,14 @@ classdef Bracket < Component
 
             if isempty(obj.params.Section)
                 error('Please set the section !')
+            end
+
+            if isempty(obj.input.SectionNum)
+                error('Please set the section number !')
+            end
+
+            if isempty(obj.input.Rotate)
+                obj.input.Rotate=zeros(size(obj.input.SectionNum,1),1);
             end
 
             % calculate outputs

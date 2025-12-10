@@ -2,7 +2,7 @@ function obj=BeamK(obj,Numpart,varargin)
 % Generate Nodes between original nodes
 % Author : Xie Yu
 p=inputParser;
-addParameter(p,'rot',0);
+addParameter(p,'rot',[]);
 addParameter(p,'factor',1);
 parse(p,varargin{:});
 opt=p.Results;
@@ -32,11 +32,23 @@ Temp=[zeros(size(center,1),1),y,zeros(size(center,1),1)];
 Temp(isinf(y1),1)=center(isinf(y1),1);
 Temp(isinf(y1),3)=center(isinf(y1),3);
 Nodek(delta(:,3)==0,:)=Temp(delta(:,3)==0,:);
+
 % Adjust length
 V2=Nodek-center;
 Temp_length=sqrt(V2(:,1).^2+V2(:,2).^2+V2(:,3).^2);
 factor=Temp_length./length;
 Nodek=repmat(factor,1,3).*V2+center;
+
+if ~isempty(opt.rot)
+    NumNode=size(Nodek,1);
+    for i=1:NumNode
+        T=Transform(Nodek(i,:));
+        T=Rotate(T,opt.rot,0,0,'Dir',V1(i,:),'Ori',center(i,:));
+        Nodek(i,:)=Solve(T);
+    end
+end
+
+
 
 Ori_node=obj.Part{Numpart,1}.NumNodes;
 obj.Part{Numpart,1}.mesh.elements=[obj.Part{Numpart,1}.mesh.elements,...
@@ -96,7 +108,6 @@ end
 %% Print
 if obj.Echo
     fprintf('Successfully generate beam direction node .\n');
-    tic
 end
 
 end

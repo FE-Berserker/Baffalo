@@ -9,7 +9,7 @@ Ass=AddPart(Ass,obj.output.BeamMesh.Meshoutput,'position',position);
 ET.name='188';ET.opt=[3,2];ET.R=[];
 Ass=AddET(Ass,ET);
 Ass=SetET(Ass,1,1);
-Ass=BeamK(Ass,1);
+
 % Material
 mat1.Name=obj.params.Material.Name;
 mat1.table=["DENS",obj.params.Material.Dens;"EX",obj.params.Material.E;...
@@ -22,6 +22,10 @@ Ass=DividePart(Ass,1,obj.output.Matrix);
 for i=1:size(obj.input.SectionNum,1)
     Ass=AddSection(Ass,Section{obj.input.SectionNum(i),1});
     Ass=SetSection(Ass,i,i);
+end
+
+for i=1:size(obj.output.Matrix)
+    Ass=BeamK(Ass,i,'rot',obj.input.Rotate(i,1));
 end
 
 %% Parse

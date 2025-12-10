@@ -17,6 +17,8 @@ for i=1:Num
     end
 
     if isfield(opt,'table')
+        % Check missing values
+        opt.table=opt.table(~ismissing(opt.table(:,2)),:);
         obj.Material{num,1}.table=opt.table;
     end
 
