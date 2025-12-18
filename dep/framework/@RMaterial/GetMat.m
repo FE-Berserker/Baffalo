@@ -42,6 +42,19 @@ switch obj.SheetName
             Mat{i,1}.FKM.adm=obj.Sheet.FKM_adm(num(i,1),1);
             Mat{i,1}.FKM.adp=obj.Sheet.FKM_adp(num(i,1),1);
         end
+    case 'Gear'
+        Mat=cell(size(num,1),1);
+        for i=1:size(num,1)
+            Mat{i,1}.ID=obj.Sheet.No(num(i,1),1);
+            Mat{i,1}.Name=obj.Sheet.Name{num(i,1),1};
+            Mat{i,1}.Dens=obj.Sheet.Density(num(i,1),1)*adjust1;
+            Mat{i,1}.v=obj.Sheet.Poisson(num(i,1),1);
+            Mat{i,1}.E=obj.Sheet.E(num(i,1),1)*adjust2;
+            Mat{i,1}.a=obj.Sheet.a(num(i,1),1)*1e-6;
+            Mat{i,1}.SigmaF=obj.Sheet.SigmaF(num(i,1),1)*adjust2;
+            Mat{i,1}.SigmaH=obj.Sheet.SigmaH(num(i,1),1)*adjust2;
+        end
+
     case 'Composite'
         Mat=cell(size(num,1),1);
         for i=1:size(num,1)

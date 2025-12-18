@@ -31,7 +31,7 @@ y(isinf(y1),:)=opt.factor.*length(isinf(y1),:);
 Temp=[zeros(size(center,1),1),y,zeros(size(center,1),1)];
 Temp(isinf(y1),1)=center(isinf(y1),1);
 Temp(isinf(y1),3)=center(isinf(y1),3);
-Nodek(delta(:,3)==0,:)=Temp(delta(:,3)==0,:);
+Nodek(abs(delta(:,3))<=1e-5,:)=Temp(abs(delta(:,3))<=1e-5,:);
 
 % Adjust length
 V2=Nodek-center;

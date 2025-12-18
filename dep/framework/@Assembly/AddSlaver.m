@@ -7,6 +7,7 @@ addParameter(p,'body',0);
 addParameter(p,'node',[]);
 addParameter(p,'dis',[]);
 addParameter(p,'cube',[]);
+addParameter(p,'cube1',[]);
 addParameter(p,'cyl',[]);
 addParameter(p,'x',[]);
 addParameter(p,'y',[]);
@@ -53,6 +54,36 @@ if ~isempty(opt.face)
         D3=abs(VV(:,3)-Ori(:,3));
 
         SlaverList=SlaverList(D1<=deltaX&D2<=deltaY&D3<=deltaZ,:);
+        IsNull=1;
+    end
+
+    if ~isempty(opt.cube1)
+        No=opt.face;
+        %Define Slaver node set
+        FFb=obj.Part{Numpart,1}.mesh.facesBoundary;
+        Cb=obj.Part{Numpart,1}.mesh.boundaryMarker;
+        V=obj.Part{Numpart,1}.mesh.nodes;
+        SlaverList=unique(FFb(Cb==No,:));
+        %Calculate distance
+        VV=V(SlaverList,:);
+        Ori=opt.cube1.origin;
+        Ori=repmat(Ori,size(VV,1),1);
+
+        dx1=opt.cube1.dx(1);
+        dy1=opt.cube1.dy(1);
+        dz1=opt.cube1.dz(1);
+
+        dx2=opt.cube1.dx(2);
+        dy2=opt.cube1.dy(2);
+        dz2=opt.cube1.dz(2);
+
+        D1=VV(:,1)-Ori(:,1);
+        D2=VV(:,2)-Ori(:,2);
+        D3=VV(:,3)-Ori(:,3);
+
+        SlaverList=SlaverList(D1>=dx1&D1<=dx2&...
+            D2>=dy1&D2<=dy2&...
+            D3>=dz1&D3<=dz2,:);
         IsNull=1;
     end
 

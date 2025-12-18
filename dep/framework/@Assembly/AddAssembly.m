@@ -6,10 +6,15 @@ function obj=AddAssembly(obj,Ass,varargin)
 % direction of rotating axis
 p=inputParser;
 addParameter(p,'position',[0,0,0,0,0,0]);
+addParameter(p,'Seq','ZYX');%'XYZ'
 parse(p,varargin{:});
 opt=p.Results;
 
 position=opt.position;
+
+if size(position,2)~=6
+    error('Wrong position input !')
+end
 
 % Add Part
 PP=TransformPart(Ass.Part,position,...
@@ -18,7 +23,8 @@ PP=TransformPart(Ass.Part,position,...
     GetNET(obj),...
     GetNCS(obj),...
     obj.Summary.Total_Section,...
-    GetNMaterial(obj));
+    GetNMaterial(obj),...
+    opt.Seq);
 Temp_Id=obj.Id+Ass.Id;
 Temp_Part=[obj.Part;PP];
 Temp_Cnode=[obj.Cnode;Ass.Cnode];
@@ -92,7 +98,7 @@ Temp_Section=[obj.Section;Section];
 Temp_Material=[obj.Material;Ass.Material];
 
 % Add Node
-VV=TransformV(Ass.V,position);
+VV=TransformV(Ass.V,position,opt.Seq);
 Temp_V=[obj.V;VV];
 
 Temp_BeamDirectionNode=[obj.BeamDirectionNode;...
@@ -108,7 +114,7 @@ end
 Temp_Group=[obj.Group;GG];
 % Add CS
 if ~isempty(Ass.CS)
-    CCS=TransformCS(Ass.CS,position);
+    CCS=TransformCS(Ass.CS,position,opt.Seq);
 else
     CCS=[];
 end
@@ -162,7 +168,7 @@ Temp_BeamPreload=[obj.BeamPreload; BBeamPreload];
 
 % Add SolidPreload
 if ~isempty(Ass.SolidPreload)
-    SSolidPreload=TransformSolidPreload(Ass.SolidPreload,position,obj.Summary.Total_El);
+    SSolidPreload=TransformSolidPreload(Ass.SolidPreload,position,obj.Summary.Total_El,opt.Seq);
 else
     SSolidPreload=[];
 end
@@ -219,13 +225,13 @@ if obj.Echo
 end
 end
 
-function PP=TransformPart(Part,position,acc_node,acc_el,acc_ET,acc_cs,acc_sec,acc_mat)
+function PP=TransformPart(Part,position,acc_node,acc_el,acc_ET,acc_cs,acc_sec,acc_mat,Seq)
 % Update part
 % R_xyz=(rotz(position(6))*roty(position(5))*rotx(position(4)))';
 PP=Part;
 nodes=cellfun(@(x)x.mesh.nodes,PP,'UniformOutput',false);
 T=Transform(nodes);
-T=Rotate(T,position(4),position(5),position(6));
+T=Rotate(T,position(4),position(5),position(6),'Seq',Seq);
 T=Translate(T,position(1),position(2),position(3));
 Temp1=Solve(T);
 % Temp1=cellfun(@(x)x.mesh.nodes*R_xyz+repmat(position(:,1:3),size(x,1),1),PP,'UniformOutput',false);
@@ -293,9 +299,9 @@ Temp1=Bearing(:,1:2)+acc_Cnode;
 LUTBearing=[Temp1,Bearing(:,3:end)];
 end
 
-function VV=TransformV(V,position)
+function VV=TransformV(V,position,Seq)
 T=Transform(V);
-T=Rotate(T,position(4),position(5),position(6));
+T=Rotate(T,position(4),position(5),position(6),'Seq',Seq);
 T=Translate(T,position(1),position(2),position(3));
 VV=Solve(T);
 end
@@ -343,7 +349,7 @@ end
 end
 
 % Transform solidpreload
-function BB=TransformSolidPreload(SolidPreload,position,acc_El)
+function BB=TransformSolidPreload(SolidPreload,position,acc_El,Seq)
 BB=SolidPreload;
 for i=1:size(BB,1)
     BB{i,1}.El=BB{i,1}.El+acc_El;
@@ -351,7 +357,7 @@ for i=1:size(BB,1)
     nodes=BB{i,1}.Node;
 
     T=Transform(nodes);
-    T=Rotate(T,position(4),position(5),position(6));
+    T=Rotate(T,position(4),position(5),position(6),'Seq',Seq);
     T=Translate(T,position(1),position(2),position(3));
     Temp1=Solve(T);
 
@@ -370,9 +376,9 @@ function EE=TransformEndReleaseList(EndReleaseList,acc_node)
 EE=EndReleaseList+acc_node;
 end
 
-function CCS=TransformCS(CS,position)
+function CCS=TransformCS(CS,position,Seq)
 T=Transform(CS(:,2:4));
-T=Rotate(T,position(4),position(5),position(6));
+T=Rotate(T,position(4),position(5),position(6),'Seq',Seq);
 T=Translate(T,position(1),position(2),position(3));
 CCS=[CS(:,1),Solve(T),CS(:,5)+position(4),CS(:,6)+position(5),CS(:,7)+position(6)];
 end
