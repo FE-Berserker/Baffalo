@@ -24,7 +24,7 @@ for i=1:size(obj.input.SectionNum,1)
     Ass=SetSection(Ass,i,i);
 end
 
-for i=1:size(obj.output.Matrix)
+for i=1:size(obj.output.Matrix,1)
     Ass=BeamK(Ass,i,'rot',obj.input.Rotate(i,1));
 end
 
