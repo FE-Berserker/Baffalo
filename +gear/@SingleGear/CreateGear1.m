@@ -44,6 +44,8 @@ xGK=NaN(201,1);yGK=NaN(201,1);
 
 x0=b.Point.PP{3,1}(:,1);
 y0=b.Point.PP{3,1}(:,2);
+xx0=[2*x0(1)-x0(2);x0;2*x0(end)-x0(end-1)];
+yy0=interp1(x0,y0,xx0,'spline');
 for i=1:201
     phi=phic2+(phia-phic2)/200*(i-1);
     yN1=r*phi/180*pi;xN1=0;
@@ -56,6 +58,11 @@ for i=1:201
     b1=AddLine(b1,a,1);
     b1=AddCurve(b1,a,2);
     [x1,y1]=CurveIntersection(b1,1,2);
+    if isempty(x1)
+        a=AddPoint(a,xx0,yy0);
+        b1=AddCurve(b1,a,3);
+        [x1,y1]=CurveIntersection(b1,1,3);
+    end
     x2=(r-x1).*cos(phi./180*pi)+(r*phi./180*pi-y1).*sin(phi./180*pi)-rf*cos(pi/Z);
     y2=(r-x1).*sin(phi./180*pi)-(r*phi./180*pi-y1).*cos(phi./180*pi);
     xGK(i,1)=x2(1,1);

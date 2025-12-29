@@ -6,10 +6,6 @@ rf=obj.output.df/2;
 ra=obj.output.da/2;
 Z=obj.input.Z;
 
-
-if isempty(obj.input.ID)
-    obj.input.ID=obj.output.df-6*obj.input.mn;
-end
 b=obj.output.GearCurve;
 
 x1=[b.Point.PP{1,1}(1,1);b.Point.PP{2,1}(:,1)]+rf*cos(pi/Z);

@@ -90,6 +90,11 @@ classdef SingleGear < Component
             end
 
             obj=CalGeometryParameter(obj);
+
+            if isempty(obj.input.ID)
+                obj.input.ID=obj.output.df-6*obj.input.mn;
+            end
+            
             obj=CreateTool(obj);
             obj=CreateGear(obj);
             Lsize=obj.params.Lsize1;

@@ -1,7 +1,7 @@
 function obj=OutputSolidModel(obj,varargin)
 % Output SolidModel of SingleGear
 % Author: Xie Yu
-b=obj.input.b;
+
 Layer=obj.params.NWidth;
 Lsize=obj.params.Lsize2;
 rf=obj.output.df/2;
@@ -9,6 +9,7 @@ ra=obj.output.da/2;
 Z=obj.input.Z;
 P=obj.output.GearCurve.Point.PP;
 b=obj.input.b;
+d=obj.output.d;
 
 m=OutputShellModel(obj,Lsize);
 mm=Mesh(obj.params.Name,'Echo',0);
@@ -16,18 +17,23 @@ mm=Extrude2Solid(mm,m,b,Layer);
 
 
 if obj.input.beta~=0
-    beta=obj.input.beta;
+    Beta=obj.input.beta;
+    beta=b*tan(Beta/180*pi)/d*2/pi*180;
+
+
     Num1=size(m.Vert,1);
     switch obj.params.Helix
         case 'Left'
             for i=1:Layer
-                Matrix=[cos(beta/Layer*i/180*pi),sin(beta/Layer*i/180*pi);-sin(beta/Layer*i/180*pi),cos(beta/Layer*i/180*pi)];
+                Matrix=[cos((beta/Layer*i)/180*pi),sin((beta/Layer*i)/180*pi);...
+                    -sin((beta/Layer*i)/180*pi),cos((beta/Layer*i)/180*pi)];
                 mm.Vert(Num1*i+1:Num1*(i+1),1:2)=(Matrix* mm.Vert(Num1*i+1:Num1*(i+1),1:2)')';
             end
 
         case 'Right'
             for i=1:Layer
-                Matrix=[cos(-beta/Layer*i/180*pi),sin(-beta/Layer*i/180*pi);-sin(-beta/Layer*i/180*pi),cos(-beta/Layer*i/180*pi)];
+                Matrix=[cos((-beta/Layer*i)/180*pi),sin((-beta/Layer*i)/180*pi);...
+                    -sin((-beta/Layer*i)/180*pi),cos((-beta/Layer*i)/180*pi)];
                 mm.Vert(Num1*i+1:Num1*(i+1),1:2)=(Matrix* mm.Vert(Num1*i+1:Num1*(i+1),1:2)')';
             end
     end
