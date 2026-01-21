@@ -975,3 +975,19 @@ if m~=0
     end
     fprintf(fid, '%s\n','ESEL,ALL');
 end
+
+% Group output
+m=size(obj.Group,1);
+if m~=0
+    for i=1:m
+        sen=strcat('CMSEL,S,Part',num2str(obj.Group{i,1}(1,1)));
+        fprintf(fid, '%s\n',sen);
+        for j=2:size(obj.Group{i,1},1)
+            sen=strcat('CMSEL,A,Part',num2str(obj.Group{i,1}(j,1)));
+            fprintf(fid, '%s\n',sen);
+        end
+        sen=strcat('CM,Group',num2str(i),',ELEM');
+        fprintf(fid, '%s\n',sen);
+        fprintf(fid, '%s\n','ALLSEL,ALL');
+    end
+end

@@ -92,6 +92,7 @@ classdef Assembly< handle & matlab.mixin.Copyable
             obj.Summary.Total_BeamPreload=0; % Total number of beampreload
             obj.Summary.Total_SolidPreload=0; % Total number of solidpreload
             obj.Summary.Total_Joint=0; % Total number of Joint
+            obj.Summary.Total_Group=0; % Total number of group
 
             obj.Echo = opt.Echo;
             obj.T_Ref=opt.T_Ref;

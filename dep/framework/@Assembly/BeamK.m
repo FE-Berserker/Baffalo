@@ -101,7 +101,7 @@ else
         
     end
     obj.V=[Temp1;Temp2;Temp3];
-    obj.BeamDirectionNode=[obj.BeamDirectionNode;(size(obj.V,1)-size(Temp3,1)+1:size(obj.V,1))'];
+    obj.BeamDirectionNode=[obj.BeamDirectionNode;(size(obj.V,1)-size(Temp3,1)-size(Nodek,1)+1:size(obj.V,1))'];
 end
 
 

@@ -1,5 +1,6 @@
 function E=FindMeshBoundary(obj,MeshNum,varargin)
-%FINDMESHBOUNDARY 此处显示有关此函数的摘要
+% Find Mesh Boudnary
+% Author : Xie Yu
 p=inputParser;
 addParameter(p,'color',[]);
 parse(p,varargin{:});
