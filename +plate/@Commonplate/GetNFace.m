@@ -1,6 +1,9 @@
 function Value = GetNFace(obj)
-% Get number of faces
-% Author : Xie Yu
-Value=size(obj.output.Surface.Node,1);
-end
+% GetNFace - 获取面的数量
+% 返回板的面的数量
+% Author: Xie Yu
 
+% 计算面数量
+Value=size(obj.output.Surface.Node,1);
+
+end

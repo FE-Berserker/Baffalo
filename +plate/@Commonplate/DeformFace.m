@@ -1,60 +1,65 @@
 function obj=DeformFace(obj,fun,direction,varargin)
-% Deform face node
-% Direction 1. bottom face 2. upper face
-% Author : Xie Yu
+% DeformFace - 变形指定面的节点
+% 根据提供的函数修改指定面上节点的位置
+% 注意：只更新实体网格，不更新壳网格
+% Author: Xie Yu
+%
+% Inputs:
+%   fun    - 变形函数
+%             轴向变形: fun(r) 返回新的x坐标（r为径向距离）
+%             径向变形: fun(x) 返回新的半径（x为轴向位置）
+%   direction - 变形方向：'axial'(轴向）或'radial'(径向）
+%   Plot      - 是否绘制变形后的图形，默认1
+%
+% Optional Parameters:
+%   'direction' - 变形方向：'axial'(默认) 或 'radial'
+
+%% 解析输入参数
 p=inputParser;
+addParameter(p,'direction','axial');
 addParameter(p,'Plot',1);
 parse(p,varargin{:});
 opt=p.Results;
-%% Main
 
-Level=obj.params.N_Slice+1;
-NodeNum=(1:size(obj.output.SolidMesh.Meshoutput.nodes,1))';
-LevelNum=reshape(NodeNum,[],Level);
+%% 选择要变形的节点
+[VV,pos] = SelectFaceNode(obj,1);  % 选择顶面（faceno=1）
 
-
-switch direction
-    case 1
-        VV2=obj.output.SolidMesh.Meshoutput.nodes(LevelNum(:,end),:);
-        r=sqrt(VV2(:,1).^2+VV2(:,2).^2);
-        VV2(:,3)=fun(r);
-        obj.output.SolidMesh.Meshoutput.nodes(LevelNum(:,end),:)=VV2;
-        VV1=obj.output.SolidMesh.Meshoutput.nodes(LevelNum(:,1),:);
-
-    case 2
-        VV1=obj.output.SolidMesh.Meshoutput.nodes(LevelNum(:,1),:);
-        r=sqrt(VV1(:,1).^2+VV1(:,2).^2);
-        VV1(:,3)=fun(r);
-        obj.output.SolidMesh.Meshoutput.nodes(LevelNum(:,1),:)=VV1;
-        VV2=obj.output.SolidMesh.Meshoutput.nodes(LevelNum(:,end),:);
+%% 根据变形方向计算新坐标
+if opt.direction=="axial"
+    % 轴向变形：x坐标随径向距离变化
+    r=sqrt(VV(:,2).^2+VV(:,3).^2);  % 计算径向距离
+    VV(:,1)=fun(r);                   % 使用函数计算新的x坐标
+elseif opt.direction=="radial"
+    % 径向变形：半径随轴向位置变化
+    x=VV(:,1);                           % x坐标
+    r=sqrt(VV(:,2).^2+VV(:,3).^2);  % 原始径向距离
+    rr=fun(x);                           % 使用函数计算新的半径
+    ratio=rr./r;                        % 缩放比例
+    % 按比例缩放y和z坐标
+    VV(:,2)=VV(:,2).*ratio;
+    VV(:,3)=VV(:,3).*ratio;
 end
 
-Gap=(VV2(:,3)-VV1(:,3))/(Level-1);
-for i=2:Level-1
-    obj.output.SolidMesh.Meshoutput.nodes(LevelNum(:,i),3)=VV1(:,3)+Gap*(i-1);
-end
+%% 更新网格节点
+V=obj.output.SolidMesh.Vert;
+V(pos,:)=VV;
 
-%% Parser
-obj.output.SolidMesh.Vert=obj.output.SolidMesh.Meshoutput.nodes;
+%% 重新计算网格
+% 调用Mesh3D函数更新网格信息
+obj.output.SolidMesh=Mesh3D(obj.output.SolidMesh);
 
-
-%% Update
+%% 更新装配
 if ~isempty(obj.output.Assembly)
     obj=OutputAss(obj);
 end
 
-%% Plot
+%% 绘制变形后的图形
 if opt.Plot
-    switch direction
-        case 1
-            Plot3D(obj,'faceno',1);
-        case 2
-            Plot3D(obj,'faceno',2);
-    end
+    Plot3D(obj,'faceno',1);  % 绘制变形后的顶面
 end
-%% Print
+
+%% 打印信息
 if obj.params.Echo
     fprintf('Successfully deform face .\n');
 end
 end
-
