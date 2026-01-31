@@ -1,6 +1,13 @@
-function obj=compute_ode15s_ss(obj)
+function obj=compute_ode15s_ss(obj,varargin)
 % Carries out an integration of type ode15s
 % return: Integration results in results field of object
+
+k=inputParser;
+addParameter(k,'Abstol',1e-5);
+addParameter(k,'Reltol',1e-5);
+parse(k,varargin{:});
+opt=k.Results;
+
 
 % Timer = AMrotorTools.Timer();
 
@@ -23,7 +30,7 @@ for rpm = obj.input.Speed
     Z0(1*ndof+6:6:2*ndof)=Omega;        % Drehzahl fuer psi_z
 
     % solver parameters
-    options = odeset('AbsTol', 1e-5, 'RelTol', 1e-5,'OutputFcn',@odeOutputFcnController,'MaxStep',obj.output.Time(2)-obj.output.Time(1));
+    options = odeset('AbsTol', opt.Abstol, 'RelTol', opt.Reltol,'OutputFcn',@odeOutputFcnController,'MaxStep',obj.output.Time(2)-obj.output.Time(1));
 
     % Timer.restart();
     disp('... integration started...')

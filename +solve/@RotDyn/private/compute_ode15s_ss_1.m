@@ -1,9 +1,12 @@
-function obj=compute_ode15s_ss_1(obj)
+function obj=compute_ode15s_ss_1(obj,varargin)
 % Carries out an integration of type ode15s
 %
 %    :return: Integration results in results field of object
-
-
+k=inputParser;
+addParameter(k,'Abstol',1e-5);
+addParameter(k,'Reltol',1e-5);
+parse(k,varargin{:});
+opt=k.Results;
 
 rpm_span = obj.input.SpeedRange;
 t_span = [obj.output.Time(1), obj.output.Time(end)];
@@ -18,7 +21,7 @@ Z0 = zeros(2*ndof,1);     % Mit null belegen:
 Z0(1*ndof+6:6:2*ndof)=rpm_span(1)/60*2*pi;        % Drehzahl fuer psi_z
 
 % solver parameters
-options = odeset('AbsTol', 1e-5, 'RelTol', 1e-5,'OutputFcn',@odeOutputFcnController1,'MaxStep',obj.output.Time(2)-obj.output.Time(1));
+options = odeset('AbsTol', opt.Abstol, 'RelTol', opt.Reltol,'OutputFcn',@odeOutputFcnController1,'MaxStep',obj.output.Time(2)-obj.output.Time(1));
 
 disp('... integration started...')
 

@@ -345,7 +345,7 @@ switch obj.params.Type
 
         opt.ANTYPE=3;
         opt.HROPT=obj.params.HRopt;
-        opt.SYNCHRO=[];
+        
         if obj.params.Coriolis==1
             opt.CORIOlIS=[1,0,0,1];
         end
@@ -374,14 +374,15 @@ switch obj.params.Type
         end
 
         if isempty(obj.input.Housing)
+            opt2.SYNCHRO=[];
             opt2.OMEGA=1;
             opt2.SOLVE=[];
             Ass=AddSolu(Ass,opt2);
         else
-            for j=1:ElNum
-                opt2.CMOMEGA=[strcat("Part",num2str(j)),1];
-                Ass=AddSolu(Ass,opt2);
-            end
+            Ass=AddGroup(Ass,(1:ElNum)');
+            opt2.SYNCHRO=",Group1";
+            opt2.CMOMEGA=["Group1",1,0,0]; % x axis
+            Ass=AddSolu(Ass,opt2);
             opt3.SOLVE=[];
             Ass=AddSolu(Ass,opt3);
         end

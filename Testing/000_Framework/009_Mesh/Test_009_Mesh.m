@@ -37,7 +37,7 @@ close all
 % 33 Mesh pyramid
 % 34 Add internal points
 % 35 Input STP file
-flag=35;
+flag=1;
 testMesh(flag);
 function testMesh(flag)
 switch flag

@@ -179,7 +179,7 @@ close all
 %% 37 Raw matlab code equivalent to the first figure (in paper.md)
 %% 38 Plot radar figure
 %% 39 other color map
-flag=6;
+flag=24;
 plotfigure(flag);
 
 function plotfigure(flag)

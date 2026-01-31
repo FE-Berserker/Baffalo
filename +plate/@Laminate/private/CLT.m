@@ -40,6 +40,7 @@ ABDinv = inv(ABD);
 EX = 1/(ABDinv(1,1)*t);
 EY = 1/(ABDinv(2,2)*t);
 NuXY = -ABDinv(1,2)/ABDinv(1,1);
+NuYX = -ABDinv(2,1)/ABDinv(2,2);
 GXY =  1/(ABDinv(3,3)*t);
 
 % -- Calculate thermal force and moment resultants **per degree** and
@@ -111,6 +112,7 @@ LamResults.D = Dij;
 LamResults.EX = EX;
 LamResults.EY = EY;
 LamResults.NuXY = NuXY;
+LamResults.NuYX = NuYX;
 LamResults.GXY = GXY;
 LamResults.AlphX = AlphX;
 LamResults.AlphY = AlphY;

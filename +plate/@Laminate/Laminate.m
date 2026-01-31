@@ -74,9 +74,9 @@ classdef Laminate < Component
                 fprintf('D Matrix :.\n');
                 disp(LamResults.D);
                 fprintf('Laminate effective properties :.\n');
-                fprintf('Ex Ey Nuxy Gxy Alpha_x Alpha_y Alpha_xy.\n');
+                fprintf('Ex Ey Nuxy Nuyx Gxy Alpha_x Alpha_y Alpha_xy.\n');
                 disp(num2str([LamResults.EX,LamResults.EY,...
-                    LamResults.NuXY,LamResults.GXY,...
+                    LamResults.NuXY,LamResults.NuYX,LamResults.GXY,...
                     LamResults.AlphX,LamResults.AlphY]));
             end
             % Parse

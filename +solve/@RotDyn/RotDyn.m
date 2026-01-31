@@ -30,6 +30,8 @@ classdef RotDyn < Component
             'Rayleigh'% Rayleigh damping
             'FRFType'
             'StationaryType'% 'ode15s'
+            'Abstol'
+            'Reltol'
             'Echo'
             };
 
@@ -125,6 +127,8 @@ classdef RotDyn < Component
         default_Rayleigh=[0,0];
         default_FRFType='d'% displacement 'd', velocity 'v',accleration 'a'
         default_StationaryType='ode15s'
+        default_Abstol=1e-5
+        default_Reltol=1e-5
 
     end
     methods
@@ -242,11 +246,8 @@ classdef RotDyn < Component
                     end
                 case 3
                     obj=OutputAss(obj);
-                    if size(obj.input.Speed,2)>1
-                        ANSYS_Output(obj.output.Assembly,'MultiSolve',1)
-                    else
-                        ANSYS_Output(obj.output.Assembly,'MultiSolve',0)
-                    end
+                    ANSYS_Output(obj.output.Assembly,'MultiSolve',1)
+              
                 case 4
                      % Check input
                     if isempty(obj.input.TimeSeries)
@@ -270,7 +271,7 @@ classdef RotDyn < Component
                     obj=OutputAMrotorSystem(obj);
                     switch obj.params.StationaryType
                         case 'ode15s'
-                            obj=compute_ode15s_ss(obj);
+                            obj=compute_ode15s_ss(obj,'Abstol',obj.params.Abstol,'Reltol',obj.params.Reltol);
                     end
                 case 5
                     % Check input
@@ -295,7 +296,7 @@ classdef RotDyn < Component
                     obj=OutputAMrotorSystem(obj);
                     switch obj.params.StationaryType
                         case 'ode15s'
-                            obj=compute_ode15s_ss_1(obj);
+                            obj=compute_ode15s_ss_1(obj,'Abstol',obj.params.Abstol,'Reltol',obj.params.Reltol);
                     end
                 case 6
 

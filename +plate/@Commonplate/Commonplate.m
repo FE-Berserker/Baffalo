@@ -9,7 +9,7 @@ classdef Commonplate < Component
         % 参数字段定义
         paramsExpectedFields = {
             'Material' % 材料属性，默认为钢材
-            'N_Slices' % 高度方向的单元层数
+            'N_Slice' % 高度方向的单元层数
             'Name' % 板的名称
             'Order' % 单元阶次：1=一阶，2=二阶
             'Offset' % 壳单元偏移：Mid=中面，Top=上面，Bottom=下面
@@ -35,7 +35,7 @@ classdef Commonplate < Component
         baselineExpectedFields = {
             };
 
-        default_N_Slices=3;
+        default_N_Slice=3;
         default_Name='Commonplate1';
         default_Material=[];
         default_Offset="Mid"
