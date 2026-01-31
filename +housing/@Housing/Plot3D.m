@@ -1,30 +1,46 @@
 function Plot3D(obj,varargin)
-% Plot housing
+% Plot3D - 绘制壳体3D图形
 % Author : Xie Yu
+%
+% Optional Parameters (varargin):
+%   'faceno' - 指定要绘制的面编号（边界标记）
+%   'face_normal' - 是否显示面法向量，默认0
+
+%% 解析输入参数
 p=inputParser;
 addParameter(p,'faceno',[]);
 addParameter(p,'face_normal',0);
 parse(p,varargin{:});
 opt=p.Results;
 
+%% 绘制全部面或指定面
 if isempty(opt.faceno)
+    % 绘制全部面
     PlotFace(obj.output.SolidMesh,'face_normal',opt.face_normal,'face_alpha',1);
 else
+    % 只绘制指定面
     Temp=obj.output.SolidMesh;
     Cb=Temp.Cb;
-    Cb(Temp.Cb==opt.faceno,:)=1;
-    Cb(Temp.Cb~=opt.faceno,:)=2;
+    Cb(Temp.Cb==opt.faceno,:)=1;  % 指定面标记为1
+    Cb(Temp.Cb~=opt.faceno,:)=2;  % 其他面标记为2
+
+    % 根据单元阶次选择不同的绘制方式
     if obj.params.Order==1
+        % 一阶单元：使用全部节点
         g1=Rplot('faces',Temp.Face,'vertices',Temp.Vert,'facecolor',Cb);
     else
+        % 二阶单元：使用部分节点（186单元只取前5个节点）
         g1=Rplot('faces',Temp.Face(:,1:end/2),'vertices',Temp.Vert,'facecolor',Cb);
     end
+
+    %% 设置图形属性
     g1=set_title(g1,'View face of elements');
     g1=set_layout_options(g1,'axe',1);
     g1=set_line_options(g1,'base_size',1,'step_size',0);
     g1=set_axe_options(g1,'grid',1,'equal',1);
     g1=geom_patch(g1,'alpha',1,'face_alpha',0.5,'face_normal',opt.face_normal);
-    % figure
+
+    %% 创建图形窗口并绘制
     figure('Position',[100 100 800 800]);
     draw(g1);
 

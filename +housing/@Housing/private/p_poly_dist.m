@@ -1,32 +1,30 @@
 %*******************************************************************************
 % function:	p_poly_dist
-% Description:	distance from point to polygon whose vertices are specified by the
-%              vectors xv and yv
-% Input:  
-%    x - point's x coordinate
-%    y - point's y coordinate
-%    xv - vector of polygon vertices x coordinates
-%    yv - vector of polygon vertices y coordinates
-% Output: 
-%    d - distance from point to polygon (defined as a minimal distance from 
-%        point to any of polygon's ribs, positive if the point is outside the
-%        polygon and negative otherwise)
-%    x_poly: x coordinate of the point in the polygon closest to x,y
-%    y_poly: y coordinate of the point in the polygon closest to x,y
+% Description:	计算点到多边形的距离
+%              多边形顶点由向量xv和yv指定
+% Input:
+%    x - 点的x坐标
+%    y - 点的y坐标
+%    xv - 多边形顶点x坐标向量
+%    yv - 多边形顶点y坐标向量
+% Output:
+%    d - 点到多边形的距离（定义为点到任意多边形边的最小距离
+%        如果点在多边形外为正，在多边形内为负）
+%    x_poly: 多边形中离(x,y)最近的点的x坐标
+%    y_poly: 多边形中离(x,y)最近的点的y坐标
 %
 % Routines: p_poly_dist.m
 % Revision history:
-%    03/31/2008 - return the point of the polygon closest to x,y
-%               - added the test for the case where a polygon rib is 
-%                 either horizontal or vertical. From Eric Schmitz.
-%               - Changes by Alejandro Weinstein
-%    7/9/2006  - case when all projections are outside of polygon ribs
-%    23/5/2004 - created by Michael Yoshpe 
+%    03/31/2008 - 返回多边形中离x,y最近的点
+%               - 添加对水平或垂直边的测试（Eric Schmitz）
+%               - 修改者：Alejandro Weinstein
+%    7/9/2006  - 所有投影都在多边形外的情况
+%    23/5/2004 - 创建者：Michael Yoshpe
 % Remarks:
 %*******************************************************************************
-function [d,x_poly,y_poly] = p_poly_dist(x, y, xv, yv) 
+function [d,x_poly,y_poly] = p_poly_dist(x, y, xv, yv)
 
-% If (xv,yv) is not closed, close it.
+% 如果(xv,yv)未闭合，则闭合它
 xv = xv(:);
 yv = yv(:);
 Nv = length(xv);
@@ -36,55 +34,54 @@ if ((xv(1) ~= xv(Nv)) || (yv(1) ~= yv(Nv)))
 %     Nv = Nv + 1;
 end
 
-% linear parameters of segments that connect the vertices
-% Ax + By + C = 0
+% 连接顶点的线段的线性参数
+% 形式：Ax + By + C = 0
 A = -diff(yv);
 B =  diff(xv);
 C = yv(2:end).*xv(1:end-1) - xv(2:end).*yv(1:end-1);
 
-% find the projection of point (x,y) on each rib
+% 找到点(x,y)在每条边上的投影
 AB = 1./(A.^2 + B.^2);
 vv = (A*x+B*y+C);
 xp = x - (A.*AB).*vv;
 yp = y - (B.*AB).*vv;
 
-% Test for the case where a polygon rib is 
-% either horizontal or vertical. From Eric Schmitz
+% 测试多边形边为水平或垂直的情况（来自Eric Schmitz）
 id = find(diff(xv)==0);
 xp(id)=xv(id);
 clear id
 id = find(diff(yv)==0);
 yp(id)=yv(id);
 
-% find all cases where projected point is inside the segment
+% 找到投影点在线段内的所有情况
 idx_x = (((xp>=xv(1:end-1)) & (xp<=xv(2:end))) | ((xp>=xv(2:end)) & (xp<=xv(1:end-1))));
 idx_y = (((yp>=yv(1:end-1)) & (yp<=yv(2:end))) | ((yp>=yv(2:end)) & (yp<=yv(1:end-1))));
 idx = idx_x & idx_y;
 
-% distance from point (x,y) to the vertices
+% 点(x,y)到顶点的距离
 dv = sqrt((xv(1:end-1)-x).^2 + (yv(1:end-1)-y).^2);
 
-if(~any(idx)) % all projections are outside of polygon ribs
+if(~any(idx)) % 所有投影都在多边形外
    [d,I] = min(dv);
    x_poly = xv(I);
    y_poly = yv(I);
 else
-   % distance from point (x,y) to the projection on ribs
+   % 点(x,y)到投影的距离
    dp = sqrt((xp(idx)-x).^2 + (yp(idx)-y).^2);
    [min_dv,I1] = min(dv);
    [min_dp,I2] = min(dp);
    [d,I] = min([min_dv min_dp]);
-   if I==1 %the closest point is one of the vertices
+   if I==1 % 最近的点是顶点之一
        x_poly = xv(I1);
        y_poly = yv(I1);
-   elseif I==2 %the closest point is one of the projections
+   elseif I==2 % 最近的点是投影之一
        idxs = find(idx);
        x_poly = xp(idxs(I2));
        y_poly = yp(idxs(I2));
    end
 end
 
-if(inpolygon(x, y, xv, yv)) 
+% 如果点在多边形内，距离取负值
+if(inpolygon(x, y, xv, yv))
    d = -d;
-end
 end
