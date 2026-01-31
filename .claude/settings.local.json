@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Bash(git clone:*)",
+      "Bash(npm search:*)",
+      "Bash(where:*)",
+      "Bash(matlab-mcp:*)"
+    ]
+  }
+}
