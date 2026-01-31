@@ -5,7 +5,7 @@ close all
 % 1. Create Housing
 % 2. Thin wall bushing
 
-flag=2;
+flag=1;
 DemoHousing(flag);
 
 function DemoHousing(flag)
