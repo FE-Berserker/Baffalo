@@ -8,7 +8,7 @@ close all
 % 4 Plot Point2D in paraview
 % 5 Add PointData
 % 6 Add PointVector
-flag=6;
+flag=3;
 testPoint(flag);
 
 function testPoint(flag)
