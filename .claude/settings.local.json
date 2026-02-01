@@ -5,7 +5,11 @@
       "Bash(git clone:*)",
       "Bash(npm search:*)",
       "Bash(where:*)",
-      "Bash(matlab-mcp:*)"
+      "Bash(matlab-mcp:*)",
+      "Bash(matlab:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git clean:*)"
     ]
   }
 }

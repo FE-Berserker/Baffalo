@@ -1,4 +1,4 @@
-% Demo Commonplate
+% 创建一个长500，宽400，中心随机布置10个圆孔的板件
 clc
 clear
 close all
@@ -25,14 +25,14 @@ switch flag
         Rp=460;
         t=30;
         hd=17.5;
-        
+
         sang=asin(R/OR)/pi*180;
         ang=360/num-2*sang;
         a=Point2D('Point Ass1');
         b=Line2D('Line Ass1','Dtol',1);
         a=AddPoint(a,0,0);
-                     
-        for i=1:num     
+
+        for i=1:num
             b=AddCircle(b,OR,a,1,'sang',sang+ang-360/num*(i-1),'ang',-ang);
             theta=-360/num/180*pi*(i-1);
             mat=[cos(theta),-sin(theta);sin(theta),cos(theta)];
@@ -81,14 +81,14 @@ switch flag
         Rp=460;
         t=30;
         hd=17.5;
-        
+
         sang=asin(R/OR)/pi*180;
         ang=360/num-2*sang;
         a=Point2D('Point Ass1');
         b=Line2D('Line Ass1','Dtol',1);
         a=AddPoint(a,0,0);
-                     
-        for i=1:num     
+
+        for i=1:num
             b=AddCircle(b,OR,a,1,'sang',sang+ang-360/num*(i-1),'ang',-ang);
             theta=-360/num/180*pi*(i-1);
             mat=[cos(theta),-sin(theta);sin(theta),cos(theta)];
@@ -132,7 +132,7 @@ switch flag
     case 3
         b=Line2D('Round Polygon');
         b=AddRoundPolygon(b,10*sqrt(2),4,2,'sang',45);
-        inputplate1.Outline= b; 
+        inputplate1.Outline= b;
         inputplate1.Thickness = 2;
         paramsplate1= struct();
         obj1=plate.Commonplate(paramsplate1, inputplate1);
@@ -142,7 +142,7 @@ switch flag
     case 4
         b=Line2D('Round Polygon');
         b=AddRoundPolygon(b,10*sqrt(2),6,2);
-        inputplate1.Outline= b; 
+        inputplate1.Outline= b;
         inputplate1.Thickness = 2;
         paramsplate1= struct();
         obj1=plate.Commonplate(paramsplate1, inputplate1);
@@ -159,7 +159,7 @@ switch flag
         R1=180;
         r=30;
         a=AddPoint(a,R1,0,'polar','deg');
-        
+
         Angle1=acos(r/2/R1)*2/pi*180;
         Angle2=(180-Angle1)*2;
         b1=Line2D('OutLine');
@@ -169,7 +169,7 @@ switch flag
         Sang2=-180+Angle1;
         b1=AddCircle(b1,R1,a,1,'Sang',Sang2,'ang',Angle2);
 
-        inputplate1.Outline= b1; 
+        inputplate1.Outline= b1;
         inputplate1.Thickness = 10;
         inputplate1.Meshsize=5;
         paramsplate1= struct();
