@@ -78,8 +78,11 @@ else
 end
 
 if obj.point_options.plabel==1
-    for i=1:size(x,1)
-        drawText(obj,x(i,1),y(i,1),sprintf('P%d',i));
+    for i=1:size(draw_data.x,1)
+        drawText3D(obj,draw_data.x(i,1),...
+            draw_data.y(i,1),...
+            draw_data.z(i,1),...
+            sprintf('P%d',i));
     end
 end
 
