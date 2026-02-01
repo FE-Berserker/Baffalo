@@ -1,0 +1,106 @@
+========================================
+Mesh2D Test Report
+========================================
+
+Test Date: 01-Feb-2026 21:41:39
+
+Summary
+-------
+Total Tests: 22
+Passed: 22
+Failed: 0
+Success Rate: 100.00%
+Total Execution Time: 285.665 seconds
+
+========================================
+Detailed Results
+========================================
+
+[Test 1] Create gear obj
+Status: PASSED
+Time: 8.514 seconds
+
+[Test 2] Create quad circle
+Status: PASSED
+Time: 3.034 seconds
+
+[Test 3] Create quad plate
+Status: PASSED
+Time: 1.986 seconds
+
+[Test 4] Add Elements
+Status: PASSED
+Time: 1.802 seconds
+
+[Test 5] Convhull
+Status: PASSED
+Time: 2.589 seconds
+
+[Test 6] Convcave1
+Status: PASSED
+Time: 1.695 seconds
+
+[Test 7] Convcave2
+Status: PASSED
+Time: 2.038 seconds
+
+[Test 8] Convert quad to tri
+Status: PASSED
+Time: 2.403 seconds
+
+[Test 9] Mesh 2D Tensor Grid
+Status: PASSED
+Time: 1.692 seconds
+
+[Test 10] Mesh 2D Grid
+Status: PASSED
+Time: 2.415 seconds
+
+[Test 11] Compute MRST G
+Status: PASSED
+Time: 2.651 seconds
+
+[Test 12] Load msh file
+Status: PASSED
+Time: 1.799 seconds
+
+[Test 13] MeshDual
+Status: PASSED
+Time: 2.652 seconds
+
+[Test 14] Plot Dual center and area
+Status: PASSED
+Time: 1.949 seconds
+
+[Test 15] Calculate geometry information
+Status: PASSED
+Time: 2.829 seconds
+
+[Test 16] Plot Mesh2D in paraview
+Status: PASSED
+Time: 9.938 seconds
+
+[Test 17] Plot Mesh2D G and celldata in paraview
+Status: PASSED
+Time: 16.922 seconds
+
+[Test 18] Mesh edge
+Status: PASSED
+Time: 5.392 seconds
+
+[Test 19] Mesh ring
+Status: PASSED
+Time: 3.631 seconds
+
+[Test 20] Mesh edge layer
+Status: PASSED
+Time: 3.117 seconds
+
+[Test 21] Baffalo logo
+Status: PASSED
+Time: 203.776 seconds
+
+[Test 22] Mesh with constraints
+Status: PASSED
+Time: 2.839 seconds
+

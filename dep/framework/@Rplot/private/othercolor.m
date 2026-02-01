@@ -146,7 +146,7 @@ end
 
 % load color data
 % Add main directory
-rootDir = RoTA.whereami;
+rootDir = Baffalo.whereami;
 path=strcat(rootDir,'\dep\framework\@Rplot\colorData.mat');
 data = load(path,n);
 if isempty(fieldnames(data))

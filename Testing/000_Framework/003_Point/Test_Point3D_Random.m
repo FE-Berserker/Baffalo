@@ -10,7 +10,7 @@ function testRandomPoint3D(flag)
 switch flag
     case 1
         % Create Point3D object
-        a = Point('RandomPoints');
+        a = Point3D('RandomPoints');
 
         % Generate 10 random 3D points (0-100 range)
         rng('default');
