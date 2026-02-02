@@ -26,7 +26,7 @@ C10=obj.output.MR_Parameter(1);  % 获取Mooney-Rivlin第一参数 C10 [N/mm²]
 C01=obj.output.MR_Parameter(2);  % 获取Mooney-Rivlin第二参数 C01 [N/mm²]
 
 epsilon=0:0.05:1;               % 应变范围 [0到1，步长0.05]
-Sigma=(C10+C01./(1+epsilon)).*2.*(1+epsilon-1./(1+epsilon).^2;  % 计算工程应力 [N/mm²]
+Sigma=(C10+C01./(1+epsilon)).*2.*(1+epsilon-1./(1+epsilon)).^2;  % 计算工程应力 [N/mm²]
 
 g=Rplot('x',epsilon,'y',Sigma);     % 创建绘图对象：x轴=应变，y轴=应力
 g=geom_line(g);                      % 设置为线图

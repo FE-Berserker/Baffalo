@@ -4,7 +4,7 @@ close all
 % Demo Rubber Property
 % 1. Calculate Rubber Property, method 1
 % 2. Plot Stress strain curve
-flag=2;
+flag=1;
 DemoRubberProperty(flag);
 
 function DemoRubberProperty(flag)
