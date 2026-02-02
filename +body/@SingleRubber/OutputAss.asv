@@ -1,0 +1,54 @@
+function obj=OutputAss(obj)
+% OutputAss - 输出实体模型装配
+% 为橡胶体的实体网格创建装配对象，并设置单元类型和橡胶材料属性
+% Author: Xie Yu
+
+%% 创建装配对象
+Ass=Assembly(obj.params.Name,'Echo',0);
+
+%% 添加橡胶体的实体网格
+position=[0,0,0,0,0,0]; % 初始位置和姿态
+Ass=AddPart(Ass,obj.output.SolidMesh.Meshoutput,'position',position);
+
+%% 设置单元类型(ET)
+% 获取几何模型中的单元类型
+if isfield(obj.input.Geometry.params, 'Order')
+    if obj.input.Geometry.params.Order==2
+        ET1.name='186';ET1.opt=[];ET1.R=[];  % 二阶四面体单元
+    else
+        ET1.name='185';ET1.opt=[];ET1.R=[];  % 一阶四面体单元
+    end
+else
+    % 默认使用一阶单元
+    ET1.name='185';ET1.opt=[];ET1.R=[];
+end
+Ass=AddET(Ass,ET1);
+Ass=SetET(Ass,1,1);
+
+%% 设置橡胶材料属性
+% 橡胶材料参数：密度、弹性模量、泊松比、剪切模量
+mat1.Name=['Rubber_HS' num2str(obj.input.HS)];
+
+% 从RubberProperty对象中获取材料参数
+rubberProp = obj.output.RubberProperty;
+mat1.table=["DENS",rubberProp.output.E/5000;...
+    "EX",rubberProp.output.E;...
+    "NUXY",rubberProp.output.v;...
+    "GXY",rubberProp.output.G];
+
+mat1.TBlab=
+mat1.TBdata
+    "C10",rubberProp.output.MR_Parameter(1,1);...
+    "C01",rubberProp.output.MR_Parameter(1,2)];
+
+Ass=AddMaterial(Ass,mat1);
+Ass=SetMaterial(Ass,1,1);
+
+%% 保存到输出
+obj.output.Assembly=Ass;
+
+%% 打印信息
+if obj.params.Echo
+    fprintf('Successfully output solid assembly .\n');
+end
+end
