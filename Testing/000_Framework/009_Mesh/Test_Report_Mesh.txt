@@ -1,0 +1,158 @@
+========================================
+Mesh Test Report
+========================================
+
+Test Date: 02-Feb-2026 08:06:18
+
+Summary
+-------
+Total Tests: 35
+Passed: 35
+Failed: 0
+Success Rate: 100.00%
+Total Execution Time: 714.842 seconds
+
+========================================
+Detailed Results
+========================================
+
+[Test 1] Create cube mesh
+Status: PASSED
+Time: 10.771 seconds
+
+[Test 2] Create cylinder mesh
+Status: PASSED
+Time: 27.746 seconds
+
+[Test 3] Create sphere mesh
+Status: PASSED
+Time: 2.491 seconds
+
+[Test 4] Hex20 Plot
+Status: PASSED
+Time: 64.368 seconds
+
+[Test 5] MeshHemiSphere
+Status: PASSED
+Time: 2.798 seconds
+
+[Test 6] Mesh plate1
+Status: PASSED
+Time: 4.026 seconds
+
+[Test 7] Mesh plate2
+Status: PASSED
+Time: 2.769 seconds
+
+[Test 8] Mesh TriplyPeriodicMinimalSurface
+Status: PASSED
+Time: 1.477 seconds
+
+[Test 9] Mesh StochasticMicroStructure
+Status: PASSED
+Time: 1.080 seconds
+
+[Test 10] Mesh Spinodoid
+Status: PASSED
+Time: 1.425 seconds
+
+[Test 11] Group Test
+Status: PASSED
+Time: 2.798 seconds
+
+[Test 12] Remesh
+Status: PASSED
+Time: 3.814 seconds
+
+[Test 13] Drill holes
+Status: PASSED
+Time: 3.620 seconds
+
+[Test 14] MeshQuadSphere
+Status: PASSED
+Time: 2.838 seconds
+
+[Test 15] Mesh TensorGrid
+Status: PASSED
+Time: 2.062 seconds
+
+[Test 16] PlotG
+Status: PASSED
+Time: 2.955 seconds
+
+[Test 17] Simple sculpture Mesh
+Status: PASSED
+Time: 6.645 seconds
+
+[Test 18] Check G center inner mesh
+Status: PASSED
+Time: 47.987 seconds
+
+[Test 19] MeshOctahedron
+Status: PASSED
+Time: 0.674 seconds
+
+[Test 20] Image read
+Status: PASSED
+Time: 10.111 seconds
+
+[Test 21] Plot Face in ParaView
+Status: PASSED
+Time: 290.710 seconds
+
+[Test 22] Plot Element in ParaView
+Status: PASSED
+Time: 112.547 seconds
+
+[Test 23] Plot G and cell data in ParaView
+Status: PASSED
+Time: 15.338 seconds
+
+[Test 24] Tri3 to voronoi
+Status: PASSED
+Time: 61.963 seconds
+
+[Test 25] Nurb4Surf
+Status: PASSED
+Time: 1.913 seconds
+
+[Test 26] Nurb Surface
+Status: PASSED
+Time: 1.608 seconds
+
+[Test 27] NurbRuled
+Status: PASSED
+Time: 2.015 seconds
+
+[Test 28] Extrude2Solid
+Status: PASSED
+Time: 4.081 seconds
+
+[Test 29] Rotate to shell
+Status: PASSED
+Time: 2.140 seconds
+
+[Test 30] Drill through holes
+Status: PASSED
+Time: 2.140 seconds
+
+[Test 31] Mesh prism
+Status: PASSED
+Time: 2.466 seconds
+
+[Test 32] Mesh Geosphere
+Status: PASSED
+Time: 1.998 seconds
+
+[Test 33] Mesh pyramid
+Status: PASSED
+Time: 3.744 seconds
+
+[Test 34] Add internal points
+Status: PASSED
+Time: 3.872 seconds
+
+[Test 35] Input STP file
+Status: PASSED
+Time: 5.853 seconds
+
