@@ -66,6 +66,8 @@ inputRubber1.Geometry = housingGeo;
 rubber1 = body.SingleRubber(paramsRubber1, inputRubber1);
 rubber1 = rubber1.solve();
 
+ANSYS_Output(rubber1.output.Assembly)
+
 fprintf('\nTest Case 1 completed.\n');
 
 % 1.3 可视化
