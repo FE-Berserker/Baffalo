@@ -199,5 +199,211 @@ classdef Component
             end
         end
 
+        function InteractiveUI(obj)
+            % Launch interactive UI for component
+            % Creates a UI to edit inputs, params, baseline and run solve
+
+            % Store component in figure appdata
+            appData = struct('component', obj, 'fig', [], 'tabOutput', []);
+            appData.fig = uifigure('Name', [class(obj), ' Interactive UI'], ...
+                                   'Position', [100 100 800 600]);
+            set(appData.fig, 'UserData', appData);
+
+            % Tab group for different sections
+            tg = uitabgroup(appData.fig, 'Position', [10 10 780 580]);
+
+            % Input tab
+            tabInput = uitab(tg, 'Title', 'Inputs');
+            obj.createEditPanel(tabInput, appData, 'input', obj.inputExpectedFields);
+
+            % Params tab
+            tabParams = uitab(tg, 'Title', 'Params');
+            obj.createEditPanel(tabParams, appData, 'params', obj.paramsExpectedFields);
+
+            % Baseline tab
+            tabBaseline = uitab(tg, 'Title', 'Baseline');
+            obj.createEditPanel(tabBaseline, appData, 'baseline', obj.baselineExpectedFields);
+
+            % Output tab
+            appData.tabOutput = uitab(tg, 'Title', 'Output');
+            obj.createOutputPanel(appData.tabOutput, obj.outputExpectedFields, obj.baselineExpectedFields);
+
+            % Update appdata after creating tabs
+            set(appData.fig, 'UserData', appData);
+
+            % Run button
+            btnRun = uibutton(appData.fig, 'push', ...
+                             'Position', [320 20 160 30], ...
+                             'Text', 'Run Solve', ...
+                             'ButtonPushedFcn', @(btn,event)obj.runSolve(appData.fig));
+        end
+
+        function createEditPanel(obj, parent, appData, dataProperty, fieldNames)
+            % Create edit panel for parameters
+            g = uigridlayout(parent, [numel(fieldNames), 2], ...
+                            'Padding', [10 10 10 10], ...
+                            'RowHeight', repmat({30}, 1, numel(fieldNames)), ...
+                            'ColumnWidth', {'1x', '2x'});
+
+            for ii = 1:numel(fieldNames)
+                fieldName = fieldNames{ii};
+                component = appData.component;
+
+                % Label
+                lbl = uilabel(g, 'Text', fieldName);
+                lbl.Layout.Row = ii;
+                lbl.Layout.Column = 1;
+
+                % Edit field
+                dataValue = component.(dataProperty).(fieldName);
+
+                % Skip empty values
+                if isempty(dataValue)
+                    continue;
+                end
+
+                % Convert to valid value for edit field
+                if isnumeric(dataValue)
+                    % Ensure single value for numeric
+                    if numel(dataValue) == 1 && isscalar(dataValue)
+                        editObj = uieditfield(g, 'numeric');
+                        editObj.Value = dataValue;
+                    else
+                        % Invalid or multi-value numeric, skip
+                        continue;
+                    end
+                else
+                    % Convert to string for text fields
+                    if iscell(dataValue)
+                        dataValue = dataValue{1};
+                    elseif ~ischar(dataValue)
+                        dataValue = '';
+                    end
+                    editObj = uieditfield(g, 'text');
+                    editObj.Value = char(dataValue);
+                end
+                editObj.Layout.Row = ii;
+                editObj.Layout.Column = 2;
+
+                % Store figure reference in edit field for callback
+                editObj.UserData = struct('fig', appData.fig, 'dataProperty', dataProperty, 'fieldName', fieldName);
+
+                % Set callback
+                editObj.ValueChangedFcn = @(src,event)obj.fieldCallback(src, event, src.UserData);
+            end
+        end
+
+        function fieldCallback(obj, src, event, userData)
+            % Callback for field value changes
+            fig = userData.fig;
+            appData = get(fig, 'UserData');
+            dataProperty = userData.dataProperty;
+            fieldName = userData.fieldName;
+
+            component = appData.component;
+            if isnumeric(src.Value)
+                value = src.Value;
+            else
+                value = str2double(src.Value);
+                if isnan(value)
+                    value = src.Value;
+                end
+            end
+            component.(dataProperty).(fieldName) = value;
+            appData.component = component;
+            set(fig, 'UserData', appData);
+        end
+
+        function createOutputPanel(obj, parent, outputFields, baselineFields)
+            % Create output display panel
+            totalRows = numel(outputFields) + numel(baselineFields);
+            g = uigridlayout(parent, [totalRows, 2], ...
+                            'Padding', [10 10 10 10], ...
+                            'RowHeight', repmat({30}, 1, totalRows), ...
+                            'ColumnWidth', {'1x', '2x'});
+
+            % Output labels
+            for ii = 1:numel(outputFields)
+                fieldName = outputFields{ii};
+                lblName = uilabel(g, 'Text', fieldName, 'FontWeight', 'bold');
+                lblName.Layout.Row = ii;
+                lblName.Layout.Column = 1;
+                lblValue = uilabel(g, 'Text', 'N/A', 'Tag', ['output_', fieldName]);
+                lblValue.Layout.Row = ii;
+                lblValue.Layout.Column = 2;
+            end
+
+            % Capacity labels
+            rowOffset = numel(outputFields) + 1;
+            for ii = 1:numel(baselineFields)
+                fieldName = baselineFields{ii};
+                lblName = uilabel(g, 'Text', ['Capacity_', fieldName], 'FontWeight', 'bold');
+                lblName.Layout.Row = rowOffset;
+                lblName.Layout.Column = 1;
+                lblValue = uilabel(g, 'Text', 'N/A', 'Tag', ['capacity_', fieldName]);
+                lblValue.Layout.Row = rowOffset;
+                lblValue.Layout.Column = 2;
+                rowOffset = rowOffset + 1;
+            end
+        end
+
+        function updateOutputPanel(obj, parent, outputStruct, capacityStruct, baselineStruct, outputFields, baselineFields)
+            % Update output panel with results
+            for ii = 1:numel(outputFields)
+                fieldName = outputFields{ii};
+                tag = ['output_', fieldName];
+                try
+                    label = findobj(parent, 'Tag', tag);
+                    value = outputStruct.(fieldName);
+                    if isnumeric(value)
+                        label.Text = sprintf('%.4g', value);
+                    else
+                        label.Text = char(value);
+                    end
+                catch
+                end
+            end
+
+            for ii = 1:numel(baselineFields)
+                fieldName = baselineFields{ii};
+                tag = ['capacity_', fieldName];
+                try
+                    label = findobj(parent, 'Tag', tag);
+                    if ~isempty(capacityStruct.(fieldName))
+                        ratio = capacityStruct.(fieldName) / baselineStruct.(fieldName);
+                        label.Text = sprintf('%.4g (%.2f)', capacityStruct.(fieldName), ratio);
+                    else
+                        label.Text = 'N/A';
+                    end
+                catch
+                end
+            end
+        end
+
+        function runSolve(obj, fig)
+            % Run solve function (called from UI button)
+            appData = get(fig, 'UserData');
+
+            try
+                component = appData.component;
+                % Check inputs
+                component.Check();
+                % Run solve
+                component = component.solve();
+                % Update output panel
+                obj.updateOutputPanel(appData.tabOutput, component.output, ...
+                                     component.capacity, component.baseline, ...
+                                     component.outputExpectedFields, ...
+                                     component.baselineExpectedFields);
+                % Update appdata
+                appData.component = component;
+                set(fig, 'UserData', appData);
+                msg = 'Solve completed successfully!';
+            catch ME
+                msg = ['Error: ', ME.message];
+            end
+            uialert(fig, msg, 'Status');
+        end
+
     end
 end

@@ -1,0 +1,48 @@
+function V_hexa  = MeshVolume(Node,El)
+% Mesh volume
+% Author : Xie Yu
+
+V_hexa=0;
+Length=size(El,2);
+switch Length
+    case 4
+        El=[El(:,1:3),El(:,3),El(:,4);El(:,4);El(:,4);El(:,4)];
+    case 10
+        El=[El(:,1:3);El(:,3);El(:,4);El(:,4);El(:,4);El(:,4)];
+    case 6
+        El=[El(:,1:3);El(:,3);El(:,4:6);El(:,6)];
+    case 15
+        El=[El(:,1:3);El(:,3);El(:,4:6);El(:,6)];
+    case 20
+        El=El(:,1:8);
+end
+
+for i=1:size(El,1)
+    nodes=Node(El(i,1:8)',:);
+    %% 第三步：将任意六面体【分割为5个四面体】（通用分割法，无重叠无遗漏）
+    % 分割规则：以第1个顶点为公共顶点，分割为5个四面体，适用于所有六面体
+    tet1 = [nodes(1,:); nodes(2,:); nodes(4,:); nodes(5,:)]; % 四面体1：顶点1,2,4,5
+    tet2 = [nodes(2,:); nodes(3,:); nodes(4,:); nodes(7,:)]; % 四面体2：顶点2,3,4,7
+    tet3 = [nodes(4,:); nodes(5,:); nodes(7,:); nodes(8,:)]; % 四面体3：顶点4,5,7,8
+    tet4 = [nodes(2,:); nodes(5,:); nodes(6,:); nodes(7,:)]; % 四面体4：顶点2,5,6,7
+    tet5 = [nodes(2,:); nodes(4,:); nodes(5,:); nodes(7,:)]; % 四面体5：顶点2,4,5,7
+
+    %% 第四步：计算每个四面体的体积，并求和得到六面体体积
+    v1 = tetraVolume(tet1);
+    v2 = tetraVolume(tet2);
+    v3 = tetraVolume(tet3);
+    v4 = tetraVolume(tet4);
+    v5 = tetraVolume(tet5);
+    V_hexa =V_hexa+ v1 + v2 + v3 + v4 + v5; % 六面体总体积
+end
+
+end
+
+function vol = tetraVolume(p)
+    % 输入：p是4行3列矩阵，每行是四面体的一个顶点坐标(x,y,z)
+    % 输出：该四面体的体积
+    vec1 = p(1,:) - p(4,:);
+    vec2 = p(2,:) - p(4,:);
+    vec3 = p(3,:) - p(4,:);
+    vol = abs(dot(vec1, cross(vec2, vec3))) / 6; % 四面体体积公式
+end

@@ -39,8 +39,8 @@ classdef RubberProperty < Component
             'd'            % 输出: 动静态比(Ed/Es)
             'G'            % 输出: 剪切模量 [N/mm²]
             'v'            % 输出: 泊松比(默认为0.5)
-            'a'            % 输出：热膨胀系数
-            'MR_Parameter'  % 输出: Mooney-Rivlin 2参数模型参数
+            'a'            % 输出：热膨胀
+            'MR_Parameter'  % 输出: Mooney-Rivlin模型参数
             };
         baselineExpectedFields = {}
         
@@ -64,7 +64,6 @@ classdef RubberProperty < Component
             obj.output.G= G_Cal(obj);
             obj.output.v= obj.output.E/obj.output.G/2-1;
             obj.output.Dens=obj.params.Dens/1e9;
-            obj.output.a=obj.params.a;
             [C10,C01]= MR_Estimate(obj);
             obj.output.MR_Parameter=[C10,C01];
             if obj.output.v>0.5

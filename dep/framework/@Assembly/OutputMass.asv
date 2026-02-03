@@ -1,0 +1,55 @@
+function MassTable = OutputMass(obj,varargin)
+% Output mass 
+% Author : Xie Yu
+p=inputParser;
+addParameter(p,'Axis',[]);
+addParameter(p,'Seg',100);
+addParameter(p,'Scope',[]);
+parse(p,varargin{:});
+opt=p.Results;
+
+if isempty(opt.Axis)
+% Output mass by part
+PartNum=obj.Summary.Total_Part;
+PartName=[];
+PartMass=[];
+for i=1:PartNum
+    ETNo=obj.Part{1, 1}.ET;
+    if isempty(ETNo)
+        warning(strcat("Part",num2str(i)," is not defined !"))
+        continue
+    end
+    ETType=Ass.ET{ETNo,1}.name;
+    PartName=[PartName;strcat("Part",num2str(i))]; %#ok<AGROW>
+    Mass=0;
+    switch ETType
+        case '185'
+            MatNo=obj.Part{i, 1}.mesh.elementMaterialID(1,1);
+            row=find(Ass.Material{MatNo, 1}.table(:,1)=='DENS');
+            if ~isempty(row)
+                Dens=str2double(Ass.Material{1, 1}.table(row,2));
+            end
+        case '188'
+            
+
+            
+    end
+    PartMass=[PartMass;Mass]; %#ok<AGROW>
+end
+
+MassTable=table(PartName,PartMass);
+
+else
+    % Output mass by length
+    switch opt.Axis
+        case 'x'
+        case 'y'
+        case 'z'
+    end
+
+
+end
+
+
+end
+
