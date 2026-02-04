@@ -18,7 +18,93 @@ classdef SDOFIsolation < Component
     %   - 隔震效果判断
     %   - 安全校核
 
+    properties
+        plotLanguage = 'CN'  % 绘图语言: 'CN' or 'EN'
+    end
+
     properties(Hidden, Constant)
+        % 中英文标签对照表
+        labels_CN = struct(...
+            'sgtitle', '基础隔震单自由度分析', ...
+            'freq_ratio', '频率比 r = \omega/\omega_n', ...
+            'acc_ratio', '加速度衰减比 R_a', ...
+            'disp_ratio', '位移衰减比 R_d', ...
+            'acc_curve', '加速度衰减比曲线', ...
+            'disp_curve', '位移衰减比曲线', ...
+            'safety_comp', '安全系数对比', ...
+            'freq_resp', '频率响应曲线', ...
+            'isolation_effect', '隔震效果', ...
+            'damping_eval', '阻尼参数评估', ...
+            'freq_margin', '频率比裕度', ...
+            'displ_safety', '位移安全', ...
+            'overall_safety', '综合安全', ...
+            'disp_safety', '位移安全', ...
+            'damping', '阻尼比 \xi', ...
+            'current_damping', '当前阻尼比', ...
+            'safety_factor', '安全系数', ...
+            'capacity', 'Capacity', ...
+            'baseline', 'Baseline', ...
+            'attenuation', '衰减比', ...
+            'current_point', '当前点', ...
+            'Ra_equals_1', 'R_a=1', ...
+            'upper_limit', '上限', ...
+            'lower_limit', '下限', ...
+            'r_threshold', 'r=1.414', ...
+            'baseline_Rd', '基线R_d=1', ...
+            'resonance_r1', '共振r=1', ...
+            'invalid_region', '无效区域', ...
+            'valid_region', '有效区域', ...
+            'current_workpoint', '当前工作点', ...
+            'boundary', '隔震有效分界线', ...
+            'damping_low', '阻尼偏低，建议增大', ...
+            'damping_high', '阻尼偏高，影响隔震效果', ...
+            'damping_ok', '阻尼适中，符合要求', ...
+            'effect_valid', '效果: 有效', ...
+            'effect_invalid', '效果: 无效', ...
+            'effect_resonance', '效果: 共振风险', ...
+            'reduce_degree', '降低烈度' ...
+        );
+
+        labels_EN = struct(...
+            'sgtitle', 'Base Isolation SDOF Analysis', ...
+            'freq_ratio', 'Frequency Ratio r = \omega/\omega_n', ...
+            'acc_ratio', 'Acceleration Attenuation Ratio R_a', ...
+            'disp_ratio', 'Displacement Attenuation Ratio R_d', ...
+            'acc_curve', 'Acceleration Attenuation Curve', ...
+            'disp_curve', 'Displacement Attenuation Curve', ...
+            'safety_comp', 'Safety Factor Comparison', ...
+            'freq_resp', 'Frequency Response Curve', ...
+            'isolation_effect', 'Isolation Effect', ...
+            'damping_eval', 'Damping Parameter Evaluation', ...
+            'freq_margin', 'Freq. Ratio Margin', ...
+            'displ_safety', 'Disp. Safety', ...
+            'overall_safety', 'Overall Safety', ...
+            'disp_safety', 'Disp. Safety', ...
+            'damping', 'Damping Ratio \xi', ...
+            'current_damping', 'Current Damping Ratio', ...
+            'safety_factor', 'Safety Factor', ...
+            'capacity', 'Capacity', ...
+            'baseline', 'Baseline', ...
+            'attenuation', 'Attenuation Ratio', ...
+            'current_point', 'Current Point', ...
+            'Ra_equals_1', 'R_a=1', ...
+            'upper_limit', 'Upper Limit', ...
+            'lower_limit', 'Lower Limit', ...
+            'r_threshold', 'r=1.414', ...
+            'baseline_Rd', 'Baseline R_d=1', ...
+            'resonance_r1', 'Resonance r=1', ...
+            'invalid_region', 'Invalid Region', ...
+            'valid_region', 'Valid Region', ...
+            'current_workpoint', 'Current Workpoint', ...
+            'boundary', 'Isolation Valid Boundary', ...
+            'damping_low', 'Damping too low, increase recommended', ...
+            'damping_high', 'Damping too high, affects isolation', ...
+            'damping_ok', 'Damping appropriate, meets requirements', ...
+            'effect_valid', 'Effect: Valid', ...
+            'effect_invalid', 'Effect: Invalid', ...
+            'effect_resonance', 'Effect: Resonance Risk', ...
+            'reduce_degree', 'Intensity Reduction' ...
+        );
 
         % Input 预期字段
         inputExpectedFields = {
@@ -44,9 +130,7 @@ classdef SDOFIsolation < Component
 
         % Params 预期字段
         paramsExpectedFields = {
-            'material_type'    % 支座类型
-            'elastic_modulus'  % 弹性模量 [MPa]
-            'shear_modulus'    % 剪切模量 [MPa]
+
             'calc_method'      % 计算方法（频域/时域）
             'Echo'             % 是否输出中间过程
             };
@@ -61,9 +145,6 @@ classdef SDOFIsolation < Component
             };
 
         % Params 默认值
-        default_material_type = '叠层橡胶支座';
-        default_elastic_modulus = 5.0;   % MPa
-        default_shear_modulus = 1.0;     % MPa
         default_calc_method = '频域';
         default_Echo = false;
 
@@ -111,6 +192,7 @@ classdef SDOFIsolation < Component
 
             % 6. 计算安全系数
             obj = obj.calculateSafetyFactors();
+
 
             if obj.params.Echo
                 disp('==========================================');
@@ -370,7 +452,7 @@ classdef SDOFIsolation < Component
 
             % 1. 频率比校核
             if obj.output.freq_ratio < obj.baseline.min_freq_ratio
-                msg = sprintf(['频率比 %.3f 小于要求 %.3f，隔震无效'], ...
+                msg = sprintf('频率比 %.3f 小于要求 %.3f，隔震无效', ...
                             obj.output.freq_ratio, obj.baseline.min_freq_ratio);
                 warnings{end+1} = msg;
             end
@@ -454,38 +536,54 @@ classdef SDOFIsolation < Component
             Base=obj.baseline;
             Capacity=obj.capacity;
 
+            % 获取标签
+            labels = obj.getLabels();
+
             % 创建图形窗口
-            figure('Position',[100 100 1400 800]);
+            fig = figure('Position',[100 100 1400 800], 'Name', 'SDOF Isolation Analysis');
+
+            % 添加语言切换按钮
+            uicontrol('Style', 'pushbutton', ...
+                      'String', 'CN/EN', ...
+                      'Units', 'normalized', ...
+                      'Position', [0.88 0.92 0.08 0.05], ...
+                      'FontSize', 11, ...
+                      'FontWeight', 'bold', ...
+                      'Callback', @(src,evt) obj.toggleLanguage(fig, opt));
 
             % 子图1: 加速度衰减比曲线
             subplot(2,3,1);
-            obj.plotAccAttenuationCurve();
+            obj.plotAccAttenuationCurve(labels);
 
             % 子图2: 位移衰减比曲线
             subplot(2,3,2);
-            obj.plotDispAttenuationCurve();
+            obj.plotDispAttenuationCurve(labels);
 
             % 子图3: 安全系数对比
             subplot(2,3,3);
-            obj.plotSafetyComparison();
+            obj.plotSafetyComparison(labels);
 
             % 子图4: 频率响应曲线
             subplot(2,3,4);
-            obj.plotFrequencyResponse();
+            obj.plotFrequencyResponse(labels);
 
             % 子图5: 隔震效果可视化
             subplot(2,3,5);
-            obj.plotIsolationEffect();
+            obj.plotIsolationEffect(labels);
 
-            % 子图6: 阻尼参数优化建议
+            % 子图6: 阻尼参数评估
             subplot(2,3,6);
-            obj.plotDampingOptimization();
+            obj.plotDampingOptimization(labels);
 
-            sgtitle('基础隔震单自由度分析');
+            sgtitle(labels.sgtitle, 'FontSize', 14, 'FontWeight', 'bold');
         end
 
-        function plotAccAttenuationCurve(obj)
+        function plotAccAttenuationCurve(obj, labels)
             % 绘制加速度衰减比曲线
+
+            if nargin < 2
+                labels = obj.getLabels();
+            end
 
             xi = obj.output.damping_ratio;
             r_current = obj.output.freq_ratio;
@@ -513,21 +611,26 @@ classdef SDOFIsolation < Component
             plot([0.5 5], [1 1], 'k--', 'LineWidth', 1);
             plot([0.5 5], [obj.baseline.acc_ratio_max obj.baseline.acc_ratio_max], 'g--', 'LineWidth', 1);
             plot([0.5 5], [obj.baseline.acc_ratio_min obj.baseline.acc_ratio_min], 'g--', 'LineWidth', 1);
-            plot([1.414 1.414], [0 min(Ra)*1.2], 'm--', 'LineWidth', 1);
+            plot([1.414 1.414], [0 max(Ra)*1.2], 'm--', 'LineWidth', 1);
 
             hold off;
 
             grid on;
-            xlabel('频率比 r = \omega/\omega_n');
-            ylabel('加速度衰减比 R_a');
-            title('加速度衰减比曲线');
-            legend({'衰减比', '当前点', 'R_a=1', '上限', '下限', 'r=1.414'}, ...
+            xlabel(labels.freq_ratio);
+            ylabel(labels.acc_ratio);
+            title(labels.acc_curve);
+            legend({labels.attenuation, labels.current_point, labels.Ra_equals_1, ...
+                    labels.upper_limit, labels.lower_limit, labels.r_threshold}, ...
                    'Location', 'best', 'FontSize', 8);
             axis([0.5 5 0 max(Ra)*1.1]);
         end
 
-        function plotDispAttenuationCurve(obj)
+        function plotDispAttenuationCurve(obj, labels)
             % 绘制位移衰减比曲线
+
+            if nargin < 2
+                labels = obj.getLabels();
+            end
 
             xi = obj.output.damping_ratio;
             r_current = obj.output.freq_ratio;
@@ -539,7 +642,7 @@ classdef SDOFIsolation < Component
             Rd = r.^2 ./ sqrt((1-r.^2).^2 + (2*xi*r).^2);
 
             % 归一化处理
-            Rd = Rd / max(Rd);
+            % Rd = Rd / max(Rd);
 
             % 绘制曲线
             plot(r, Rd, 'b-', 'LineWidth', 2);
@@ -547,32 +650,33 @@ classdef SDOFIsolation < Component
 
             % 标记当前工作点
             Rd_current = obj.output.disp_attenuation_ratio;
-            if max(Rd) > 0
-                Rd_norm = Rd_current / max(Rd);
-            else
-                Rd_norm = 0;
-            end
-            plot(r_current, Rd_norm, 'ro', 'MarkerSize', 10, 'MarkerFaceColor', 'r');
+
+            scatter(r_current, Rd_current, 120, 'r', 'filled', ...
+                     'MarkerFaceColor', 'r', 'MarkerEdgeColor', 'r', 'LineWidth', 1.5);
 
             % 绘制基线
             plot([0.5 5], [1 1], 'k--', 'LineWidth', 1);
-            plot([1 1], [0 1.2], 'r--', 'LineWidth', 1);
+            plot([1 1], [0 max(Rd)], 'r--', 'LineWidth', 1);
 
             hold off;
 
             grid on;
-            xlabel('频率比 r = \omega/\omega_n');
-            ylabel('位移衰减比 R_d (归一化)');
-            title('位移衰减比曲线');
-            legend({'衰减比', '当前点', '基线R_d=1', '共振r=1'}, ...
+            xlabel(labels.freq_ratio);
+            ylabel(labels.disp_ratio);
+            title(labels.disp_curve);
+            legend({labels.attenuation, labels.current_point, labels.baseline_Rd, labels.resonance_r1}, ...
                    'Location', 'best', 'FontSize', 8);
-            axis([0.5 5 0 1.1]);
+            axis([0.5 5 0 1.1*max(Rd)]);
         end
 
-        function plotSafetyComparison(obj)
+        function plotSafetyComparison(obj, labels)
             % 绘制安全系数对比图
 
-            labels = {'频率比裕度', '位移安全', '综合安全'};
+            if nargin < 2
+                labels = obj.getLabels();
+            end
+
+            x_labels = {labels.freq_margin, labels.disp_safety, labels.overall_safety};
             capacity_values = [
                 obj.capacity.freq_ratio_margin;
                 obj.capacity.disp_safety_factor;
@@ -585,7 +689,7 @@ classdef SDOFIsolation < Component
             ];
 
             % 绘制条形图
-            x = 1:length(labels);
+            x = 1:length(x_labels);
             b1 = bar(x, capacity_values, 'BarWidth', 0.4);
             hold on;
             b2 = bar(x + 0.4, baseline_values, 'BarWidth', 0.4, 'FaceColor', [0.8 0.2 0.2]);
@@ -605,14 +709,18 @@ classdef SDOFIsolation < Component
 
             grid on;
             set(gca, 'XTick', x + 0.2);
-            set(gca, 'XTickLabel', labels);
-            ylabel('安全系数');
-            title('安全系数对比');
-            legend({'Capacity', 'Baseline'});
+            set(gca, 'XTickLabel', x_labels);
+            ylabel(labels.safety_factor);
+            title(labels.safety_comp);
+            legend({labels.capacity, labels.baseline});
         end
 
-        function plotFrequencyResponse(obj)
+        function plotFrequencyResponse(obj, labels)
             % 绘制频率响应
+
+            if nargin < 2
+                labels = obj.getLabels();
+            end
 
             xi = obj.output.damping_ratio;
             omega_n = obj.output.natural_freq;
@@ -654,17 +762,21 @@ classdef SDOFIsolation < Component
             hold off;
 
             grid on;
-            xlabel('频率比 r = \omega/\omega_n');
-            ylabel('加速度衰减比 R_a');
-            title('频率响应曲线');
-            legend({sprintf('当前 (\\xi=%.2f)', xi), '当前点', 'r=1.414', ...
+            xlabel(labels.freq_ratio);
+            ylabel(labels.acc_ratio);
+            title(labels.freq_resp);
+            legend({sprintf('\\xi=%.2f', xi), labels.current_point, labels.r_threshold, ...
                     '\\xi=0.02', '\\xi=0.05', '\\xi=0.15', '\\xi=0.25'}, ...
                    'Location', 'best', 'FontSize', 8);
             axis([0.1 5 0 max(Ra)*1.1]);
         end
 
-        function plotIsolationEffect(obj)
+        function plotIsolationEffect(obj, labels)
             % 绘制隔震效果可视化
+
+            if nargin < 2
+                labels = obj.getLabels();
+            end
 
             r = obj.output.freq_ratio;
             R_a = obj.output.acc_attenuation_ratio;
@@ -674,103 +786,116 @@ classdef SDOFIsolation < Component
             y = [0 0 0];
             colors = [0.8 0.2 0.2; 0.2 0.8 0.2];
 
-            % 无效区域 (r < 1.414)
-            fill([0.5, 1.414, 1.414, 0.5], [0, 0, 1.5, 1.5], [0.8 0.8 0.8], ...
-                 'FaceAlpha', 0.3, 'EdgeColor', 'none');
+            % 无效区域 (r < 1.414) - 红色背景
+            fill([0.5, 1.414, 1.414, 0.5], [0, 0, 1.5, 1.5], [1 0.3 0.3], ...
+                 'FaceAlpha', 0.2, 'EdgeColor', 'none');
             hold on;
 
-            % 有效区域 (r > 1.414)
-            fill([1.414, 5, 5, 1.414], [0, 0, 1.5, 1.5], [0.8 0.8 0.8], ...
-                 'FaceAlpha', 0.3, 'EdgeColor', 'none');
+            % 有效区域 (r > 1.414) - 绿色背景
+            fill([1.414, 5, 5, 1.414], [0, 0, 1.5, 1.5], [0.3 0.8 0.3], ...
+                 'FaceAlpha', 0.2, 'EdgeColor', 'none');
+
+            % 绘制分界线
+            plot([1.414 1.414], [0 1.5], 'k-', 'LineWidth', 2);
 
             % 标记当前点
             plot(r, R_a, 'o', 'MarkerSize', 15, 'MarkerFaceColor', 'r', 'MarkerEdgeColor', 'k');
 
-            % 添加文字标注
-            text(1, 0.7, '无效区域', 'HorizontalAlignment', 'center', 'FontSize', 10);
-            text(3, 0.7, '有效区域', 'HorizontalAlignment', 'center', 'FontSize', 10);
+            % 添加区域文字标注（放在上部，字体缩小）
+            text(1, 1.4, labels.invalid_region, 'HorizontalAlignment', 'center', 'FontSize', 6, ...
+                 'FontWeight', 'bold', 'Color', [0.8 0.2 0.2]);
+            text(3, 1.4, labels.valid_region, 'HorizontalAlignment', 'center', 'FontSize', 6, ...
+                 'FontWeight', 'bold', 'Color', [0.2 0.6 0.2]);
 
             hold off;
 
             grid on;
-            xlabel('频率比 r = \omega/\omega_n');
-            ylabel('加速度衰减比 R_a');
-            title('隔震效果');
+            xlabel(labels.freq_ratio);
+            ylabel(labels.acc_ratio);
+            title(labels.isolation_effect);
+            legend({labels.current_workpoint, labels.boundary}, 'Location', 'northeast', 'FontSize', 8);
 
-            % 添加效果说明
+            % 添加效果说明（在左下角，位置调整）
             if obj.output.isolation_effect == '有效'
-                effect_text = sprintf('效果: 有效\n降低烈度: %.1f度', obj.output.seismic_reduction);
+                if strcmp(obj.plotLanguage, 'CN')
+                    effect_text = sprintf('效果: 有效\n降低烈度: %.1f度', obj.output.seismic_reduction);
+                else
+                    effect_text = sprintf('%s\n%s: %.1f', labels.effect_valid, labels.reduce_degree, obj.output.seismic_reduction);
+                end
             elseif obj.output.isolation_effect == '共振风险'
-                effect_text = '效果: 共振风险';
+                effect_text = labels.effect_resonance;
             else
-                effect_text = '效果: 无效';
+                effect_text = labels.effect_invalid;
             end
-            text(0.5, 1.3, effect_text, 'FontSize', 10, 'BackgroundColor', 'white');
+            text(0.6, 0.15, effect_text, 'FontSize', 6, 'BackgroundColor', [1 1 1 0.85], ...
+                 'EdgeColor', 'k', 'LineWidth', 1);
 
             axis([0.5 5 0 1.5]);
         end
 
-        function plotDampingOptimization(obj)
-            % 绘制阻尼参数优化建议
+        function plotDampingOptimization(obj, labels)
+            % 绘制阻尼参数评估
+
+            if nargin < 2
+                labels = obj.getLabels();
+            end
 
             xi = obj.output.damping_ratio;
-            r = obj.output.freq_ratio;
-            R_a = obj.output.acc_attenuation_ratio;
 
-            % 计算目标阻尼比范围
-            xi_target_max = 0;
-
-            % 根据当前频率比计算目标阻尼比
-            if r >= 1.414
-                % 计算使R_a在目标范围内的阻尼比
-                Ra_min = obj.baseline.acc_ratio_min;
-                Ra_max = obj.baseline.acc_ratio_max;
-
-                % 简化计算（假设r²远大于1）
-                xi_min = sqrt((1/Ra_max^2 - 1/r^4) / 4);
-                xi_max = sqrt((1/Ra_min^2 - 1/r^4) / 4);
-
-                if xi_max > 0 && isfinite(xi_max) && xi_max >= xi_min
-                    xi_target_max = xi_max;
-                end
-            end
-
-            % 确保xi_target_max有效
-            if xi_target_max <= 0 || ~isfinite(xi_target_max)
-                xi_target_max = xi * 2;  % 默认建议值为当前值的2倍
-            end
-
-            % 绘制柱状图
-            h_bar = bar([xi, xi_target_max], 'BarWidth', 0.5, 'FaceColor', 'flat');
-
-            % 设置颜色
-            h_bar.CData = [0.2 0.2 0.8; 0.8 0.8 0.2];  % 蓝色 - 当前值, 黄色 - 目标值
+            % 只显示当前阻尼比和评估
+            bar(xi, 'BarWidth', 0.4, 'FaceColor', [0.2 0.4 0.8]);
 
             grid on;
-            set(gca, 'XTick', [1 2]);
-            set(gca, 'XTickLabel', {'当前阻尼比', '建议最大阻尼比'});
-            ylabel('阻尼比 \xi');
-            title('阻尼参数优化建议');
-            ylim([0, max(xi_target_max, xi) * 1.3]);
+            set(gca, 'XTick', 1);
+            set(gca, 'XTickLabel', labels.current_damping);
+            ylabel(labels.damping);
+            title(labels.damping_eval);
 
-            % 添加数值标注
+            % 设置y轴范围，确保评估文字有空间
+            ylim_max = max(0.5, xi * 1.5);
+            ylim([0, ylim_max]);
+
+            % 添加数值标注（在柱子顶部）
             text(1, xi, sprintf('%.4f', xi), 'HorizontalAlignment', 'center', ...
-                 'VerticalAlignment', 'bottom', 'FontSize', 10);
-            if xi_target_max > 0 && isfinite(xi_target_max)
-                text(2, xi_target_max, sprintf('%.4f', xi_target_max), ...
-                     'HorizontalAlignment', 'center', 'VerticalAlignment', 'bottom', ...
-                     'FontSize', 10);
+                 'VerticalAlignment', 'bottom', 'FontSize', 12, 'FontWeight', 'bold');
+
+            % 添加说明文字（在柱子上方）
+            if xi < 0.05
+                msg = labels.damping_low;
+                msg_color = [0.8 0.2 0.2];
+            elseif xi > 0.3
+                msg = labels.damping_high;
+                msg_color = [0.8 0.2 0.2];
+            else
+                msg = labels.damping_ok;
+                msg_color = [0.2 0.6 0.2];
+            end
+            % 将评估文字放在柱子上方
+            text(1, xi * 1.15, msg, 'HorizontalAlignment', 'center', ...
+                 'VerticalAlignment', 'bottom', 'FontSize', 11, 'Color', msg_color, 'FontWeight', 'bold');
+        end
+
+        function labels = getLabels(obj)
+            % 获取当前语言的标签
+            if strcmp(obj.plotLanguage, 'CN')
+                labels = obj.labels_CN;
+            else
+                labels = obj.labels_EN;
+            end
+        end
+
+        function toggleLanguage(obj, fig, opt)
+            % 切换绘图语言并重新绘制
+            % 切换语言
+            if strcmp(obj.plotLanguage, 'CN')
+                obj.plotLanguage = 'EN';
+            else
+                obj.plotLanguage = 'CN';
             end
 
-            % 添加说明文字
-            if xi < 0.05
-                msg = '阻尼偏低，建议增大';
-            elseif xi > 0.3
-                msg = '阻尼偏高，影响隔震效果';
-            else
-                msg = '阻尼适中';
-            end
-            text(1.5, 0.35, msg, 'HorizontalAlignment', 'center', 'FontSize', 9);
+            % 关闭当前图形并重新绘制
+            close(fig);
+            obj.PlotCapacity(opt);
         end
 
     end

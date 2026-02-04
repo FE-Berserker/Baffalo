@@ -25,9 +25,6 @@ input1.soil_freq = 15.0;     % 场地土特征频率 15 rad/s
 input1.height = 30000;        % 建筑高度 30000 mm (30m)
 
 % 参数设置
-params1.material_type = '叠层橡胶支座';
-params1.elastic_modulus = 5.0;     % MPa
-params1.shear_modulus = 1.0;       % MPa
 params1.calc_method = '频域';
 params1.Echo = true;
 
@@ -112,9 +109,6 @@ input2.ground_acc = 3.0;     % m/s²
 input2.soil_freq = 10.0;     % rad/s
 input2.height = 25000;        % mm (25m)
 
-params2.material_type = '叠层橡胶支座';
-params2.elastic_modulus = 5.0;
-params2.shear_modulus = 1.0;
 params2.calc_method = '频域';
 params2.Echo = true;
 
@@ -150,9 +144,6 @@ input3.ground_acc = 3.0;     % m/s²
 input3.soil_freq = 15.0;     % rad/s
 input3.height = 35000;        % mm (35m)
 
-params3.material_type = '叠层橡胶支座';
-params3.elastic_modulus = 5.0;
-params3.shear_modulus = 1.0;
 params3.calc_method = '频域';
 params3.Echo = true;
 
@@ -188,9 +179,6 @@ input4.ground_acc = 3.0;     % m/s²
 input4.soil_freq = 15.0;     % rad/s
 input4.height = 30000;        % mm (30m)
 
-params4.material_type = '叠层橡胶支座';
-params4.elastic_modulus = 5.0;
-params4.shear_modulus = 1.0;
 params4.calc_method = '频域';
 params4.Echo = true;
 
@@ -229,9 +217,6 @@ input5.ground_acc = 3.0;     % m/s²
 input5.soil_freq = 15.0;     % rad/s
 input5.height = 30000;        % mm
 
-params5.material_type = '叠层橡胶支座';
-params5.elastic_modulus = 5.0;
-params5.shear_modulus = 1.0;
 params5.calc_method = '频域';
 params5.Echo = false;
 
@@ -255,9 +240,6 @@ input6_base.ground_acc = 3.0;     % m/s²
 input6_base.soil_freq = 15.0;     % rad/s
 input6_base.height = 30000;        % mm
 
-params6_base.material_type = '叠层橡胶支座';
-params6_base.elastic_modulus = 5.0;
-params6_base.shear_modulus = 1.0;
 params6_base.calc_method = '频域';
 params6_base.Echo = false;
 
@@ -304,9 +286,6 @@ input7_base.ground_acc = 3.0;     % m/s²
 input7_base.soil_freq = 15.0;     % rad/s
 input7_base.height = 30000;        % mm
 
-params7_base.material_type = '叠层橡胶支座';
-params7_base.elastic_modulus = 5.0;
-params7_base.shear_modulus = 1.0;
 params7_base.calc_method = '频域';
 params7_base.Echo = false;
 
