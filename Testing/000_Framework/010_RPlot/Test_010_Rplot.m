@@ -180,7 +180,7 @@ close all
 %% 38 Plot radar figure
 %% 39 other color map
 %% 40 Test save image
-flag=40;
+flag=1;
 plotfigure(flag);
 
 function plotfigure(flag)
