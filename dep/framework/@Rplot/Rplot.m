@@ -204,6 +204,7 @@ classdef Rplot <matlab.mixin.Copyable
         obj=redraw(obj,spacing,display)
         obj=draw(obj,do_redraw)
         obj=export(obj,varargin)
+        obj=save_image(obj,varargin)
 
         % Customization methods
         obj=set_annotation_options(obj,varargin)

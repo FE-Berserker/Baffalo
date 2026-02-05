@@ -9,7 +9,9 @@
       "Bash(matlab:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(git clean:*)"
+      "Bash(git clean:*)",
+      "Bash(dir:*)",
+      "Bash(git push)"
     ]
   }
 }

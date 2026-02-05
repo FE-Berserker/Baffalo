@@ -120,4 +120,5 @@ fprintf('\n演示完成！\n');
 
 
 Plot3D(rubberStack)
+rubberStack= CalHystereticCurve(rubberStack,-5,20);
 ANSYS_Output(rubberStack.output.Assembly)

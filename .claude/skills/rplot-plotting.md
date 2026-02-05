@@ -272,9 +272,88 @@ obj.draw();
 - 与现有代码紧密集成的场景
 - Rplot 不支持的特殊图形类型
 
+## 保存图形
+
+使用 `save_image` 方法保存图形到文件：
+
+```matlab
+obj = Rplot('x', x, 'y', y);
+obj = geom_line(obj);
+obj = obj.set_title('My Plot');
+draw(obj);
+obj.save_image('output.png');                    % 保存为PNG
+obj.save_image('output.jpg', 'format', 'jpg');   % 保存为JPG
+obj.save_image('output.pdf', 'format', 'pdf');   % 保存为PDF
+obj.save_image('output.png', 'resolution', '600');  % 高分辨率 (600 DPI)
+obj.save_image('output.png', 'closefig', true);  % 保存后关闭图形
+```
+
+**支持的格式**: PNG, JPG, JPEG, TIF/TIFF, BMP, EPS, PDF, SVG, FIG
+
+**参数**:
+- `filename` - 文件名（可以是相对或绝对路径）
+- `format` - 图片格式（默认根据扩展名自动检测）
+- `resolution` - 分辨率：'screen', '150', '300', '600', '1200' 或数值DPI
+- `closefig` - 保存后是否关闭图形（默认 false）
+
+## 常见错误和陷阱
+
+### 1. 必须指定几何图层 (geom)
+
+**错误示例**:
+```matlab
+g = Rplot('x', x, 'y', y);
+draw(g);  % 错误：没有几何图层，图形为空
+```
+
+**正确示例**:
+```matlab
+g = Rplot('x', x, 'y', y);
+g = geom_line(g);  % 必须添加几何图层
+draw(g);
+```
+
+### 2. draw() 的正确语法
+
+**错误示例**:
+```matlab
+g = geom_line(g);
+g = g.draw();  % 错误：draw() 不返回值，不能赋值
+```
+
+**正确示例**:
+```matlab
+g = geom_line(g);
+draw(g);  % 使用函数调用语法
+```
+
+注意：`draw()` 函数不返回对象，使用 `draw(g)` 而非 `g.draw()` 或 `g = g.draw()`。
+
+### 3. geom_ 函数的正确语法
+
+**推荐语法**:
+```matlab
+g = Rplot('x', x, 'y', y);
+g = geom_line(g);  % 函数调用语法
+draw(g);
+```
+
+虽然 `g = g.geom_line()` 链式调用也可用，但函数调用 `geom_line(g)` 更可靠。
+
+### 4. save_image 必须在 draw() 之后调用
+
+```matlab
+g = Rplot('x', x, 'y', y);
+g = geom_line(g);
+draw(g);            % 先绘制
+g.save_image('out.png');  % 后保存
+```
+
 ## 重要提示
 
 - Rplot 位于 `dep\framework\@Rplot\` 目录
 - 私有辅助函数在 `dep\framework\@Rplot\private\` 目录
 - 遵循项目的 MATLAB 编码规范（使用 `%` 注释，字符串用双引号）
 - 类继承自 `matlab.mixin.Copyable`，支持对象复制
+- **必须指定 geom 类型**：`geom_line`, `geom_point`, `geom_bar` 等，否则图形为空
+- **使用 draw(g) 而非 g.draw()**：draw 函数不返回值

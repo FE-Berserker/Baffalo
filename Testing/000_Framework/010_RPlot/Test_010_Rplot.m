@@ -179,7 +179,8 @@ close all
 %% 37 Raw matlab code equivalent to the first figure (in paper.md)
 %% 38 Plot radar figure
 %% 39 other color map
-flag=24;
+%% 40 Test save image
+flag=40;
 plotfigure(flag);
 
 function plotfigure(flag)
@@ -1424,5 +1425,19 @@ switch flag
 
         figure('Position',[100 100 800 600]);
         draw(g);
+    case 40
+        z=14;
+        x=0:360/z:360;
+        Bearing_Force=[422.23 393.32 312.32 205.95 105.17 36.21 10.28 1.02...
+            10.28 36.21 105.17 205.95 312.32 393.32 422.23];
+        g(1,1)=Rplot('x',x,'y',Bearing_Force);
+        g(1,1)=geom_radar(g(1,1));
+        g(1,2)=copy(g(1,1));
+        g(1,2)=set_axe_options(g(1,2),'zerolocation','bottom');
+        g=set_title(g,'Bearing Force');
+        figure('Position',[100 100 800 400]);
+        draw(g)
+        g.save_image('output.png');
+
 end
 end
