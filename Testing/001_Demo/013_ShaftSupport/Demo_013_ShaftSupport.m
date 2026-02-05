@@ -1,13 +1,20 @@
 clc
 clear
 close all
-% Demo ShaftSupport
-% 1. Create ShaftSupport Type 1
-% 2. Create ShaftSupport Type 2
-% 3. Create ShaftSupport Type 3
-% 4. Create ShaftSupport Type 4
-flag=1;
-DemoShaftSupport(flag);
+% Demo ShaftSupport - 测试所有类型的轴支座
+% 1. Create ShaftSupport Type 1 - 圆形底板，装配孔沿圆周分布
+% 2. Create ShaftSupport Type 2 - 方形带圆角底板（4个平边），装配孔沿圆周分布
+% 3. Create ShaftSupport Type 3 - 长方形底板（2个平边），装配孔沿圆周分布
+% 4. Create ShaftSupport Type 4 - 长方形底板，4个固定孔呈方形布置
+
+% 测试所有类型 (1-4)
+for flag = 1:4
+    fprintf('========================================\n');
+    fprintf('正在测试轴支座类型 %d...\n', flag);
+    fprintf('========================================\n');
+    DemoShaftSupport(flag);
+    fprintf('类型 %d 测试完成！\n\n', flag);
+end
 
 function DemoShaftSupport(flag)
 switch flag
