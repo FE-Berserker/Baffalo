@@ -130,9 +130,9 @@ classdef SDOFIsolation < Component
 
         % Params 预期字段
         paramsExpectedFields = {
-
             'calc_method'      % 计算方法（频域/时域）
             'Echo'             % 是否输出中间过程
+            'Name'             % 名称
             };
 
         % Baseline 预期字段
@@ -147,6 +147,7 @@ classdef SDOFIsolation < Component
         % Params 默认值
         default_calc_method = '频域';
         default_Echo = false;
+        default_Name = 'SDOFIsolation';
 
         % Baseline 默认值
         base_min_freq_ratio = 1.414;     % 隔震有效阈值

@@ -599,7 +599,121 @@ report.export();
 
 ## 常见场景示例
 
-### 场景1：为 Component 子类添加报告功能
+### 场景1：为 Component 子类添加 Report 函数（推荐方式）
+
+**规范要求**：
+1. 在 `@ClassName/` 目录下创建 `Report.m` 文件
+2. 函数名统一为 `Report(obj)`
+3. 报告标题使用 `obj.params.Name + 'analysis report'`
+4. 报告文件名为 `[Name]_analysis_report.md`
+5. 图表路径放在 `[Name].assets` 目录下
+6. 报告内容不包含文件路径信息
+7. 标题不带序号（如 "1. 概述" 改为 "概述"）
+
+```matlab
+% @ClassName/Report.m 文件
+function obj = Report(obj)
+    % 确保已执行计算
+    if isempty(obj.output.natural_freq)
+        warning('尚未执行计算，请先调用 obj.solve()');
+        return;
+    end
+
+    % 获取项目名称
+    if isfield(obj.params, 'Name') && ~isempty(obj.params.Name)
+        projectName = obj.params.Name;
+    else
+        projectName = 'ClassName';  % 默认使用类名
+    end
+
+    % 设置报告标题和文件名
+    reportTitle = [projectName ' analysis report'];
+    reportFilename = [projectName '_analysis_report.md'];
+
+    % 创建图像目录
+    imageDir = [projectName '.assets'];
+    if ~exist(imageDir, 'dir')
+        mkdir(imageDir);
+    end
+
+    %% 初始化报告
+    report = MarkdownReport(...
+        'title', reportTitle, ...
+        'author', 'Xie Yu', ...
+        'filename', reportFilename, ...
+        'imageDir', imageDir);
+
+    %% 添加报告内容（标题不带序号）
+    report = report.addTitle('项目概述', 2);
+    report = report.addParagraph('本报告...');
+    report = report.addHorizontalRule();
+
+    report = report.addTitle('输入参数', 2);
+    % 使用 addCustomTable 或 addTableFromStruct
+    headers = {'参数名称', '符号', '数值', '单位'};
+    data = {
+        '参数1', 'A', obj.input.A, 'mm';
+        '参数2', 'B', obj.input.B, 'N/mm'
+    };
+    report = report.addCustomTable(headers, data, {}, '表 1: 输入参数');
+
+    report = report.addTitle('计算结果', 2);
+    % 输出结果表格
+    results = struct(...
+        '结果1', obj.output.result1, ...
+        '结果2', obj.output.result2 ...
+    );
+    report = report.addTableFromStruct(results, '参数', '值');
+
+    %% 生成图表并添加到报告
+    % 调用类的内置绘图方法
+    obj.PlotCapacity();  % 或其他绘图方法
+    fig = gcf;
+
+    % 保存图表到 assets 目录
+    figPath = fullfile(imageDir, 'analysis_summary.png');
+    figPath = strrep(figPath, '\', '/');
+    print(fig, figPath, '-dpng', '-r300');
+    close(fig);
+
+    % 添加图表到报告
+    report = report.addTitle('可视化分析', 2);
+    report = report.addImage(figPath, '综合分析图');
+
+    %% 计算方法说明等章节...
+
+    %% 版本信息（不包含文件路径）
+    report = report.addTitle('版本信息', 2);
+    reportDate = datestr(now, 'yyyy-mm-dd');
+    report = report.addParagraph('**作者:** Xie Yu');
+    report = report.addParagraph('**创建日期:** 2026-02-03');
+    report = report.addParagraph(['**报告生成日期:** ' reportDate]);
+    % 不包含文件路径
+
+    %% 导出报告
+    report.export();
+
+    fprintf('  报告文件: %s\n', reportFilename);
+    fprintf('  图像目录: %s/\n', imageDir);
+end
+```
+
+### 场景2：在 solve() 方法中集成报告生成
+
+当在 solve() 方法中调用 Report 函数时：
+
+```matlab
+function obj = solve(obj)
+    % 执行核心计算
+    obj = calculateCoreParameters(obj);
+    obj = evaluateSafety(obj);
+
+    % 生成报告
+    obj = Report(obj);
+end
+```
+
+### 场景3：为 Component 子类添加报告功能（传统方式）
 
 当为现有的 Component 子类（如 BossPlate, Commonplate）添加报告输出功能时：
 
@@ -613,11 +727,13 @@ function obj = solve(obj)
     %% 添加报告输出
     % 创建报告
     report = MarkdownReport(...
-        'title', [obj.params.Name ' 分析报告'], ...
-        'filename', [obj.params.Name '_report.md'] ...
+        'title', [obj.params.Name ' analysis report'], ...
+        'author', 'Xie Yu', ...
+        'filename', [obj.params.Name '_analysis_report.md'], ...
+        'imageDir', [obj.params.Name '.assets'] ...
     );
 
-    % 添加设计参数
+    % 添加设计参数（标题不带序号）
     report = report.addTitle('设计参数', 2);
     report = report.addTableFromStruct(obj.input, '参数', '值');
 
@@ -635,6 +751,12 @@ function obj = solve(obj)
     [report, path] = report.addImageFromFigure(gcf, '3D 模型', ...
         'filename', '3d_model', 'resolution', 300);
     close(gcf);
+
+    % 版本信息（不包含路径）
+    report = report.addTitle('版本信息', 2);
+    reportDate = datestr(now, 'yyyy-mm-dd');
+    report = report.addParagraph('**作者:** Xie Yu');
+    report = report.addParagraph('**报告生成日期:** ' reportDate);
 
     % 导出报告
     report.export();
