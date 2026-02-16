@@ -1,4 +1,4 @@
-classdef Component
+classdef Component<matlab.mixin.Copyable
     % Component - Basic component
     % Author : Xie Yu
     properties
