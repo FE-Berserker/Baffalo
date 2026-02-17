@@ -1,5 +1,21 @@
-% MAKESECTIONS: demo the use of the section tools
+function w = mwhalf(n,percent)
+% MWHALF: half an mwindow (boxcar with raised-cosine taper on one end)
 %
+% mwhalf(n,percent)
+% mwhalf(n)
+% 
+% MWHALF returns the N-point half-Margrave window in a 
+% row vector. This window is a boxcar over the first samples,
+% (100-percent)*n/100 in number, while it has a raised cosine
+% (hanning style) taper on the end. If n is a vector, it is
+% the same as mwindow(length(n)
+%
+% n= input length of the mwindow. If a vector, length(n) is
+%    used
+% percent= percent taper on the ends of the window
+%   ************* default=10 ************
+%
+% by G.F. Margrave, May 1991
 %
 % NOTE: This SOFTWARE may be used by any individual or corporation for any purpose
 % with the exception of re-selling or re-distributing the SOFTWARE.
@@ -36,35 +52,26 @@
 % 5) Use this SOFTWARE at your own risk.
 %
 % END TERMS OF USE LICENSE
+  
+% set defaults
+ if nargin<2
+  percent=10;
+ end
+ if length(n)>1
+   n=length(n);
+ end
+% compute the Hanning function 
+ if(percent>100)||(percent<0)
+   error(' invalid percent for mwhalf')
+ end
+ m=floor(percent*n/100);
+ h=han(2*m);
+ h=h(:);
+ w = [ones(n-m,1);h(m:-1:1)];
+ 
+function w=han(n)
 
-% Just run the script
+xint=2*pi/(n+1);
+x=xint*(1:n)-pi;
 
-dt=.004;dx=10;tmax=2;xmax=2500;v=3000;
-[w,tw]=ricker(.004,40);
-tic
-[amat,t,x]=makestdsyn(dt,dx,tmax,xmax,v,w,tw);
-toc
-tic
-[amath,t,x]=makestdsynh(dt,dx,tmax,xmax,v,w,tw);
-toc
-plotimage(amat,t,x);
-title('Made without diffractions')
-[fk,f,k]=fktran(amat,t,x);
-plotimage(abs(fk),f,k);
-xlabel('wavenumber');ylabel('Hertz')
-title('FK spectrum without diffractions')
-
-plotimage(amath,t,x);
-title('Made with diffractions')
-[fkh,f,k]=fktran(amath,t,x);
-plotimage(abs(fkh),f,k);
-xlabel('wavenumber');ylabel('Hertz')
-title('FK spectrum with diffractions')
-
-%velocity model for raytracing
-% 用于射线追踪的速度模型
-zmax=v*max(t)/2;
-z=0:dx:zmax;
-
-vmodel=v*ones(length(z),length(x)); %build model
-rayvelmod(vmodel,dx); % initialize for raytracing
+w=.5*(1+cos(x))';

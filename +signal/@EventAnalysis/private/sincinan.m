@@ -82,7 +82,8 @@ if(rr>1)
 		trflag=1;
 end
 
-global SINC_TABLE
+% global SINC_TABLE
+SINC_TABLE=[];
 
 % see if table needs to be made
 maketable=0;

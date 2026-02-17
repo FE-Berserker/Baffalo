@@ -1,8 +1,15 @@
-% CHANNEL: model a channel beneath a few layers
-% CHANNEL: 模拟几层之下的通道
+function yi=pcint(x,y,xi)
+% PCINT: piecewise constant interpolation
 %
-% low velocity channel beneath a v(z) medium
-% v(z) 介质之下的低速度通道
+% yi=pcint(x,y,xi)
+%
+% pcint does piecewise constant interpolation.
+% That is, x and y are assumed to represent a function that is
+% "blocky" or piecewise constant. This means that for any xi
+% between x(k) and x(k+1), the function evaluates to y(k).
+% Points with xi < x(1) evaluate to y(1) and for xi>x(length(x))
+% evaluate to y(length(x))
+% NOTE xi must be sorted in ascending order. (xi(k)<xi(k+1))
 %
 % NOTE: This SOFTWARE may be used by any individual or corporation for any purpose
 % with the exception of re-selling or re-distributing the SOFTWARE.
@@ -40,51 +47,24 @@
 %
 % END TERMS OF USE LICENSE
 
-% Just run the script
-% 直接运行脚本
-dx=5; %cdp interval
-dt=.002; %time sample rate
-xmax=2500;tmax=1.0; %maximum line length and maximum time
-x=0:dx:xmax; % x coordinate vector
-t=0:dt:tmax; % t coordinate vector
-v=3000; % velocity
-z=v*t/2; % z coordinate vector
+yi=nan*zeros(size(xi));
+iiold=1;
+nx=length(x);
+%handle ends
+j=find(xi<x(1));
+if(~isempty(j))
+	yi(j)=y(1)*ones(size(j));
+end
+j=find(xi>x(length(x)));
+if(~isempty(j))
+	yi(j)=y(length(x))*ones(size(j));
+end
+j=find(isnan(yi));
+j=j(:)';
+for k=j
 
-%initialize seismic matrix
-seis=zeros(length(t),length(x));
+		ii=find(x<=xi(k));
 
-%first event
-z1=100;
-seis=event_pwlinh(seis,t,x,v,[0 xmax],[z1 z1],[.1 .1]);
-disp('first event of five done')
+		yi(k)= y(ii(length(ii)));
 
-%second event
-z2=200;
-seis=event_pwlinh(seis,t,x,v,[0 xmax],[z2 z2],[-.1 -.1]);
-disp('second event of five done')
-
-%third event
-z3=271;
-seis=event_pwlinh(seis,t,x,v,[0 xmax],[z3 z3],[.05 .05]);
-disp('third event of five done')
-
-%fourth event
-z4=398;
-seis=event_pwlinh(seis,t,x,v,[0 xmax],[z4 z4],[-.04 -.04]);
-disp('fourth event of five done')
-
-%channel
-width=100;
-thk=50;
-xchan=[xmax/2-width/2  xmax/2-.5*width/2 xmax/2+.5*width/2 xmax/2+width/2];
-zchan=[z4 z4+thk z4+thk z4];
-seis=event_pwlinh(seis,t,x,v,xchan,zchan,.04*ones(size(xchan)));
-disp('fifth event of five done')
-
-plotimage(seis,t,x);title('Unfiltered model')
-
-%apply a filter
-
-seis=sectfilt(seis,t,[10 5],[150 30]);
-
-plotimage(seis,t,x);title('Filtered to 10-150 Hz.');
+end

@@ -12,9 +12,15 @@ close all
 % 8. Demo8 - 事件增益或减小
 % 9. Demo9 - FK滤波
 % 10. Demo10 - 小波变换
-% 11. Demo11 - 由速度和角度创建倾角事件
+% 11. Demo11 - 多段倾角双曲事件
 % 12. Demo12 - 分段双曲线事件
-flag = 11;
+% 13. Demo13 - 稀疏绕射叠加倾伏事件
+% 14. Demo14 - 多边形事件
+% 15. Demo15 - 尖峰事件
+% 16. Demo16 - 波前圆事件
+% 17. Demo17 - 绕射剖面
+
+flag = 19;
 DemoEventAnalysis(flag);
 
 function DemoEventAnalysis(flag)
@@ -22,6 +28,7 @@ switch flag
     case 1
         % 创建一个具有正时间倾角的单个线性事件
         dt=.004;
+        
         t=(0:250)*dt;
         dx=10;
         x=(-100:100)*dx; % 定义时间、空间坐标
@@ -424,20 +431,210 @@ switch flag
         xpoly=[xcntr-hwreef xcntr-.8*hwreef xcntr+.8*hwreef xcntr+hwreef];
         zpoly=[zreef zreef-hreef zreef-hreef zreef];
 
-        EA1=AddEventDiph(EA1,v,0,xcntr-hwreef,zreef,0,0.1);
-        EA1=AddEventDiph(EA1,v,xcntr+hwreef,max(x4),zreef,0,0.1);
-        EA1=AddEventDiph(EA1,v,xcntr-hwreef,xcntr+hwreef,zreef,0,0.2);
+        % EA1=AddEventDiph(EA1,v,0,xcntr-hwreef,zreef,0,0.1);
+        % EA1=AddEventDiph(EA1,v,xcntr+hwreef,max(x4),zreef,0,0.1);
+        % EA1=AddEventDiph(EA1,v,xcntr-hwreef,xcntr+hwreef,zreef,0,0.2);
+        EA1=AddEventPwlinh(EA1,v,xpoly,zpoly,-.1*ones(size(zpoly)));
         PlotEvent(EA1)
 
-        seis4=zeros(length(t4),length(x4));%allocate seismic matrix
-        seis4=event_diph(seis4,t4,x4,v,0,xcntr-hwreef,zreef,0,.1);%left
-        seis4=event_diph(seis4,t4,x4,v,xcntr+hwreef,max(x4),zreef,0,.1);%right
-        seis4=event_diph(seis4,t4,x4,v,xcntr-hwreef,xcntr+hwreef,zreef,0,.2);%base
-        seis4=event_pwlinh(seis4,t4,x4,v,xpoly,zpoly,-.1*ones(size(zpoly)));%top
-        [w,tw]=ricker(dt,40,.2);%make ricker wavelet
-        seis4=sectconv(seis4,t4,w,tw);%apply wavelet
+    case 13
+        % ========== 稀疏绕射叠加倾伏事件（AddEventDiph2）==========
+        v=2000;dx=10;dt=.004;% basic model parameters
+        x5=0:dx:2000;% x axis
+        t5=0:dt:2;% t axis
 
+        % 输入结构
+        inputStruct.t = t5;
+        inputStruct.x = x5;
 
+        % 参数结构
+        paramsStruct.Name = 'Demo13';
+        paramsStruct.Echo = 1;
+
+        % 创建并求解 EventAnalysis 对象
+        fprintf('创建 EventAnalysis 对象...\n');
+        EA1 = signal.EventAnalysis(paramsStruct, inputStruct);
+        EA1 = EA1.solve();
+
+        % 添加稀疏绕射叠加倾伏事件
+        % ndelx=5: 每隔5个x位置放置一个双曲线（稀疏叠加）
+        % v=2000, x0=250, x1=1750, z0=600, ndelx=5, theta=37, amp=1
+        EA1=AddEventDiph2(EA1,v,250,1750,600,5,37,1);
+        PlotEvent(EA1)
+
+        fprintf('\n========== Demo13 完成 ==========\n');
+        fprintf('AddEventDiph2: 使用稀疏绕射叠加（ndelx=5）构造倾伏事件\n');
+        fprintf('与 AddEventDiph 相比，可以通过 ndelx 控制双曲线的密度\n');
+
+    case 14
+        % ========== 多边形事件（AddEventPolyh）==========
+        v=2000;dx=10;dt=.004;% basic model parameters
+        x6=0:dx:3000;% x axis
+        t6=0:dt:1.5;% t axis
+
+        % 输入结构
+        inputStruct.t = t6;
+        inputStruct.x = x6;
+
+        % 参数结构
+        paramsStruct.Name = 'Demo14';
+        paramsStruct.Echo = 1;
+
+        % 创建并求解 EventAnalysis 对象
+        fprintf('创建 EventAnalysis 对象...\n');
+        EA1 = signal.EventAnalysis(paramsStruct, inputStruct);
+        EA1 = EA1.solve();
+
+        % 定义多边形事件的顶点坐标（礁体形状）
+        % 使用与 Demo12 相同的礁体几何形状，但用 AddEventPolyh 创建
+        zreef=600;hwreef=200;hreef=100;% depth, half-width, and height of reef
+        xcntr=max(x6)/2;
+        xpoly=[xcntr-hwreef xcntr-.8*hwreef xcntr+.8*hwreef xcntr+hwreef];
+        zpoly=[zreef zreef-hreef zreef-hreef zreef];
+        apoly=[0.1 0.2 0.2 0.1];% 振幅向量，与 xpoly/zpoly 同长度
+
+        % 添加多边形事件
+        % 使用球面扩散模型（tk^(-1.5)），与 AddEventPwlinh 的爆炸反射器模型不同
+        EA1=AddEventPolyh(EA1,v,xpoly,zpoly,apoly);
+        PlotEvent(EA1)
+
+        fprintf('\n========== Demo14 完成 ==========\n');
+        fprintf('AddEventPolyh: 使用双曲线叠加构造多边形事件（礁体模型）\n');
+        fprintf('振幅衰减模型: tk^(-1.5) （球面扩散）\n');
+        fprintf('与 AddEventPwlinh 对比：AddEventPwlinh 使用 tnot/tk （爆炸反射器）\n');
+
+    case 15
+        % ========== 尖峰事件（AddEventSpike）==========
+        dt=.004;
+        t=(0:500)*dt;
+        dx=10;
+        x=(-100:100)*dx;% 定义时间、空间坐标
+
+        % 输入结构
+        inputStruct.t = t;
+        inputStruct.x = x;
+
+        % 参数结构
+        paramsStruct.Name = 'Demo15';
+        paramsStruct.Echo = 1;
+
+        % 创建并求解 EventAnalysis 对象
+        fprintf('创建 EventAnalysis 对象...\n');
+        EA1 = signal.EventAnalysis(paramsStruct, inputStruct);
+        EA1 = EA1.solve();
+
+        % 添加多个尖峰事件
+        % 在不同位置添加尖峰，用于测试脉冲响应
+        EA1=AddEventSpike(EA1,0.4,0,1);          % 中心位置，t=0.4s, x=0, amp=1
+        EA1=AddEventSpike(EA1,0.6,500,0.8);      % 右侧，t=0.6s, x=500, amp=0.8
+        EA1=AddEventSpike(EA1,0.6,-500,0.8);     % 左侧，t=0.6s, x=-500, amp=0.8
+        EA1=AddEventSpike(EA1,0.8,200,0.5);      % 右侧较近，t=0.8s, x=200, amp=0.5
+        EA1=AddEventSpike(EA1,0.8,-200,0.5);     % 左侧较近，t=0.8s, x=-200, amp=0.5
+        PlotEvent(EA1)
+
+        % 对尖峰事件进行滤波，展示滤波效果
+        EA1 = EventFilter(EA1,'method','bandpass','fmin',[10 5],'fmax',[60 20]);
+        PlotEvent(EA1)
+
+        fprintf('\n========== Demo15 完成 ==========\n');
+        fprintf('AddEventSpike: 在指定位置添加尖峰（脉冲）事件\n');
+        fprintf('适用于测试脉冲响应和滤波器特性\n');
+
+    case 16
+        % ========== 波前圆事件（AddEventWavefront）==========
+        dt=.004;
+        t=(0:400)*dt;
+        dx=10;
+        x=(-100:100)*dx;% 定义时间、空间坐标
+
+        % 输入结构
+        inputStruct.t = t;
+        inputStruct.x = x;
+
+        % 参数结构
+        paramsStruct.Name = 'Demo16';
+        paramsStruct.Echo = 1;
+
+        % 创建并求解 EventAnalysis 对象
+        fprintf('创建 EventAnalysis 对象...\n');
+        EA1 = signal.EventAnalysis(paramsStruct, inputStruct);
+        EA1 = EA1.solve();
+
+        % 添加多个波前圆事件
+        % tnot: 波前最低点时间, xnot: 波前最低点位置, v: 速度, amp: 振幅
+        v=2000; % 波前速度
+        EA1=AddEventWavefront(EA1,0.6,0,v,1);       % 中心波前, t=0.6s, x=0
+        EA1=AddEventWavefront(EA1,0.8,500,v,0.8);   % 右侧波前, t=0.8s, x=500
+        EA1=AddEventWavefront(EA1,0.8,-500,v,0.8);  % 左侧波前, t=0.8s, x=-500
+        EA1=AddEventWavefront(EA1,1.0,300,v,0.6);   % 右侧较近, t=1.0s, x=300
+        EA1=AddEventWavefront(EA1,1.0,-300,v,0.6);  % 左侧较近, t=1.0s, x=-300
+        PlotEvent(EA1)
+
+        % 展示 FK 变换以观察波前特性
+        EA1 = FKT(EA1);
+        PlotFKT(EA1)
+
+        fprintf('\n========== Demo16 完成 ==========\n');
+        fprintf('AddEventWavefront: 插入波前圆事件\n');
+        fprintf('波前圆与双曲线绕射展示互易关系\n');
+        fprintf('FK 变换可清晰展示波前的频散特性\n');
+
+    case 17
+        % ========== 绕射剖面（AddEventDiffSection）==========
+        % 创建一个基础 EventAnalysis 对象（坐标会被 diffraction_section 覆盖）
+        dt_base=.004;
+        t_base=(0:100)*dt_base;
+        dx_base=10;
+        x_base=(-50:50)*dx_base;
+
+        % 输入结构
+        inputStruct.t = t_base;
+        inputStruct.x = x_base;
+
+        % 参数结构
+        paramsStruct.Name = 'Demo17';
+        paramsStruct.Echo = 1;
+
+        % 创建并求解 EventAnalysis 对象
+        fprintf('创建 EventAnalysis 对象...\n');
+        EA1 = signal.EventAnalysis(paramsStruct, inputStruct);
+        EA1 = EA1.solve();
+
+        % 创建绕射剖面
+        % dx=20: 空间网格尺寸
+        % dt=.004: 时间采样间隔
+        % xmax=2000: 最大横向坐标
+        % zmax=2000: 最大深度
+        % v0=2000: z=0 处的速度
+        % c=0: 速度梯度（0 表示恒定速度）
+        % fmin=10: 通带低频
+        % fmax=50: 通带高频
+        % ieveryt=40: 每 40 个时间样本放置一个绕射点
+        % ieveryx=15: 每 15 个 x 样本放置一个绕射点
+        fprintf('创建绕射剖面（恒定速度模型）...\n');
+        EA1=AddEventDiffSection(EA1,20,.004,2000,2000,2000,0,10,50,40,15);
+        PlotEvent(EA1)
+
+        % FK 变换展示绕射特性
+        EA1 = FKT(EA1);
+        PlotFKT(EA1)
+
+        % 第二个案例：变速度模型
+        fprintf('创建绕射剖面（变速度模型）...\n');
+        EA2 = signal.EventAnalysis(paramsStruct, inputStruct);
+        EA2 = EA2.solve();
+        % 使用速度梯度 c=0.5，速度随深度增加
+        EA2=AddEventDiffSection(EA2,20,.004,2000,2000,2000,0.5,10,50,40,15);
+        PlotEvent(EA2)
+
+        EA2 = FKT(EA2);
+        PlotFKT(EA2)
+
+        fprintf('\n========== Demo17 完成 ==========\n');
+        fprintf('AddEventDiffSection: 创建规则网格绕射剖面\n');
+        fprintf('恒定速度 vs 变速度模型\n');
+        fprintf('v=2000 (恒定) vs v=2000+0.5*z (变速度)\n');
+        fprintf('适用于测试速度分析和偏移算法\n');
 
 
 

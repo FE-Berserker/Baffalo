@@ -32,10 +32,14 @@ function amat=event_diph2(amat,t,x,v,x0,x1,z0,ndelx,theta,amp,flag,noversamp)
 %
 
 
-if(nargin<12) noversamp=10; end
-if(nargin<11) flag=1; end
+if(nargin<12) 
+    noversamp=10; 
+end
+if(nargin<11) 
+    flag=1; 
+end
 
-if(ndelx<1 | rem(ndelx,1)~=0)
+if(ndelx<1 || rem(ndelx,1)~=0)
    error('invalid value for ndelx')
 end
 
@@ -46,18 +50,24 @@ end
 %loop over columns
 % 遍历列
 %nc= between(xlims(1),xlims(2),x,2);
-[nr,nc]=size(amat);
+[~,nc]=size(amat);
 
 v=v/2;
 
-if(length(amp)==1) amp=[amp amp]; end
+if(isscalar(amp)) 
+    amp=[amp amp]; 
+end
 
 %determine the origins of the hyperbolae
 % 确定双曲线的原点
 ind=between(x0,x1,x,2);
 ind=ind(1:ndelx:end);
-if(x0>x1) ind=fliplr(ind); end
-if(~ind) error('check x coordinates'); end
+if(x0>x1)
+    ind=fliplr(ind); 
+end
+if(~ind) 
+    error('check x coordinates');
+end
 xnot=zeros(size(ind));znot=xnot;tnot=xnot;
 xnot(1)=x(ind(1));znot(1)=z0;tnot(1)=znot(1)/v;
 dx=sign(x1-x0)*(x(2)-x(1));
@@ -89,7 +99,9 @@ dt2=dt/noversamp;
 ttmp=tmin:dt2:tmax;
 
 costheta=1;
-if(flag==1) costheta=cos(pi*theta/180); end
+if(flag==1) 
+    costheta=cos(pi*theta/180);
+end
 
 for k=1:nc %loop over traces
 % 遍历轨迹
