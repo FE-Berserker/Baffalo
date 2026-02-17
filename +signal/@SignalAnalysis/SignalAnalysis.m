@@ -18,12 +18,11 @@ classdef SignalAnalysis < Component
     %   - dt: 时间间隔
     %
     % Baseline: 无
-
+    %
     properties(Hidden, Constant)
-
         paramsExpectedFields = {
             'Name' % 组件名称
-            'Range' % 时间范围 
+            'Range' % 时间范围
             'Echo' % 是否打印输出
             };
 
@@ -35,26 +34,26 @@ classdef SignalAnalysis < Component
         outputExpectedFields = {
             't' % 输出时间
             'dt' % 时间间隔
-            's_Transform' % 转换后的信号
+            's_Transform' % 变换后的信号
             'Wavelet' % 小波
             'Noise' % 噪声
             's_Synthesis' % 合成噪声后的信号
             'FFT_s' % 原始信号快速傅里叶变换
-            'FFT_s_Transform' % 转换信号快速傅里叶变换
+            'FFT_s_Transform' % 变换信号快速傅里叶变换
             'FFT_s_Synthesis' % 合成信号快速傅里叶变换
             'SST'
             'TET'
             'WT'
             'Hilbert_s' % 原始信号希尔伯特变换
-            'Hilbert_s_Transform' % 转换信号希尔伯特变换
+            'Hilbert_s_Transform' % 变换信号希尔伯特变换
             'Hilbert_s_Synthesis' % 合成信号希尔伯特变换
             'Env_s' % 原始信号包络
-            'Env_s_Transform' % 转换信号包络
+            'Env_s_Transform' % 变换信号包络
             'Env_s_Synthesis'% 合成信号包络
             'FreqDom_s' % 原始信号主频
-            'FreqDom_s_Transform' % 转换信号主频
+            'FreqDom_s_Transform' % 变换信号主频
             'FreqDom_s_Synthesis' % 合成信号主频
-
+            'Corr' 
             };
 
         baselineExpectedFields = {
@@ -73,14 +72,14 @@ classdef SignalAnalysis < Component
             % 构造函数
             %   obj = SignalAnalysis(paramsStruct, inputStruct)
             %   obj = SignalAnalysis(paramsStruct, inputStruct, baselineStruct)
-
+            %
             % 调用父类构造函数
             obj = obj@Component(paramsStruct, inputStruct, varargin);
         end
 
         function obj = solve(obj)
             % 核心计算方法 - 分析时间序列信号
-
+            %
             % 检查输入完整性
             obj.Check();
 
@@ -132,7 +131,7 @@ classdef SignalAnalysis < Component
                 fprintf('  数据点数: %d\n', length(t));
                 fprintf('  时间范围: [%.6f, %.6f]\n', t(1), t(end));
                 fprintf('  时间间隔 dt: %.10f\n', obj.output.dt);
-                fprintf('==========================================\n\n');
+                fprintf('==========================================\n');
             end
         end
 
@@ -158,7 +157,7 @@ classdef SignalAnalysis < Component
 
             fprintf('\n【验证状态】\n');
             fprintf('  时间间隔     : 均匀\n');
-            fprintf('==========================================\n\n');
+            fprintf('==========================================\n');
         end
     end
 end

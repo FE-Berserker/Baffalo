@@ -20,8 +20,10 @@ close all
 % 16. Demo16 - 识别主频率(注意与FFT幅值谱的区别)
 % 17. Demo17 - 巴特沃斯滤波
 % 18. Demo18 - Gabor 变换
+% 19. Demo19 - 相关性分析
+% 20. Demo20 - 功率谱分析
 
-flag = 18;
+flag = 20;
 DemoSignalAnalysis(flag);
 
 function DemoSignalAnalysis(flag)
@@ -607,6 +609,217 @@ switch flag
 
         SA=Gabor(SA);
         PlotGabor(SA);
+
+    case 19
+        % Demo19 - 相关性分析
+        fprintf('\n========== Demo19: 相关性分析 ==========\n\n');
+
+        %% ========== 生成测试信号 ==========
+        fs = 1000;  % 采样频率
+        T = 1;      % 信号时长 [s]
+        t = 0:1/fs:T-1/fs;  % 时间数组
+
+        % 信号1: 正弦波 (自相关测试)
+        s1 = sin(2*pi*50*t);
+
+        % 信号2: 延迟版本的正弦波
+        delay_samples = 50;  % 延迟50个样本
+        s2 = [zeros(1, delay_samples), s1(1:end-delay_samples)];
+
+        %% ========== 案例1: 自相关分析 ==========
+        fprintf('\n--- 案例1: 自相关分析 ---\n');
+
+        inputStruct.t = t;
+        inputStruct.s = s1;
+        paramsStruct.Name = 'AutoCorrelation_Demo';
+        paramsStruct.Echo = 1;
+
+        SA1 = signal.SignalAnalysis(paramsStruct, inputStruct);
+        SA1 = SA1.solve();
+        PlotOriSignal(SA1, 'Title', '信号: 50Hz正弦波');
+
+        % 自相关分析 (s1 vs s1)
+        SA1 = Correlation(SA1, 0, 0);
+
+        % 使用 PlotCor 绘制自相关结果
+        PlotCor(SA1, 'Title', '自相关函数', 'Geom', 'stem');
+
+        %% ========== 案例2: 信号内部互相关 (input vs Transform) ==========
+        fprintf('\n--- 案例2: 信号内部互相关 ---\n');
+
+        inputStruct.t = t;
+        inputStruct.s = s1;
+        paramsStruct.Name = 'CrossCorrelation_Demo1';
+        paramsStruct.Echo = 1;
+
+        SA2 = signal.SignalAnalysis(paramsStruct, inputStruct);
+        SA2 = SA2.solve();
+
+        % 进行信号变换，得到不同的输出信号
+        SA2 = WaveletTransform(SA2, 'WaveType', 'min', 'fdom', 50);
+
+        % 互相关分析 (input.s vs output.s_Transform)
+        SA2 = Correlation(SA2, 0, 1);
+
+        % 使用 PlotCor 绘制互相关结果
+        PlotCor(SA2, 'Title', '互相关函数 (原始信号 vs 变换信号)', 'LagRange', [-0.1, 0.1]);
+
+        % 绘制原始信号和变换信号对比
+        figure;
+        hold on;
+        plot(t, SA2.input.s, 'b', 'LineWidth', 1.5);
+        plot(SA2.output.t, SA2.output.s_Transform, 'r', 'LineWidth', 1.5);
+        title('原始信号 vs 变换信号');
+        xlabel('时间 [s]');
+        ylabel('幅值');
+        legend('原始信号', '变换信号');
+        grid on;
+
+        %% ========== 案例3: 复合信号自相关 ==========
+        fprintf('\n--- 案例3: 复合信号自相关 ---\n');
+
+        % 创建包含两个频率成分的复合信号
+        s3 = s1 + s2;  % 叠加原始信号和延迟信号
+
+        inputStruct.t = t;
+        inputStruct.s = s3;
+        paramsStruct.Name = 'CrossCorrelation_Demo2';
+        paramsStruct.Echo = 1;
+
+        SA3 = signal.SignalAnalysis(paramsStruct, inputStruct);
+        SA3 = SA3.solve();
+        PlotOriSignal(SA3, 'Title', '信号: 原始信号 + 延迟信号');
+
+        % 自相关分析
+        SA3 = Correlation(SA3, 0, 0);
+
+        % 使用 PlotCor 绘制自相关结果
+        PlotCor(SA3, 'Title', '复合信号自相关函数', 'LagRange', [-0.2, 0.2]);
+
+        %% ========== 总结 ==========
+        fprintf('\n========== 相关性分析总结 ==========\n');
+        fprintf('  案例1: 纯正弦波自相关 - 在零延迟处出现峰值\n');
+        fprintf('  案例2: 原始信号与变换信号互相关 - 反映变换前后关系\n');
+        fprintf('  案例3: 复合信号自相关 - 包含延迟信息\n');
+        fprintf('==========================================\n');
+
+        fprintf('\n========== Demo19 完成 ==========\n');
+
+    case 20
+        % Demo20 - 功率谱分析
+        fprintf('\n========== Demo20: 功率谱分析 ==========\n\n');
+
+        %% ========== 生成测试信号 ==========
+        fs = 1000;  % 采样频率
+        T = 1;      % 信号时长 [s]
+        t = 0:1/fs:T-1/fs;  % 时间数组
+
+        % 信号1: 包含两个频率成分的信号
+        s1 = 0.8 * sin(2*pi*50*t) + 0.5 * sin(2*pi*120*t);
+
+        % 添加随机噪声
+        s1 = s1 + 0.2 * randn(size(t));
+
+        %% ========== 案例1: 自功率谱分析 (Welch PSD) ==========
+        fprintf('\n--- 案例1: 自功率谱分析 ---\n');
+
+        inputStruct.t = t;
+        inputStruct.s = s1;
+        paramsStruct.Name = 'PowerSpectrum_Demo1';
+        paramsStruct.Echo = 1;
+
+        SA1 = signal.SignalAnalysis(paramsStruct, inputStruct);
+        SA1 = SA1.solve();
+        PlotOriSignal(SA1, 'Title', '含噪双频信号 (50Hz + 120Hz)');
+
+        % 自功率谱分析 (s1 vs s1)
+        % 使用更大的窗口长度提高频率分辨率
+        SA1 = PowerSpectrum(SA1, 0, 0, 'Window', 'hamming', 'WindowLength', 1024);
+
+        % 绘制线性刻度的功率谱
+        PlotPowerSpectrum(SA1, 'Title', '自功率谱密度 (线性刻度)', 'YScale', 'linear', 'ShowConfidence', false);
+
+        % 绘制 dB 刻度的功率谱
+        PlotPowerSpectrum(SA1, 'Title', '自功率谱密度 (dB)', 'YScale', 'db');
+
+        %% ========== 案例2: 不同窗函数对比 ==========
+        fprintf('\n--- 案例2: 不同窗函数对比 ---\n');
+
+        % 创建纯净的测试信号
+        s2 = 0.8 * sin(2*pi*50*t) + 0.5 * sin(2*pi*120*t);
+
+        inputStruct.s = s2;
+        paramsStruct.Name = 'PowerSpectrum_Demo2';
+        paramsStruct.Echo = 1;
+
+        SA2 = signal.SignalAnalysis(paramsStruct, inputStruct);
+        SA2 = SA2.solve();
+
+        % 使用不同窗函数计算功率谱
+        SA2 = PowerSpectrum(SA2, 0, 0, 'Window', 'hamming', 'WindowLength', 1024);
+        SA2_hann = signal.SignalAnalysis(paramsStruct, inputStruct);
+        SA2_hann = SA2_hann.solve();
+        SA2_hann = PowerSpectrum(SA2_hann, 0, 0, 'Window', 'hann', 'WindowLength', 1024);
+
+        % 对比不同窗函数的结果
+        figure;
+        subplot(2,1,1);
+        hold on;
+        plot(SA2.output.PSD_s.f, SA2.output.PSD_s.PxxdB, 'b', 'LineWidth', 1.5);
+        plot(SA2_hann.output.PSD_s.f, SA2_hann.output.PSD_s.PxxdB, 'r', 'LineWidth', 1.5);
+        title('不同窗函数的功率谱对比');
+        xlabel('频率 [Hz]');
+        ylabel('功率谱密度 [dB]');
+        legend('Hamming 窗', 'Hann 窗');
+        grid on;
+        hold off;
+
+        subplot(2,1,2);
+        hold on;
+        plot(SA2.output.PSD_s.f, SA2.output.PSD_s.Pxx, 'b', 'LineWidth', 1.5);
+        plot(SA2_hann.output.PSD_s.f, SA2_hann.output.PSD_s.Pxx, 'r', 'LineWidth', 1.5);
+        title('不同窗函数的功率谱对比 (线性刻度)');
+        xlabel('频率 [Hz]');
+        ylabel('功率谱密度');
+        legend('Hamming 窗', 'Hann 窗');
+        grid on;
+        hold off;
+
+        %% ========== 案例3: 互功率谱分析 ==========
+        fprintf('\n--- 案例3: 互功率谱分析 ---\n');
+
+        % 信号3: 与信号1有相似成分但相位不同
+        s3 = 0.8 * sin(2*pi*50*t + pi/4) + 0.5 * sin(2*pi*120*t);
+
+        inputStruct.s = s3;
+        paramsStruct.Name = 'PowerSpectrum_Demo3';
+        SA3 = signal.SignalAnalysis(paramsStruct, inputStruct);
+        SA3 = SA3.solve();
+        PlotOriSignal(SA3, 'Title', '信号3: 相位偏移的50Hz+120Hz信号');
+
+        % 重新创建信号1的对象用于互相关
+        inputStruct.s = s1;
+        paramsStruct.Name = 'PowerSpectrum_Demo1_2';
+        SA1_2 = signal.SignalAnalysis(paramsStruct, inputStruct);
+        SA1_2 = SA1_2.solve();
+
+        % 将信号1的数据存到SA3的output中用于互功率谱计算
+        SA3.output.s_Transform = SA1_2.input.s;
+
+        % 互功率谱分析 (input.s vs output.s_Transform)
+        SA3 = PowerSpectrum(SA3, 0, 1, 'Window', 'hamming', 'WindowLength', 1024);
+
+        % 绘制互功率谱
+        PlotPowerSpectrum(SA3, 'Title', '互功率谱密度 (CPSD)', 'YScale', 'db');
+
+        %% ========== 总结 ==========
+        fprintf('\n========== 功率谱分析总结 ==========\n');
+        fprintf('  案例1: 自功率谱分析 - 使用 Welch 方法估计 PSD\n');
+        fprintf('  案例2: 窗函数对比 - Hamming 和 Hann 窗的效果\n');
+        fprintf('  案例3: 互功率谱分析 - 使用 CPSD 分析两个信号\n');
+        fprintf('==========================================\n');
+
+        fprintf('\n========== Demo20 完成 ==========\n');
 
 
 end
