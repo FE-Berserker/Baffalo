@@ -109,8 +109,19 @@ classdef Component<matlab.mixin.Copyable
     end
 
     methods (Hidden)
-        function PlotStruct(obj)
+        function PlotStruct(obj,varargin)
             % Plot Structure of component
+            % varargin:
+            %   'filename' - 指定保存文件名（如未指定则交互式保存）
+            %   'format' - 图片格式 ('png', 'jpg', 'pdf' 等，默认 'png')
+            %   'resolution' - 分辨率 ('screen', '300', '600' 等，默认 'screen')
+            p=inputParser;
+            addParameter(p,'filename','');
+            addParameter(p,'format','png');
+            addParameter(p,'resolution','screen');
+            parse(p,varargin{:});
+            opt=p.Results;
+
             Input=fieldnames(obj.input);
             Output=fieldnames(obj.output);
             Params=fieldnames(obj.params);
@@ -141,11 +152,19 @@ classdef Component<matlab.mixin.Copyable
             g=set_color_options(g,'map','brewer2');
             g=set_text_options(g,'interpreter','none');
             draw(g);
+
+            % Save image if filename is specified
+            if ~isempty(opt.filename)
+                g.save_image(opt.filename,'format',opt.format,'resolution',opt.resolution);
+            end
         end
 
         function PlotCapacity(obj,varargin)
             p=inputParser;
             addParameter(p,'ylim',[0,5]);
+            addParameter(p,'filename','');
+            addParameter(p,'format','png');
+            addParameter(p,'resolution','screen');
             parse(p,varargin{:});
             opt=p.Results;
 
@@ -173,6 +192,11 @@ classdef Component<matlab.mixin.Copyable
             g=axe_property(g,'YLim',opt.ylim);
             figure('Position',[100 100 800 600])
             draw(g);
+
+            % Save image if filename is specified
+            if ~isempty(opt.filename)
+                g.save_image(opt.filename,'format',opt.format,'resolution',opt.resolution);
+            end
         end
 
         function [Base,Capacity]=OutputCapacity(obj)

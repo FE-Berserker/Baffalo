@@ -82,8 +82,52 @@ switch lower(opts.Geom)
         g = geom_line(g);
     case 'point'
         g = geom_point(g);
+    case 'both'
+        g = geom_line(g);
+        g = geom_point(g);
+    case 'stem'
+        % stem 类型需要使用常规 MATLAB stem 函数
+        % 先创建基础图形，然后用 stem 覆盖
+        figure('Position', [100 100 1600 600]);
+        stem(lag_time, corr_values, 'LineWidth', 1.5);
+        xlabel(opts.XLabel);
+        ylabel(opts.YLabel);
+        title(opts.Title);
+        grid on;
+
+        % 添加零延迟标记
+        if opts.ShowZeroLag
+            hold on;
+            plot([0, 0], ylim, 'k--', 'LineWidth', 1.5);
+            text(0, max(ylim)*0.95, '零延迟', 'HorizontalAlignment', 'center');
+            hold off;
+        end
+
+        % 添加最大相关值标记
+        if opts.ShowMaxLag
+            hold on;
+            [max_corr, max_idx] = max(corr_values);
+            max_lag = lag_time(max_idx);
+            plot(max_lag, max_corr, 'ro', 'MarkerSize', 10, 'LineWidth', 2);
+            text(max_lag, max_corr, sprintf('  最大值: %.3f\n  延迟: %.4f s', max_corr, max_lag), ...
+                'VerticalAlignment', 'bottom');
+            hold off;
+        end
+
+        % 保存图形（如果需要）
+        if opts.SaveFig
+            saveas(gcf, opts.SavePath);
+            if obj.params.Echo
+                fprintf('图形已保存至: %s\n', opts.SavePath);
+            end
+            if opts.CloseFig
+                close(gcf);
+            end
+        end
+
+        return; % stem 类型直接返回
     otherwise
-        error('不支持的 Geom 类型，请选择：line, point');
+        error('不支持的 Geom 类型，请选择：line, point, both, stem');
 end
 
 %% 设置标题和标签
