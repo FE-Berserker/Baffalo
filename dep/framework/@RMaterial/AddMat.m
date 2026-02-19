@@ -56,7 +56,18 @@ switch obj.SheetName
         Mat.E=Mat.E/adjust2;
         Mat.a=Mat.a*1e6;
         NewMat=Mat;
-    case 'Magnetic'
+    case 'Spring'
+        NewMat.No=Mat.No;
+        NewMat.Name=Mat.Name;
+        NewMat.ASTM=Mat.ASTM;
+        NewMat.SAE=Mat.SAE;
+        NewMat.Density=Mat.Density/adjust1;
+        NewMat.Poisson=Mat.v;
+        NewMat.E=Mat.E/adjust2;
+        NewMat.a=Mat.a*1e6;
+        NewMat.G=Mat.G/adjust2;
+        NewMat.A=Mat.A/adjust2;
+        NewMat.b=Mat.b;
 
 
 end

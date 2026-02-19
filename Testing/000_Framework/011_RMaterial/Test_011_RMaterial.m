@@ -9,7 +9,9 @@ close all
 %% 5 FEA Material, Add Material and delete material
 %% 6 Magnetic
 %% 7 Add Composite Material template
-flag=7;
+%% 8 Spring Material
+%% 9 PlotMatDB - Plot material database
+flag=9;
 testRMaterial(flag);
 function testRMaterial(flag)
 switch flag
@@ -66,6 +68,50 @@ switch flag
         S=AddMat(S,M);
         mat=GetMat(S,size(S.Sheet,1));
         disp(mat{1,1});
-    
+    case 8
+        S=RMaterial('Spring');
+        disp(S.Sheet);
+        % Get single material
+        mat=GetMat(S,1);
+        disp(mat{1,1});
+        % Get multiple materials
+        mats=GetMat(S,[1;2;3]);
+        disp('Multiple spring materials:');
+        for i=1:length(mats)
+            disp(['Material ' num2str(i) ': ' mats{i}.Name]);
+            disp(['  ASTM: ' mats{i}.ASTM]);
+            disp(['  SAE: ' mats{i}.SAE]);
+            disp(['  E = ' num2str(mats{i}.E) ' Pa']);
+            disp(['  G = ' num2str(mats{i}.G) ' Pa']);
+            disp(['  A = ' num2str(mats{i}.A)]);
+            disp(['  b = ' num2str(mats{i}.b)]);
+        end
+
+    case 9
+        % Test PlotMatDB with direct parameters
+        disp('Test 9.1: PlotMatDB with direct parameters (Composite - E1 vs E2)');
+        S = RMaterial('Composite');
+        PlotMatDB(S, 'XField', 'E1', 'YField', 'E2');
+
+        % Test with different material sheet
+        disp('Test 9.2: PlotMatDB with Spring material');
+        S = RMaterial('Spring');
+        PlotMatDB(S, 'XField', 'E', 'YField', 'G');
+
+        % Test with Basic material
+        disp('Test 9.3: PlotMatDB with Basic material');
+        S = RMaterial('Basic');
+        PlotMatDB(S, 'XField', 'Density', 'YField', 'E');
+
+        % Test interactive mode (commented out to avoid blocking automated tests)
+        % disp('Test 9.4: Interactive mode (uncomment to test)');
+        % S = RMaterial('');
+        % PlotMatDB(S);
+
+        % Test with Unit parameter
+        disp('Test 9.5: PlotMatDB with Unit=2 (SI units)');
+        S = RMaterial('Composite');
+        PlotMatDB(S, 'XField', 'E1', 'YField', 'E2', 'Unit', 2);
+
 end
 end

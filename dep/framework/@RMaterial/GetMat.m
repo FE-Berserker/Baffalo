@@ -150,6 +150,21 @@ switch obj.SheetName
             Mat{i,1}.v100=obj.Sheet.v100(num(i,1),1);
             Mat{i,1}.Dens=obj.Sheet.Dens(num(i,1),1);
         end
+    case 'Spring'
+        Mat=cell(size(num,1),1);
+        for i=1:size(num,1)
+            Mat{i,1}.ID=obj.Sheet.No(num(i,1),1);
+            Mat{i,1}.Name=obj.Sheet.Name{num(i,1),1};
+            Mat{i,1}.ASTM=obj.Sheet.ASTM{num(i,1),1};
+            Mat{i,1}.SAE=obj.Sheet.SAE{num(i,1),1};
+            Mat{i,1}.Dens=obj.Sheet.Density(num(i,1),1)*adjust1;
+            Mat{i,1}.v=obj.Sheet.Poisson(num(i,1),1);
+            Mat{i,1}.E=obj.Sheet.E(num(i,1),1)*adjust2;
+            Mat{i,1}.a=obj.Sheet.a(num(i,1),1)*1e-6;
+            Mat{i,1}.G=obj.Sheet.G(num(i,1),1)*adjust2;
+            Mat{i,1}.A=obj.Sheet.A(num(i,1),1);
+            Mat{i,1}.b=obj.Sheet.b(num(i,1),1);
+        end
 end
 
 

@@ -40,6 +40,9 @@ classdef RMaterial<handle
                     Mat=load('FEA.mat');
                 case 'Lubricant'
                     Mat=load('Lubricant.mat');
+                case 'Spring'
+                    Mat=load('Spring.mat');
+                case 'Spring_User'
 
             end
             obj.Sheet=Mat.Mat;
