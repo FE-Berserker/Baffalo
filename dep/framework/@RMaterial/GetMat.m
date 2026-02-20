@@ -6,6 +6,41 @@ addParameter(p,'unit',1);
 parse(p,varargin{:});
 opt=p.Results;
 
+% Handle optional num parameter
+if nargin < 2 || isempty(num)
+    if ~isempty(obj.Material)
+        num = obj.Material;
+    else
+        % Default to first material for Spring sheet
+        if strcmp(obj.SheetName, 'Spring')
+            num = 1;
+        else
+            error('Please specify material number or set Material property');
+        end
+    end
+end
+% Get material properties
+% Author : Xie Yu
+p=inputParser;
+addParameter(p,'unit',1);
+parse(p,varargin{:});
+opt=p.Results;
+
+% Use obj.Material if num is not provided or empty
+if isempty(num)
+    if ~isempty(obj.Material)
+        num = obj.Material;
+    else
+        % Default to first material for Spring sheet
+        if strcmp(obj.SheetName, 'Spring')
+            num = 1;
+        else
+            error('Please specify material number or set Material property');
+        end
+    end
+end
+
+
 switch opt.unit
     case 1 % tonne mm s ℃ mA mN mV
         adjust1=1e-12; % Density

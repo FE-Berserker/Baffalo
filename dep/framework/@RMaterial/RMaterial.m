@@ -6,6 +6,7 @@ classdef RMaterial<handle
         Sheet % Material sheet
         SheetName % Sheet Name
         Mat % Material Properity
+        Material % Material row number (for selecting specific material)
         Echo % print
     end
     
@@ -14,10 +15,12 @@ classdef RMaterial<handle
             % default values
             p=inputParser;
             addParameter(p,'Echo',1);
+            addParameter(p,'Material',[]);
             parse(p,varargin{:});
             opt=p.Results;
 
             obj.Echo=opt.Echo;
+            obj.Material=opt.Material;
 
             obj.SheetName=tablename;
             switch obj.SheetName
@@ -47,6 +50,15 @@ classdef RMaterial<handle
             end
             obj.Sheet=Mat.Mat;
             obj.SheetName=tablename;
+
+            % Handle Material property for Spring sheet
+            if strcmp(tablename, 'Spring') && isempty(obj.Material)
+                % Default to first material in Spring library
+                obj.Material = 1;
+                if obj.Echo
+                    fprintf('Using default material: %s (row %d)\n', obj.Sheet.Name{1}, 1);
+                end
+            end
 
             if obj.Echo
                 fprintf('Successfully get material database .\n');
