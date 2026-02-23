@@ -20,7 +20,7 @@ close all
 % 16. Demo16 - 波前圆事件
 % 17. Demo17 - 绕射剖面
 
-flag = 19;
+flag = 3;
 DemoEventAnalysis(flag);
 
 function DemoEventAnalysis(flag)

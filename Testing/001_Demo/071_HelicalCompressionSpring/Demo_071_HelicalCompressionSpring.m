@@ -10,8 +10,10 @@ close all
 % 4. Chrome-vanadium steel material
 % 5. Shot peened spring for fatigue life
 % 6. Compare different designs
+% 7. Example 2: Static load spring with adjustment range
+% 8. Example 3: Dynamic load spring with fatigue life
 
-flag=6;
+flag=8;
 DemoHelicalCompressionSpring(flag);
 
 function DemoHelicalCompressionSpring(flag)
@@ -29,7 +31,9 @@ switch flag
         inputStruct1.EndCondition = 'fixed_free'; % 'fixed_fixed' or 'fixed_free'
 
         % Use default material (A228 music wire)
-        paramsStruct1 = struct();
+        S=RMaterial('Spring');
+        mat=GetMat(S,2);  % A228 music wire
+        paramsStruct1.Material = mat{1,1};
 
         obj1 = connection.HelicalCompressionSpring(paramsStruct1, inputStruct1);
         obj1 = obj1.solve();
@@ -125,6 +129,9 @@ switch flag
         obj1 = connection.HelicalCompressionSpring(paramsStruct1, inputStruct1);
         obj1 = obj1.solve();
 
+        % Plot S-N curve
+        obj1.PlotSNCurve();
+
     case 6
         % Case 6: Compare different spring designs
         % Compare springs with different design parameters
@@ -186,5 +193,88 @@ switch flag
         fprintf('  Spring Rate: %.3f N/mm\n', obj3.output.SpringRate);
         fprintf('  Max Stress: %.2f MPa\n', obj3.output.MaxShearStress);
         fprintf('  Static SF: %.2f\n', obj3.output.SafetyFactorStatic);
+
+    case 7
+        % Case 7: Example 2 - Static load spring with adjustment range
+        % Design a compression spring for a static load over a known deflection
+        % Given: The spring must give a minimum force of 100 lb (445 N)
+        % and a maximum force of 150 lb (667 N) over an adjustment range
+        % of 0.75-in (19.05 mm) deflection
+        % Assumptions: Use the least expensive, unpeened, cold-drawn spring
+        % wire (ASTM A227) since the loads are static
+
+        inputStruct1.WireDiameter = 4.88;       % (mm) Wire diameter d
+        inputStruct1.MeanDiameter = 4.88*8;         % (mm) Mean coil diameter D
+        inputStruct1.FreeLength = 108;           % (mm) Free length Lf
+        inputStruct1.WorkingForce = 667;        % (N) Max working load F (150 lb)
+        inputStruct1.WorkingDeflection = 25.4;  % (mm) Working deflection y (1.00 in)
+        inputStruct1.LoadType = 'static';         % 'static' or 'dynamic'
+        inputStruct1.EndType = 'square_ground';    % 'open', 'open_ground', 'square', 'square_ground'
+        inputStruct1.EndCondition = 'fixed_free'; % 'fixed_fixed' or 'fixed_free'
+
+        % Use A227 cold-drawn spring wire (least expensive)
+        paramsStruct1.IsSet = 1;
+        paramsStruct1.R=2/3;
+
+        obj1 = connection.HelicalCompressionSpring(paramsStruct1, inputStruct1);
+        obj1 = obj1.solve();
+
+ 
+
+        fprintf('\n--- Example 2 Verification ---\n');
+        fprintf('Required: Min force = 445 N (100 lb), Max force = 667 N (150 lb)\n');
+        fprintf('         Adjustment range = 19.05 mm (0.75 in)\n');
+        fprintf('Design results:\n');
+        fprintf('  Spring Rate: %.3f N/mm\n', obj1.output.SpringRate);
+        fprintf('  Actual Deflection: %.3f mm\n', obj1.output.ActualDeflection);
+
+    case 8
+        % Case 8: Example 3 - Dynamic load spring with fatigue life
+        % Design a compression spring for a dynamic load over a given deflection
+        % Given:
+        %   - Minimum force: 60 lb (267 N)
+        %   - Maximum force: 150 lb (667 N)
+        %   - Dynamic deflection: 1.00 in (25.4 mm)
+        %   - Forcing frequency: 1000 rpm = 16.67 Hz
+        %   - Life: 10-year, 1-shift operation
+        % Assumptions:
+        %   - Music wire (ASTM A228) for dynamic loads
+        %   - Peening for higher endurance strength
+
+        inputStruct1.WireDiameter = 5.26;       % (mm) Wire diameter d
+        inputStruct1.MeanDiameter = 7*5.26;         % (mm) Mean coil diameter D
+        inputStruct1.FreeLength = 108;           % (mm) Free length Lf
+        inputStruct1.WorkingForce = 667;        % (N) Max working load F (150 lb)
+        inputStruct1.WorkingDeflection = 25.4;  % (mm) Working deflection y (1.00 in)
+        inputStruct1.LoadType = 'dynamic';       % 'static' or 'dynamic'
+        inputStruct1.EndType = 'square_ground'; % 'open', 'open_ground', 'square', 'square_ground'
+        inputStruct1.EndCondition = 'fixed_fixed'; % 'fixed_fixed' or 'fixed_free'
+        inputStruct1.LoadingFreq = 16.67;      % (Hz) Loading frequency (1000 rpm / 60)
+
+        % Use A228 music wire with shot peening for fatigue life
+        S=RMaterial('Spring');
+        mat=GetMat(S,2);  % A228 music wire
+
+        paramsStruct1 = struct();
+        paramsStruct1.IsShotPeened = true;      % Shot peening for higher endurance strength
+        paramsStruct1.Cycles = 1.2e9;            % 10-year, 1-shift operation cycles
+        paramsStruct1.R=2/5;
+        paramsStruct1.Material=mat{1,1};
+
+        obj1 = connection.HelicalCompressionSpring(paramsStruct1, inputStruct1);
+        obj1 = obj1.solve();
+
+        fprintf('\n--- Example 3 Verification ---\n');
+        fprintf('Required: Min force = 267 N (60 lb), Max force = 667 N (150 lb)\n');
+        fprintf('         Dynamic deflection = 25.4 mm (1.00 in)\n');
+        fprintf('         Frequency = 16.67 Hz (1000 rpm)\n');
+        fprintf('         Life = 10 years (1-shift operation)\n');
+        fprintf('Design results:\n');
+        fprintf('  Spring Rate: %.3f N/mm\n', obj1.output.SpringRate);
+        fprintf('  Actual Deflection: %.3f mm\n', obj1.output.ActualDeflection);
+        fprintf('  Natural Frequency: %.2f Hz\n', obj1.output.NaturalFrequency);
+        fprintf('  Surge Ratio: %.2f\n', obj1.output.SurgeRatio);
+        fprintf('  Fatigue Safety Factor: %.2f\n', obj1.output.SafetyFactorFatigue);
+
 end
 end
