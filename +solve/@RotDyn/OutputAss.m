@@ -305,16 +305,15 @@ switch obj.params.Type
             obj.input.Speed=0;
         end
 
+        Ass=AddGroup(Ass,(1:ElNum)');
         for i=1:size(obj.input.Speed,2)
             if isempty(obj.input.Housing)
                 opt1.OMEGA=obj.input.Speed(1,i)/60*2*pi;% RPM to rad/s
                 opt1.SOLVE=[];
                 Ass=AddSolu(Ass,opt1);
-            else
-                for j=1:ElNum
-                    opt1.CMOMEGA=[strcat("Part",num2str(j)),obj.input.Speed(1,i)/60*2*pi];
-                    Ass=AddSolu(Ass,opt1);
-                end
+            else        
+                opt1.CMOMEGA=["Group1",obj.input.Speed(1,i)/60*2*pi,0,0];
+                Ass=AddSolu(Ass,opt1);
                 opt2.SOLVE=[];
                 Ass=AddSolu(Ass,opt2);
             end
@@ -326,7 +325,11 @@ switch obj.params.Type
             if and(size(obj.input.Speed,2)==1,obj.input.Speed(1)==0)
                 Ass=AddSensor(Ass,'SetList','Frequency');
             else
-                Ass=AddSensor(Ass,'Campbell',1);
+                if isempty(obj.input.Housing)
+                    Ass=AddSensor(Ass,'Campbell',1);
+                else
+                    Ass=AddSensor(Ass,'Campbell',1,'Group',1);
+                end
             end
         end
 

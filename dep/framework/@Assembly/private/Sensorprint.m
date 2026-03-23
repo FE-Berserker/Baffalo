@@ -47,7 +47,12 @@ for i=1:size(obj.Sensor,1)
         case "Campbell"
             fprintf(fid, '%s\n','ALLSEL,ALL');
             fprintf(fid, '%s\n','/OUTPUT,Campbell,txt');
-            fprintf(fid, '%s\n','PRCAMP,,,RPM,,,,1');
+            if isempty(obj.Sensor{i,1}.Group(1,1))
+                fprintf(fid, '%s\n','PRCAMP,,,RPM,,,,1');
+            else
+                sen=strcat('PRCAMP,,,RPM,,Group',num2str(obj.Sensor{i,1}.Group(1,1)),',,1');
+                fprintf(fid, '%s\n',sen);
+            end
             fprintf(fid, '%s\n','/OUTPUT');
         case "ORB"
             fprintf(fid, '%s\n','ALLSEL,ALL');

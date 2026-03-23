@@ -43,8 +43,8 @@ function P = InterX(L1,varargin)
 %   and line segments of the other.
 
     %...Argument checks and assignment of L2
-    error(nargchk(1,2,nargin));
-    if nargin == 1,
+    narginchk(1,2);
+    if nargin == 1
         L2 = L1;    hF = @lt;   %...Avoid the inclusion of common points
     else
         L2 = varargin{1}; hF = @le;
@@ -65,7 +65,10 @@ function P = InterX(L1,varargin)
 
     %...Obtain the segments where an intersection is expected
     [i,j] = find(C1 & C2); 
-    if isempty(i),P = zeros(2,0);return; end;
+    if isempty(i)
+        P = zeros(2,0);
+        return
+    end
     
     %...Transpose and prepare for output
     i=i'; dx2=dx2'; dy2=dy2'; S2 = S2';

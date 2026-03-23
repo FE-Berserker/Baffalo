@@ -26,7 +26,7 @@ plotFlag = true;
 % 20. Rotor speedup analysis with AMB
 % 21. Generate unbalance time series
 % 22. Modal analysis with housing
-flag=22;
+flag=2;
 DemoRotDyn(flag);
 
 function DemoRotDyn(flag)

@@ -18,6 +18,7 @@ addParameter(k,'Name',[]);% Set name for sensor
 addParameter(k,'Set',[]);% Set set for sensor
 addParameter(k,'SetList',[]);% Set set vlist for sensor
 addParameter(k,'Corner',1);% Select corner or not
+addParameter(k,'Group',[]);% Select Group Num
 parse(k,varargin{:});
 opt=k.Results;
 
@@ -53,6 +54,7 @@ end
 
 if ~isempty(opt.Campbell)
     obj.Sensor{num+1,1}.Type='Campbell';
+    obj.Sensor{num+1,1}.Group=opt.Group;
 end
 
 if ~isempty(opt.ORB)

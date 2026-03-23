@@ -1,8 +1,8 @@
 function V = VolumeCal(obj)
 % Calculate volume of mesh
 % Author : Xie Yu
-elements=obj.meshoutput.elements;
-nodes=obj.meshoutput.nodes;
+elements=obj.Meshoutput.elements;
+nodes=obj.Meshoutput.nodes;
 numel=size(elements,1);
 V=zeros(numel,1);
 NodeNum=size(elements,2);

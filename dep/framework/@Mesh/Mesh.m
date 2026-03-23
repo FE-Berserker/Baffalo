@@ -1,4 +1,4 @@
-classdef Mesh< handle
+classdef Mesh < matlab.mixin.Copyable
     % Mesh object
     % Author : Xie Yu
     

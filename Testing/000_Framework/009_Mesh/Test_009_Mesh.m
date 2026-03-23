@@ -37,7 +37,9 @@ close all
 % 33 Mesh pyramid
 % 34 Add internal points
 % 35 Input STP file
-flag=1;
+% 36 Calculate inertia
+
+flag=36;
 testMesh(flag);
 function testMesh(flag)
 switch flag
@@ -607,6 +609,40 @@ switch flag
         mm=Mesh('Gear');
         mm=InputSTP(mm,'Gear.step','Size',0.01);
         PlotFace(mm)
+    case 36
+        %% Specifying dimensions and number of elements
+        m1=Mesh('Mesh');
+        %% Create a box with hexahedral elements
+        cubeDimensions=[10 10 10]; %Dimensions
+        cubeElementNumbers=[5 5 5]; %Number of elements
+        m1=MeshCube(m1,cubeDimensions,cubeElementNumbers);
+        %% Plot elements
+        PlotFace(m1,'face_alpha',1);
+
+        Inertia1=InertiaCal(m1);
+        disp(Inertia1);% 正方体网格测试
+
+        %Specifying dimensions and number of elements
+        m2=Mesh('Cylinder Mesh');
+        m2=MeshCylinder(m2,1,30,50,'ElementType','quad');
+        PlotFace(m2);
+        % The cyclinder is meshed using tetrahedral elements using tetgen
+        m2=Mesh3D(m2); % Mesh model using tetrahedral elements using tetGen
+
+        Inertia2=InertiaCal(m2);
+        disp(Inertia2);% 圆柱体网格测试
+
+        %Sphere parameters
+        numRefineStepsSphere=3;
+        sphereRadius=2;
+
+        m3=Mesh('Demo Sphere Mesh');
+        m3=MeshSphere(m3,numRefineStepsSphere,sphereRadius);
+        PlotFace(m3);
+
+        Inertia3=InertiaCal(m3);
+        disp(Inertia3);% 圆柱体网格测试
+
 
 end
 end
