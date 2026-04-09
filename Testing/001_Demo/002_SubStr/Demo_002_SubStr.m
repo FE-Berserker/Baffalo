@@ -6,7 +6,7 @@ plotFlag = true;
 % setBaffaloPath
 % 1. Shaft1 compare (Rigid connection)
 % 2. Shaft1 compare (flexibe connection)
-flag=1;
+flag=2;
 DemoSubStr(flag);
 
 function DemoSubStr(flag)
