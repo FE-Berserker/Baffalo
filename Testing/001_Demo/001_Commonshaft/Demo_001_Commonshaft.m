@@ -18,7 +18,7 @@ plotFlag = true;
 % 12 Plot Face No
 % 13 Output STL
 
-flag=12;
+flag=4;
 obj1=DemoCommmonshaft(flag);
 
 function obj1=DemoCommmonshaft(flag)

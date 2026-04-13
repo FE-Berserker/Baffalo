@@ -1,1 +1,1 @@
-C:\Program Files\ANSYS Inc\v201\ansys\bin\winx64\ANSYS201.exe
+D:\Software\ANSYS Inc1\v201\ansys\bin\winx64\ANSYS201.exe

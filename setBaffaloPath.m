@@ -21,21 +21,20 @@ addpath( fullfile( rootDir, 'dep','framework','external','abravibe' ));
 addpath( fullfile( rootDir, 'dep', 'framework','femm42','mfiles' ) );
 
 % Set ANSYS Path
-ANSYS_Path='C:\Program Files\ANSYS Inc\v201\ansys\bin\winx64\ANSYS201.exe';
+ANSYS_Path='D:\Software\ANSYS Inc1\v201\ansys\bin\winx64\ANSYS201.exe';
 fileID = fopen(fullfile( rootDir, 'dep', 'framework','ANSYSPath.txt'),'w');
 fwrite(fileID,ANSYS_Path);
 fclose(fileID);
 
 % SetParaViewPath
-ParaViewDir="D:\005_Lib\ParaView\bin";
+ParaViewDir="D:\Software\ParaView 6.1.0\bin";
 fileID = fopen(fullfile( rootDir, 'dep', 'framework','ParaViewPath.txt'),'w');
 fwrite(fileID,strcat(ParaViewDir,'\paraview.exe'));
 fclose(fileID);
 
 % SetSimpackPath
-Simpack_Path='D:\SimPack\run\bin\win64';
+Simpack_Path='D:\Software\SimPack\run\bin\win64';
 fileID = fopen(fullfile( rootDir, 'dep', 'framework','SimpackPath.txt'),'w');
 fwrite(fileID,Simpack_Path);
 fclose(fileID);
-
 end
