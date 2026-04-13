@@ -1,0 +1,10 @@
+[project]
+name = "001-matlabplace"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "matlabengine==25.2.2",
+    "numpy>=2.4.4",
+]
