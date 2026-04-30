@@ -1,9 +1,30 @@
-function Contactprint(obj,fid)
+function Contactprint(obj,fid,varargin)
 % Contact print
 % Author: Xie Yu
 
+p=inputParser;
+addParameter(p,'Ori',[]);
+addParameter(p,'Rep',[]);
+addParameter(p,'ExistSubStrM',0);
+parse(p,varargin{:});
+opt=p.Results;
+
+% Check substrM
+if opt.ExistSubStrM==1
+    Ori=opt.Ori;
+    Rep=opt.Rep;
+    ExistSubStrM=1;
+else
+    ExistSubStrM=0;
+end
+
 fprintf(fid, '%s\n','ESEL,ALL');
 m=GetNET(obj);
+
+if ~isempty(obj.SubStr)
+    m=m+obj.Summary.Total_SubStr;
+end
+
 [n,~]=size(obj.ContactPair);
 for i=1:n
     ETnum=obj.ContactPair{i,1}.Con.ET;
@@ -68,6 +89,13 @@ for i=1:n
         fprintf(fid, '%s\n','NSEL,ALL');
         fprintf(fid, '%s\n',strcat('TYPE,',num2str(ETnum)));
         nodes=unique(obj.ContactPair{i,1}.Tar.elements);
+
+        if ExistSubStrM==1
+            for j=1:size(Ori,1)
+                nodes((nodes-Ori(j,1))==0,:)=Rep(j,1);
+            end
+        end
+
         fprintf(fid, '%s\n',strcat('NSEL,S,NODE,,',num2str(nodes(1,1))));
         for j=2:size(nodes,1)
             fprintf(fid, '%s\n',strcat('NSEL,A,NODE,,',num2str(nodes(j,1))));
@@ -78,6 +106,13 @@ for i=1:n
         fprintf(fid, '%s\n',strcat('TYPE,',num2str(ETnum)));
         fprintf(fid, '%s\n','TSHAP,PILO');
         nodes=unique(obj.ContactPair{i,1}.Tar.elements);
+        
+        if ExistSubStrM==1
+            for j=1:size(Ori,1)
+                nodes((nodes-Ori(j,1))==0,:)=Rep(j,1);
+            end
+        end
+
         for j=1:size(nodes,1)
             fprintf(fid, '%s\n',strcat('E,',num2str(nodes(j,1))));
         end

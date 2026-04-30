@@ -28,11 +28,25 @@ if opt.Warning==0
     fprintf(fid, '%s\n','/NERR,0,99999999,,1');
 end
 
+% Check substrM
+if ~isempty(obj.SubStrM)
+    ExistSubStrM=1;
+    Total_Node=obj.Summary.Total_Node;
+    Ori=obj.SubStrM.Node(:,2);
+    Ori(obj.SubStrM.Node(:,1)==0,:)=Ori(obj.SubStrM.Node(:,1)==0,:)+Total_Node;
+    Rep=obj.SNN+(1:size(Ori,1))';
+else
+    ExistSubStrM=0;
+    Ori=[];
+    Rep=[];
+end
+
 sen=strcat('/FILNAME,',obj.Name);
 fprintf(fid,'%s\n',sen);
 fprintf(fid, '%s\n','/PREP7');
 % Node print
-Nodeprint(obj,fid);
+Nodeprint(obj,fid,'ExistSubStrM',ExistSubStrM,'Ori',Ori,'Rep',Rep);
+
 % Material print
 Matprint(obj,fid);
 % Section print
@@ -41,27 +55,25 @@ if ~isempty(obj.Section)
 end
 % Element type print
 ETprint(obj,fid);
+
 % Coordinate system print
 CSprint(obj,fid);
 % Element print
-ELprint(obj,fid);
+ELprint(obj,fid,'ExistSubStrM',ExistSubStrM,'Ori',Ori,'Rep',Rep);
+% SubStr print
+if ~isempty(obj.SubStr)
+    SubStrprint(obj,fid);
+end
 % Table print
 Tableprint(obj,fid);
 % Contact pair print
 if ~isempty(obj.ContactPair)
-    Contactprint(obj,fid);
+    Contactprint(obj,fid,'ExistSubStrM',ExistSubStrM,'Ori',Ori,'Rep',Rep);
 end
 % Connection print
 if ~isempty(obj.Slaver)
     Connectprint(obj,fid);
 end
-
-m1=GetNET(obj);
-m2=GetNContactPair(obj);
-m=m1+m2;
-
-AccET=m1;
-AccReal=m;
 
 % Spring print
 if ~isempty(obj.Spring)
@@ -75,12 +87,12 @@ end
 
 % Nodemass print
 if ~isempty(obj.NodeMass)
-    [AccET,AccReal]=NodeMassprint(obj,fid,AccET,AccReal);
+    [AccET,AccReal]=NodeMassprint(obj,fid,AccET,AccReal,'ExistSubStrM',ExistSubStrM,'Ori',Ori,'Rep',Rep);
 end
 
 % Joint print
 if ~isempty(obj.Joint)
-    [AccET,~,AccCS,AccSec]=Jointprint(obj,fid,AccET,AccReal);
+    [AccET,~,AccCS,AccSec]=Jointprint(obj,fid,AccET,AccReal,'ExistSubStrM',ExistSubStrM,'Ori',Ori,'Rep',Rep);
 else
     AccCS=obj.Summary.Total_CS;
     AccSec=obj.Summary.Total_Section;
@@ -92,7 +104,7 @@ if ~isempty(obj.EndRelease)
 end
 
 % D print
-Dprint(obj,fid);
+Dprint(obj,fid,'ExistSubStrM',ExistSubStrM,'Ori',Ori,'Rep',Rep);
 
 % Preload print
 if or(~isempty(obj.BeamPreload),~isempty(obj.SolidPreload))
@@ -110,9 +122,9 @@ if ~isempty(obj.Temperature)
 end
 
 % Displacement print
-Disprint(obj,fid);
+Disprint(obj,fid,'ExistSubStrM',ExistSubStrM,'Ori',Ori,'Rep',Rep);
 % Force print
-Fprint(obj,fid);
+Fprint(obj,fid,'ExistSubStrM',ExistSubStrM,'Ori',Ori,'Rep',Rep);
 % SF print
 SFprint(obj,fid);
 % Insitial stress print

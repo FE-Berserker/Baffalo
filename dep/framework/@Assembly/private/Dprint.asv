@@ -1,6 +1,4 @@
 function Dprint(obj,fid,varargin)
-% D output to ANSYS
-% Author : Xie Yu
 
 p=inputParser;
 addParameter(p,'Ori',[]);
@@ -26,12 +24,9 @@ for i=1:m
             if obj.Boundary{i,1}.type(j,k)==1
                 nnode=obj.Boundary{i,1}.nodes(j);
 
-                if ExistSubStrM==1
-                    for kk=1:size(Ori,1)
-                        nnode((nnode-Ori(kk,1))==0)=Rep(kk,1);
-                    end
+                for kk=1:size(oRI,1)
                 end
-
+                
                 switch k
                     case 1
                         Sen_D=strcat('D,',num2str(nnode),',UX,','0');

@@ -4,12 +4,12 @@ function obj=AddTar(obj,Numpair,Numpart,No)
 
 if ~isempty(obj.ContactPair{Numpair,1}.Tar)
     error(strcat('ContactPair ',num2str(Numpair),' has been defined!'));
-else    
-obj.ContactPair{Numpair,1}.Tar.elements=[];
+else
+    obj.ContactPair{Numpair,1}.Tar.elements=[];
 end
 
 for i=1:size(Numpart,1)
-    if Numpart(i,1)~=0
+    if Numpart(i,1)>0
         FFb=obj.Part{Numpart(i,1),1}.mesh.facesBoundary;
         acc=obj.Part{Numpart(i,1),1}.acc_node;
         Cb=obj.Part{Numpart(i,1),1}.mesh.boundaryMarker;

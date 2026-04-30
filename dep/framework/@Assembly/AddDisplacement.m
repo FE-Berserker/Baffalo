@@ -13,7 +13,7 @@ opt=k.Results;
 No=opt.No;
 Dtol=opt.Dtol;
 
-if Numpart~=0
+if Numpart>0
     % Define displacement node set
     if ~isempty(No)
         if ~isempty(obj.Part{Numpart,1}.mesh.facesBoundary)
@@ -60,6 +60,12 @@ end
 if Numpart==0
     num=GetNDisplacement(obj)+1;
     obj.Displacement{num,1}.nodes=No+obj.Summary.Total_Node;
+    obj.BcDisplacementList=[obj.BcDisplacementList;obj.Displacement{num,1}.nodes];
+end
+
+if Numpart<0
+    num=GetNDisplacement(obj)+1;
+    obj.Displacement{num,1}.nodes=obj.SubStr{-Numpart,1}.Nodes(No,1);
     obj.BcDisplacementList=[obj.BcDisplacementList;obj.Displacement{num,1}.nodes];
 end
 %% Parse

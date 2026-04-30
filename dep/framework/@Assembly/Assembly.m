@@ -45,10 +45,13 @@ classdef Assembly< handle & matlab.mixin.Copyable
         Solu % Solution type
         ContactPair % Contact pair
         SubStrM % Sub Structure Master Node
+        SubStr % Sub Structure
+        SNN % Sub structure start node number
         IStress % Intial stress
         CutBoundary % Submodel cutboundary
         Joint % MPC 184
         BeamDirectionNode % Beam direction node
+
     end
 
     properties
@@ -93,19 +96,20 @@ classdef Assembly< handle & matlab.mixin.Copyable
             obj.Summary.Total_SolidPreload=0; % Total number of solidpreload
             obj.Summary.Total_Joint=0; % Total number of Joint
             obj.Summary.Total_Group=0; % Total number of group
+            obj.Summary.Total_SubStr=0; % Total number of substr
 
             obj.Echo = opt.Echo;
             obj.T_Ref=opt.T_Ref;
 
             obj.Id=0;
-            obj.SubStrM.Node=[];
-            obj.SubStrM.Type=[];
+            obj.SubStrM=[];
             obj.CutBoundary=[];
 
             obj.fontSize=20;
             obj.faceAlpha1=0.8;
             obj.markerSize=40;
             obj.lineWidth=3;
+            obj.SNN=9e7;
             obj.BcSupportList=[];
             obj.EndReleaseList=[];
             obj.BcPrescribeList=[];
@@ -115,6 +119,7 @@ classdef Assembly< handle & matlab.mixin.Copyable
             obj.NodeMass=[];
             obj.BeamPreload=[];
             obj.BeamDirectionNode=[];
+            obj.SubStr=[];
 
 
             if obj.Echo

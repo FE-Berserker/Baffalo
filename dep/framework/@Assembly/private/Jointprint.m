@@ -1,6 +1,23 @@
-function [AccET,AccReal,AccCS,AccSec]=Jointprint(obj,fid,m2,m)
+function [AccET,AccReal,AccCS,AccSec]=Jointprint(obj,fid,m2,m,varargin)
 % print Assembly Joint to ANSYS
 % Author : Xie Yu
+
+p=inputParser;
+addParameter(p,'Ori',[]);
+addParameter(p,'Rep',[]);
+addParameter(p,'ExistSubStrM',0);
+parse(p,varargin{:});
+opt=p.Results;
+
+% Check substrM
+if opt.ExistSubStrM==1
+    Ori=opt.Ori;
+    Rep=opt.Rep;
+    ExistSubStrM=1;
+else
+    ExistSubStrM=0;
+end
+
 
 m1=size(obj.Joint,1);
 AccCS=obj.Summary.Total_CS;
@@ -48,9 +65,21 @@ for i=1:m1
     Sen_E='E,';
     for j=1:length(Node)/2
         if Node(2*j-1)==0
-            Sen_E=strcat(Sen_E,num2str(obj.Summary.Total_Node+Node(2*j)),',');
+            TempNode=obj.Summary.Total_Node+Node(2*j);
+            if ExistSubStrM==1
+                for k=1:size(Ori,1)
+                    TempNode((TempNode-Ori(k,1))==0,:)=Rep(k,1);
+                end
+            end
+            Sen_E=strcat(Sen_E,num2str(TempNode),',');
         else
-            Sen_E=strcat(Sen_E,num2str(Node(2*j)),',');
+            TempNode=Node(2*j);
+            if ExistSubStrM==1
+                for k=1:size(Ori,1)
+                    TempNode((TempNode-Ori(k,1))==0,:)=Rep(k,1);
+                end
+            end
+            Sen_E=strcat(Sen_E,num2str(TempNode),',');
         end
     end
     fprintf(fid, '%s\n',Sen_E);

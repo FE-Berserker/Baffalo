@@ -1,6 +1,7 @@
 function obj=AddMaster(obj,Numpart,Nodenum,varargin)
 % Add master node to Assembly
 % Numpart=0 nodes from cnode
+% Numpart=-1 nodes from substr
 % Author : Xie Yu
 p=inputParser;
 addParameter(p,'near',[]);
@@ -9,9 +10,13 @@ opt=p.Results;
 
 coor=opt.near;
 
-if Numpart~=0
+if Numpart>0
     acc=obj.Part{Numpart,1}.acc_node;
     Nodenum=Nodenum+acc;
+end
+
+if Numpart<0
+    Nodenum=obj.SubStr{-Numpart,1}.Nodes(Nodenum,1);
 end
 
 if ~isempty(coor)

@@ -6,7 +6,8 @@ plotFlag = true;
 % setBaffaloPath
 % 1. Shaft1 compare (Rigid connection)
 % 2. Shaft1 compare (flexibe connection)
-flag=2;
+% 3. Add substr to ANSYS
+flag=3;
 DemoSubStr(flag);
 
 function DemoSubStr(flag)
@@ -52,6 +53,8 @@ switch flag
         Multi=MultiBody('Shaft1 Test');
         Multi=AddBody(Multi,Sub);
         Simpack_Output(Multi);
+
+        save Sub Sub
     case 2
         % Shaft 1
         inputshaft1.Length = 500;
@@ -107,5 +110,13 @@ switch flag
         Multi=MultiBody('Shaft1 Test');
         Multi=AddBody(Multi,Sub);
         Simpack_Output(Multi);
+    case 3
+        %% First Run case 1 
+        load Sub.mat Sub
+
+        Ass=Assembly('Shaft1_SubStr_Assembly');
+        Ass=AddSubStr(Ass,Sub);
+        ANSYS_Output(Ass);
+
 end
 end

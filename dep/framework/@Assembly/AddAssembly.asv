@@ -178,7 +178,12 @@ end
 Temp_SolidPreload=[obj.SolidPreload; SSolidPreload];
 
 % Add SubStr
-Temp_SubStr=[obj.SubStr;Ass.SubStr];
+if ~isempty(Ass.SubStr)
+    SSubStr=TransformSubStr(Ass.SubStr);
+else
+    SSubStr=[];
+end
+Temp_SubStr=[obj.SubStr; SSubStr];
 
 obj.Id=Temp_Id;
 obj.Part=Temp_Part;
@@ -226,7 +231,7 @@ obj.Summary.Total_CS=GetNCS(obj); % Total number of coordinate system
 obj.Summary.Total_NodeMass=GetNNodeMass(obj); % Total number of NodeMass
 obj.Summary.Total_EndReleease=GetNEndRelease(obj);% Total endrelease of Assembly
 obj.Summary.Total_BeamPreload=GetNBeamPreload(obj); % Total number of Beampreload
-obj.Summary.Total_SubStr=GetNSubStr(obj); % Total number of SubStr
+obj.Summary.Total_BeamPreload=GetNBeamPreload(obj); % Total number of Beampreload
 %% Print
 if obj.Echo
     fprintf('Successfully add Assembly .\n');
@@ -417,4 +422,3 @@ for i=1:size(Sec,1)
     end
 end
 end
-

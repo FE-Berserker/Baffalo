@@ -382,7 +382,7 @@ if opt.endrelease==1
 end
 
 %% Plot Master node of sub structure
-if ~isempty(obj.SubStrM.Node)
+if ~isempty(obj.SubStrM)
     Node=[obj.V;obj.Cnode];
     NN=(1:size(obj.SubStrM.Node,1))';
     NN=mat2cell(NN,ones(size(NN,1),1));

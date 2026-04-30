@@ -1,6 +1,24 @@
-function Fprint(obj,fid)
+function Fprint(obj,fid,varargin)
 % Force output to ANSYS
 % Author : Xie Yu
+
+p=inputParser;
+addParameter(p,'Ori',[]);
+addParameter(p,'Rep',[]);
+addParameter(p,'ExistSubStrM',0);
+parse(p,varargin{:});
+opt=p.Results;
+
+% Check substrM
+if opt.ExistSubStrM==1
+    Ori=opt.Ori;
+    Rep=opt.Rep;
+    ExistSubStrM=1;
+else
+    ExistSubStrM=0;
+end
+
+
 if ~isempty(obj.Load)
 m=size(obj.Load,1);
 for i=1:m
@@ -9,6 +27,13 @@ for i=1:m
         for k=1:6
             if obj.Load{i,1}.amp(j,k)~=0
                 nnode=obj.Load{i,1}.nodes(j);
+                
+                if ExistSubStrM==1
+                    for kk=1:size(Ori,1)
+                        nnode((nnode-Ori(kk,1))==0)=Rep(kk,1);
+                    end
+                end
+
                 switch k
                     case 1
                         Sen_F=strcat('F,',num2str(nnode),',FX,',...

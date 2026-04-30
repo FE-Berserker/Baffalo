@@ -8,9 +8,19 @@ addParameter(p,'near',[]);
 parse(p,varargin{:});
 opt=p.Results;
 
+if Numpart>0
+    acc=obj.Part{Numpart,1}.acc_node;
+    Nodenum=Nodenum+acc;
+end
+
+if NumPart<0
+    Nodenum=obj.SubStr{-Numpart,1}.Node(Nodenum,1);
+end
+
 coor=opt.near;
 
 if ~isempty(coor)
+    acc=obj.Part{Numpart,1}.acc_node;
     FFb=obj.Part{Numpart,1}.mesh.facesBoundary;
     Vert=obj.Part{Numpart,1}.mesh.Vert;
     row=unique(FFb);
@@ -21,6 +31,7 @@ if ~isempty(coor)
         (node(:,3)-coor(:,3)).^2;
     [row1,~]=find(dis==min(dis));
     Nodenum=row(row1);
+    Nodenum=Nodenum+acc;
 end
 
 Temp=[Numpart,Nodenum,mass];

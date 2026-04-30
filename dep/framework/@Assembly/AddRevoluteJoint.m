@@ -10,12 +10,15 @@ parse(p,varargin{:});
 opt=p.Results;
 
 if size(Nodenum1,2)==1
-    if Numpart1~=0
+    if Numpart1>0
         acc=obj.Part{Numpart1,1}.acc_node;
         Nodenum1=Nodenum1+acc;
+    elseif Numpart<0
+        Nodenum1=obj.SubStr{-Numpart1,1}.Nodes(Nodenum1,1);
     end
 end
 
+% Coordinate
 if size(Nodenum1,2)==3
     FFb=obj.Part{Numpart1,1}.mesh.facesBoundary;
     acc=obj.Part{Numpart1,1}.acc_node;
@@ -32,9 +35,11 @@ if size(Nodenum1,2)==3
 end
 
 if size(Nodenum2,2)==1
-    if Numpart2~=0
+    if Numpart2>0
         acc=obj.Part{Numpart2,1}.acc_node;
         Nodenum2=Nodenum2+acc;
+    elseif Numpart2<0
+        Nodenum2=obj.SubStr{-Numpart2,1}.Nodes(Nodenum2,1);
     end
 end
 

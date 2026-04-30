@@ -8,7 +8,7 @@ parse(p,varargin{:});
 setting=p.Results;
 
 % Output sub structure to ANSYS
-if ~isempty(obj.SubStrM.Node)
+if ~isempty(obj.SubStrM)
     for i=1:size(obj.SubStrM.Node,1)
         value=GetSubStrMNum(obj,i);
         fprintf(fid, '%s\n',strcat('M,',num2str(value),',',obj.SubStrM.Type{i,1}));

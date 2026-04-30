@@ -1,9 +1,13 @@
 function [AccET,AccReal]=Springprint(obj,fid)
 % Print spring to ANSYS
 % Author : Xie Yu
+
 m1=GetNET(obj);
 m2=GetNContactPair(obj);
-m=m1+m2;
+m3=GetNSubStr(obj);
+
+m1=m1+m3;
+m=m1+m2+m3;
 
 %Set ET
 fprintf(fid, '%s\n',strcat('ET,',num2str(m1+1),',14'));

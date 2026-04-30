@@ -9,6 +9,7 @@ classdef SubStr < Component
             'Freq' % Frequency range
             'NMode'
             'CMSMethod'
+            'SNN' % Start node number 
             };
 
         inputExpectedFields = {
@@ -20,6 +21,7 @@ classdef SubStr < Component
             'Nodes'
             'Geom'
             'Path'
+            'Position'
             };
 
         baselineExpectedFields = {
@@ -28,6 +30,7 @@ classdef SubStr < Component
         default_Freq=[0,100000];
         default_NMode=50;
         default_CMSMethod="FIX";
+        default_SNN=9e7;
 
     end
     methods
@@ -39,6 +42,7 @@ classdef SubStr < Component
 
         function obj = solve(obj)
             Ass=Assembly(obj.params.Name);
+            Ass.SNN=obj.params.SNN;
             Ass=AddAssembly(Ass,obj.input.SubStr);
             %% Solution
             opt.ANTYPE=7;% SUBSTR solve
@@ -53,7 +57,9 @@ classdef SubStr < Component
             end
             for i=1:size(Ass.SubStrM.Node,1)
                 value=GetSubStrMNum(Ass,i);
+                Position=GetSubStrMPos(Ass,i);
                 obj.output.Nodes=[obj.output.Nodes;value];
+                obj.output.Position=[obj.output.Position;Position];
             end
             ANSYS_Output(Ass,'Name','Intial','CDBWrite',1);
             delete(strcat(obj.params.Name,'.cdb'));
@@ -67,8 +73,10 @@ classdef SubStr < Component
             Geom.Face=Face;
             Geom.MNode=MNode;
             Geom.Con=Con;
+
             obj.output.Geom=Geom;
             obj.output.Path=pwd;
+            
        end
 
     end

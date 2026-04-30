@@ -31,6 +31,11 @@ if ~isempty(coor)
 end
 
 Temp=[Numpart,Nodenum];
-obj.SubStrM.Node=[obj.SubStrM.Node;Temp];
-obj.SubStrM.Type=[obj.SubStrM.Type;opt.Type];
+if isempty(obj.SubStrM)
+    obj.SubStrM.Node=Temp;
+    obj.SubStrM.Type=opt.Type;
+else
+    obj.SubStrM.Node=[obj.SubStrM.Node;Temp];
+    obj.SubStrM.Type=[obj.SubStrM.Type;opt.Type];
+end
 end

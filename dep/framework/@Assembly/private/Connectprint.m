@@ -1,6 +1,7 @@
 function Connectprint(obj,fid)
 % print Assembly connection to ANsYS
 % Author : Xie Yu
+
 m1=size(obj.Slaver,1);
 for i=1:m1
     m2=size(obj.Slaver{i,1},1);

@@ -16,7 +16,7 @@ fprintf(fid, '%s\n',strcat('KEYOPT,',num2str(m1+3),',2,2'));
 fprintf(fid, '%s\n',strcat('KEYOPT,',num2str(m1+3),',3,1'));
 
 
-acc=0;
+acc=3;
 % Bearing print
 for i=1:size(obj.Bearing,1)
     Node1=GetMasterNum(obj,obj.Bearing(i,1));
