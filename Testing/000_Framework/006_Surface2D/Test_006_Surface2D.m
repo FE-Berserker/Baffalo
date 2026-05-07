@@ -8,7 +8,8 @@ close all
 % 4 Plot Surface2D inParaView
 % 5 Create Mesh Hole
 % 6 Create Circle Hole
-flag=1;
+
+flag=6;
 testSurface2D(flag);
 function testSurface2D(flag)
 switch flag
