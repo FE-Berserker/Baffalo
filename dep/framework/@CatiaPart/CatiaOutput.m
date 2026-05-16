@@ -1,8 +1,13 @@
-function CatiaOutput(obj)
+function CatiaOutput(obj,varargin)
 % Output catia part
 % Author : Xie Yu
+p=inputParser;
+addParameter(p,'Echo',1);
+parse(p,varargin{:});
+opt=p.Results;
 
 filename=obj.Name;
+npArray=0;
 
 % Init part
 filename=strcat('.\',filename,'.catvbs');
@@ -26,8 +31,10 @@ fprintf(fid,'%s\n',sen);
 
 % Output Sketches
 for i=1:size(obj.Sketches,1)
-    Sketchprint(obj.Sketches{i,1},fid,i)
+    npAppay=Sketchprint(obj.Sketches{i,1},fid,i,npArray);
 end
+
+% Output bodys
 
 % End sub
 sen=strcat('End Sub');
@@ -35,4 +42,9 @@ fprintf(fid,'%s\n',sen);
 
 fclose(fid);
 
+
+%% Print
+if opt.Echo
+    fprintf('Successfully output to Catia . \n');
+end
 end

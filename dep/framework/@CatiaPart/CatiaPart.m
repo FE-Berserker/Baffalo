@@ -10,6 +10,7 @@ classdef CatiaPart< handle & matlab.mixin.Copyable
     
     properties
         Sketches % Sketch
+        Body % Body
     end
 
     methods
@@ -25,6 +26,7 @@ classdef CatiaPart< handle & matlab.mixin.Copyable
 
             obj.Echo = opt.Echo;
             obj.Sketches=[];
+            obj.Body=[];
 
 
             if obj.Echo

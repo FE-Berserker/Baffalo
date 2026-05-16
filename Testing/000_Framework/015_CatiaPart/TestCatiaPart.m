@@ -1,12 +1,14 @@
 clc
 clear
+close all
 % Test CatiaPart
 % case=1 Create caitapart
 % case=2 Add Sketches points
 % case=3 Add Sketches line
 % case=4 Add Sketches Surface2D
+% case=5 Rotate about axial
 
-flag=3;
+flag=5;
 
 switch flag
     case 1
@@ -80,6 +82,39 @@ switch flag
         Cap=AddSketch(Cap,b);
         Cap=AddSketch(Cap,b1);
         Cap=AddSketch(Cap,b2);
+        CatiaOutput(Cap);
+    case 4
+        Cap=CatiaPart('Part4');
+        % Semi circle
+        a=Point2D('Circle center');
+        a=AddPoint(a,0,0);
+        a=AddPoint(a,[-5;5],[0;0]);
+        b=Line2D('Semi circle');
+        b=AddCircle(b,5,a,1,'ang',180);
+        b=AddLine(b,a,2);
+        S=Surface2D(b);
+        Plot(S);
+        S=CreateCircleHole(S,1,'scale',0.4);
+        Plot(S);
+
+        Cap=AddSketch(Cap,S);
+        CatiaOutput(Cap);
+    case 5
+        Cap=CatiaPart('Part4');
+        % Semi circle
+        a=Point2D('Circle center');
+        a=AddPoint(a,0,0);
+        a=AddPoint(a,[-5;5],[0;0]);
+        b=Line2D('Semi circle');
+        b=AddCircle(b,5,a,1,'ang',180);
+        b=AddLine(b,a,2);
+        S=Surface2D(b);
+        Plot(S);
+        S=CreateCircleHole(S,1,'scale',0.4);
+        Plot(S);
+
+        Cap=AddSketch(Cap,S);
+        Cap=AddNewPad(Cap,1,5);
         CatiaOutput(Cap);
 
 

@@ -7,7 +7,7 @@ plotFlag = true;
 % 1. Shaft1 compare (Rigid connection)
 % 2. Shaft1 compare (flexibe connection)
 % 3. Add substr to ANSYS
-flag=3;
+flag=1;
 DemoSubStr(flag);
 
 function DemoSubStr(flag)
