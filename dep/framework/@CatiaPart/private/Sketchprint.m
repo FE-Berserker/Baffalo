@@ -7,11 +7,6 @@ Point=Sketch.Point;
 Line=Sketch.Line;
 LineType=Sketch.LineType;
 
-sen=strcat('Set hybridBodies1 = part1.HybridBodies');
-fprintf(fid,'%s\n',sen);
-
-sen=strcat('Set hybridBody1 = hybridBodies1.Item("几何图形集.1")');
-fprintf(fid,'%s\n',sen);
 
 sen=strcat('Set sketches',num2str(SketchNo),' = hybridBody1.HybridSketches');
 fprintf(fid,'%s\n',sen);

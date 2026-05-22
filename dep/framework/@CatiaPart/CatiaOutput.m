@@ -30,11 +30,36 @@ sen=strcat('Set part1 = partDocument1.Part ');
 fprintf(fid,'%s\n',sen);
 
 % Output Sketches
-for i=1:size(obj.Sketches,1)
-    npAppay=Sketchprint(obj.Sketches{i,1},fid,i,npArray);
+if ~isempty(obj.Sketches)
+    sen=strcat('Set hybridBodies1 = part1.HybridBodies');
+    fprintf(fid,'%s\n',sen);
+
+    sen=strcat('Set hybridBody1 = hybridBodies1.Item("几何图形集.1")');
+    fprintf(fid,'%s\n',sen);
+
+    for i=1:size(obj.Sketches,1)
+        npArray=Sketchprint(obj.Sketches{i,1},fid,i,npArray);
+    end
 end
 
 % Output bodys
+if ~isempty(obj.Body)
+    sen=strcat('Set bodies1 = part1.Bodies');
+    fprintf(fid,'%s\n',sen);
+
+    sen=strcat('Set body1 = bodies1.Item("零件几何体")');
+    fprintf(fid,'%s\n',sen);
+
+    sen=strcat('part1.InWorkObject = body1');
+    fprintf(fid,'%s\n',sen);
+    
+
+    for i=1:size(obj.Body,1)
+        Bodyprint(obj.Body{i,1},fid,i);
+    end
+end
+
+
 
 % End sub
 sen=strcat('End Sub');

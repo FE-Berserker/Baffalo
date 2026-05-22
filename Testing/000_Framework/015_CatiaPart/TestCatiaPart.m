@@ -8,7 +8,7 @@ close all
 % case=4 Add Sketches Surface2D
 % case=5 Rotate about axial
 
-flag=5;
+flag=3;
 
 switch flag
     case 1
@@ -100,7 +100,7 @@ switch flag
         Cap=AddSketch(Cap,S);
         CatiaOutput(Cap);
     case 5
-        Cap=CatiaPart('Part4');
+        Cap=CatiaPart('Part5');
         % Semi circle
         a=Point2D('Circle center');
         a=AddPoint(a,0,0);
@@ -114,7 +114,7 @@ switch flag
         Plot(S);
 
         Cap=AddSketch(Cap,S);
-        Cap=AddNewPad(Cap,1,5);
+        Cap=AddExtrude(Cap,1,5);
         CatiaOutput(Cap);
 
 

@@ -23,6 +23,7 @@ classdef CatiaPart< handle & matlab.mixin.Copyable
             opt=p.Results;
 
             obj.Summary.Total_Sketches=0; % Total number of sketches
+            obj.Summary.Total_Body=0; % Total number of body
 
             obj.Echo = opt.Echo;
             obj.Sketches=[];
