@@ -17,8 +17,9 @@ plotFlag = true;
 % 11 Deform face
 % 12 Plot Face No
 % 13 Output STL
+% 14 Output Catia
 
-flag=1;
+flag=14;
 obj1=DemoCommmonshaft(flag);
 
 function obj1=DemoCommmonshaft(flag)
@@ -239,5 +240,16 @@ switch flag
         Name=strcat(obj1.params.Name,'.stl');
         L=STLRead(L,Name);
         Plot(L);
+    case 14
+        Shaft2_Height=243.7;
+        Shaft2_Step_Height=20;
+        inputShaft2.Length = [40;117.7;201.7;Shaft2_Height-Shaft2_Step_Height;Shaft2_Height];
+        inputShaft2.OD = [[35,35];[42,42];[65,65];[90,90];[54,54]];
+        inputShaft2.ID = [[10,10];[10,10];[10,10];[10,10];[10,10]];
+        inputShaft2.Meshsize=15;
+        paramsShaft2.E_Revolve = 60;
+        obj1 = shaft.Commonshaft(paramsShaft2, inputShaft2);
+        obj1 = obj1.solve();
+        OutputCatiaPart(obj1)
 end
 end

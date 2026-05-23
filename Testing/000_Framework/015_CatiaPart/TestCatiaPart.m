@@ -6,9 +6,11 @@ close all
 % case=2 Add Sketches points
 % case=3 Add Sketches line
 % case=4 Add Sketches Surface2D
-% case=5 Rotate about axial
+% case=5 Add Extrude
+% case=6 Rotate about axial
+% case=7 Add Ball
 
-flag=3;
+flag=7;
 
 switch flag
     case 1
@@ -115,6 +117,24 @@ switch flag
 
         Cap=AddSketch(Cap,S);
         Cap=AddExtrude(Cap,1,5);
+        CatiaOutput(Cap);
+    case 6
+        % Semi circle
+        a=Point2D('Circle center');
+        a=AddPoint(a,0,0);
+        a=AddPoint(a,[-5;5],[0;0]);
+        b=Line2D('Semi circle');
+        b=AddCircle(b,5,a,1,'ang',180);
+        b=AddLine(b,a,2);
+        S=Surface2D(b);
+        Plot(S);
+        Cap=CatiaPart('Part6');
+        Cap=AddSketch(Cap,S);
+        Cap=AddRotate(Cap,1);
+        CatiaOutput(Cap);
+    case 7
+        Cap=CatiaPart('Ball');
+        Cap=AddBall(Cap,5);
         CatiaOutput(Cap);
 
 
