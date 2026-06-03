@@ -19,6 +19,9 @@ fprintf(fid,'%s\n',sen);
 sen=strcat('Sub CATMain()');
 fprintf(fid,'%s\n',sen);
 
+sen=strcat('Set owindows = CATIA.Windows');
+fprintf(fid,'%s\n',sen);
+
 sen=strcat('Set documents1 = CATIA.Documents');
 fprintf(fid,'%s\n',sen);
 
@@ -101,8 +104,6 @@ fprintf(fid,'%s\n',sen);
 
 % Output Sketches
 if ~isempty(obj.Sketches)
-
-
     for i=1:size(obj.Sketches,1)
         npArray=Sketchprint(obj.Sketches{i,1},fid,i,npArray);
     end
@@ -125,7 +126,22 @@ if ~isempty(obj.Body)
     end
 end
 
+% Change part number
+sen=strcat('Set partDocument1 = CATIA.ActiveDocument');
+fprintf(fid,'%s\n',sen);
 
+sen=strcat('Set product1 = partDocument1.GetItem(partDocument1.Name)');
+fprintf(fid,'%s\n',sen);
+
+sen=strcat('product1.PartNumber = "',obj.Name,'"');
+fprintf(fid,'%s\n',sen);
+
+% Save catia part
+Path=pwd;
+FileName=strcat(Path,'\',obj.Name,'.CATPart');
+
+sen=strcat('partDocument1.SaveAs ','"',FileName,'"');
+fprintf(fid,'%s\n',sen);
 
 % End sub
 sen=strcat('End Sub');

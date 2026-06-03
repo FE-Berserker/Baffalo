@@ -75,6 +75,8 @@ if ~isempty(obj.Slaver)
     Connectprint(obj,fid);
 end
 
+AccET=GetNET(obj);
+
 % Spring print
 if ~isempty(obj.Spring)
     [AccET,AccReal]=Springprint(obj,fid);
