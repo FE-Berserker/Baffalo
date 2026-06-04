@@ -1,0 +1,48 @@
+Language="VBSCRIPT"
+Sub CATMain()
+Set owindows = CATIA.Windows
+Set documents1 = CATIA.Documents
+Set partDocument1 = documents1.Add("Part")
+Set part1 = partDocument1.Part
+Set hybridBodies1 = part1.HybridBodies
+Set hybridBody1 = hybridBodies1.Item("几何图形集.1")
+Set hybridShapeFactory1 = part1.HybridShapeFactory
+Set OriginPoint = hybridShapeFactory1.AddNewPointCoord(0.000000, 0.000000, 0.000000)
+hybridBody1.AppendHybridShape OriginPoint
+part1.InWorkObject = OriginPoint
+part1.Update
+Set origin = part1.OriginElements
+Set refXY = part1.CreateReferenceFromObject(origin.PlaneXY)
+Set refYZ = part1.CreateReferenceFromObject(origin.PlaneYZ)
+Set refZX = part1.CreateReferenceFromObject(origin.PlaneZX)
+Set refOrigin = part1.CreateReferenceFromObject(OriginPoint)
+Set zNormal = hybridShapeFactory1.AddNewLineNormal(refXY, refOrigin, 0.000000, 20.000000, False)
+Set xNormal = hybridShapeFactory1.AddNewLineNormal(refYZ, refOrigin, 0.000000, 20.000000, False)
+Set yNormal = hybridShapeFactory1.AddNewLineNormal(refZX, refOrigin, 0.000000, 20.000000, False)
+hybridBody1.AppendHybridShape zNormal
+part1.InWorkObject = zNormal
+hybridBody1.AppendHybridShape xNormal
+part1.InWorkObject = xNormal
+hybridBody1.AppendHybridShape yNormal
+part1.InWorkObject = yNormal
+part1.Update
+Set sketches1 = hybridBody1.HybridSketches
+Set originElements1 = part1.OriginElements
+Set reference1 = originElements1.PlaneXY
+Set sketch1 = sketches1.Add(reference1)
+Set factory2D1 = sketch1.OpenEdition()
+ Set Line1 = factory2D1.CreateCircle(0,0,2.5,0,3.1416)
+ Set Line2 = factory2D1.CreateLine(-2.5,0,2.5,0)
+sketch1.CloseEdition
+part1.Update
+Set bodies1 = part1.Bodies
+Set body1 = bodies1.Item("零件几何体")
+part1.InWorkObject = body1
+Set partbody1 = part1.ShapeFactory.AddNewShaft ( sketch1 )
+partbody1.RevoluteAxis = xNormal
+part1.Update
+Set partDocument1 = CATIA.ActiveDocument
+Set product1 = partDocument1.GetItem(partDocument1.Name)
+product1.PartNumber = "Ball"
+partDocument1.SaveAs"D:\Qsync\Baffalo\Testing\000_Framework\015_CatiaPart\Ball.CATPart"
+End Sub

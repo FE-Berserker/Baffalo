@@ -6,7 +6,9 @@ close all
 % 2. Create Bolt without Nut
 % 3. Create Bolt with Nut and NutWasher
 % 4. Output catia model
-flag=4;
+% 5. Output catia assembly
+
+flag=5;
 DemoBolt(flag);
 
 function DemoBolt(flag)
@@ -68,6 +70,25 @@ switch flag
         Plot2D(obj);
         Plot3D(obj);
         OutputCatiaPart(obj);
+    case 5
+        inputStruct.d=16;
+        inputStruct.l=80;
+        inputStruct.lk=42;
+
+        paramsStruct.ThreadType=1;
+        paramsStruct.MuG=0.1;
+        paramsStruct.MuK=0.1;
+        paramsStruct.Nut=1;
+        paramsStruct.Washer=1;
+        paramsStruct.NutWasher=1;
+        paramsStruct.BoltType=2;
+        obj= bolt.Bolt(paramsStruct, inputStruct);
+        obj= obj.solve();
+        Plot2D(obj);
+        Plot3D(obj);
+        OutputCatiaPart(obj);
+        OutputCatiaAss(obj);
+
 
 end
 end

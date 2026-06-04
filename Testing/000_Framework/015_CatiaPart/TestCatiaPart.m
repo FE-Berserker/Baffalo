@@ -10,7 +10,7 @@ close all
 % case=6 Rotate about axial
 % case=7 Add Ball
 
-flag=7;
+flag=8;
 
 switch flag
     case 1
@@ -136,6 +136,5 @@ switch flag
         Cap=CatiaPart('Ball');
         Cap=AddBall(Cap,5);
         CatiaOutput(Cap);
-
 
 end

@@ -1,0 +1,91 @@
+Language="VBSCRIPT"
+Sub CATMain()
+Set documents1 = CATIA.Documents
+Set productDocument1 = documents1.Add("Product")
+Set product1 = productDocument1.Product
+Set products1 = product1.Products
+Dim arrayOfVariantOfBSTR1(0)
+arrayOfVariantOfBSTR1(0) = ".\Bolt1_Bolt.CATPart"
+products1.AddComponentsFromFiles arrayOfVariantOfBSTR1, "All"
+Set product2 = products1.Item("Bolt1_Bolt.1")
+Set move1 = product2.Move
+Set move1 = move1.MovableObject
+Dim arrayOfVariantOfDouble1(11)
+arrayOfVariantOfDouble1(0) =1
+arrayOfVariantOfDouble1(1) =0
+arrayOfVariantOfDouble1(2) =0
+arrayOfVariantOfDouble1(3) =0
+arrayOfVariantOfDouble1(4) =1
+arrayOfVariantOfDouble1(5) =0
+arrayOfVariantOfDouble1(6) =0
+arrayOfVariantOfDouble1(7) =0
+arrayOfVariantOfDouble1(8) =1
+arrayOfVariantOfDouble1(9) =-3
+arrayOfVariantOfDouble1(10) =0
+arrayOfVariantOfDouble1(11) =0
+move1.Apply arrayOfVariantOfDouble1
+Dim arrayOfVariantOfBSTR2(0)
+arrayOfVariantOfBSTR2(0) = ".\Bolt1_Washer.CATPart"
+products1.AddComponentsFromFiles arrayOfVariantOfBSTR2, "All"
+Set product2 = products1.Item("Bolt1_Washer.1")
+Set move1 = product2.Move
+Set move1 = move1.MovableObject
+Dim arrayOfVariantOfDouble2(11)
+arrayOfVariantOfDouble2(0) =1
+arrayOfVariantOfDouble2(1) =0
+arrayOfVariantOfDouble2(2) =0
+arrayOfVariantOfDouble2(3) =0
+arrayOfVariantOfDouble2(4) =1
+arrayOfVariantOfDouble2(5) =0
+arrayOfVariantOfDouble2(6) =0
+arrayOfVariantOfDouble2(7) =0
+arrayOfVariantOfDouble2(8) =1
+arrayOfVariantOfDouble2(9) =0
+arrayOfVariantOfDouble2(10) =0
+arrayOfVariantOfDouble2(11) =0
+move1.Apply arrayOfVariantOfDouble2
+Dim arrayOfVariantOfBSTR3(0)
+arrayOfVariantOfBSTR3(0) = ".\Bolt1_Nut.CATPart"
+products1.AddComponentsFromFiles arrayOfVariantOfBSTR3, "All"
+Set product2 = products1.Item("Bolt1_Nut.1")
+Set move1 = product2.Move
+Set move1 = move1.MovableObject
+Dim arrayOfVariantOfDouble3(11)
+arrayOfVariantOfDouble3(0) =1
+arrayOfVariantOfDouble3(1) =0
+arrayOfVariantOfDouble3(2) =0
+arrayOfVariantOfDouble3(3) =0
+arrayOfVariantOfDouble3(4) =1
+arrayOfVariantOfDouble3(5) =0
+arrayOfVariantOfDouble3(6) =0
+arrayOfVariantOfDouble3(7) =0
+arrayOfVariantOfDouble3(8) =1
+arrayOfVariantOfDouble3(9) =45
+arrayOfVariantOfDouble3(10) =0
+arrayOfVariantOfDouble3(11) =0
+move1.Apply arrayOfVariantOfDouble3
+Dim arrayOfVariantOfBSTR4(0)
+arrayOfVariantOfBSTR4(0) = ".\Bolt1_NutWasher.CATPart"
+products1.AddComponentsFromFiles arrayOfVariantOfBSTR4, "All"
+Set product2 = products1.Item("Bolt1_NutWasher.1")
+Set move1 = product2.Move
+Set move1 = move1.MovableObject
+Dim arrayOfVariantOfDouble4(11)
+arrayOfVariantOfDouble4(0) =1
+arrayOfVariantOfDouble4(1) =0
+arrayOfVariantOfDouble4(2) =0
+arrayOfVariantOfDouble4(3) =0
+arrayOfVariantOfDouble4(4) =1
+arrayOfVariantOfDouble4(5) =0
+arrayOfVariantOfDouble4(6) =0
+arrayOfVariantOfDouble4(7) =0
+arrayOfVariantOfDouble4(8) =1
+arrayOfVariantOfDouble4(9) =42
+arrayOfVariantOfDouble4(10) =0
+arrayOfVariantOfDouble4(11) =0
+move1.Apply arrayOfVariantOfDouble4
+Set productDocument1 = CATIA.ActiveDocument
+Set product1 = productDocument1.Product
+product1.PartNumber = "Bolt1_Assembly"
+productDocument1.SaveAs"D:\Qsync\Baffalo\Testing\001_Demo\028_BoltBolt1_Assembly.CATProduct"
+End Sub

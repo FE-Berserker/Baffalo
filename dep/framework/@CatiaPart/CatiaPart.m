@@ -11,6 +11,7 @@ classdef CatiaPart< handle & matlab.mixin.Copyable
     properties
         Sketches % Sketch
         Body % Body
+        Material
     end
 
     methods
