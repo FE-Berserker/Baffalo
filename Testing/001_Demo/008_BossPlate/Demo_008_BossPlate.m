@@ -6,7 +6,9 @@ close all
 % 2. Deform the plate face
 % 3. Extrude outsize surface
 % 4. Add outer part holes
-flag=4;
+% 5. Output catia part
+
+flag=5;
 DemoBossPlate(flag);
 
 function DemoBossPlate(flag)
@@ -169,6 +171,43 @@ switch flag
         paramsStruct.Type=1;
         obj= plate.BossPlate(paramsStruct, inputStruct);
         obj= obj.solve();
+        Plot3D(obj);
+    case 5
+        a=Point2D('Points assembly');
+        a=AddPoint(a,0,0);
+        Num=8;
+        R1=180;
+        R2=120;
+        R3=30;
+        r=30;
+        for i=1:Num
+            a=AddPoint(a,R1,-360/Num*(i-1),'polar','deg');
+        end
+        Angle1=acos(r/2/R1)*2/pi*180;
+        Angle2=360/Num-(180-Angle1)*2;
+        b1=Line2D('OutLine');
+        for i=1:Num
+            Sang1=180-Angle1/2-(i-1)*360/Num;
+            b1=AddCircle(b1,r,a,i+1,'sang',Sang1,'ang',Angle1);
+            Sang2=-180+Angle1-(i-1)*360/Num;
+            b1=AddCircle(b1,R1,a,1,'Sang',Sang2,'ang',-Angle2);
+        end
+
+        b2=Line2D('MidLine');
+        b2=AddCircle(b2,R2,a,1);
+        b3=Line2D('InnerLine');
+        b3=AddCircle(b3,R3,a,1);
+
+        inputStruct.OutLine=b1;
+        inputStruct.MidLine=b2;
+        inputStruct.InnerLine=b3;
+        inputStruct.BossHeight=100;
+        inputStruct.PlateThickness=30;
+        inputStruct.Meshsize=10;
+        paramsStruct=struct();
+        obj= plate.BossPlate(paramsStruct, inputStruct);
+        obj= obj.solve();
+        Plot2D(obj);
         Plot3D(obj);
 
 end

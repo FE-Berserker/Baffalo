@@ -12,6 +12,7 @@ classdef CatiaPart< handle & matlab.mixin.Copyable
         Sketches % Sketch
         Body % Body
         Material
+        Boolean
     end
 
     methods
@@ -25,11 +26,12 @@ classdef CatiaPart< handle & matlab.mixin.Copyable
 
             obj.Summary.Total_Sketches=0; % Total number of sketches
             obj.Summary.Total_Body=0; % Total number of body
+            obj.Summary.Total_Boolean=0; % Total number of Boolean
 
             obj.Echo = opt.Echo;
             obj.Sketches=[];
             obj.Body=[];
-
+            obj.Boolean=[];
 
             if obj.Echo
                 fprintf('Creating CatiaPart object ...\n');

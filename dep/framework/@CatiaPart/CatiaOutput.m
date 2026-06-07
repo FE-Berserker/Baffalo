@@ -113,16 +113,23 @@ end
 if ~isempty(obj.Body)
     sen=strcat('Set bodies1 = part1.Bodies');
     fprintf(fid,'%s\n',sen);
-
-    sen=strcat('Set body1 = bodies1.Item("零件几何体")');
-    fprintf(fid,'%s\n',sen);
+    for i=1:size(obj.Body,1)
+        Bodyprint(obj.Body{i,1},fid,i);
+    end
 
     sen=strcat('part1.InWorkObject = body1');
     fprintf(fid,'%s\n',sen);
-    
+end
 
-    for i=1:size(obj.Body,1)
-        Bodyprint(obj.Body{i,1},fid,i);
+% Output Boolaen
+if ~isempty(obj.Boolean)
+    sen=strcat('Set bodies1 = part1.Bodies');
+    fprintf(fid,'%s\n',sen);
+    
+    sen=strcat('Set shapeFactory1 = part1.ShapeFactory');
+    fprintf(fid,'%s\n',sen);
+    for i=1:size(obj.Boolean,1)
+        Booleanprint(obj.Boolean(i,1),obj.Boolean(i,2),fid)
     end
 end
 
@@ -137,8 +144,7 @@ sen=strcat('product1.PartNumber = "',obj.Name,'"');
 fprintf(fid,'%s\n',sen);
 
 % Save catia part
-Path=pwd;
-FileName=strcat(Path,'\',obj.Name,'.CATPart');
+FileName=strcat('.\',obj.Name,'.CATPart');
 
 sen=strcat('partDocument1.SaveAs ','"',FileName,'"');
 fprintf(fid,'%s\n',sen);

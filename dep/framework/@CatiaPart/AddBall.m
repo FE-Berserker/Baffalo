@@ -1,6 +1,11 @@
-function obj = AddBall(obj,dia)
+function obj = AddBall(obj,dia,varargin)
 % Add ball to Catia
 % Author : Xie Yu
+
+p=inputParser;
+addParameter(p,'BodyNo',1);
+parse(p,varargin{:});
+opt=p.Results;
 
 % Semi circle
 a=Point2D('Circle center');
@@ -11,5 +16,10 @@ b=AddCircle(b,dia/2,a,1,'ang',180);
 b=AddLine(b,a,2);
 
 obj=AddSketch(obj,b);
-obj=AddRotate(obj,1);
+obj=AddRotate(obj,1,'BodyNo',opt.BodyNo);
+
+%% Print
+if obj.Echo
+    fprintf('Successfully add Ball . \n');
+end
 end

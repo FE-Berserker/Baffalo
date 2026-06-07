@@ -9,6 +9,7 @@ close all
 % case=5 Add Extrude
 % case=6 Rotate about axial
 % case=7 Add Ball
+% case=8 Boolean
 
 flag=8;
 
@@ -136,5 +137,32 @@ switch flag
         Cap=CatiaPart('Ball');
         Cap=AddBall(Cap,5);
         CatiaOutput(Cap);
+    case 8
+        Cap=CatiaPart('Part5');
+        % Semi circle
+        a=Point2D('Circle center');
+        a=AddPoint(a,0,0);
+        a=AddPoint(a,[-5;5],[0;0]);
+        b=Line2D('Semi circle');
+        b=AddCircle(b,5,a,1,'ang',180);
+        b=AddLine(b,a,2);
+        S=Surface2D(b);
+        Plot(S);
+
+        b1=Line2D('Semi circle');
+        b1=AddCircle(b1,2.5,a,1);
+
+        S1=Surface2D(b1);
+        Plot(S1);
+
+        Cap=AddSketch(Cap,S);
+        Cap=AddSketch(Cap,S1);
+        Cap=AddExtrude(Cap,1,5);
+        Cap=AddExtrude(Cap,2,5,'BodyNo',2);
+        Cap=AddBoolean(Cap,1,2);
+        % Cap=AddBoolean(Cap,2,2);
+        % Cap=AddBoolean(Cap,3,2);
+        CatiaOutput(Cap);
+
 
 end
