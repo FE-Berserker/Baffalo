@@ -1,7 +1,7 @@
 clc
 clear
 close all
-% Assembly module main programme
+% Assembly example main programme
 % Author : Xie Yu
 
 ComponentPlotFlag=0; % Component plot
@@ -11,22 +11,33 @@ OutputFlag=1; % Output cdb file to ANSYS
 SensorOutputFlag=1; % Result output
 
 %% Parameter
-% load Params Params % Load Params
+% load Param
+load Params Params
 
 %% Component
-% 1. Component1
-% Component1=load('.\Component1\Component1.mat').Component1;
+%1. Part1
+Part1=load('.\Part1\Part1.mat').Part;
+Part1_Assembly_Num=1;
+
+%2. Part2
+Part2=load('.\Part2\Part2.mat').Part;
+Part2_Assembly_Num=Part1_Assembly_Num+1;
 
 %% Component plot
 if ComponentPlotFlag==1 % Plot Component
-    % Plot3D(Component1) 
+    Plot3D(Part1)
+    Plot3D(Part2)
 end
 
 %% Assembly
 Ass=Assembly('New_Assembly');
-% 1. Add Component1
-% position=[0,0,0,0,0,0];
-% Ass=AddAssembly(Ass,Component1.output.Assembly,'position',position);
+% 1. Add Part1
+position=[0,0,0,0,0,0];
+Ass=AddAssembly(Ass,Part1.output.Assembly,'position',position);
+
+% 2. Add Part2
+position=[0,0,0,0,0,0];
+Ass=AddAssembly(Ass,Part2.output.Assembly,'position',position);
 
 %% Define Element Types
 ET1.name='185';ET1.opt=[];ET1.R=[];
@@ -54,7 +65,7 @@ Ass=AddMaterial(Ass,mat1);
 Acc_Mat=GetNMaterial(Ass);
 
 %% Define Contacts
-% 1. Component1 - Component2
+% 1. Part1 - CPart2
 % ConNum=GetNContactPair(Ass)+1;
 % Ass=AddCon(Ass,Component1_Assembly_Num1,1);
 % Ass=AddTar(Ass,ConNum,repmat(ReinforcedRing_Assembly_Num1,2,1),[103;104]);

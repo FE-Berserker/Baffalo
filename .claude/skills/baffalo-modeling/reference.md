@@ -189,6 +189,23 @@
 | SolidMesh | 实体网格 (Mesh) |
 | Assembly | 装配体 (Assembly) |
 
+**注意事项：**
+
+- `input.Hole` 是指**截面上的孔**（2D），旋转后形成环形槽或轴向通孔
+- Hole 应为 Line2D 矩阵（Nx1），每行是一个孔的轮廓
+- 法兰面上沿圆周分布的多个螺栓孔需通过其他方式（如布尔运算）在 3D 实体上创建
+
+**Hole 定义示例：**
+```matlab
+h1 = Line2D('Hole1');
+h1 = AddCircle(h1, radius, pointObj, 1);
+
+h2 = Line2D('Hole2');
+h2 = AddCircle(h2, radius, pointObj, 1);
+
+input.Hole = [h1; h2];  % 矩阵形式
+```
+
 ---
 
 ### SlotHousing — 开槽壳体
