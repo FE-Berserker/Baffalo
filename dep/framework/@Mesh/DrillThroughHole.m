@@ -29,7 +29,7 @@ Cb1(F1(:,2)==F1(:,3),:)=[];
 F1(F1(:,2)==F1(:,3),:)=[];
 %% Clean unused node
 [obj.Face,obj.Vert]=patchCleanUnused(F1,V); %Remove unused nodes
- obj.Cb=Cb1;
+obj.Cb=Cb1;
 
 Boundary=FindBoundary(obj);
 groupOptStruct.outputType='label';
@@ -42,8 +42,100 @@ switch size(GroupSize,2)
         Boundary2=Boundary(G==2,:);
 
     case 4
-        Boundary1=Boundary(or(G==1,G==2),:);
-        Boundary2=Boundary(or(G==3,G==4),:);
+
+        B1=Boundary(G==1,:);
+        B2=Boundary(G==2,:);
+        B3=Boundary(G==3,:);
+        B4=Boundary(G==4,:);
+
+        switch opt.type
+            case 1
+                Fp1=V(B1(1,1),1);
+                Fp2=V(B2(1,1),1);
+                Fp3=V(B3(1,1),1);
+                if abs(Fp1-Fp2)<1e-3
+                    Boundary1=[B1;B2];
+                    Boundary2=[B3;B4];
+                elseif abs(Fp1-Fp3)<1e-3
+                    Boundary1=[B1;B3];
+                    Boundary2=[B2;B4];
+                else
+                    Boundary1=[B1;B4];
+                    Boundary2=[B2;B3];
+                end
+            case 2
+                Fp1=V(B1(1,1),1);
+                Fp2=V(B2(1,1),1);
+                Fp3=V(B3(1,1),1);
+                if abs(Fp1-Fp2)<1e-3
+                    Boundary1=[B1;B2];
+                    Boundary2=[B3;B4];
+                elseif abs(Fp1-Fp3)<1e-3
+                    Boundary1=[B1;B3];
+                    Boundary2=[B2;B4];
+                else
+                    Boundary1=[B1;B4];
+                    Boundary2=[B2;B3];
+                end
+            case 3
+                Fp1=V(B1(1,1),2);
+                Fp2=V(B2(1,1),2);
+                Fp3=V(B3(1,1),2);
+                if abs(Fp1-Fp2)<1e-3
+                    Boundary1=[B1;B2];
+                    Boundary2=[B3;B4];
+                elseif abs(Fp1-Fp3)<1e-3
+                    Boundary1=[B1;B3];
+                    Boundary2=[B2;B4];
+                else
+                    Boundary1=[B1;B4];
+                    Boundary2=[B2;B3];
+                end
+            case 4
+                Fp1=V(B1(1,1),2);
+                Fp2=V(B2(1,1),2);
+                Fp3=V(B3(1,1),2);
+                if abs(Fp1-Fp2)<1e-3
+                    Boundary1=[B1;B2];
+                    Boundary2=[B3;B4];
+                elseif abs(Fp1-Fp3)<1e-3
+                    Boundary1=[B1;B3];
+                    Boundary2=[B2;B4];
+                else
+                    Boundary1=[B1;B4];
+                    Boundary2=[B2;B3];
+                end
+            case 5
+                Fp1=V(B1(1,1),3);
+                Fp2=V(B2(1,1),3);
+                Fp3=V(B3(1,1),3);
+                if abs(Fp1-Fp2)<1e-3
+                    Boundary1=[B1;B2];
+                    Boundary2=[B3;B4];
+                elseif abs(Fp1-Fp3)<1e-3
+                    Boundary1=[B1;B3];
+                    Boundary2=[B2;B4];
+                else
+                    Boundary1=[B1;B4];
+                    Boundary2=[B2;B3];
+                end
+            case 6
+                Fp1=V(B1(1,1),3);
+                Fp2=V(B2(1,1),3);
+                Fp3=V(B3(1,1),3);
+                if abs(Fp1-Fp2)<1e-3
+                    Boundary1=[B1;B2];
+                    Boundary2=[B3;B4];
+                elseif abs(Fp1-Fp3)<1e-3
+                    Boundary1=[B1;B3];
+                    Boundary2=[B2;B4];
+                else
+                    Boundary1=[B1;B4];
+                    Boundary2=[B2;B3];
+                end
+        end
+
+
 end
 faceposition1=V(Boundary1(1,1),:);
 faceposition2=V(Boundary2(1,1),:);
@@ -283,7 +375,7 @@ if Num==1
         NNN=size(l.Meshes{Nmeshes,1}.Face,1);
         Cb=[Cb;ones(NNN,1)*acc_Cb];
     end
-%     acc_depth=depth(1,1);
+    %     acc_depth=depth(1,1);
 else
     for j=1:HoleNum
         a1=Point2D('Top Verts');
@@ -294,7 +386,7 @@ else
     for j=1:HoleNum
         a1=Point2D('Top Verts');
         a1=AddPoint(a1,basenode(1+(j-1)*Slice:Slice+(j-1)*Slice,1),basenode(1+(j-1)*Slice:Slice+(j-1)*Slice,2));
-        l=AddElement(l,a1,'transform',[0,0,depth(1,1),0,0,0]);              
+        l=AddElement(l,a1,'transform',[0,0,depth(1,1),0,0,0]);
         l=LoftLinear(l,j,HoleNum+j,'closeLoopOpt',1,'patchType','tri_slash','numSteps',numSteps);
         NN=size(Vert,1);
         Nmeshes=Nmeshes+1;
@@ -373,7 +465,7 @@ else
             end
         end
     end
-    
+
     ratio=radius(Num,1)/radius(1,1);
     for j=1:HoleNum
         TempPoint=[basenode(1+(j-1)*Slice:Slice+(j-1)*Slice,1),basenode(1+(j-1)*Slice:Slice+(j-1)*Slice,2)];

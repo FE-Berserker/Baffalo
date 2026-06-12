@@ -39,7 +39,7 @@ close all
 % 35 Input STP file
 % 36 Calculate inertia
 
-flag=21;
+flag=30;
 testMesh(flag);
 function testMesh(flag)
 switch flag

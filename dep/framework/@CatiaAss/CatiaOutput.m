@@ -48,8 +48,7 @@ sen=strcat('product1.PartNumber = "',obj.Name,'"');
 fprintf(fid,'%s\n',sen);
 
 % Save catia part    
-Path=pwd;
-FileName=strcat(Path,obj.Name,'.CATProduct');
+FileName=strcat('.\',obj.Name,'.CATProduct');
 
 sen=strcat('productDocument1.SaveAs ','"',FileName,'"');
 fprintf(fid,'%s\n',sen);
