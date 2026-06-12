@@ -35,7 +35,7 @@ for i=1:size(Body.Seq,1)
         case 'AddNewShaft'
             sen=strcat('Set partbody',num2str(BodyNo),'_',num2str(i),' = part1.ShapeFactory.AddNewShaft ( sketch',num2str(Sketchno),' )');
             fprintf(fid,'%s\n',sen);
-            Ref=Body.Ref;
+            Ref=Body.Seq{i,1}.Ref;
             switch Ref
                 case 'x'
                     sen=strcat('partbody',num2str(BodyNo),'_',num2str(i),'.RevoluteAxis = xNormal');

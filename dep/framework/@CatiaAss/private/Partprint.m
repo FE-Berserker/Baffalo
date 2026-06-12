@@ -1,4 +1,4 @@
-function Partprint(Part,fid,PartNo)
+function Partprint(Part,fid,PartNo,Pool)
 % Part print to catia
 % Author ：Xie Yu
 
@@ -7,6 +7,7 @@ Offset=Part.Offset;
 Seq=Part.Seq;
 
 FileName=GetFileName(Path);
+No=GetNo(FileName,Pool);
 
 sen=strcat('Dim arrayOfVariantOfBSTR',num2str(PartNo),'(0)');
 fprintf(fid,'%s\n',sen);
@@ -17,13 +18,13 @@ fprintf(fid,'%s\n',sen);
 sen=strcat('products1.AddComponentsFromFiles arrayOfVariantOfBSTR',num2str(PartNo),', "All"');
 fprintf(fid,'%s\n',sen);
 
-sen=strcat('Set product2 = products1.Item("',FileName,'.1")');
+sen=strcat('Set partproduct',num2str(PartNo),' = products1.Item("',FileName,'.',num2str(No+1),'")');
 fprintf(fid,'%s\n',sen);
 
-sen=strcat('Set move1 = product2.Move');
+sen=strcat('Set move',num2str(PartNo),' = partproduct',num2str(PartNo),'.Move');
 fprintf(fid,'%s\n',sen);
 
-sen=strcat('Set move1 = move1.MovableObject');
+sen=strcat('Set move',num2str(PartNo),' = move',num2str(PartNo),'.MovableObject');
 fprintf(fid,'%s\n',sen);
 
 sen=strcat('Dim arrayOfVariantOfDouble',num2str(PartNo),'(11)');
@@ -70,6 +71,21 @@ fprintf(fid,'%s\n',sen);
 sen=strcat('arrayOfVariantOfDouble',num2str(PartNo),'(11) = ',num2str(Offset(3)),'');
 fprintf(fid,'%s\n',sen);
 
-sen=strcat('move1.Apply arrayOfVariantOfDouble',num2str(PartNo));
+sen=strcat('move',num2str(PartNo),'.Apply arrayOfVariantOfDouble',num2str(PartNo));
 fprintf(fid,'%s\n',sen);
+end
+
+function No=GetNo(FileName,Pool)
+% 检查 FileName 在 Pool 中出现的次数
+% 输入：
+%   FileName - 文件名（不含路径和扩展名）
+%   Pool - 已添加的文件名列表（cell array）
+% 输出：
+%   No - FileName 在 Pool 中出现的次数
+
+if isempty(Pool)
+    No=0;
+else
+    No=sum(strcmp(FileName, Pool));
+end
 end

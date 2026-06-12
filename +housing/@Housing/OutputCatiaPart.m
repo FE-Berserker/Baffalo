@@ -8,7 +8,8 @@ end
 
 Cap=CatiaPart(obj.params.Name);
 Cap=AddSketch(Cap,obj.output.Surface);
-Cap=AddRotate(Cap,1);
+axis=obj.params.Axis;
+Cap=AddRotate(Cap,1,'Axis',axis);
 
 if print
     CatiaOutput(Cap);

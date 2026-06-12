@@ -30,10 +30,14 @@ fprintf(fid,'%s\n',sen);
 sen=strcat('Set products1 = product1.Products');
 fprintf(fid,'%s\n',sen);
 
+FileNamePool=cell(size(obj.Part,1),1);
 % % Output part
 if ~isempty(obj.Part)
     for i=1:size(obj.Part,1)
-        Partprint(obj.Part{i,1},fid,i);
+        Path=obj.Part{i,1}.Path;
+        FileName=GetFileName(Path);
+        Partprint(obj.Part{i,1},fid,i,FileNamePool);
+        FileNamePool{i,1}=FileName;
     end
 end
 

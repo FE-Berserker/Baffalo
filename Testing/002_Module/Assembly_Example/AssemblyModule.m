@@ -98,7 +98,14 @@ end
 % Ass=AddSlaver(Ass,Component_Assembly_Num,'face',2);
 % Ass=SetRbe3(Ass,Acc_Mas+1,Acc_Sla+1);
 % Ass=SetCnode(Ass,1+Acc_Cnode,Acc_ET-5);
-% Ass=SetSpring(Ass,Acc_Mas,Acc_Mas+1,[100,100,0,0,0,0]);
+% Ass=SetSpring(Ass,Acc_Mas,Acc_Mas+1,[100,100,0,0,0,0];
+
+%% Define Loads
+% Load definition example
+% 1. Add load on a node (Numpart=0 for node)
+% Ass=AddLoad(Ass,0,'No',1);
+% Load_Vector=[0,0,0,0,0,1e10];
+% Ass=SetLoad(Ass,1,Load_Vector);
 
 %% Boundary
 % BoundNum=GetNBoundary(Ass);

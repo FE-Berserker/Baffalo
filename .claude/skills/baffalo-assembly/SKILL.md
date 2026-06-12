@@ -22,7 +22,12 @@ description: "Baffalo MATLAB assembly modeling skill. Invoke when user wants to 
     ↓
 阶段4: 逐个部件创建（迭代确认）
     ↓
-阶段5: 装配体组装（分步确认）
+阶段5: 装配体组装（分5个子阶段确认）
+    ├─ 子阶段A: 部件导入与位置设置
+    ├─ 子阶段B: 单元类型与材料定义
+    ├─ 子阶段C: 接触设置
+    ├─ 子阶段D: 连接与边界条件
+    └─ 子阶段E: 载荷设置
     ↓
 阶段6: 求解与导出
 ```
@@ -232,6 +237,16 @@ Ass = AddAssembly(Ass, Part2.output.Assembly, 'position', position);
 % [更多部件...]
 ```
 
+**重要说明 - 角度单位：**
+
+在网格装配过程中，`position` 参数中的角度分量 **[rx, ry, rz] 使用角度制（度），而非弧度制**。
+
+例如：
+- `position = [0, 0, 0, 0, 0, 180]` 表示绕 Z 轴旋转 180°
+- `position = [0, 0, 0, 90, 0, 0]` 表示绕 X 轴旋转 90°
+
+如果需要从弧度转换，使用：`angle_deg = angle_rad * 180 / pi`
+
 **向用户说明每个部件的位置关系**，用表格或文字描述各部件的相对位置。
 
 **等待用户确认位置关系正确后再继续。**
@@ -322,6 +337,46 @@ Ass = SetBoundaryType(Ass, BoundNum, Bound1);
 - 每个边界条件的约束自由度
 
 **等待用户确认连接和边界条件正确后再继续。**
+
+### 5.5 子阶段E：载荷设置
+
+**载荷设置：**
+
+```matlab
+%% Define Loads
+% 1. Load example: 施加扭矩/力
+% 在节点上施加载荷（Numpart=0）
+Ass = AddLoad(Ass, 0, 'No', node_id);
+
+% 设置载荷值：[Fx, Fy, Fz, Mx, My, Mz]
+% Fx, Fy, Fz: 力分量 [N]
+% Mx, My, Mz: 力矩分量 [N·mm]
+Load_Vector = [0, 0, 0, Mx, 0, 0];  % 示例：绕 X 轴施加扭矩
+Ass = SetLoad(Ass, Load_Num, Load_Vector);
+
+% 在面上施加载荷（Numpart>0）
+% Ass = AddLoad(Ass, PartX_Assembly_Num, 'face', face_id);
+% Load_Vector = [0, 0, Fz, 0, 0, 0];  % 示例：在 Z 方向施加力
+% Ass = SetLoad(Ass, Load_Num, Load_Vector);
+```
+
+**常用载荷类型：**
+
+| 载荷类型 | 载荷向量格式 | 说明 |
+|---------|-------------|------|
+| 扭矩（绕 X 轴） | `[0, 0, 0, Mx, 0, 0]` | Mx 单位：N·mm |
+| 扭矩（绕 Y 轴） | `[0, 0, 0, 0, My, 0]` | My 单位：N·mm |
+| 扭矩（绕 Z 轴） | `[0, 0, 0, 0, 0, Mz]` | Mz 单位：N·mm |
+| 力（X 方向） | `[Fx, 0, 0, 0, 0, 0]` | Fx 单位：N |
+| 力（Y 方向） | `[0, Fy, 0, 0, 0, 0]` | Fy 单位：N |
+| 力（Z 方向） | `[0, 0, Fz, 0, 0, 0]` | Fz 单位：N |
+
+**向用户说明：**
+- 载荷施加的位置（节点或面）
+- 载荷类型和大小
+- 单位（力：N，力矩：N·mm）
+
+**等待用户确认载荷设置正确后再继续。**
 
 ---
 
