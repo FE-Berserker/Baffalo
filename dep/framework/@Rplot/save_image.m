@@ -143,17 +143,10 @@ function obj = save_image(obj, varargin)
                     print(fig, opt.filename, '-dtiff');
                 end
                 fprintf('图片已保存: %s (TIFF格式)\n', opt.filename);
-            case 'bmp'
-                if ~isempty(dpi_str)
-                    print(fig, opt.filename, '-dbmp', dpi_str);
-                else
-                    print(fig, opt.filename, '-dbmp');
-                end
-                fprintf('图片已保存: %s (BMP格式)\n', opt.filename);
 
             % EPS格式（矢量）
             case 'eps'
-                print(fig, opt.filename, '-depsc', '-painters');
+                print(fig, opt.filename, '-depsc', '-vector');
                 fprintf('图片已保存: %s (EPS格式)\n', opt.filename);
 
             % PDF格式（矢量）

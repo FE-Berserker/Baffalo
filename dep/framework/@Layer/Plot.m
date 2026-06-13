@@ -22,7 +22,7 @@ addParameter(p,'View',[]);
 addParameter(p,'equal',1);
 addParameter(p,'grid',1);
 addParameter(p,'axe',1);
-
+addParameter(p,'save',[]);% File name
 parse(p,varargin{:});
 opt=p.Results;
 PPx=[];PPy=[];PPz=[];
@@ -329,6 +329,12 @@ if ~isempty(obj.Planes)
         end
     end
 end
+
+%% Save figure
+if ~isempty(opt.save)
+    g.save_image(opt.save);
+end
+
 end
 
 

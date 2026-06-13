@@ -7,6 +7,7 @@ addParameter(p,'axe',1);
 addParameter(p,'equal',1);
 addParameter(p,'grid',0);
 addParameter(p,'color',[1 0.5 0.5]);
+addParameter(p,'save',[]); % Image name
 parse(p,varargin{:});
 opt=p.Results;
 
@@ -34,6 +35,10 @@ g=geom_polygon(g,'x',X1,'y',Y1,'color',cmap,'alpha',1);
 % figure
 figure('Position',[100 100 800 800]);
 draw(g);
+
+if ~isempty(opt.save)
+  g.save_image(opt.save);
+end
 
 end
 

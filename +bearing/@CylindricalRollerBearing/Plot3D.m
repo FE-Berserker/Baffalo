@@ -1,6 +1,12 @@
-function obj=Plot3D(obj)
+function obj=Plot3D(obj,varargin)
 %Plot3D of bearing
 % Author : Xie Yu
+
+p=inputParser;
+addParameter(p,'save',0);
+parse(p,varargin{:});
+opt=p.Results;
+
 Radius=obj.input.Dw/2;
 Height=obj.input.L;
 mm=Mesh('Roller Bearing','Echo',0);
@@ -29,5 +35,11 @@ if Num>1
         L=AddElement(L,mm);
     end
 end
-Plot(L);
+
+if opt.save
+  Plot(L,'save',strcat(obj.params.Name,'_3D'));
+else
+  Plot(L);
+end
+
 end
