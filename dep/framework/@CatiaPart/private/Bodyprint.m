@@ -30,8 +30,22 @@ for i=1:size(Body.Seq,1)
 
     switch Lab
         case 'AddNewPad'
-            sen=strcat('Set partbody',num2str(BodyNo),'_',num2str(i),' = part1.ShapeFactory.AddNewPad  ( sketch',num2str(Sketchno),', ',num2str(Data),' )');
+            sen=strcat('Set partbody',num2str(BodyNo),'_',num2str(i),' = part1.ShapeFactory.AddNewPad  ( sketch',num2str(Sketchno),', ',num2str(Data(1,1)),' )');
             fprintf(fid,'%s\n',sen);
+            if length(Data)>1
+                
+                sen=strcat('Set limit1 = partbody',num2str(BodyNo),'_',num2str(i),'.SecondLimit');
+                fprintf(fid,'%s\n',sen);
+                
+                sen=strcat('Set length1 = limit1.Dimension');
+                fprintf(fid,'%s\n',sen);
+
+                sen=strcat('length1.Value = ',num2str(Data(1,2)));
+                fprintf(fid,'%s\n',sen);
+
+                sen=strcat('part1.UpdateObject partbody',num2str(BodyNo),'_',num2str(i));
+                fprintf(fid,'%s\n',sen);    
+            end
         case 'AddNewShaft'
             sen=strcat('Set partbody',num2str(BodyNo),'_',num2str(i),' = part1.ShapeFactory.AddNewShaft ( sketch',num2str(Sketchno),' )');
             fprintf(fid,'%s\n',sen);

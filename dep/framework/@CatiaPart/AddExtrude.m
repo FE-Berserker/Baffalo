@@ -4,6 +4,7 @@ function obj = AddExtrude(obj,Sketchno,height,varargin)
 
 p=inputParser;
 addParameter(p,'BodyNo',1);
+addParameter(p,'Height2',[]);
 parse(p,varargin{:});
 opt=p.Results;
 
@@ -15,8 +16,12 @@ end
 Num2=size(obj.Body{Num1,1}.Seq,1)+1;
 obj.Body{Num1,1}.Seq{Num2,1}.SketchNo=Sketchno;
 obj.Body{Num1,1}.Seq{Num2,1}.CatiaLab='AddNewPad';
-obj.Body{Num1,1}.Seq{Num2,1}.CatiaData=height;
 
+if isempty(opt.Height2)
+    obj.Body{Num1,1}.Seq{Num2,1}.CatiaData=height;
+else
+    obj.Body{Num1,1}.Seq{Num2,1}.CatiaData=[height,opt.Height2];
+end
 %% Print
 if obj.Echo
     fprintf('Successfully add Extrude . \n');
