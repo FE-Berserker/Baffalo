@@ -10,8 +10,9 @@ close all
 % case=6 Rotate about axial
 % case=7 Add Ball
 % case=8 Boolean
+% case=9 Add plane and loft
 
-flag=8;
+flag=9;
 
 switch flag
     case 1
@@ -138,7 +139,7 @@ switch flag
         Cap=AddBall(Cap,5);
         CatiaOutput(Cap);
     case 8
-        Cap=CatiaPart('Part5');
+        Cap=CatiaPart('Part8');
         % Semi circle
         a=Point2D('Circle center');
         a=AddPoint(a,0,0);
@@ -163,6 +164,36 @@ switch flag
         % Cap=AddBoolean(Cap,2,2);
         % Cap=AddBoolean(Cap,3,2);
         CatiaOutput(Cap);
-
-
+    case 9
+        Cap=CatiaPart('Part9');
+        %% Bottom verts
+        ns=75;
+        t=linspace(0,2*pi,ns);
+        t=t(1:end);
+        r=5;
+        x=r*cos(t);
+        y=r*sin(t);
+        a=Point2D('Bottom_Verts');
+        a=AddPoint(a,x',y');
+        Plot(a);
+        b=Line2D('Bottom_Line');
+        b=AddCurve(b,a,1);
+        %% Top verts
+        t=linspace(0,2*pi,ns);
+        t=t(1:end);
+        r=6+2.*sin(5*t);
+        [x,y] = pol2cart(t,r);
+        a1=Point2D('Top Verts');
+        a1=AddPoint(a1,x',y');
+        Plot(a1);
+        b1=Line2D('Top_Line');
+        b1=AddCurve(b1,a1,1);
+        %% Layer
+        Cap=AddPoint(Cap,0,0,100);
+        Cap=AddPlane(Cap,'XY','Rot1',20);
+        Cap=AddPlane(Cap,1,'Point',1);
+        Cap=AddSketch(Cap,b);
+        Cap=AddSketch(Cap,b1,'Plane',2);
+        Cap=AddLoft(Cap,1,2);
+        CatiaOutput(Cap);
 end

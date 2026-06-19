@@ -61,6 +61,65 @@ for i=1:size(Body.Seq,1)
                     sen=strcat('partbody',num2str(BodyNo),'_',num2str(i),'.RevoluteAxis = zNormal');
                     fprintf(fid,'%s\n',sen);
             end
+        case 'AddNewLoft'
+
+            sen=strcat('Set Temp1 = part1.ShapeFactory.AddNewPad  ( sketch',num2str(Sketchno(1,1)),', 1 )');
+            fprintf(fid,'%s\n',sen);
+
+            sen=strcat('part1.Update');
+            fprintf(fid,'%s\n',sen);
+
+            sen=strcat('Set Temp2 = part1.ShapeFactory.AddNewPad  ( sketch',num2str(Sketchno(1,2)),', 1 )');
+            fprintf(fid,'%s\n',sen);
+
+            sen=strcat('part1.Update');
+            fprintf(fid,'%s\n',sen);
+
+            sen=strcat('Set selection1 = partDocument1.Selection');
+            fprintf(fid,'%s\n',sen);
+
+            sen=strcat('selection1.Clear ');
+            fprintf(fid,'%s\n',sen);
+
+            sen=strcat('selection1.Add Temp1');
+            fprintf(fid,'%s\n',sen);
+
+            sen=strcat('selection1.Add Temp2');
+            fprintf(fid,'%s\n',sen);
+
+            sen=strcat('selection1.Delete');
+            fprintf(fid,'%s\n',sen);
+
+            sen=strcat('Set partbody',num2str(BodyNo),'_',num2str(i),' = part1.ShapeFactory.AddNewLoft()');
+            fprintf(fid,'%s\n',sen);
+
+            sen=strcat('Set hybridShapeLoft1 = partbody',num2str(BodyNo),'_',num2str(i),'.HybridShape');
+            fprintf(fid,'%s\n',sen);
+
+            sen=strcat('hybridShapeLoft1.SectionCoupling = 3');
+            fprintf(fid,'%s\n',sen);
+
+            sen=strcat('hybridShapeLoft1.Relimitation = 1');
+            fprintf(fid,'%s\n',sen);
+
+            sen=strcat('hybridShapeLoft1.CanonicalDetection = 2');
+            fprintf(fid,'%s\n',sen);
+
+            sen=strcat('Set reference1 = part1.CreateReferenceFromObject(sketch',num2str(Sketchno(1,1)),')');
+            fprintf(fid,'%s\n',sen);
+
+            sen=strcat('Set reference2 = part1.CreateReferenceFromObject(sketch',num2str(Sketchno(1,2)),')');
+            fprintf(fid,'%s\n',sen);
+
+            sen=strcat('hybridShapeLoft1.AddSectionToLoft reference1,1,Nothing');
+            fprintf(fid,'%s\n',sen);
+
+            sen=strcat('hybridShapeLoft1.AddSectionToLoft reference2,1,Nothing');
+            fprintf(fid,'%s\n',sen);
+
+            sen=strcat('part1.InWorkObject = hybridShapeLoft1');
+            fprintf(fid,'%s\n',sen);
+
     end
 end
 

@@ -58,7 +58,6 @@ fprintf(fid,'%s\n',sen);
 sen=strcat('Set origin = part1.OriginElements');
 fprintf(fid,'%s\n',sen);
 
-
 sen=strcat('Set refXY = part1.CreateReferenceFromObject(origin.PlaneXY)');
 fprintf(fid,'%s\n',sen);
 
@@ -98,9 +97,31 @@ fprintf(fid,'%s\n',sen);
 sen=strcat('part1.InWorkObject = yNormal');
 fprintf(fid,'%s\n',sen);
 
+sen=strcat('Set refZ = part1.CreateReferenceFromObject(zNormal)');
+fprintf(fid,'%s\n',sen);
+
+sen=strcat('Set refX = part1.CreateReferenceFromObject(xNormal)');
+fprintf(fid,'%s\n',sen);
+
+sen=strcat('Set refY = part1.CreateReferenceFromObject(yNormal)');
+fprintf(fid,'%s\n',sen);
+
 sen=strcat('part1.Update ');
 fprintf(fid,'%s\n',sen);
 
+% Output Points
+if ~isempty(obj.Point)
+    for i=1:size(obj.Point,1)
+        Pointprint(obj.Point(i,:),fid,i);
+    end
+end
+
+% Output Planes
+if ~isempty(obj.Plane)
+    for i=1:size(obj.Plane,1)
+        Planeprint(obj.Plane(i,:),fid,i);
+    end
+end
 
 % Output Sketches
 if ~isempty(obj.Sketches)

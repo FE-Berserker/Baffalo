@@ -14,8 +14,13 @@ fprintf(fid,'%s\n',sen);
 sen=strcat('Set originElements',num2str(SketchNo),' = part1.OriginElements');
 fprintf(fid,'%s\n',sen);
 
-sen=strcat('Set reference',num2str(SketchNo),' = originElements',num2str(SketchNo),'.Plane',Plane,'');
-fprintf(fid,'%s\n',sen);
+if isnumeric(Plane)
+    sen=strcat('Set reference',num2str(SketchNo),' = ref',num2str(Plane));
+    fprintf(fid,'%s\n',sen);
+else
+    sen=strcat('Set reference',num2str(SketchNo),' = originElements',num2str(SketchNo),'.Plane',Plane,'');
+    fprintf(fid,'%s\n',sen);
+end
 
 sen=strcat('Set sketch',num2str(SketchNo),' = sketches',num2str(SketchNo),'.Add(reference',num2str(SketchNo),')');
 fprintf(fid,'%s\n',sen);

@@ -1,0 +1,241 @@
+Language="VBSCRIPT"
+Sub CATMain()
+Set owindows = CATIA.Windows
+Set documents1 = CATIA.Documents
+Set partDocument1 = documents1.Add("Part")
+Set part1 = partDocument1.Part
+Set hybridBodies1 = part1.HybridBodies
+Set hybridBody1 = hybridBodies1.Item("几何图形集.1")
+Set hybridShapeFactory1 = part1.HybridShapeFactory
+Set OriginPoint = hybridShapeFactory1.AddNewPointCoord(0.000000, 0.000000, 0.000000)
+hybridBody1.AppendHybridShape OriginPoint
+part1.InWorkObject = OriginPoint
+part1.Update
+Set origin = part1.OriginElements
+Set refXY = part1.CreateReferenceFromObject(origin.PlaneXY)
+Set refYZ = part1.CreateReferenceFromObject(origin.PlaneYZ)
+Set refZX = part1.CreateReferenceFromObject(origin.PlaneZX)
+Set refOrigin = part1.CreateReferenceFromObject(OriginPoint)
+Set zNormal = hybridShapeFactory1.AddNewLineNormal(refXY, refOrigin, 0.000000, 20.000000, False)
+Set xNormal = hybridShapeFactory1.AddNewLineNormal(refYZ, refOrigin, 0.000000, 20.000000, False)
+Set yNormal = hybridShapeFactory1.AddNewLineNormal(refZX, refOrigin, 0.000000, 20.000000, False)
+hybridBody1.AppendHybridShape zNormal
+part1.InWorkObject = zNormal
+hybridBody1.AppendHybridShape xNormal
+part1.InWorkObject = xNormal
+hybridBody1.AppendHybridShape yNormal
+part1.InWorkObject = yNormal
+Set refZ = part1.CreateReferenceFromObject(zNormal)
+Set refX = part1.CreateReferenceFromObject(xNormal)
+Set refY = part1.CreateReferenceFromObject(yNormal)
+part1.Update
+Set Point1 = hybridShapeFactory1.AddNewPointCoord(0,0,100)
+hybridBody1.AppendHybridShape Point1
+part1.InWorkObject = Point1
+part1.Update
+Set refPoint1 = part1.CreateReferenceFromObject(Point1)
+Set PlaneTrans1= hybridShapeFactory1.AddNewPlaneAngle(refXY,refX,20, False)
+hybridBody1.AppendHybridShape PlaneTrans1
+part1.InWorkObject = PlaneTrans1
+part1.Update
+Set hybridShapes1 = hybridBody1.HybridShapes
+Set hybridShapePlane1 = hybridShapes1.Item("平面.1")
+Set ref1 = part1.CreateReferenceFromObject(hybridShapePlane1)
+Set PlaneTrans2= hybridShapeFactory1.AddNewPlaneOffsetPt(ref1,refPoint1)
+hybridBody1.AppendHybridShape PlaneTrans2
+part1.InWorkObject = PlaneTrans2
+part1.Update
+Set hybridShapes1 = hybridBody1.HybridShapes
+Set hybridShapePlane2 = hybridShapes1.Item("平面.2")
+Set ref2 = part1.CreateReferenceFromObject(hybridShapePlane2)
+Set sketches1 = hybridBody1.HybridSketches
+Set originElements1 = part1.OriginElements
+Set reference1 = originElements1.PlaneXY
+Set sketch1 = sketches1.Add(reference1)
+Set factory2D1 = sketch1.OpenEdition()
+ Set Line1 = factory2D1.CreateLine(5,0,4.982,0.42403)
+ Set Line2 = factory2D1.CreateLine(4.982,0.42403,4.9281,0.845)
+ Set Line3 = factory2D1.CreateLine(4.9281,0.845,4.8387,1.2599)
+ Set Line4 = factory2D1.CreateLine(4.8387,1.2599,4.7144,1.6657)
+ Set Line5 = factory2D1.CreateLine(4.7144,1.6657,4.5561,2.0595)
+ Set Line6 = factory2D1.CreateLine(4.5561,2.0595,4.3651,2.4385)
+ Set Line7 = factory2D1.CreateLine(4.3651,2.4385,4.1425,2.7999)
+ Set Line8 = factory2D1.CreateLine(4.1425,2.7999,3.8902,3.1411)
+ Set Line9 = factory2D1.CreateLine(3.8902,3.1411,3.6098,3.4597)
+ Set Line10 = factory2D1.CreateLine(3.6098,3.4597,3.3034,3.7534)
+ Set Line11 = factory2D1.CreateLine(3.3034,3.7534,2.9732,4.02)
+ Set Line12 = factory2D1.CreateLine(2.9732,4.02,2.6215,4.2576)
+ Set Line13 = factory2D1.CreateLine(2.6215,4.2576,2.251,4.4646)
+ Set Line14 = factory2D1.CreateLine(2.251,4.4646,1.8643,4.6394)
+ Set Line15 = factory2D1.CreateLine(1.8643,4.6394,1.4641,4.7808)
+ Set Line16 = factory2D1.CreateLine(1.4641,4.7808,1.0534,4.8878)
+ Set Line17 = factory2D1.CreateLine(1.0534,4.8878,0.63509,4.9595)
+ Set Line18 = factory2D1.CreateLine(0.63509,4.9595,0.21221,4.9955)
+ Set Line19 = factory2D1.CreateLine(0.21221,4.9955,-0.21221,4.9955)
+ Set Line20 = factory2D1.CreateLine(-0.21221,4.9955,-0.63509,4.9595)
+ Set Line21 = factory2D1.CreateLine(-0.63509,4.9595,-1.0534,4.8878)
+ Set Line22 = factory2D1.CreateLine(-1.0534,4.8878,-1.4641,4.7808)
+ Set Line23 = factory2D1.CreateLine(-1.4641,4.7808,-1.8643,4.6394)
+ Set Line24 = factory2D1.CreateLine(-1.8643,4.6394,-2.251,4.4646)
+ Set Line25 = factory2D1.CreateLine(-2.251,4.4646,-2.6215,4.2576)
+ Set Line26 = factory2D1.CreateLine(-2.6215,4.2576,-2.9732,4.02)
+ Set Line27 = factory2D1.CreateLine(-2.9732,4.02,-3.3034,3.7534)
+ Set Line28 = factory2D1.CreateLine(-3.3034,3.7534,-3.6098,3.4597)
+ Set Line29 = factory2D1.CreateLine(-3.6098,3.4597,-3.8902,3.1411)
+ Set Line30 = factory2D1.CreateLine(-3.8902,3.1411,-4.1425,2.7999)
+ Set Line31 = factory2D1.CreateLine(-4.1425,2.7999,-4.3651,2.4385)
+ Set Line32 = factory2D1.CreateLine(-4.3651,2.4385,-4.5561,2.0595)
+ Set Line33 = factory2D1.CreateLine(-4.5561,2.0595,-4.7144,1.6657)
+ Set Line34 = factory2D1.CreateLine(-4.7144,1.6657,-4.8387,1.2599)
+ Set Line35 = factory2D1.CreateLine(-4.8387,1.2599,-4.9281,0.845)
+ Set Line36 = factory2D1.CreateLine(-4.9281,0.845,-4.982,0.42403)
+ Set Line37 = factory2D1.CreateLine(-4.982,0.42403,-5,6.1232e-16)
+ Set Line38 = factory2D1.CreateLine(-5,6.1232e-16,-4.982,-0.42403)
+ Set Line39 = factory2D1.CreateLine(-4.982,-0.42403,-4.9281,-0.845)
+ Set Line40 = factory2D1.CreateLine(-4.9281,-0.845,-4.8387,-1.2599)
+ Set Line41 = factory2D1.CreateLine(-4.8387,-1.2599,-4.7144,-1.6657)
+ Set Line42 = factory2D1.CreateLine(-4.7144,-1.6657,-4.5561,-2.0595)
+ Set Line43 = factory2D1.CreateLine(-4.5561,-2.0595,-4.3651,-2.4385)
+ Set Line44 = factory2D1.CreateLine(-4.3651,-2.4385,-4.1425,-2.7999)
+ Set Line45 = factory2D1.CreateLine(-4.1425,-2.7999,-3.8902,-3.1411)
+ Set Line46 = factory2D1.CreateLine(-3.8902,-3.1411,-3.6098,-3.4597)
+ Set Line47 = factory2D1.CreateLine(-3.6098,-3.4597,-3.3034,-3.7534)
+ Set Line48 = factory2D1.CreateLine(-3.3034,-3.7534,-2.9732,-4.02)
+ Set Line49 = factory2D1.CreateLine(-2.9732,-4.02,-2.6215,-4.2576)
+ Set Line50 = factory2D1.CreateLine(-2.6215,-4.2576,-2.251,-4.4646)
+ Set Line51 = factory2D1.CreateLine(-2.251,-4.4646,-1.8643,-4.6394)
+ Set Line52 = factory2D1.CreateLine(-1.8643,-4.6394,-1.4641,-4.7808)
+ Set Line53 = factory2D1.CreateLine(-1.4641,-4.7808,-1.0534,-4.8878)
+ Set Line54 = factory2D1.CreateLine(-1.0534,-4.8878,-0.63509,-4.9595)
+ Set Line55 = factory2D1.CreateLine(-0.63509,-4.9595,-0.21221,-4.9955)
+ Set Line56 = factory2D1.CreateLine(-0.21221,-4.9955,0.21221,-4.9955)
+ Set Line57 = factory2D1.CreateLine(0.21221,-4.9955,0.63509,-4.9595)
+ Set Line58 = factory2D1.CreateLine(0.63509,-4.9595,1.0534,-4.8878)
+ Set Line59 = factory2D1.CreateLine(1.0534,-4.8878,1.4641,-4.7808)
+ Set Line60 = factory2D1.CreateLine(1.4641,-4.7808,1.8643,-4.6394)
+ Set Line61 = factory2D1.CreateLine(1.8643,-4.6394,2.251,-4.4646)
+ Set Line62 = factory2D1.CreateLine(2.251,-4.4646,2.6215,-4.2576)
+ Set Line63 = factory2D1.CreateLine(2.6215,-4.2576,2.9732,-4.02)
+ Set Line64 = factory2D1.CreateLine(2.9732,-4.02,3.3034,-3.7534)
+ Set Line65 = factory2D1.CreateLine(3.3034,-3.7534,3.6098,-3.4597)
+ Set Line66 = factory2D1.CreateLine(3.6098,-3.4597,3.8902,-3.1411)
+ Set Line67 = factory2D1.CreateLine(3.8902,-3.1411,4.1425,-2.7999)
+ Set Line68 = factory2D1.CreateLine(4.1425,-2.7999,4.3651,-2.4385)
+ Set Line69 = factory2D1.CreateLine(4.3651,-2.4385,4.5561,-2.0595)
+ Set Line70 = factory2D1.CreateLine(4.5561,-2.0595,4.7144,-1.6657)
+ Set Line71 = factory2D1.CreateLine(4.7144,-1.6657,4.8387,-1.2599)
+ Set Line72 = factory2D1.CreateLine(4.8387,-1.2599,4.9281,-0.845)
+ Set Line73 = factory2D1.CreateLine(4.9281,-0.845,4.982,-0.42403)
+ Set Line74 = factory2D1.CreateLine(4.982,-0.42403,5,-1.2246e-15)
+sketch1.CloseEdition
+part1.Update
+Set sketches2 = hybridBody1.HybridSketches
+Set originElements2 = part1.OriginElements
+Set reference2 = ref2
+Set sketch2 = sketches2.Add(reference2)
+Set factory2D1 = sketch2.OpenEdition()
+ Set Line1 = factory2D1.CreateLine(6,0,6.7992,0.5787)
+ Set Line2 = factory2D1.CreateLine(6.7992,0.5787,7.3934,1.2677)
+ Set Line3 = factory2D1.CreateLine(7.3934,1.2677,7.657,1.9937)
+ Set Line4 = factory2D1.CreateLine(7.657,1.9937,7.5277,2.6597)
+ Set Line5 = factory2D1.CreateLine(7.5277,2.6597,7.0192,3.1729)
+ Set Line6 = factory2D1.CreateLine(7.0192,3.1729,6.2158,3.4724)
+ Set Line7 = factory2D1.CreateLine(6.2158,3.4724,5.2511,3.5491)
+ Set Line8 = factory2D1.CreateLine(5.2511,3.5491,4.2761,3.4527)
+ Set Line9 = factory2D1.CreateLine(4.2761,3.4527,3.4246,3.2823)
+ Set Line10 = factory2D1.CreateLine(3.4246,3.2823,2.7842,3.1634)
+ Set Line11 = factory2D1.CreateLine(2.7842,3.1634,2.3796,3.2174)
+ Set Line12 = factory2D1.CreateLine(2.3796,3.2174,2.1728,3.5289)
+ Set Line13 = factory2D1.CreateLine(2.1728,3.5289,2.0782,4.1219)
+ Set Line14 = factory2D1.CreateLine(2.0782,4.1219,1.9887,4.9491)
+ Set Line15 = factory2D1.CreateLine(1.9887,4.9491,1.8066,5.8992)
+ Set Line16 = factory2D1.CreateLine(1.8066,5.8992,1.4696,6.8188)
+ Set Line17 = factory2D1.CreateLine(1.4696,6.8188,0.96635,7.5464)
+ Set Line18 = factory2D1.CreateLine(0.96635,7.5464,0.33762,7.9479)
+ Set Line19 = factory2D1.CreateLine(0.33762,7.9479,-0.33762,7.9479)
+ Set Line20 = factory2D1.CreateLine(-0.33762,7.9479,-0.96635,7.5464)
+ Set Line21 = factory2D1.CreateLine(-0.96635,7.5464,-1.4696,6.8188)
+ Set Line22 = factory2D1.CreateLine(-1.4696,6.8188,-1.8066,5.8992)
+ Set Line23 = factory2D1.CreateLine(-1.8066,5.8992,-1.9887,4.9491)
+ Set Line24 = factory2D1.CreateLine(-1.9887,4.9491,-2.0782,4.1219)
+ Set Line25 = factory2D1.CreateLine(-2.0782,4.1219,-2.1728,3.5289)
+ Set Line26 = factory2D1.CreateLine(-2.1728,3.5289,-2.3796,3.2174)
+ Set Line27 = factory2D1.CreateLine(-2.3796,3.2174,-2.7842,3.1634)
+ Set Line28 = factory2D1.CreateLine(-2.7842,3.1634,-3.4246,3.2823)
+ Set Line29 = factory2D1.CreateLine(-3.4246,3.2823,-4.2761,3.4527)
+ Set Line30 = factory2D1.CreateLine(-4.2761,3.4527,-5.2511,3.5491)
+ Set Line31 = factory2D1.CreateLine(-5.2511,3.5491,-6.2158,3.4724)
+ Set Line32 = factory2D1.CreateLine(-6.2158,3.4724,-7.0192,3.1729)
+ Set Line33 = factory2D1.CreateLine(-7.0192,3.1729,-7.5277,2.6597)
+ Set Line34 = factory2D1.CreateLine(-7.5277,2.6597,-7.657,1.9937)
+ Set Line35 = factory2D1.CreateLine(-7.657,1.9937,-7.3934,1.2677)
+ Set Line36 = factory2D1.CreateLine(-7.3934,1.2677,-6.7992,0.5787)
+ Set Line37 = factory2D1.CreateLine(-6.7992,0.5787,-6,7.3479e-16)
+ Set Line38 = factory2D1.CreateLine(-6,7.3479e-16,-5.1576,-0.43897)
+ Set Line39 = factory2D1.CreateLine(-5.1576,-0.43897,-4.4339,-0.76028)
+ Set Line40 = factory2D1.CreateLine(-4.4339,-0.76028,-3.9558,-1.03)
+ Set Line41 = factory2D1.CreateLine(-3.9558,-1.03,-3.7868,-1.338)
+ Set Line42 = factory2D1.CreateLine(-3.7868,-1.338,-3.9155,-1.7699)
+ Set Line43 = factory2D1.CreateLine(-3.9155,-1.7699,-4.2604,-2.38)
+ Set Line44 = factory2D1.CreateLine(-4.2604,-2.38,-4.691,-3.1706)
+ Set Line45 = factory2D1.CreateLine(-4.691,-3.1706,-5.0603,-4.0859)
+ Set Line46 = factory2D1.CreateLine(-5.0603,-4.0859,-5.2388,-5.021)
+ Set Line47 = factory2D1.CreateLine(-5.2388,-5.021,-5.1439,-5.8446)
+ Set Line48 = factory2D1.CreateLine(-5.1439,-5.8446,-4.756,-6.4305)
+ Set Line49 = factory2D1.CreateLine(-4.756,-6.4305,-4.1188,-6.6894)
+ Set Line50 = factory2D1.CreateLine(-4.1188,-6.6894,-3.3242,-6.5933)
+ Set Line51 = factory2D1.CreateLine(-3.3242,-6.5933,-2.4856,-6.1856)
+ Set Line52 = factory2D1.CreateLine(-2.4856,-6.1856,-1.7073,-5.5748)
+ Set Line53 = factory2D1.CreateLine(-1.7073,-5.5748,-1.0586,-4.9118)
+ Set Line54 = factory2D1.CreateLine(-1.0586,-4.9118,-0.55786,-4.3564)
+ Set Line55 = factory2D1.CreateLine(-0.55786,-4.3564,-0.17167,-4.0412)
+ Set Line56 = factory2D1.CreateLine(-0.17167,-4.0412,0.17167,-4.0412)
+ Set Line57 = factory2D1.CreateLine(0.17167,-4.0412,0.55786,-4.3564)
+ Set Line58 = factory2D1.CreateLine(0.55786,-4.3564,1.0586,-4.9118)
+ Set Line59 = factory2D1.CreateLine(1.0586,-4.9118,1.7073,-5.5748)
+ Set Line60 = factory2D1.CreateLine(1.7073,-5.5748,2.4856,-6.1856)
+ Set Line61 = factory2D1.CreateLine(2.4856,-6.1856,3.3242,-6.5933)
+ Set Line62 = factory2D1.CreateLine(3.3242,-6.5933,4.1188,-6.6894)
+ Set Line63 = factory2D1.CreateLine(4.1188,-6.6894,4.756,-6.4305)
+ Set Line64 = factory2D1.CreateLine(4.756,-6.4305,5.1439,-5.8446)
+ Set Line65 = factory2D1.CreateLine(5.1439,-5.8446,5.2388,-5.021)
+ Set Line66 = factory2D1.CreateLine(5.2388,-5.021,5.0603,-4.0859)
+ Set Line67 = factory2D1.CreateLine(5.0603,-4.0859,4.691,-3.1706)
+ Set Line68 = factory2D1.CreateLine(4.691,-3.1706,4.2604,-2.38)
+ Set Line69 = factory2D1.CreateLine(4.2604,-2.38,3.9155,-1.7699)
+ Set Line70 = factory2D1.CreateLine(3.9155,-1.7699,3.7868,-1.338)
+ Set Line71 = factory2D1.CreateLine(3.7868,-1.338,3.9558,-1.03)
+ Set Line72 = factory2D1.CreateLine(3.9558,-1.03,4.4339,-0.76028)
+ Set Line73 = factory2D1.CreateLine(4.4339,-0.76028,5.1576,-0.43897)
+ Set Line74 = factory2D1.CreateLine(5.1576,-0.43897,6,-1.4696e-15)
+sketch2.CloseEdition
+part1.Update
+Set bodies1 = part1.Bodies
+Set body1 = bodies1.Item("零件几何体")
+part1.InWorkObject = body1
+Set Temp1 = part1.ShapeFactory.AddNewPad  ( sketch1, 1 )
+part1.Update
+Set Temp2 = part1.ShapeFactory.AddNewPad  ( sketch2, 1 )
+part1.Update
+Set selection1 = partDocument1.Selection
+selection1.Clear
+selection1.Add Temp1
+selection1.Add Temp2
+selection1.Delete
+Set partbody1_1 = part1.ShapeFactory.AddNewLoft()
+Set hybridShapeLoft1 = partbody1_1.HybridShape
+hybridShapeLoft1.SectionCoupling = 3
+hybridShapeLoft1.Relimitation = 1
+hybridShapeLoft1.CanonicalDetection = 2
+Set reference1 = part1.CreateReferenceFromObject(sketch1)
+Set reference2 = part1.CreateReferenceFromObject(sketch2)
+hybridShapeLoft1.AddSectionToLoft reference1,1,Nothing
+hybridShapeLoft1.AddSectionToLoft reference2,1,Nothing
+part1.InWorkObject = hybridShapeLoft1
+part1.Update
+part1.InWorkObject = body1
+Set partDocument1 = CATIA.ActiveDocument
+Set product1 = partDocument1.GetItem(partDocument1.Name)
+product1.PartNumber = "Part9"
+partDocument1.SaveAs".\Part9.CATPart"
+End Sub
