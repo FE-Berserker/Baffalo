@@ -80,7 +80,8 @@ end
 %% 保存结果
 mm.Cb=mm.Meshoutput.boundaryMarker;
 mm.Face=mm.Meshoutput.facesBoundary;
-mm.Meshoutput.nodes=mm.Meshoutput.nodes+obj.input.T;  % 调整节点Z坐标
+mm.Meshoutput.nodes=mm.Meshoutput.nodes;
+mm.Meshoutput.nodes(:,3)=mm.Meshoutput.nodes(:,3)+obj.input.T; % 调整节点Z坐标（向上平移T）
 mm.Vert=mm.Meshoutput.nodes;
 obj.output.SolidMesh=mm;
 

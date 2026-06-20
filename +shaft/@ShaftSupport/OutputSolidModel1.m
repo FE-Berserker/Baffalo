@@ -72,7 +72,8 @@ end
 %% 保存结果
 mm.Cb=mm.Meshoutput.boundaryMarker;       % 保存边界标记
 mm.Face=mm.Meshoutput.facesBoundary;       % 保存边界面信息
-mm.Meshoutput.nodes=mm.Meshoutput.nodes+obj.input.T;  % 调整节点Z坐标（向上平移T）
+mm.Meshoutput.nodes=mm.Meshoutput.nodes; 
+mm.Meshoutput.nodes(:,3)=mm.Meshoutput.nodes(:,3)+obj.input.T; % 调整节点Z坐标（向上平移T）
 mm.Vert=mm.Meshoutput.nodes;               % 保存顶点坐标
 obj.output.SolidMesh=mm;                   % 保存到输出对象
 

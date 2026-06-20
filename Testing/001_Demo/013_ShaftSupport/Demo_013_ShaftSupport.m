@@ -28,10 +28,12 @@ switch flag
         inputShaftSupport.P=20;
         inputShaftSupport.NH=4;
         paramsShaftSupport = struct();
+        paramsShaftSupport.Name = 'ShaftSupport_Type1';
         obj1=shaft.ShaftSupport(paramsShaftSupport, inputShaftSupport);
         obj1=obj1.solve();
         Plot3D(obj1);
         ANSYS_Output(obj1.output.Assembly);
+        OutputCatiaPart(obj1);
     case 2
         inputShaftSupport.N= 3;
         inputShaftSupport.L = 15;
@@ -43,10 +45,12 @@ switch flag
         inputShaftSupport.NH=4;
         inputShaftSupport.K=22;
         paramsShaftSupport.Type = 2;
+        paramsShaftSupport.Name = 'ShaftSupport_Type2';
         obj1=shaft.ShaftSupport(paramsShaftSupport, inputShaftSupport);
         obj1=obj1.solve();
         Plot3D(obj1);
         ANSYS_Output(obj1.output.Assembly);
+        OutputCatiaPart(obj1);
     case 3
         inputShaftSupport.N= 3;
         inputShaftSupport.L = 15;
@@ -58,10 +62,12 @@ switch flag
         inputShaftSupport.NH=2;
         inputShaftSupport.W=16;
         paramsShaftSupport.Type = 3;
+        paramsShaftSupport.Name = 'ShaftSupport_Type3';
         obj1=shaft.ShaftSupport(paramsShaftSupport, inputShaftSupport);
         obj1=obj1.solve();
         Plot3D(obj1);
         ANSYS_Output(obj1.output.Assembly);
+        OutputCatiaPart(obj1);
     case 4
         inputShaftSupport.N= 3;
         inputShaftSupport.L = 32;
@@ -74,9 +80,11 @@ switch flag
         inputShaftSupport.W=26;
         inputShaftSupport.F=16;
         paramsShaftSupport.Type = 4;
+        paramsShaftSupport.Name = 'ShaftSupport_Type4';
         obj1=shaft.ShaftSupport(paramsShaftSupport, inputShaftSupport);
         obj1=obj1.solve();
         Plot3D(obj1);
         ANSYS_Output(obj1.output.Assembly);
+        OutputCatiaPart(obj1);
 end
 end
