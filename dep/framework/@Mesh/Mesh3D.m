@@ -24,9 +24,6 @@ inputStruct.faceBoundaryMarker=obj.Cb; %Face boundary markers
 inputStruct.regionPoints=getInnerPoint(obj.Face,obj.Vert); %region points
 inputStruct.regionA=tetVolMeanEst(obj.Face,obj.Vert); %Volume for regular tets
 
-
-
-
 obj.Meshoutput=runTetGen(inputStruct);
 % el=obj.Meshoutput.elements;
 % obj.Meshoutput.elements=el;

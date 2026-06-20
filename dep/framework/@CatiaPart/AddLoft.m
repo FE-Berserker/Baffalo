@@ -4,6 +4,7 @@ function obj = AddLoft(obj,Sketchno1,Sketchno2,varargin)
 
 p=inputParser;
 addParameter(p,'BodyNo',1);
+addParameter(p,'Type',3);
 parse(p,varargin{:});
 opt=p.Results;
 
@@ -15,7 +16,7 @@ end
 Num2=size(obj.Body{Num1,1}.Seq,1)+1;
 obj.Body{Num1,1}.Seq{Num2,1}.SketchNo=[Sketchno1,Sketchno2];
 obj.Body{Num1,1}.Seq{Num2,1}.CatiaLab='AddNewLoft';
-obj.Body{Num1,1}.Seq{Num2,1}.CatiaData=[];
+obj.Body{Num1,1}.Seq{Num2,1}.CatiaData=opt.Type;
 
 %% Print
 if obj.Echo

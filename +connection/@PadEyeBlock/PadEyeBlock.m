@@ -67,7 +67,7 @@ classdef PadEyeBlock < Component
             end
 
             if h>=w
-                error('size h should be smaller than size h !')
+                error('size h should be smaller than size w !')
             end
 
             % Set Material

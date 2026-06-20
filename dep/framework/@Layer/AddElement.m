@@ -4,6 +4,7 @@ function obj=AddElement(obj,inputobj,varargin)
 
 p=inputParser;
 addParameter(p,'Transform',[0,0,0,0,0,0]);
+addParameter(p,'Seq','ZYX')
 parse(p,varargin{:});
 opt=p.Results;
 
@@ -12,7 +13,7 @@ position=opt.Transform;
 if isa(inputobj,'Point2D')
     Num=GetNPoints(obj);
     T=Transform([inputobj.P,zeros(inputobj.NP,1)]);
-    T=Rotate(T,position(4),position(5),position(6));
+    T=Rotate(T,position(4),position(5),position(6),'Seq',opt.Seq);
     T=Translate(T,position(1),position(2),position(3));
     obj.Points{Num+1,1}.P=Solve(T);
 end
@@ -20,7 +21,7 @@ end
 if isa(inputobj,'Point')
     Num=GetNPoints(obj);
     T=Transform(inputobj.P);
-    T=Rotate(T,position(4),position(5),position(6));
+    T=Rotate(T,position(4),position(5),position(6),'Seq',opt.Seq);
     T=Translate(T,position(1),position(2),position(3));
     obj.Points{Num+1,1}.P=Solve(T);
 end
@@ -29,7 +30,7 @@ if isa(inputobj,'Line2D')
     Num=GetNLines(obj);
     NumPoint=inputobj.Point.NP;
     T=Transform([inputobj.Point.P,zeros(NumPoint,1)]);
-    T=Rotate(T,position(4),position(5),position(6));
+    T=Rotate(T,position(4),position(5),position(6),'Seq',opt.Seq);
     T=Translate(T,position(1),position(2),position(3));
     obj.Lines{Num+1,1}.P=Solve(T);
     obj.Lines{Num+1,1}.El=[(1:NumPoint-1)',(2:NumPoint)'];
@@ -39,8 +40,8 @@ if isa(inputobj,'Line')
      Num=GetNLines(obj);
      PP=OutputPoint(inputobj,'Compress',1);
      NumPoint=size(PP,1);
-     T=Transform(PP);
-     T=Rotate(T,position(4),position(5),position(6));
+     T=Transform(PP,'Seq');
+     T=Rotate(T,position(4),position(5),position(6),'Seq',opt.Seq);
      T=Translate(T,position(1),position(2),position(3));
      obj.Lines{Num+1,1}.P=Solve(T);
      obj.Lines{Num+1,1}.El=[(1:NumPoint-1)',(2:NumPoint)'];   
@@ -51,7 +52,7 @@ if isa(inputobj,'Mesh2D')
     obj.Meshes{Num+1,1}.Face=inputobj.Face;
 
     T=Transform([inputobj.Vert,zeros(size(inputobj.Vert,1),1)]);
-    T=Rotate(T,position(4),position(5),position(6));
+    T=Rotate(T,position(4),position(5),position(6),'Seq',opt.Seq);
     T=Translate(T,position(1),position(2),position(3));
     obj.Meshes{Num+1,1}.Vert=Solve(T);
 
@@ -62,7 +63,7 @@ if isa(inputobj,'Mesh2D')
         obj.Duals{Num+1,1}.cp= inputobj.Dual.cp;
         obj.Duals{Num+1,1}.ce=inputobj.Dual.ce;
         T=Transform(inputobj.Dual.pv);
-        T=Rotate(T,position(4),position(5),position(6));
+        T=Rotate(T,position(4),position(5),position(6),'Seq',opt.Seq);
         T=Translate(T,position(1),position(2),position(3));
         obj.Duals{Num+1,1}.pv=Solve(T);    
         obj.Duals{Num+1,1}.ev=inputobj.Dual.ev;
@@ -77,7 +78,7 @@ if isa(inputobj,'Mesh')
     obj.Meshes{Num+1,1}.Face=inputobj.Face;
 
     T=Transform(inputobj.Vert);
-    T=Rotate(T,position(4),position(5),position(6));
+    T=Rotate(T,position(4),position(5),position(6),'Seq',opt.Seq);
     T=Translate(T,position(1),position(2),position(3));
     obj.Meshes{Num+1,1}.Vert=Solve(T);
     obj.Meshes{Num+1,1}.Boundary=Boundary(inputobj.Face);

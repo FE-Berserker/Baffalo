@@ -25,7 +25,7 @@ close all
 % 21 Baffalo logo
 % 22 Mesh with constraints
 
-flag=11;
+flag=8;
 testMesh2D(flag);
 function testMesh2D(flag)
 switch flag

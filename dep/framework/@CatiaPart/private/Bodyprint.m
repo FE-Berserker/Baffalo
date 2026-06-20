@@ -96,7 +96,7 @@ for i=1:size(Body.Seq,1)
             sen=strcat('Set hybridShapeLoft1 = partbody',num2str(BodyNo),'_',num2str(i),'.HybridShape');
             fprintf(fid,'%s\n',sen);
 
-            sen=strcat('hybridShapeLoft1.SectionCoupling = 3');
+            sen=strcat('hybridShapeLoft1.SectionCoupling = ',num2str(Data(1,1)));
             fprintf(fid,'%s\n',sen);
 
             sen=strcat('hybridShapeLoft1.Relimitation = 1');
