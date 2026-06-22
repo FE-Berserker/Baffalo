@@ -38,7 +38,7 @@ m.Meshoutput.boundaryMarker=Cb;
 
 mm=Mesh('Mesh','Echo',0);
 mm=Extrude2Solid(mm,m,-T,obj.params.N_Slice);
-mm=Extrude2Solid(mm,m,l/2-T,ceil(T/Meshsize)/2,'Cb',2);
+mm=Extrude2Solid(mm,m,l/2-T,ceil((l/2-T)/Meshsize/2),'Cb',2);
 
 % Cb calculation
 Cb=mm.Cb;

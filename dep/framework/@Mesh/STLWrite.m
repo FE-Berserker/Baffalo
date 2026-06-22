@@ -84,9 +84,9 @@ switch Num
 
 end
 
-if opt.mode=='binary' %#ok<BDSCA> 
-    stlwrite(strcat(obj.Name,'.stl'),fv)        % Save to binary .stl
+if strcmp(opt.mode, 'binary')
+    stlwrite(strcat(obj.Name,'.stl'), fv);        % Save to binary .stl
 else
-    stlwrite(strcat(obj.Name,'.stl'),fv,'mode','ascii') 
+    stlwrite(strcat(obj.Name,'.stl'), fv, 'mode', 'ascii');
 end
 end
