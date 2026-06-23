@@ -3,6 +3,11 @@ function CatiaOutput(obj,varargin)
 % Author : Xie Yu
 p=inputParser;
 addParameter(p,'Echo',1);
+addParameter(p,'Screenshot',false);
+addParameter(p,'ScreenshotPath','');
+addParameter(p,'ScreenshotFormat','JPEG');
+addParameter(p,'ScreenshotWidth',1024);
+addParameter(p,'ScreenshotHeight',768);
 parse(p,varargin{:});
 opt=p.Results;
 
@@ -56,6 +61,47 @@ FileName=strcat('.\',obj.Name,'.CATProduct');
 
 sen=strcat('productDocument1.SaveAs ','"',FileName,'"');
 fprintf(fid,'%s\n',sen);
+
+% Screenshot
+if opt.Screenshot
+    if isempty(opt.ScreenshotPath)
+        opt.ScreenshotPath = [obj.Name '.jpg'];
+    end
+    switch upper(opt.ScreenshotFormat)
+        case 'BMP'
+            formatConst = 'catCaptureFormatBMP';
+        case {'JPG','JPEG'}
+            formatConst = 'catCaptureFormatJPEG';
+        case {'TIF','TIFF'}
+            formatConst = 'catCaptureFormatTIFF';
+        case 'EMF'
+            formatConst = 'catCaptureFormatEMF';
+        case 'CGM'
+            formatConst = 'catCaptureFormatCGM';
+        otherwise
+            formatConst = 'catCaptureFormatBMP';
+    end
+    screenshotPath = strrep(opt.ScreenshotPath, '/', '\');
+
+    sen='Set catiaScreenshotWindow = CATIA.ActiveWindow';
+    fprintf(fid,'%s\n',sen);
+    sen='Set catiaScreenshotViewer = catiaScreenshotWindow.ActiveViewer';
+    fprintf(fid,'%s\n',sen);
+    sen=strcat('catiaScreenshotWindow.Width = ',num2str(opt.ScreenshotWidth));
+    fprintf(fid,'%s\n',sen);
+    sen=strcat('catiaScreenshotWindow.Height = ',num2str(opt.ScreenshotHeight));
+    fprintf(fid,'%s\n',sen);
+    sen='catiaScreenshotWindow.Layout = catWindowGeomOnly';
+    fprintf(fid,'%s\n',sen);
+    sen='catiaScreenshotViewer.PutBackgroundColor Array(1, 1, 1)';
+    fprintf(fid,'%s\n',sen);
+    sen='catiaScreenshotViewer.Reframe';
+    fprintf(fid,'%s\n',sen);
+    sen='catiaScreenshotViewer.Update';
+    fprintf(fid,'%s\n',sen);
+    sen=sprintf('catiaScreenshotViewer.CaptureToFile %s, \"%s\"', formatConst, screenshotPath);
+    fprintf(fid,'%s\n',sen);
+end
 
 % End sub
 sen=strcat('End Sub');

@@ -26,6 +26,9 @@ addParameter(p,'xlim',[]);
 addParameter(p,'ylim',[]);
 addParameter(p,'zlim',[]);
 addParameter(p,'BeamGeom',0);
+addParameter(p,'save',false);         % 是否保存图片
+addParameter(p,'filename','');        % 保存文件名
+addParameter(p,'format','png');       % 图片格式
 parse(p,varargin{:});
 opt=p.Results;
 
@@ -514,6 +517,15 @@ if and(opt.connection==1,Num~=0)
     end
 
 end
+
+% 保存图片
+if opt.save
+    if isempty(opt.filename)
+        opt.filename = [obj.Name '.' opt.format];
+    end
+    print(gcf, opt.filename, ['-d' opt.format]);
+end
+
 end
 
 function [Shell,Beam,Face,MNode,BeamSection]=PartPlot(obj,Shell,Beam,Face,i,MNode,Num,PartNum,BeamSection,BeamGeom)
@@ -522,7 +534,7 @@ Order=obj.Part{PartNum,1}.mesh.order;
 FF=obj.Part{PartNum,1}.mesh.facesBoundary;
 VV=obj.Part{PartNum,1}.mesh.nodes;
 Cb=obj.Part{PartNum,1}.mesh.boundaryMarker;
-El=obj.Part{PartNum,1}.mesh.elements;  
+El=obj.Part{PartNum,1}.mesh.elements;
 
 if and(~isempty(obj.Part{PartNum,1}.mesh.facesBoundary),obj.Part{PartNum,1}.New==0)
     [Face,Shell,MNode]=OutputPart(Order,FF,VV,Cb,El,Face,Shell,MNode,i);
@@ -741,7 +753,7 @@ if ~isempty(row)
     g=set_color_options(g,'map','lch');
     g=set_line_options(g,'base_size',opt.base_size,'step_size',0);
     g=geom_patch(g,'alpha',opt.alpha,'face_alpha',opt.face_alpha,'face_normal',opt.face_normal);
-    draw(g);  
+    draw(g);
     % Plot node
     if ~isempty(MNode)
         g=Rplot('X',MNode(:,1),'Y',MNode(:,2),'Z',MNode(:,3));

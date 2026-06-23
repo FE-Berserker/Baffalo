@@ -11,8 +11,16 @@ function Plot3D(obj,varargin)
 p=inputParser;
 addParameter(p,'faceno',[]);          % 面号参数
 addParameter(p,'face_normal',0);      % 法向量显示标志
+addParameter(p,'save',false);         % 是否保存图片
+addParameter(p,'filename','');        % 保存文件名
+addParameter(p,'format','png');       % 图片格式
 parse(p,varargin{:});
 opt=p.Results;
+
+% 若开启保存但未指定文件名，使用默认名称
+if opt.save && isempty(opt.filename)
+    opt.filename = [obj.params.Name '.' opt.format];
+end
 
 if isempty(opt.faceno)
     % 如果未指定面号，绘制所有面
@@ -45,5 +53,10 @@ else
     % 创建图形窗口并绘制
     figure('Position',[100 100 800 800]);  % 800x800像素窗口
     draw(g1);
+end
+
+% 保存图片
+if opt.save
+    print(gcf, opt.filename, ['-d' opt.format]);
 end
 end

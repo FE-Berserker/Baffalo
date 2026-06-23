@@ -1,6 +1,23 @@
-function PlotCon(obj,contactnum)
+function PlotCon(obj,contactnum,varargin)
 % Plot contactpair
 % Author：Xie Yu
+% 新增：支持保存图片
+%
+% 可选参数:
+%   save     - 是否保存图片 (默认 false)
+%   filename - 保存文件名 (默认 ContactPair_<contactnum>.png)
+%   format   - 图片格式 (默认 'png')
+
+p=inputParser;
+addParameter(p,'save',false);
+addParameter(p,'filename','');
+addParameter(p,'format','png');
+parse(p,varargin{:});
+opt=p.Results;
+
+if opt.save && isempty(opt.filename)
+    opt.filename = ['ContactPair_' num2str(contactnum) '.' opt.format];
+end
 
 Num1=obj.ContactPair{contactnum,1}.Con.Part;
 Acc=0;
@@ -122,6 +139,11 @@ g(1,3)=geom_patch(g(1,3),'alpha',1,'face_alpha',0.5);
 g=set_title(g,strcat('View of Contact Pair ',num2str(contactnum)));
 figure('Position',[100 100 1200 400]);
 draw(g);
+
+% 保存图片
+if opt.save
+    print(gcf, opt.filename, ['-d' opt.format]);
+end
 
 end
 
