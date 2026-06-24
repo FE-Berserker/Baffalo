@@ -4,8 +4,9 @@ close all
 % Demo Roller_Calculation
 % 1. Roller stress calculation
 % 2. Roller bearing with Non_Hertz_Contact
+% 3. Output Catia model
 
-flag=1;
+flag=3;
 DemoRollerCalculation(flag);
 
 function DemoRollerCalculation(flag)
@@ -85,6 +86,30 @@ switch flag
         PlotProfile(Roller_Stress)
         Plota(Roller_Stress)
         PlotP(Roller_Stress)
+    case 3
+        %% CatiaPart output demo
+        inputStruct.Z=13;
+        inputStruct.L=14; % 滚子长度 [mm]
+        inputStruct.r=0.7; % 滚子倒角 [mm]
+        inputStruct.Di=35; % 轴承内径 [mm]
+        inputStruct.T=21;
+        inputStruct.C=21;
+        inputStruct.B=21;
+        inputStruct.Do=80;% 轴承外径 [mm]
+        inputStruct.d1=56.4;
+        inputStruct.Modify_Method=0;
+        inputStruct.Dpw=63.4;% 轴承分度圆直径 [mm]
+        inputStruct.Dw=10;% 轴承滚子直径 [mm]
+        inputStruct.i=1;% 轴承列数
+        paramsStruct.Name='Roller_Bearing';
+
+        paramsStruct.isOuterRid=[1,1];
+        paramsStruct.isInnerRid=[1,1];
+        Roller_Bearing=bearing.CylindricalRollerBearing(paramsStruct, inputStruct);
+        Roller_Bearing = Roller_Bearing.solve();
+
+        OutputCatiaPart(Roller_Bearing);
+        OutputCatiaAss(Roller_Bearing);
 end
 
 
